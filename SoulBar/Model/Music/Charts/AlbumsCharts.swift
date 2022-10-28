@@ -47,7 +47,7 @@ struct AlbumsChartsInfo: Codable {
 
 struct AlbumsChartsAttributes: Codable {
 
-    let copyright: String
+    let copyright: String?
 
     let genreNames: [String]
     
@@ -63,7 +63,7 @@ struct AlbumsChartsAttributes: Codable {
 
     let playParams: PlayParameters?
 
-    let recordLabel: String
+    let recordLabel: String?
     
     let isCompilation: Bool
     

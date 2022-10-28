@@ -34,8 +34,10 @@ class HomeViewController: UIViewController {
         
         homeTableView.register(UINib.init(nibName: AlbumsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: AlbumsTableViewCell.identifier)
         
-        configureNavigationButton()
+        homeTableView.register(UINib.init(nibName: PlaylistsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: PlaylistsTableViewCell.identifier)
         
+        configureNavigationButton()
+
     }
     
     func configureNavigationButton() {
@@ -97,13 +99,13 @@ extension HomeViewController: UITableViewDataSource {
             
         case .hotPlaylist:
             
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {
-//
-//                fatalError("Cannot create table view cell")
-//
-//            }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PlaylistsTableViewCell.identifier, for: indexPath) as? PlaylistsTableViewCell else {
+
+                fatalError("Cannot create table view cell")
+
+            }
             
-            return UITableViewCell()
+            return cell
             
         default:
             fatalError("Unknown section state")

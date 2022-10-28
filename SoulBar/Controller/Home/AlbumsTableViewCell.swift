@@ -82,21 +82,26 @@ class AlbumsTableViewCell: UITableViewCell {
         queue.async {
 
             while !self.albumsNext!.isEmpty {
-    
+
                 semaphore.wait()
                 
                 self.musicManager.fetchAlbumsCharts(inNext: self.albumsNext!) { result in
-                    
+
                     self.albums! += result
                     
                     self.albumsNext = result[0].next
-
-                    semaphore.signal()
-                }
-                
-                DispatchQueue.main.async {
                     
-                    self.albumsCollectionView.reloadData()
+                    if self.albumsNext == nil {
+                        
+                        return
+                    }
+                    
+                    semaphore.signal()
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.albumsCollectionView.reloadData()
+                    }
                 }
             }
         }

@@ -25,7 +25,7 @@ struct AlbumsSearch: Codable {
 
     let href: String
 
-    let next: String
+    let next: String?
 
 }
 
@@ -39,7 +39,7 @@ struct AlbumsSearchInfo: Codable {
     
     let attributes: AlbumsSearchAttributes //Albums.Attributes
     
-    let relationships: AlbumsRelationships
+    let relationships: AlbumsRelationships?
 }
 
 struct AlbumsSearchAttributes: Codable {
