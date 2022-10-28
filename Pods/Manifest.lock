@@ -1,0 +1,24 @@
+PODS:
+  - Alamofire (5.6.2)
+  - Kingfisher (7.3.2)
+  - Pulsator (0.6.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - Kingfisher
+  - Pulsator
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Kingfisher
+    - Pulsator
+
+SPEC CHECKSUMS:
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
+  Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
+  Pulsator: eb5a9f9be4bdcbd19903984c65deca6aabe50a17
+
+PODFILE CHECKSUM: 6f5c6130319907f78e7e43ae7c09d520d942698c
+
+COCOAPODS: 1.11.3
