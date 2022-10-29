@@ -28,6 +28,10 @@ class MusicManager {
     
     static let appleMusicSongBaseURL = "https://api.music.apple.com/v1/catalog/tw/songs/"
     
+    static let appleMusicPlaylistBaseURL = "https://api.music.apple.com/v1/catalog/tw/playlists/"
+    
+    static let appleMusicAlbumBaseURL = "https://api.music.apple.com/v1/catalog/tw/albums/"
+    
     var albumsData = [AlbumsCharts]()
     
     var next: String?
@@ -76,7 +80,7 @@ class MusicManager {
 
             }
 
-            debugPrint(response)
+            //debugPrint(response)
         }
     }
     
@@ -154,7 +158,7 @@ class MusicManager {
 
             }
 
-            debugPrint(response)
+            //debugPrint(response)
         }
     }
     
@@ -351,7 +355,7 @@ class MusicManager {
 
             }
             
-            debugPrint(response)
+            //debugPrint(response)
         }
     }
 
@@ -386,11 +390,11 @@ class MusicManager {
 
             }
             
-            debugPrint(response)
+            //debugPrint(response)
         }
     }
     
-    func fetchplaylistsCharts(inNext next: String, completion: @escaping ([PlaylistsCharts]) -> Void) {
+    func fetchPlaylistsCharts(inNext next: String, completion: @escaping ([PlaylistsCharts]) -> Void) {
         
         var headers = HTTPHeaders()
         
@@ -418,6 +422,64 @@ class MusicManager {
             //debugPrint(response)
         }
     }
+    
+    func fetchAlbumsTracks(with albumID: String, completion: @escaping ([AlbumsTracksData]) -> Void) {
+
+        var headers = HTTPHeaders()
+
+        let albumID = MusicManager.appleMusicAlbumBaseURL + albumID
+
+        guard let developerToken = fetchDeveloperToken() else {
+
+            fatalError("Cannot fetch developer token")
+
+        }
+
+        headers = [
+
+            .authorization(bearerToken: developerToken)
+
+        ]
+
+        AF.request(albumID, method: .get, headers: headers).responseDecodable(of: AlbumsSearch.self) { (response) in
+            if let data = response.value?.data![0].relationships!.tracks.data {
+
+                completion(data)
+
+            }
+            
+            debugPrint(response)
+        }
+    }
+    
+    func fetchPlaylistsTracks(with playlistID: String, completion: @escaping ([PlaylistsTracksData]) -> Void) {
+
+        var headers = HTTPHeaders()
+
+        let playlistURL = MusicManager.appleMusicPlaylistBaseURL + playlistID
+
+        guard let developerToken = fetchDeveloperToken() else {
+
+            fatalError("Cannot fetch developer token")
+
+        }
+
+        headers = [
+
+            .authorization(bearerToken: developerToken)
+
+        ]
+
+        AF.request(playlistURL, method: .get, headers: headers).responseDecodable(of: PlaylistsSearch.self) { (response) in
+            if let data = response.value?.data![0].relationships.tracks.data {
+
+                completion(data)
+
+            }
+            
+            debugPrint(response)
+        }
+    }
 
     func fetchPicture(url: String, width: String, height: String) -> String {
         
@@ -426,13 +488,12 @@ class MusicManager {
         if let widthRange = url.range(of: "{w}") {
             
             pictureURL = url.replacingCharacters(in: widthRange, with: width)
-            //pictureURL = url.replacingCharacters(in: widthRange, with: "512")
+
         }
         
         if let heightRange = pictureURL.range(of: "{h}") {
             
             pictureURL = pictureURL.replacingCharacters(in: heightRange, with: height)
-            //pictureURL = pictureURL.replacingCharacters(in: heightRange, with: "512")
             
         }
         

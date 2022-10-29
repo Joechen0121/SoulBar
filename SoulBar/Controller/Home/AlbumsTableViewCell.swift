@@ -8,6 +8,12 @@
 import UIKit
 import Kingfisher
 
+protocol AlbumsDelegate: AnyObject {
+    
+    func didSelectAlbumsItem(albums: AlbumsChartsInfo, indexPath: IndexPath)
+    
+}
+
 class AlbumsTableViewCell: UITableViewCell {
 
     static let identifier = String(describing: AlbumsTableViewCell.self)
@@ -18,6 +24,8 @@ class AlbumsTableViewCell: UITableViewCell {
     
     var albumsNext: String?
     
+    var delegate: AlbumsDelegate?
+    
     @IBOutlet weak var albumsCollectionView: UICollectionView!
     
     override func awakeFromNib() {
@@ -26,6 +34,8 @@ class AlbumsTableViewCell: UITableViewCell {
         albumsCollectionView.register(UINib.init(nibName: AlbumsCollectionViewCell.identifier, bundle: .main), forCellWithReuseIdentifier: AlbumsCollectionViewCell.identifier)
         
         albumsCollectionView.dataSource = self
+        
+        albumsCollectionView.delegate = self
         
         let flowlayout = UICollectionViewFlowLayout()
         
@@ -55,21 +65,6 @@ class AlbumsTableViewCell: UITableViewCell {
             }
 
         }
-        
-//            for albumIndex in 0..<albums.count {
-//
-//                if let datas = albums[albumIndex].data {
-//
-//                    for dataIndex in 0..<datas.count {
-//
-//                        self.musicManager.fetchAlbumsCharts(with: datas[dataIndex].id) { result in
-//
-//                            print(result)
-//                        }
-//                    }
-//                }
-//
-//            }
     
     }
     
@@ -155,7 +150,17 @@ extension AlbumsTableViewCell: UICollectionViewDataSource {
         return cell
     }
     
+}
+
+extension AlbumsTableViewCell: UICollectionViewDelegate {
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("Clicked albums")
+        let albums = self.albums![0].data![indexPath.row]
+        
+        delegate?.didSelectAlbumsItem(albums: albums, indexPath: indexPath)
+
+    }
     
 }

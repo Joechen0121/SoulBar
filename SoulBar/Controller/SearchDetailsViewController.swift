@@ -112,10 +112,10 @@ extension SearchDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchDetailsTableViewCell.identifier, for: indexPath) as? SearchDetailsTableViewCell else {
-            
-            fatalError("Cannot create search details cell")
-        }
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchDetailsTableViewCell.identifier, for: indexPath) as? SearchDetailsTableViewCell else {
+//
+//            fatalError("Cannot create search details cell")
+//        }
         
 //        switch indexPath.section {
 //

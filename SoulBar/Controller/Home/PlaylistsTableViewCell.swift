@@ -8,6 +8,12 @@
 import UIKit
 import Kingfisher
 
+protocol PlaylistsDelegate: AnyObject {
+    
+    func didSelectPlaylistsItem(playlists: PlaylistsChartsInfo, indexPath: IndexPath)
+    
+}
+
 class PlaylistsTableViewCell: UITableViewCell {
 
     static let identifier = String(describing: PlaylistsTableViewCell.self)
@@ -20,12 +26,16 @@ class PlaylistsTableViewCell: UITableViewCell {
     
     var playlistsNext: String?
     
+    var delegate: PlaylistsDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         playlistsCollectionView.register(UINib.init(nibName: PlaylistsCollectionViewCell.identifier, bundle: .main), forCellWithReuseIdentifier: PlaylistsCollectionViewCell.identifier)
         
         playlistsCollectionView.dataSource = self
+        
+        playlistsCollectionView.delegate = self
         
         let flowlayout = UICollectionViewFlowLayout()
         
@@ -42,7 +52,7 @@ class PlaylistsTableViewCell: UITableViewCell {
             self.playlists = result
             
             self.playlists!.forEach { playlist in
-                
+
                 self.playlistsNext = playlist.next
 
                 self.loadDataWithGroup()
@@ -75,7 +85,7 @@ class PlaylistsTableViewCell: UITableViewCell {
 
                 semaphore.wait()
 
-                self.musicManager.fetchplaylistsCharts(inNext: self.playlistsNext!) { result in
+                self.musicManager.fetchPlaylistsCharts(inNext: self.playlistsNext!) { result in
 
                     self.playlists! += result
 
@@ -139,4 +149,17 @@ extension PlaylistsTableViewCell: UICollectionViewDataSource {
         
         return cell
     }
+}
+
+extension PlaylistsTableViewCell: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("Clicked playlists")
+        let playlists = self.playlists![0].data![indexPath.row]
+        
+        delegate?.didSelectPlaylistsItem(playlists: playlists, indexPath: indexPath)
+
+    }
+    
 }

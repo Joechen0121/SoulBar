@@ -95,6 +95,8 @@ extension HomeViewController: UITableViewDataSource {
 
             }
             
+            cell.delegate = self
+            
             return cell
             
         case .hotPlaylist:
@@ -104,6 +106,8 @@ extension HomeViewController: UITableViewDataSource {
                 fatalError("Cannot create table view cell")
 
             }
+            
+            cell.delegate = self
             
             return cell
             
@@ -115,7 +119,36 @@ extension HomeViewController: UITableViewDataSource {
 
     }
     
+}
+
+extension HomeViewController: PlaylistsDelegate {
     
+    func didSelectPlaylistsItem(playlists: PlaylistsChartsInfo, indexPath: IndexPath) {
+
+        if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+            
+            songlistVC.state = 0
+            
+            songlistVC.playlist = playlists
+            
+            self.navigationController!.pushViewController(songlistVC, animated: true)
+        }
+    }
     
+}
+
+extension HomeViewController: AlbumsDelegate {
+    
+    func didSelectAlbumsItem(albums: AlbumsChartsInfo, indexPath: IndexPath) {
+
+        if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+            
+            songlistVC.state = 1
+            
+            songlistVC.album = albums
+            
+            self.navigationController!.pushViewController(songlistVC, animated: true)
+        }
+    }
     
 }

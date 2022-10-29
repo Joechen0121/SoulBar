@@ -23,7 +23,7 @@ struct PlaylistsSearch: Codable {
 
     let data: [PlaylistsSearchInfo]?
 
-    let href: String
+    let href: String?
 
     let next: String?
 
@@ -35,9 +35,11 @@ struct PlaylistsSearchInfo: Codable {
     
     let type: String
     
-    let href: String
+    let href: String?
     
     let attributes: PlaylistsSearchAttributes //Playlists.Attributes
+    
+    let relationships: PlaylistsSearchRelationships
     
 }
 
@@ -74,4 +76,78 @@ struct PlayParameters: Codable {
     let id: String
     
     let kind: String
+}
+
+struct PlaylistsSearchRelationships: Codable {
+    
+    let curator: PlaylistsCurator
+    
+    let tracks: PlaylistsTracks
+}
+
+struct PlaylistsCurator: Codable {
+    
+    let href: String?
+    
+    let data: [PlaylistsCuratorData]?
+    
+}
+
+struct PlaylistsCuratorData: Codable {
+    
+    let id: String
+    
+    let type: String
+    
+    let href: String?
+}
+
+struct PlaylistsTracks: Codable {
+    
+    let href: String?
+    
+    let data: [PlaylistsTracksData]?
+}
+
+struct PlaylistsTracksData: Codable {
+    
+    let id: String
+    
+    let type: String
+    
+    let href: String?
+    
+    let attributes: PlaylistsTracksAttributes?
+    
+}
+
+struct PlaylistsTracksAttributes: Codable {
+    
+    let trackNumber: Int
+    
+    let releaseDate: String
+    
+    let durationInMillis: Int
+    
+    let isrc: String
+    
+    let artwork: Artwork?
+    
+    let composerName: String?
+    
+    let url: String?
+    
+    let playParams: PlayParameters?
+    
+    let discNumber: Int
+    
+    let isAppleDigitalMaster: Bool?
+    
+    let hasLyrics: Bool
+    
+    let name: String?
+    
+    let previews: [Preview]?
+    
+    let artistName: String?
 }
