@@ -34,6 +34,7 @@ class SongListViewController: UIViewController {
         super.viewDidLoad()
         
         songListTableView.dataSource = self
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

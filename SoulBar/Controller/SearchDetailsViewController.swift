@@ -20,6 +20,14 @@ class SearchDetailsViewController: UIViewController {
         case album
     }
     
+    let allType = SearchType.all.rawValue
+    
+    let artistType = SearchType.artist.rawValue
+    
+    let songType = SearchType.song.rawValue
+    
+    let albumType = SearchType.album.rawValue
+    
     @IBOutlet weak var searchTextField: UITextField!
     
     @IBOutlet weak var searchDetailsTableView: UITableView!
@@ -38,25 +46,56 @@ class SearchDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         searchDetailsTableView.dataSource = self
         
         searchTextField.delegate = self
+        
+        searchDetailsTableView.register(UINib.init(nibName: SearchAllResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchAllResultTableViewCell.identifier)
+        
+        searchDetailsTableView.register(UINib.init(nibName: SearchArtistsResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchArtistsResultTableViewCell.identifier)
+        
+        searchDetailsTableView.register(UINib.init(nibName: SearchSongsResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchSongsResultTableViewCell.identifier)
+        
+        searchDetailsTableView.register(UINib.init(nibName: SearchAlbumsResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchAlbumsResultTableViewCell.identifier)
+        
     }
     
     @IBAction func searchButton(_ sender: UIButton) {
         
-        print(sender.tag)
         self.buttonTag = sender.tag
         
-        switch buttonTag {
-        case SearchType.all.rawValue:
+        guard let text = searchTextField.text else { return }
         
-            print("123")
+        self.albums = []
+        self.songs = []
+        self.artists = []
+        
+        if buttonTag == allType {
             
-        case SearchType.artist.rawValue:
+            musicManager.searchArtists(term: text, limit: 10) { artists in
+                
+                self.artists = artists
+                
+                self.musicManager.searchSongs(term: text, limit: 10) { songs in
+
+                    self.songs = songs
+
+                    self.musicManager.searchAlbums(term: text, limit: 10) { albums in
+
+                        self.albums = albums
+
+                        DispatchQueue.main.async {
+
+                            self.searchDetailsTableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+        else if buttonTag == artistType {
             
-            musicManager.searchArtists(term: "周杰倫", limit: 25) { artists in
+            musicManager.searchArtists(term: text, limit: 25) { artists in
                 
                 self.artists = artists
                 
@@ -65,71 +104,249 @@ class SearchDetailsViewController: UIViewController {
                     self.searchDetailsTableView.reloadData()
                 }
             }
-
-        case SearchType.song.rawValue:
-            
-            musicManager.searchSongs(term: "周杰倫", limit: 25) { songs in
-                
-                self.songs = songs
-                
-                DispatchQueue.main.async {
-                    
-                    self.searchDetailsTableView.reloadData()
-                }
-            }
-
-        case SearchType.album.rawValue:
-            
-            musicManager.searchAlbums(term: "周杰倫", limit: 25) { albums in
-                
-                self.albums = albums
-                
-                DispatchQueue.main.async {
-                    
-                    self.searchDetailsTableView.reloadData()
-                }
-            }
-
-        default:
-            
-            print("Unknown search type")
         }
+        
+        else if buttonTag == songType {
+            
+            musicManager.searchSongs(term: text, limit: 25) { songs in
+
+                self.songs = songs
+
+                DispatchQueue.main.async {
+
+                    self.searchDetailsTableView.reloadData()
+                }
+            }
+        }
+        else if buttonTag == albumType {
+            
+            musicManager.searchAlbums(term: text, limit: 25) { albums in
+
+                self.albums = albums
+
+                DispatchQueue.main.async {
+
+                    self.searchDetailsTableView.reloadData()
+                }
+            }
+        }
+
     }
     
 }
 
 extension SearchDetailsViewController: UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if buttonTag == allType {
+            
+            guard !self.artists.isEmpty && !self.songs.isEmpty && !self.albums.isEmpty else { return "" }
+            
+            if section == 0 {
+                
+                return "Singer"
+            }
+            else if section == 1 {
+                
+                return "Songs"
+            }
+            else if section == 2 {
+                
+                return "Albums"
+            }
+        }
+        
+        return ""
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return artists.count + songs.count + albums.count
+        if buttonTag == allType {
+            
+            return 3
+        }
+        else {
+            
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        if buttonTag == allType {
+            
+            if section == 0 {
+                
+                return artists.count
+            }
+            else if section == 1 {
+                
+                return songs.count
+            }
+            else if section == 2 {
+                
+                return albums.count
+            }
+            
+        }
+        else if buttonTag == artistType {
+            
+            return artists.count
+        }
+        else if buttonTag == songType {
+            
+            return songs.count
+        }
+        else if buttonTag == albumType {
+            
+            return albums.count
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchDetailsTableViewCell.identifier, for: indexPath) as? SearchDetailsTableViewCell else {
-//
-//            fatalError("Cannot create search details cell")
-//        }
+        if buttonTag == allType {
+            
+            if indexPath.section == 0 {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAllResultTableViewCell.identifier, for: indexPath) as? SearchAllResultTableViewCell else {
+
+                    fatalError("Cannot create search details cell")
+                }
+                
+                cell.singerName.text = self.artists[indexPath.row].attributes?.name
+                
+                if let artworkURL = self.artists[indexPath.row].attributes?.artwork?.url,
+                   let width = self.artists[indexPath.row].attributes?.artwork?.width,
+                   let height = self.artists[indexPath.row].attributes?.artwork?.height
+                    
+                {
+                    let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+            
+                    cell.allImage.kf.setImage(with: URL(string: pictureURL))
+                    
+                }
+
+                return cell
+            }
+            else if indexPath.section == 1 {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAllResultTableViewCell.identifier, for: indexPath) as? SearchAllResultTableViewCell else {
+
+                    fatalError("Cannot create search details cell")
+                }
+                
+                cell.singerName.text = self.songs[indexPath.row].attributes?.name
+                
+                if let artworkURL = self.songs[indexPath.row].attributes?.artwork?.url,
+                   let width = self.songs[indexPath.row].attributes?.artwork?.width,
+                   let height = self.songs[indexPath.row].attributes?.artwork?.height
+                    
+                {
+                    let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+            
+                    cell.allImage.kf.setImage(with: URL(string: pictureURL))
+                    
+                }
+
+                return cell
+            }
+            else if indexPath.section == 2 {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAllResultTableViewCell.identifier, for: indexPath) as? SearchAllResultTableViewCell else {
+
+                    fatalError("Cannot create search details cell")
+                }
+                
+                cell.singerName.text = self.albums[indexPath.row].attributes?.name
+                
+                if let artworkURL = self.albums[indexPath.row].attributes?.artwork?.url,
+                   let width = self.albums[indexPath.row].attributes?.artwork?.width,
+                   let height = self.albums[indexPath.row].attributes?.artwork?.height
+                    
+                {
+                    let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+            
+                    cell.allImage.kf.setImage(with: URL(string: pictureURL))
+                    
+                }
+
+                return cell
+            }
+
+        }
+    
+        else if buttonTag == artistType {
+
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchArtistsResultTableViewCell.identifier, for: indexPath) as? SearchArtistsResultTableViewCell else {
+
+                fatalError("Cannot create search details cell")
+            }
+            
+            cell.artistLabel.text = self.artists[indexPath.row].attributes?.name
+            
+            if let artworkURL = self.artists[indexPath.row].attributes?.artwork?.url,
+               let width = self.artists[indexPath.row].attributes?.artwork?.width,
+               let height = self.artists[indexPath.row].attributes?.artwork?.height
+                
+            {
+                let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
         
-//        switch indexPath.section {
-//
-//        case SearchType.artist.rawValue:
-//
-//            cell.searchImage =
-//
-//        case SearchType.song.rawValue:
-//
-//        case SearchType.album.rawValue:
-//
-//        default:
-//            print("Unknown state")
-//        }
+                cell.artistImage.kf.setImage(with: URL(string: pictureURL))
+                
+            }
+
+            return cell
+            
+        }
+        else if buttonTag == songType {
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchSongsResultTableViewCell.identifier, for: indexPath) as? SearchSongsResultTableViewCell else {
+
+                fatalError("Cannot create search details cell")
+            }
+            
+            cell.songLabel.text = self.songs[indexPath.row].attributes?.name
+            
+            if let artworkURL = self.songs[indexPath.row].attributes?.artwork?.url,
+               let width = self.songs[indexPath.row].attributes?.artwork?.width,
+               let height = self.songs[indexPath.row].attributes?.artwork?.height
+                
+            {
+                let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+        
+                cell.songImage.kf.setImage(with: URL(string: pictureURL))
+                
+            }
+
+            return cell
+        }
+        else if buttonTag == albumType {
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAlbumsResultTableViewCell.identifier, for: indexPath) as? SearchAlbumsResultTableViewCell else {
+
+                fatalError("Cannot create search details cell")
+            }
+            
+            cell.albumName.text = self.albums[indexPath.row].attributes?.name
+            cell.singerName.text = self.albums[indexPath.row].attributes?.artistName
+            
+            if let artworkURL = self.albums[indexPath.row].attributes?.artwork?.url,
+               let width = self.albums[indexPath.row].attributes?.artwork?.width,
+               let height = self.albums[indexPath.row].attributes?.artwork?.height
+                
+            {
+                let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+        
+                cell.albumImage.kf.setImage(with: URL(string: pictureURL))
+                
+            }
+
+            return cell
+        }
         
         return UITableViewCell()
         
@@ -154,27 +371,54 @@ extension SearchDetailsViewController: UITextFieldDelegate {
             return
             
         }
-        
-        switch buttonTag {
-        case SearchType.all.rawValue:
-        
-            print("123")
+        if buttonTag == allType {
             
-        case SearchType.artist.rawValue:
+            musicManager.searchArtists(term: text, limit: 10) { artists in
+                
+                self.artists = artists
+                
+                self.musicManager.searchSongs(term: text, limit: 10) { songs in
+
+                    self.songs = songs
+
+                    self.musicManager.searchAlbums(term: text, limit: 10) { albums in
+
+                        self.albums = albums
+
+                        DispatchQueue.main.async {
+
+                            self.searchDetailsTableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+        else if buttonTag == artistType {
             
             musicManager.searchArtists(term: text, limit: 25) { artists in
                 
                 self.artists = artists
+                
+                DispatchQueue.main.async {
+                    
+                    self.searchDetailsTableView.reloadData()
+                }
             }
-
-        case SearchType.song.rawValue:
+        }
+        
+        else if buttonTag == songType {
             
             musicManager.searchSongs(term: text, limit: 25) { songs in
-                
-                self.songs = songs
-            }
 
-        case SearchType.album.rawValue:
+                self.songs = songs
+                
+                DispatchQueue.main.async {
+
+                    self.searchDetailsTableView.reloadData()
+                }
+            }
+        }
+        else if buttonTag == albumType {
             
             musicManager.searchAlbums(term: text, limit: 25) { albums in
                 
@@ -185,10 +429,6 @@ extension SearchDetailsViewController: UITextFieldDelegate {
                     self.searchDetailsTableView.reloadData()
                 }
             }
-
-        default:
-            
-            print("Unknown search type")
         }
     }
 }
