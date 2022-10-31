@@ -88,14 +88,14 @@ class PlaylistsTableViewCell: UITableViewCell {
                 self.musicManager.fetchPlaylistsCharts(inNext: self.playlistsNext!) { result in
 
                     self.playlists! += result
-
-                    self.playlistsNext = result[0].next
                     
-                    if self.playlistsNext == nil {
-                        
+                    guard let playlistsNext = result[0].next else {
+
                         return
                     }
                     
+                    self.playlistsNext = playlistsNext
+
                     semaphore.signal()
                     
                     DispatchQueue.main.async {
@@ -133,13 +133,16 @@ extension PlaylistsTableViewCell: UICollectionViewDataSource {
         
         cell.playlistImage.kf.indicatorType = .activity
         
-        guard let playlists = playlists[0].data else { return UICollectionViewCell() }
+        guard let playlists = playlists[0].data else {
+            
+            return UICollectionViewCell()
+            
+        }
             
         if let name = playlists[indexPath.row].attributes?.name,
            let artworkURL = playlists[indexPath.row].attributes?.artwork?.url,
            let width = playlists[indexPath.row].attributes?.artwork?.width,
-           let height = playlists[indexPath.row].attributes?.artwork?.height
-        {
+           let height = playlists[indexPath.row].attributes?.artwork?.height {
             cell.playlistName.text = name
             
             let pictureURL = musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))

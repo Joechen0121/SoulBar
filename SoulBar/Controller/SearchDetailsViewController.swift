@@ -49,6 +49,8 @@ class SearchDetailsViewController: UIViewController {
         
         searchDetailsTableView.dataSource = self
         
+        searchDetailsTableView.delegate = self
+        
         searchTextField.delegate = self
         
         searchDetailsTableView.register(UINib.init(nibName: SearchAllResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchAllResultTableViewCell.identifier)
@@ -221,9 +223,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 
                 if let artworkURL = self.artists[indexPath.row].attributes?.artwork?.url,
                    let width = self.artists[indexPath.row].attributes?.artwork?.width,
-                   let height = self.artists[indexPath.row].attributes?.artwork?.height
-                    
-                {
+                   let height = self.artists[indexPath.row].attributes?.artwork?.height {
                     let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
                     cell.allImage.kf.setImage(with: URL(string: pictureURL))
@@ -244,7 +244,6 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 if let artworkURL = self.songs[indexPath.row].attributes?.artwork?.url,
                    let width = self.songs[indexPath.row].attributes?.artwork?.width,
                    let height = self.songs[indexPath.row].attributes?.artwork?.height
-                    
                 {
                     let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
@@ -265,9 +264,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 
                 if let artworkURL = self.albums[indexPath.row].attributes?.artwork?.url,
                    let width = self.albums[indexPath.row].attributes?.artwork?.width,
-                   let height = self.albums[indexPath.row].attributes?.artwork?.height
-                    
-                {
+                   let height = self.albums[indexPath.row].attributes?.artwork?.height {
                     let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
                     cell.allImage.kf.setImage(with: URL(string: pictureURL))
@@ -290,9 +287,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
             
             if let artworkURL = self.artists[indexPath.row].attributes?.artwork?.url,
                let width = self.artists[indexPath.row].attributes?.artwork?.width,
-               let height = self.artists[indexPath.row].attributes?.artwork?.height
-                
-            {
+               let height = self.artists[indexPath.row].attributes?.artwork?.height {
                 let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
         
                 cell.artistImage.kf.setImage(with: URL(string: pictureURL))
@@ -313,9 +308,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
             
             if let artworkURL = self.songs[indexPath.row].attributes?.artwork?.url,
                let width = self.songs[indexPath.row].attributes?.artwork?.width,
-               let height = self.songs[indexPath.row].attributes?.artwork?.height
-                
-            {
+               let height = self.songs[indexPath.row].attributes?.artwork?.height {
                 let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
         
                 cell.songImage.kf.setImage(with: URL(string: pictureURL))
@@ -334,8 +327,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
             cell.singerName.text = self.albums[indexPath.row].attributes?.artistName
             if let artworkURL = self.albums[indexPath.row].attributes?.artwork?.url,
                let width = self.albums[indexPath.row].attributes?.artwork?.width,
-               let height = self.albums[indexPath.row].attributes?.artwork?.height
-            {
+               let height = self.albums[indexPath.row].attributes?.artwork?.height {
                 let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
         
                 cell.albumImage.kf.setImage(with: URL(string: pictureURL))
@@ -432,17 +424,39 @@ extension SearchDetailsViewController: UITextFieldDelegate {
 
 extension SearchDetailsViewController: UITableViewDelegate {
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        if buttonTag == albumType {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        if buttonTag == artistType {
+            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+
+                songlistVC.state = 3
+
+                songlistVC.artistID = artists[indexPath.row].id
+
+                self.navigationController!.pushViewController(songlistVC, animated: true)
+            }
+        }
+        else if buttonTag == songType {
+
 //            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
 //
-//                songlistVC.state = 0
+//                songlistVC.state = 2
 //
-//                songlistVC.album = albums
+//                songlistVC.albumID = albums[indexPath.row].id
 //
 //                self.navigationController!.pushViewController(songlistVC, animated: true)
 //            }
-//        }
-//    }
+        }
+        else if buttonTag == albumType {
+
+            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+
+                songlistVC.state = 2
+
+                songlistVC.albumID = albums[indexPath.row].id
+
+                self.navigationController!.pushViewController(songlistVC, animated: true)
+            }
+        }
+    }
 }

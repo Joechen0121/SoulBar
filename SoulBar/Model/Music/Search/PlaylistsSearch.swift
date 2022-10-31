@@ -47,7 +47,7 @@ struct PlaylistsSearchAttributes: Codable {
     
     let artwork: Artwork?
     
-    let curatorName: String
+    let curatorName: String?
     
     let description: DescriptionAttribute
     

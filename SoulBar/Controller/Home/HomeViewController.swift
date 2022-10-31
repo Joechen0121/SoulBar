@@ -54,7 +54,6 @@ class HomeViewController: UIViewController {
             
             self.navigationController!.pushViewController(searchVC, animated: true)
         }
-
     }
     
 }
@@ -134,12 +133,19 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
+            
             return "Hot Songs"
-        } else if section == 1 {
+        }
+        else if section == 1 {
+            
             return "Hot Albums"
-        } else if section == 2 {
+        }
+        else if section == 2 {
+            
             return "Hot Playlists"
-        } else {
+        }
+        else {
+            
             return ""
         }
     }

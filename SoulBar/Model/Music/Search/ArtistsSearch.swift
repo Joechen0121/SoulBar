@@ -37,9 +37,9 @@ struct ArtistsSearchInfo: Codable {
 
     let href: String?
 
-    let attributes: ArtistsSearchAttributes? //Songs.Attributes
+    let attributes: ArtistsSearchAttributes?
 
-    let relationships: ArtistsRelationships //Songs.Relationships
+    let relationships: ArtistsRelationships?
 
 }
 
@@ -68,21 +68,21 @@ struct ArtistsSearchAttributes: Codable {
 
 struct ArtistsRelationships: Codable {
     
-    let albums: Albums
+    let albums: ArtistsAlbums
     
 }
 
-struct Albums: Codable {
+struct ArtistsAlbums: Codable {
     
     let href: String?
     
     let next: String?
     
-    let data: [AlbumsData]
+    let data: [ArtistsAlbumsData]
     
 }
 
-struct AlbumsData: Codable {
+struct ArtistsAlbumsData: Codable {
     
     let id: String?
     

@@ -47,7 +47,7 @@ struct PlaylistsChartsInfo: Codable {
 
 struct PlaylistsChartsAttributes: Codable {
 
-    let curatorName: String
+    let curatorName: String?
 
     let lastModifiedDate: String
     
