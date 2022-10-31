@@ -75,8 +75,7 @@ extension SongsTableViewCell: UICollectionViewDataSource {
             fatalError("Cannot create collection view")
         }
         
-        if let song = newSongs[indexPath.row].attributes?.name,
-           let singer = newSongs[indexPath.row].attributes?.artistName {
+        if let song = newSongs[indexPath.row].attributes?.name, let singer = newSongs[indexPath.row].attributes?.artistName {
             
             cell.songLabel.text = song
             cell.singerLabel.text = singer
@@ -85,9 +84,7 @@ extension SongsTableViewCell: UICollectionViewDataSource {
         
         cell.songImage.kf.indicatorType = .activity
         
-        if let artworkURL = newSongs[indexPath.row].attributes?.artwork?.url,
-           let width = newSongs[indexPath.row].attributes?.artwork?.width,
-           let height = newSongs[indexPath.row].attributes?.artwork?.height {
+        if let artworkURL = newSongs[indexPath.row].attributes?.artwork?.url, let width = newSongs[indexPath.row].attributes?.artwork?.width, let height = newSongs[indexPath.row].attributes?.artwork?.height {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             

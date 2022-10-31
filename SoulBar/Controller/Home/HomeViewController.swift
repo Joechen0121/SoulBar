@@ -48,9 +48,9 @@ class HomeViewController: UIViewController {
 
     @objc func searchButton() {
         
-        if let searchVC = self.storyboard!.instantiateViewController(withIdentifier: SearchDetailsViewController.storyboardID) as? SearchDetailsViewController {
+        if let searchVC = self.storyboard?.instantiateViewController(withIdentifier: SearchDetailsViewController.storyboardID) as? SearchDetailsViewController {
             
-            self.navigationController!.pushViewController(searchVC, animated: true)
+            self.navigationController?.pushViewController(searchVC, animated: true)
         }
     }
     
@@ -112,13 +112,13 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: PlaylistsDelegate {
     
     func didSelectPlaylistsItem(playlists: PlaylistsChartsInfo, indexPath: IndexPath) {
-        if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+        if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
             
             songlistVC.state = 0
             
             songlistVC.playlist = playlists
             
-            self.navigationController!.pushViewController(songlistVC, animated: true)
+            self.navigationController?.pushViewController(songlistVC, animated: true)
         }
     }
 }
@@ -127,14 +127,14 @@ extension HomeViewController: SongsDelegate {
     
     func didSelectSongsItem(songs: SongsChartsInfo, indexPath: IndexPath) {
         
-        if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+        if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
             
             MusicManager.sharedInstance.fetchSong(with: songs.id) { result in
                 
                 playSongVC.songs = result[0]
                 
-                self.navigationController!.pushViewController(playSongVC, animated: true)
+                self.navigationController?.pushViewController(playSongVC, animated: true)
             }
            
         }
@@ -148,10 +148,10 @@ extension HomeViewController: SongsDelegate {
 extension HomeViewController: AlbumsDelegate {
     
     func didSelectAlbumsItem(albums: AlbumsChartsInfo, indexPath: IndexPath) {
-        if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+        if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
             songlistVC.state = 1
             songlistVC.album = albums
-            self.navigationController!.pushViewController(songlistVC, animated: true)
+            self.navigationController?.pushViewController(songlistVC, animated: true)
         }
     }
 }

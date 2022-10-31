@@ -36,7 +36,7 @@ class PlaySongViewController: UIViewController {
     
     var playerItem: AVPlayerItem?
     
-    var isMusicPlaying: Bool = false
+    var isMusicPlaying = false
     
     var currentTime: Double = 0
     
@@ -61,9 +61,7 @@ class PlaySongViewController: UIViewController {
                 self.songLabel.text = songs.attributes?.name
                 self.singerLabel.text = songs.attributes?.artistName
                 
-                if let artworkURL = songs.attributes?.artwork?.url,
-                   let width = songs.attributes?.artwork?.width,
-                   let height = songs.attributes?.artwork?.height {
+                if let artworkURL = songs.attributes?.artwork?.url, let width = songs.attributes?.artwork?.width, let height = songs.attributes?.artwork?.height {
                     
                     let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                     
@@ -170,8 +168,7 @@ class PlaySongViewController: UIViewController {
 //            return
 //
 //        }
-        
-        //playMusic(url: url)
+        // playMusic(url: url)
     }
     
     @IBAction func nextButton(_ sender: UIButton) {
@@ -204,7 +201,7 @@ class PlaySongViewController: UIViewController {
 //
 //        }
         
-        //playMusic(url: url)
+        // playMusic(url: url)
     }
     
     @IBAction func playPauseButton(_ sender: UIButton) {
@@ -223,7 +220,7 @@ class PlaySongViewController: UIViewController {
 //
 //            }
             
-            //playMusic(url: url)
+            // playMusic(url: url)
             
             self.setupSlider()
             
@@ -245,9 +242,9 @@ class PlaySongViewController: UIViewController {
         
         }
 
-        let duration : CMTime = playerItem.asset.duration
+        let duration: CMTime = playerItem.asset.duration
         
-        let seconds : Float64 = CMTimeGetSeconds(duration)
+        let seconds: Float64 = CMTimeGetSeconds(duration)
         
         musicSlider!.minimumValue = 0
         

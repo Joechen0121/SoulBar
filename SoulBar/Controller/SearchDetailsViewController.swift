@@ -157,35 +157,35 @@ class SearchDetailsViewController: UIViewController {
             
         }
         else if state == artistType {
-            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+            if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
 
                 songlistVC.state = 3
 
                 songlistVC.artistID = artists[indexPath.row].id
 
-                self.navigationController!.pushViewController(songlistVC, animated: true)
+                self.navigationController?.pushViewController(songlistVC, animated: true)
             }
         }
         else if state == songType {
 
-            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+            if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
                 let songs = songs[indexPath.row]
                     
                 playSongVC.songs = songs
                 
-                self.navigationController!.pushViewController(playSongVC, animated: true)
+                self.navigationController?.pushViewController(playSongVC, animated: true)
             }
         }
         else if state == albumType {
 
-            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+            if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
 
                 songlistVC.state = 2
 
                 songlistVC.albumID = albums[indexPath.row].id
 
-                self.navigationController!.pushViewController(songlistVC, animated: true)
+                self.navigationController?.pushViewController(songlistVC, animated: true)
             }
         }
     }
@@ -444,73 +444,6 @@ extension SearchDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         configureSelectedData(state: buttonTag, indexPath: indexPath)
-//        if buttonTag == allType {
-//
-//            if indexPath.section == 0 {
-//                if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
-//
-//                    songlistVC.state = 3
-//
-//                    songlistVC.artistID = artists[indexPath.row].id
-//
-//                    self.navigationController!.pushViewController(songlistVC, animated: true)
-//                }
-//            }
-//            else if indexPath.section == 1 {
-//
-//                if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-//
-//                    let songs = songs[indexPath.row]
-//
-//                    playSongVC.songs = songs
-//
-//                    self.navigationController!.pushViewController(playSongVC, animated: true)
-//                }
-//            }
-//            else if indexPath.section == 2 {
-//
-//                if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
-//
-//                    songlistVC.state = 2
-//
-//                    songlistVC.albumID = albums[indexPath.row].id
-//
-//                    self.navigationController!.pushViewController(songlistVC, animated: true)
-//                }
-//            }
-//
-//        }
-//        else if buttonTag == artistType {
-//            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
-//
-//                songlistVC.state = 3
-//
-//                songlistVC.artistID = artists[indexPath.row].id
-//
-//                self.navigationController!.pushViewController(songlistVC, animated: true)
-//            }
-//        }
-//        else if buttonTag == songType {
-//
-//            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-//
-//                let songs = songs[indexPath.row]
-//
-//                playSongVC.songs = songs
-//
-//                self.navigationController!.pushViewController(playSongVC, animated: true)
-//            }
-//        }
-//        else if buttonTag == albumType {
-//
-//            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
-//
-//                songlistVC.state = 2
-//
-//                songlistVC.albumID = albums[indexPath.row].id
-//
-//                self.navigationController!.pushViewController(songlistVC, animated: true)
-//            }
-//        }
+
     }
 }

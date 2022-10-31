@@ -330,7 +330,7 @@ extension RecognizeViewController: SHSessionDelegate {
 
                     }
                     
-                    if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+                    if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
                         playSongVC.songs = result[0]
 

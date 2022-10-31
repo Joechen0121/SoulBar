@@ -32,11 +32,8 @@ class SongListTableViewCell: UITableViewCell {
         
         self.songImage.kf.indicatorType = .activity
         
-        if let artist = data[indexPath.row].attributes?.artistName,
-           let song = data[indexPath.row].attributes?.name,
-           let artworkURL = data[indexPath.row].attributes?.artwork?.url,
-           let width = data[indexPath.row].attributes?.artwork?.width,
-           let height = data[indexPath.row].attributes?.artwork?.height {
+        if let artist = data[indexPath.row].attributes?.artistName, let song = data[indexPath.row].attributes?.name, let artworkURL = data[indexPath.row].attributes?.artwork?.url, let width = data[indexPath.row].attributes?.artwork?.width, let height = data[indexPath.row].attributes?.artwork?.height {
+            
             self.singerName.text = artist
             self.songName.text = song
             

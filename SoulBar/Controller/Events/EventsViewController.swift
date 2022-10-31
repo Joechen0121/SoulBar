@@ -47,15 +47,11 @@ extension EventsViewController: UITableViewDataSource {
             
             fatalError("Cannot create event cells")
         }
-//        
-//        cell.eventImage =
+
         cell.eventName.text = events[indexPath.row].title
         cell.eventDate.text = events[indexPath.row].showInfo[0].time
         cell.eventPlace.text = events[indexPath.row].showInfo[0].location
         
         return cell
     }
-    
-    
-    
 }

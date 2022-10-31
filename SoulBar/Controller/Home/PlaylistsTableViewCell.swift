@@ -137,10 +137,8 @@ extension PlaylistsTableViewCell: UICollectionViewDataSource {
             
         }
             
-        if let name = playlists[indexPath.row].attributes?.name,
-           let artworkURL = playlists[indexPath.row].attributes?.artwork?.url,
-           let width = playlists[indexPath.row].attributes?.artwork?.width,
-           let height = playlists[indexPath.row].attributes?.artwork?.height {
+        if let name = playlists[indexPath.row].attributes?.name, let artworkURL = playlists[indexPath.row].attributes?.artwork?.url, let width = playlists[indexPath.row].attributes?.artwork?.width, let height = playlists[indexPath.row].attributes?.artwork?.height {
+            
             cell.playlistName.text = name
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))

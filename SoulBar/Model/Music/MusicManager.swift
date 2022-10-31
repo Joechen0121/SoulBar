@@ -83,7 +83,7 @@ class MusicManager {
 
             }
 
-             debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -151,7 +151,7 @@ class MusicManager {
 
             }
 
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -190,7 +190,7 @@ class MusicManager {
 
             }
 
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -229,7 +229,7 @@ class MusicManager {
 
             }
 
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
 
@@ -282,12 +282,12 @@ class MusicManager {
         
         let param = [
 
-            "types": "songs",
+            "types": "songs"
             
-        ] as [String : Any]
+        ]
 
         AF.request(chartURL, method: .get, parameters: param, headers: headers).responseDecodable(of: SongsChartsResponseObject.self) { (response) in
-            if let data = response.value?.results?.songs![0].data {
+            if let data = response.value?.results?.songs?[0].data {
 
                 completion(data)
 
@@ -322,7 +322,7 @@ class MusicManager {
 
             }
             
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -348,7 +348,7 @@ class MusicManager {
 
             "types": "albums"
             
-        ] as [String : Any]
+        ]
         
         AF.request(chartURL, method: .get, parameters: param, headers: headers).responseDecodable(of: AlbumsChartsResponseObject.self) { (response) in
             if let data = response.value?.results?.albums {
@@ -408,9 +408,9 @@ class MusicManager {
         
         let param = [
 
-            "types": "playlists",
+            "types": "playlists"
             
-        ] as [String : Any]
+        ]
 
         AF.request(chartURL, method: .get, parameters: param, headers: headers).responseDecodable(of: PlaylistsChartsResponseObject.self) { (response) in
             if let data = response.value?.results?.playlists {
@@ -471,7 +471,7 @@ class MusicManager {
         ]
 
         AF.request(albumID, method: .get, headers: headers).responseDecodable(of: AlbumsSearch.self) { (response) in
-            if let data = response.value?.data?[0].relationships!.tracks.data {
+            if let data = response.value?.data?[0].relationships?.tracks.data {
 
                 completion(data)
 
@@ -500,13 +500,12 @@ class MusicManager {
         ]
 
         AF.request(playlistURL, method: .get, headers: headers).responseDecodable(of: PlaylistsSearch.self) { (response) in
-            if let data = response.value?.data![0].relationships.tracks.data {
+            if let data = response.value?.data?[0].relationships.tracks.data {
 
                 completion(data)
 
             }
-            
-             debugPrint(response)
+            // debugPrint(response)
         }
     }
 

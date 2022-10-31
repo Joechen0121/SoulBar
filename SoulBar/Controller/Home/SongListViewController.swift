@@ -56,9 +56,8 @@ class SongListViewController: UIViewController {
 
                 DispatchQueue.main.async {
                     
-                    if let artworkURL = self.playlist?.attributes?.artwork?.url,
-                       let width = self.playlist?.attributes?.artwork?.width,
-                       let height = self.playlist?.attributes?.artwork?.height {
+                    if let artworkURL = self.playlist?.attributes?.artwork?.url, let width = self.playlist?.attributes?.artwork?.width, let height = self.playlist?.attributes?.artwork?.height {
+                        
                         let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
                         self.songListImage.kf.setImage(with: URL(string: pictureURL))
@@ -81,9 +80,8 @@ class SongListViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     
-                    if let artworkURL = self.album?.attributes?.artwork?.url,
-                       let width = self.album?.attributes?.artwork?.width,
-                       let height = self.album?.attributes?.artwork?.height {
+                    if let artworkURL = self.album?.attributes?.artwork?.url, let width = self.album?.attributes?.artwork?.width, let height = self.album?.attributes?.artwork?.height {
+                        
                         let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
                         self.songListImage.kf.setImage(with: URL(string: pictureURL))
@@ -104,9 +102,7 @@ class SongListViewController: UIViewController {
                 
                 DispatchQueue.main.async {
 
-                    if let artworkURL = self.albumTracks[0].attributes?.artwork?.url,
-                       let width = self.albumTracks[0].attributes?.artwork?.width,
-                       let height = self.albumTracks[0].attributes?.artwork?.height {
+                    if let artworkURL = self.albumTracks[0].attributes?.artwork?.url, let width = self.albumTracks[0].attributes?.artwork?.width, let height = self.albumTracks[0].attributes?.artwork?.height {
                         let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
                         self.songListImage.kf.setImage(with: URL(string: pictureURL))
@@ -140,9 +136,8 @@ class SongListViewController: UIViewController {
                 
                 DispatchQueue.main.async {
 
-                    if let artworkURL = self.artistAlbums[0].attributes?.artwork?.url,
-                       let width = self.artistAlbums[0].attributes?.artwork?.width,
-                       let height = self.artistAlbums[0].attributes?.artwork?.height {
+                    if let artworkURL = self.artistAlbums[0].attributes?.artwork?.url, let width = self.artistAlbums[0].attributes?.artwork?.width, let height = self.artistAlbums[0].attributes?.artwork?.height {
+                        
                         let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
                         self.songListImage.kf.setImage(with: URL(string: pictureURL))
@@ -173,7 +168,7 @@ class SongListViewController: UIViewController {
     
     func configureSongData(state: Int, indexPath: IndexPath) {
         
-        if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+        if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
             var songs: SongsSearchInfo?
             
@@ -199,7 +194,7 @@ class SongListViewController: UIViewController {
             
             playSongVC.songs = songs
             
-            self.navigationController!.pushViewController(playSongVC, animated: true)
+            self.navigationController?.pushViewController(playSongVC, animated: true)
         }
     }
     

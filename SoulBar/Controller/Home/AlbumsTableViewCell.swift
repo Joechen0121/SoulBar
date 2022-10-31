@@ -131,12 +131,8 @@ extension AlbumsTableViewCell: UICollectionViewDataSource {
         
         cell.albumImage.kf.indicatorType = .activity
         
-        if let name = albums[0].data![indexPath.row].attributes?.name,
-           let artworkURL = albums[0].data![indexPath.row].attributes?.artwork?.url,
-           let width = albums[0].data![indexPath.row].attributes?.artwork?.width,
-           let height = albums[0].data![indexPath.row].attributes?.artwork?.height
+        if let name = albums[0].data?[indexPath.row].attributes?.name, let artworkURL = albums[0].data?[indexPath.row].attributes?.artwork?.url, let width = albums[0].data?[indexPath.row].attributes?.artwork?.width, let height = albums[0].data?[indexPath.row].attributes?.artwork?.height {
             
-        {
             cell.albumName.text = name
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
