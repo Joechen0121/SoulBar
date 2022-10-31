@@ -243,8 +243,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 
                 if let artworkURL = self.songs[indexPath.row].attributes?.artwork?.url,
                    let width = self.songs[indexPath.row].attributes?.artwork?.width,
-                   let height = self.songs[indexPath.row].attributes?.artwork?.height
-                {
+                   let height = self.songs[indexPath.row].attributes?.artwork?.height {
                     let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
                     cell.allImage.kf.setImage(with: URL(string: pictureURL))
@@ -438,14 +437,15 @@ extension SearchDetailsViewController: UITableViewDelegate {
         }
         else if buttonTag == songType {
 
-//            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
-//
-//                songlistVC.state = 2
-//
-//                songlistVC.albumID = albums[indexPath.row].id
-//
-//                self.navigationController!.pushViewController(songlistVC, animated: true)
-//            }
+            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+                let songs = songs[indexPath.row]
+                    
+                playSongVC.songs = songs
+                
+                self.navigationController!.pushViewController(playSongVC, animated: true)
+
+            }
         }
         else if buttonTag == albumType {
 

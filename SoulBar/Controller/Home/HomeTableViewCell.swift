@@ -8,20 +8,30 @@
 import UIKit
 import Kingfisher
 
+protocol SongsDelegate: AnyObject {
+    
+    func didSelectSongsItem(songs: SongsChartsInfo, indexPath: IndexPath)
+    
+}
+
 class SongsTableViewCell: UITableViewCell {
     
     static let identifier = String(describing: SongsTableViewCell.self)
- 
+    
     @IBOutlet weak var songsCollectionView: UICollectionView!
     
     var newSongs = [SongsChartsInfo]()
     
     let musicManager = MusicManager()
     
+    weak var delegate: SongsDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         songsCollectionView.dataSource = self
+        
+        songsCollectionView.delegate = self
         
         let flowlayout = UICollectionViewFlowLayout()
         
@@ -45,15 +55,12 @@ class SongsTableViewCell: UITableViewCell {
             
         }
     }
-
-override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
     
-    // Configure the view for the selected state
-}
-
-
-
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
 }
 
 extension SongsTableViewCell: UICollectionViewDataSource {
@@ -64,7 +71,7 @@ extension SongsTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SongsCollectionViewCell.identifier, for: indexPath) as? SongsCollectionViewCell else {
             
             fatalError("Cannot create collection view")
@@ -75,14 +82,14 @@ extension SongsTableViewCell: UICollectionViewDataSource {
             
             cell.songLabel.text = song
             cell.singerLabel.text = singer
+            
         }
         
         cell.songImage.kf.indicatorType = .activity
         
         if let artworkURL = newSongs[indexPath.row].attributes?.artwork?.url,
            let width = newSongs[indexPath.row].attributes?.artwork?.width,
-           let height = newSongs[indexPath.row].attributes?.artwork?.height
-        {
+           let height = newSongs[indexPath.row].attributes?.artwork?.height {
             
             let pictureURL = musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
@@ -91,5 +98,16 @@ extension SongsTableViewCell: UICollectionViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension SongsTableViewCell: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+ 
+        let songs = self.newSongs[indexPath.row]
+        
+        delegate?.didSelectSongsItem(songs: songs, indexPath: indexPath)
+
     }
 }

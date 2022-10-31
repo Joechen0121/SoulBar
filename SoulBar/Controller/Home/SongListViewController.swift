@@ -44,7 +44,8 @@ class SongListViewController: UIViewController {
         super.viewDidLoad()
         
         songListTableView.dataSource = self
-
+        
+        songListTableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,8 +60,7 @@ class SongListViewController: UIViewController {
                     
                     if let artworkURL = self.playlist?.attributes?.artwork?.url,
                        let width = self.playlist?.attributes?.artwork?.width,
-                       let height = self.playlist?.attributes?.artwork?.height
-                    {
+                       let height = self.playlist?.attributes?.artwork?.height {
                         let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
                         self.songListImage.kf.setImage(with: URL(string: pictureURL))
@@ -258,10 +258,6 @@ extension SongListViewController: UITableViewDataSource {
                 
                 return UITableViewCell()
             }
-        
-            print("---\(self.artistAlbumsData.count)")
-            print("---\(self.artistAlbumsData)")
-            print("---\(artistAllAlbumsTrack)")
 
             guard !artistAllAlbumsTrack.isEmpty else {
                 
@@ -269,7 +265,7 @@ extension SongListViewController: UITableViewDataSource {
                 
             }
             cell.songImage.kf.indicatorType = .activity
-            print("---\(artistAllAlbumsTrack[indexPath.row].attributes?.artistName)")
+
             if let artist = artistAllAlbumsTrack[indexPath.row].attributes?.artistName,
                let song = artistAllAlbumsTrack[indexPath.row].attributes?.name,
                let artworkURL = artistAllAlbumsTrack[indexPath.row].attributes?.artwork?.url,
@@ -292,4 +288,49 @@ extension SongListViewController: UITableViewDataSource {
         }
 
     }
+}
+
+extension SongListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        if state == 0 {
+
+            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+                let songs = self.playlistTracks[indexPath.row]
+                
+                playSongVC.songsFromPlaylists = songs
+                
+                self.navigationController!.pushViewController(playSongVC, animated: true)
+            }
+            
+        }
+        else if state == 1 || state == 2 {
+
+            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+                let songs = self.albumTracks[indexPath.row]
+                
+                playSongVC.songsFromAlbums = songs
+                
+                self.navigationController!.pushViewController(playSongVC, animated: true)
+            }
+            
+        }
+        else if state == 3 {
+
+            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+                let songs = self.artistAllAlbumsTrack[indexPath.row]
+                
+                playSongVC.songsFromAlbums = songs
+                
+                self.navigationController!.pushViewController(playSongVC, animated: true)
+            }
+        }
+    }
+    
+    
 }

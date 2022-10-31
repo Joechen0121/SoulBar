@@ -79,7 +79,11 @@ extension HomeViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SongsTableViewCell.identifier, for: indexPath) as? SongsTableViewCell else {
                 fatalError("Cannot create table view cell")
             }
+            
+            cell.delegate = self
+            
             return cell
+            
         case .hotAlbums:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AlbumsTableViewCell.identifier, for: indexPath) as? AlbumsTableViewCell else {
 
@@ -88,7 +92,9 @@ extension HomeViewController: UITableViewDataSource {
             }
             
             cell.delegate = self
+            
             return cell
+            
         case .hotPlaylist:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PlaylistsTableViewCell.identifier, for: indexPath) as? PlaylistsTableViewCell else {
 
@@ -98,6 +104,7 @@ extension HomeViewController: UITableViewDataSource {
             cell.delegate = self
             
             return cell
+            
         default:
             fatalError("Unknown section state")
         }
@@ -117,6 +124,28 @@ extension HomeViewController: PlaylistsDelegate {
         }
     }
 }
+
+extension HomeViewController: SongsDelegate {
+    
+    func didSelectSongsItem(songs: SongsChartsInfo, indexPath: IndexPath) {
+        
+        if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+            
+            musicManager.fetchSong(with: songs.id) { result in
+                
+                playSongVC.songs = result[0]
+                
+                self.navigationController!.pushViewController(playSongVC, animated: true)
+            }
+           
+        }
+        
+    }
+    
+    
+}
+
 
 extension HomeViewController: AlbumsDelegate {
     

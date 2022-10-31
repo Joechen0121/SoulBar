@@ -504,7 +504,7 @@ class MusicManager {
 
             }
             
-            // debugPrint(response)
+             debugPrint(response)
         }
     }
 
