@@ -155,8 +155,9 @@ extension AlbumsTableViewCell: UICollectionViewDataSource {
 extension AlbumsTableViewCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        guard self.albums != nil else { return }
         
-        print("Clicked albums")
         let albums = self.albums![0].data![indexPath.row]
         
         delegate?.didSelectAlbumsItem(albums: albums, indexPath: indexPath)

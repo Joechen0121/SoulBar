@@ -20,16 +20,16 @@ class EventsViewController: UIViewController {
         
         eventsTableView.dataSource = self
         
-        eventsManager.getMusicEventsInformation(category: MusicEventsCategory.演唱會) { result in
-            print(result)
-            
-            self.events = result
-            
-            DispatchQueue.main.async {
-                
-                self.eventsTableView.reloadData()
-            }
-        }
+//        eventsManager.getMusicEventsInformation(category: MusicEventsCategory.演唱會) { result in
+//            print(result)
+//            
+//            self.events = result
+//            
+//            DispatchQueue.main.async {
+//                
+//                self.eventsTableView.reloadData()
+//            }
+//        }
     }
     
 }

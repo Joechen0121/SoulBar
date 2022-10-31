@@ -51,7 +51,7 @@ struct AlbumsChartsAttributes: Codable {
 
     let genreNames: [String]
     
-    let releaseDate: String
+    let releaseDate: String?
     
     let isMasteredForItunes: Bool
     

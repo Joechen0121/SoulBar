@@ -9,4 +9,5 @@ target 'SoulBar' do
   pod 'Alamofire'
   pod 'Kingfisher'
   pod 'Pulsator'
+  pod 'SwiftLint'
 end

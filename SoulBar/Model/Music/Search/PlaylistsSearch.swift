@@ -125,7 +125,7 @@ struct PlaylistsTracksAttributes: Codable {
     
     let trackNumber: Int
     
-    let releaseDate: String
+    let releaseDate: String?
     
     let durationInMillis: Int
     

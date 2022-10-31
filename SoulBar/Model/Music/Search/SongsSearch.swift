@@ -94,4 +94,3 @@ struct Preview: Codable {
 
     let hlsUrl: String?
 }
-

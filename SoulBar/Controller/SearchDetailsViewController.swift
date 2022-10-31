@@ -325,7 +325,6 @@ extension SearchDetailsViewController: UITableViewDataSource {
             return cell
         }
         else if buttonTag == albumType {
-            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAlbumsResultTableViewCell.identifier, for: indexPath) as? SearchAlbumsResultTableViewCell else {
 
                 fatalError("Cannot create search details cell")
@@ -333,11 +332,9 @@ extension SearchDetailsViewController: UITableViewDataSource {
             
             cell.albumName.text = self.albums[indexPath.row].attributes?.name
             cell.singerName.text = self.albums[indexPath.row].attributes?.artistName
-            
             if let artworkURL = self.albums[indexPath.row].attributes?.artwork?.url,
                let width = self.albums[indexPath.row].attributes?.artwork?.width,
                let height = self.albums[indexPath.row].attributes?.artwork?.height
-                
             {
                 let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
         
@@ -431,4 +428,21 @@ extension SearchDetailsViewController: UITextFieldDelegate {
             }
         }
     }
+}
+
+extension SearchDetailsViewController: UITableViewDelegate {
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//        if buttonTag == albumType {
+//            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+//
+//                songlistVC.state = 0
+//
+//                songlistVC.album = albums
+//
+//                self.navigationController!.pushViewController(songlistVC, animated: true)
+//            }
+//        }
+//    }
 }

@@ -133,11 +133,12 @@ extension PlaylistsTableViewCell: UICollectionViewDataSource {
         
         cell.playlistImage.kf.indicatorType = .activity
         
-        if let name = playlists[0].data![indexPath.row].attributes?.name,
-           let artworkURL = playlists[0].data![indexPath.row].attributes?.artwork?.url,
-           let width = playlists[0].data![indexPath.row].attributes?.artwork?.width,
-           let height = playlists[0].data![indexPath.row].attributes?.artwork?.height
+        guard let playlists = playlists[0].data else { return UICollectionViewCell() }
             
+        if let name = playlists[indexPath.row].attributes?.name,
+           let artworkURL = playlists[indexPath.row].attributes?.artwork?.url,
+           let width = playlists[indexPath.row].attributes?.artwork?.width,
+           let height = playlists[indexPath.row].attributes?.artwork?.height
         {
             cell.playlistName.text = name
             
@@ -155,11 +156,10 @@ extension PlaylistsTableViewCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print("Clicked playlists")
-        let playlists = self.playlists![0].data![indexPath.row]
-        
-        delegate?.didSelectPlaylistsItem(playlists: playlists, indexPath: indexPath)
-
+        if let playlists = self.playlists?[0].data {
+            
+            delegate?.didSelectPlaylistsItem(playlists: playlists[indexPath.row], indexPath: indexPath)
+        }
     }
     
 }

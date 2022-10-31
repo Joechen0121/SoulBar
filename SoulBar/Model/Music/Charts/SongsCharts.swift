@@ -69,5 +69,5 @@ struct SongsChartsAttributes: Codable {
     
     let trackNumber: Int
     
-    let releaseDate: String
+    let releaseDate: String?
 }

@@ -41,7 +41,6 @@ class MusicManager {
         let developerAuthenticationToken: String? =
         
         "eyJhbGciOiJFUzI1NiIsImtpZCI6IjI1UTkzTEpOOFYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiIzSEJEOTQyUDZOIiwiZXhwIjoxNjgxOTE1MDIyLCJpYXQiOjE2NjYzNjMwMjJ9.ky-9LnvgMsFcrHllwC9RUevlbPT3ZgpqOJvDpZUrKMSeXylr8m9l_gB9E1CSjzwcz3JNlyXCQK2G3qIt299_YQ"
-        
         return developerAuthenticationToken
     }
     
@@ -261,7 +260,7 @@ class MusicManager {
 
             }
             
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -270,7 +269,6 @@ class MusicManager {
         var headers = HTTPHeaders()
         
         let albumsURL = "https://api.music.apple.com/v1/catalog/tw/albums/\(id)"
-        //MusicManager.appleMusicChartsBaseURL
         
         guard let developerToken = fetchDeveloperToken() else {
             
@@ -291,7 +289,7 @@ class MusicManager {
 
             }
             
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -316,7 +314,7 @@ class MusicManager {
         
         let param = [
 
-            "types": "albums",
+            "types": "albums"
             
         ] as [String : Any]
         
@@ -326,7 +324,7 @@ class MusicManager {
                 completion(data)
             }
             
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -354,8 +352,7 @@ class MusicManager {
                 completion(data)
 
             }
-            
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
 
@@ -390,7 +387,7 @@ class MusicManager {
 
             }
             
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -419,7 +416,7 @@ class MusicManager {
 
             }
             
-            //debugPrint(response)
+            // debugPrint(response)
         }
     }
     
