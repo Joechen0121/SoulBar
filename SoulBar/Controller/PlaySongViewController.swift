@@ -55,10 +55,11 @@ class PlaySongViewController: UIViewController {
     func configureSong() {
         
         if let songs = songs {
-            print("mmm")
+    
             DispatchQueue.main.async {
         
                 self.songLabel.text = songs.attributes?.name
+                
                 self.singerLabel.text = songs.attributes?.artistName
                 
                 if let artworkURL = songs.attributes?.artwork?.url, let width = songs.attributes?.artwork?.width, let height = songs.attributes?.artwork?.height {
@@ -147,12 +148,6 @@ class PlaySongViewController: UIViewController {
         
         self.currentTime = 0
         
-//        guard musicItems != nil else {
-//
-//            return
-//
-//        }
-        
         if previousMusicIndex - 1 >= 0 {
             
             currentMusicIndex = previousMusicIndex - 1
@@ -161,13 +156,7 @@ class PlaySongViewController: UIViewController {
             
             nextMusicIndex = currentMusicIndex + 1
         }
-        
-//        print(musicItems![currentMusicIndex].attributes?.previews![0].url)
-//        guard let url = musicItems![currentMusicIndex].attributes?.previews![0].url else {
-//
-//            return
-//
-//        }
+
         // playMusic(url: url)
     }
     
@@ -179,11 +168,6 @@ class PlaySongViewController: UIViewController {
         
         print("next")
         
-//        guard musicItems != nil else {
-//
-//            return
-//
-//        }
         
 //        if currentMusicIndex + 1 < musicItems!.count {
 //
@@ -194,13 +178,6 @@ class PlaySongViewController: UIViewController {
 //            previousMusicIndex = currentMusicIndex - 1
 //        }
         
-//        print(musicItems![currentMusicIndex].attributes?.previews![0].url)
-//        guard let url = musicItems![currentMusicIndex].attributes?.previews![0].url else {
-//
-//            return
-//
-//        }
-        
         // playMusic(url: url)
     }
     
@@ -208,19 +185,9 @@ class PlaySongViewController: UIViewController {
         
         if isMusicPlaying == false {
             
-//            guard musicItems != nil else {
-//
-//                return
-//
-//            }
-//
-//            guard let url = musicItems![currentMusicIndex].attributes?.previews![0].url else {
-//
-//                return
-//
-//            }
+            guard let url = songs?.attributes?.previews?[0].url else { return }
             
-            // playMusic(url: url)
+            playMusic(url: url)
             
             self.setupSlider()
             
@@ -252,8 +219,7 @@ class PlaySongViewController: UIViewController {
         
         musicSlider!.isContinuous = false
         
-        player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1),
-                                        queue: DispatchQueue.main) { (CMTime) -> Void in
+        player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main) { _ in
             
             if self.player.currentItem?.status == .readyToPlay {
                 
