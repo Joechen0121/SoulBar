@@ -16,17 +16,15 @@ class SongListViewController: UIViewController {
     
     @IBOutlet weak var songListTableView: UITableView!
     
-    let musicManager = MusicManager()
-    
     var state: Int?
     
     var songTracksInfo = [SongsSearchInfo]()
     
-    var playlistTracks = [PlaylistsTracksData]()
+    var playlistTracks = [SongsSearchInfo]()
     
     var playlist: PlaylistsChartsInfo?
     
-    var albumTracks = [AlbumsTracksData]()
+    var albumTracks = [SongsSearchInfo]()
     
     var album: AlbumsChartsInfo?
     
@@ -38,7 +36,7 @@ class SongListViewController: UIViewController {
     
     var artistAlbumsData = [ArtistsAlbumsData]()
     
-    var artistAllAlbumsTrack = [AlbumsTracksData]()
+    var artistAllAlbumsTrack = [SongsSearchInfo]()
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +51,7 @@ class SongListViewController: UIViewController {
         
         if state == 0 {
             
-            musicManager.fetchPlaylistsTracks(with: playlist!.id) { tracks in
+            MusicManager.sharedInstance.fetchPlaylistsTracks(with: playlist!.id) { tracks in
                 self.playlistTracks = tracks
 
                 DispatchQueue.main.async {
@@ -61,7 +59,7 @@ class SongListViewController: UIViewController {
                     if let artworkURL = self.playlist?.attributes?.artwork?.url,
                        let width = self.playlist?.attributes?.artwork?.width,
                        let height = self.playlist?.attributes?.artwork?.height {
-                        let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+                        let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
                         self.songListImage.kf.setImage(with: URL(string: pictureURL))
                         
@@ -77,7 +75,7 @@ class SongListViewController: UIViewController {
                 return
             }
 
-            musicManager.fetchAlbumsTracks(with: albumID) { tracks in
+            MusicManager.sharedInstance.fetchAlbumsTracks(with: albumID) { tracks in
                 
                 self.albumTracks = tracks
                 
@@ -86,7 +84,7 @@ class SongListViewController: UIViewController {
                     if let artworkURL = self.album?.attributes?.artwork?.url,
                        let width = self.album?.attributes?.artwork?.width,
                        let height = self.album?.attributes?.artwork?.height {
-                        let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+                        let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
                         self.songListImage.kf.setImage(with: URL(string: pictureURL))
                         
@@ -100,7 +98,7 @@ class SongListViewController: UIViewController {
             
             guard let albumID = albumID else { return }
             
-            musicManager.fetchAlbumsTracks(with: albumID) { tracks in
+            MusicManager.sharedInstance.fetchAlbumsTracks(with: albumID) { tracks in
                 
                 self.albumTracks = tracks
                 
@@ -109,7 +107,7 @@ class SongListViewController: UIViewController {
                     if let artworkURL = self.albumTracks[0].attributes?.artwork?.url,
                        let width = self.albumTracks[0].attributes?.artwork?.width,
                        let height = self.albumTracks[0].attributes?.artwork?.height {
-                        let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+                        let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
                         self.songListImage.kf.setImage(with: URL(string: pictureURL))
                         
@@ -132,7 +130,7 @@ class SongListViewController: UIViewController {
                 return
             }
             
-            musicManager.fetchArtistsAlbums(with: artistID, completion: { result in
+            MusicManager.sharedInstance.fetchArtistsAlbums(with: artistID, completion: { result in
                 
                 self.artistAlbums = result
                 
@@ -145,7 +143,7 @@ class SongListViewController: UIViewController {
                     if let artworkURL = self.artistAlbums[0].attributes?.artwork?.url,
                        let width = self.artistAlbums[0].attributes?.artwork?.width,
                        let height = self.artistAlbums[0].attributes?.artwork?.height {
-                        let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+                        let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
                         self.songListImage.kf.setImage(with: URL(string: pictureURL))
                         
@@ -156,7 +154,7 @@ class SongListViewController: UIViewController {
                 
                 self.artistAlbumsData.forEach { album in
 
-                    self.musicManager.fetchAlbumsTracks(with: album.id!) { tracks in
+                    MusicManager.sharedInstance.fetchAlbumsTracks(with: album.id!) { tracks in
 
                         self.artistAllAlbumsTrack += tracks
 
@@ -172,6 +170,39 @@ class SongListViewController: UIViewController {
             print("Unknown state")
         }
     }
+    
+    func configureSongData(state: Int, indexPath: IndexPath) {
+        
+        if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+            var songs: SongsSearchInfo?
+            
+            switch state {
+                
+            case 0:
+                
+                songs = self.playlistTracks[indexPath.row]
+                
+            case 1, 2:
+                
+                songs = self.albumTracks[indexPath.row]
+
+            case 3:
+                
+                songs = self.artistAllAlbumsTrack[indexPath.row]
+            
+            default:
+                
+                print("Unknown state for configuring song data")
+            }
+        
+            
+            playSongVC.songs = songs
+            
+            self.navigationController!.pushViewController(playSongVC, animated: true)
+        }
+    }
+    
 }
 
 extension SongListViewController: UITableViewDataSource {
@@ -212,73 +243,26 @@ extension SongListViewController: UITableViewDataSource {
         
         if state == 0 {
             
-            cell.songImage.kf.indicatorType = .activity
-            
-            if let artist = playlistTracks[indexPath.row].attributes?.artistName,
-               let song = playlistTracks[indexPath.row].attributes?.name,
-               let artworkURL = playlistTracks[indexPath.row].attributes?.artwork?.url,
-               let width = playlistTracks[indexPath.row].attributes?.artwork?.width,
-               let height = playlistTracks[indexPath.row].attributes?.artwork?.height {
-                cell.singerName.text = artist
-                cell.songName.text = song
-                
-                let pictureURL = musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-        
-                cell.songImage.kf.setImage(with: URL(string: pictureURL))
-                
-            }
+            cell.configureCell(data: playlistTracks, indexPath: indexPath)
             
             return cell
-            
+
         }
         else if state == 1 || state == 2 {
             
-            cell.songImage.kf.indicatorType = .activity
-
-            if let artist = albumTracks[indexPath.row].attributes?.artistName,
-               let song = albumTracks[indexPath.row].attributes?.name,
-               let artworkURL = albumTracks[indexPath.row].attributes?.artwork?.url,
-               let width = albumTracks[indexPath.row].attributes?.artwork?.width,
-               let height = albumTracks[indexPath.row].attributes?.artwork?.height {
-                cell.singerName.text = artist
-                cell.songName.text = song
-
-                let pictureURL = musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-
-                cell.songImage.kf.setImage(with: URL(string: pictureURL))
-            }
+            cell.configureCell(data: albumTracks, indexPath: indexPath)
             
             return cell
-            return UITableViewCell()
-            
+
         }
         else if state == 3 {
             
-            guard !artistAlbumsData.isEmpty else {
+            guard !artistAlbumsData.isEmpty && !artistAllAlbumsTrack.isEmpty else {
                 
                 return UITableViewCell()
             }
+            cell.configureCell(data: artistAllAlbumsTrack, indexPath: indexPath)
 
-            guard !artistAllAlbumsTrack.isEmpty else {
-                
-                return UITableViewCell()
-                
-            }
-            cell.songImage.kf.indicatorType = .activity
-
-            if let artist = artistAllAlbumsTrack[indexPath.row].attributes?.artistName,
-               let song = artistAllAlbumsTrack[indexPath.row].attributes?.name,
-               let artworkURL = artistAllAlbumsTrack[indexPath.row].attributes?.artwork?.url,
-               let width = artistAllAlbumsTrack[indexPath.row].attributes?.artwork?.width,
-               let height = artistAllAlbumsTrack[indexPath.row].attributes?.artwork?.height {
-                cell.singerName.text = artist
-                cell.songName.text = song
-                
-                let pictureURL = musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-        
-                cell.songImage.kf.setImage(with: URL(string: pictureURL))
-            }
-            
             return cell
             
         }
@@ -294,43 +278,10 @@ extension SongListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let state = state else { return }
         
-        if state == 0 {
-
-            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-
-                let songs = self.playlistTracks[indexPath.row]
-                
-                playSongVC.songsFromPlaylists = songs
-                
-                self.navigationController!.pushViewController(playSongVC, animated: true)
-            }
-            
-        }
-        else if state == 1 || state == 2 {
-
-            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-
-                let songs = self.albumTracks[indexPath.row]
-                
-                playSongVC.songsFromAlbums = songs
-                
-                self.navigationController!.pushViewController(playSongVC, animated: true)
-            }
-            
-        }
-        else if state == 3 {
-
-            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-
-                let songs = self.artistAllAlbumsTrack[indexPath.row]
-                
-                playSongVC.songsFromAlbums = songs
-                
-                self.navigationController!.pushViewController(playSongVC, animated: true)
-            }
-        }
+        configureSongData(state: state, indexPath: indexPath)
+        
     }
-    
     
 }

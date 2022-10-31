@@ -22,8 +22,6 @@ class SongsTableViewCell: UITableViewCell {
     
     var newSongs = [SongsChartsInfo]()
     
-    let musicManager = MusicManager()
-    
     weak var delegate: SongsDelegate?
     
     override func awakeFromNib() {
@@ -43,7 +41,7 @@ class SongsTableViewCell: UITableViewCell {
         
         self.songsCollectionView.setCollectionViewLayout(flowlayout, animated: true)
         
-        musicManager.fetchSongsCharts { result in
+        MusicManager.sharedInstance.fetchSongsCharts { result in
             
             self.newSongs = result
             
@@ -91,7 +89,7 @@ extension SongsTableViewCell: UICollectionViewDataSource {
            let width = newSongs[indexPath.row].attributes?.artwork?.width,
            let height = newSongs[indexPath.row].attributes?.artwork?.height {
             
-            let pictureURL = musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+            let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
             cell.songImage.kf.setImage(with: URL(string: pictureURL))
             

@@ -39,8 +39,6 @@ class RecognizeViewController: UIViewController {
     
     var state = 1
     
-    let musicManager = MusicManager()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +63,8 @@ class RecognizeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        state = 1
+        
         pulsator.stop()
         
         stopListening()
@@ -72,8 +72,6 @@ class RecognizeViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        //view.layer.layoutIfNeeded()
         
         pulsator.position = searchImage.layer.position
     }
@@ -229,7 +227,7 @@ class RecognizeViewController: UIViewController {
     }
     
     @objc func handleUpdate() {
-        
+
         switch self.state {
         
         case 0:
@@ -319,26 +317,24 @@ extension RecognizeViewController: SHSessionDelegate {
             
             if let title = item.title {
                 
-                musicManager.searchSongs(term: title, limit: 1) { result in
-                    
-                    print(result)
+                MusicManager.sharedInstance.searchSongs(term: title, limit: 1) { result in
                     
                     DispatchQueue.main.async {
                         print("Stop listening")
-                        
+
                         self.pulsator.stop()
-                        
+
                         self.state = 0
-                        
+
                         self.stopListening()
-                        
+
                     }
                     
                     if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
                         playSongVC.songs = result[0]
 
-                        self.present(playSongVC, animated: true)
+                        self.navigationController?.pushViewController(playSongVC, animated: true)
                     }
                     
                 }

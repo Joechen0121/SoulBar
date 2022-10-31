@@ -26,4 +26,17 @@ class SearchArtistsResultTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func configureCellData(data: [ArtistsSearchInfo], indexPath: IndexPath) {
+        
+        self.artistLabel.text = data[indexPath.row].attributes?.name
+        
+        if let artworkURL = data[indexPath.row].attributes?.artwork?.url,
+           let width = data[indexPath.row].attributes?.artwork?.width,
+           let height = data[indexPath.row].attributes?.artwork?.height {
+            let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+    
+            self.artistImage.kf.setImage(with: URL(string: pictureURL))
+            
+        }
+    }
 }

@@ -93,49 +93,6 @@ struct AlbumsTracks: Codable {
     
     let href: String?
     
-    let data: [AlbumsTracksData]?
+    let data: [SongsSearchInfo]?
     
-}
-
-struct AlbumsTracksData: Codable {
-
-    let id: String
-    
-    let type: String
-    
-    let href: String?
-    
-    let attributes: AlbumsTracksAttributes?
-    
-}
-
-struct AlbumsTracksAttributes: Codable {
-    
-    let trackNumber: Int
-    
-    let releaseDate: String?
-    
-    let durationInMillis: Int
-    
-    let isrc: String
-    
-    let artwork: Artwork?
-    
-    let composerName: String?
-    
-    let url: String?
-    
-    let playParams: PlayParameters?
-    
-    let discNumber: Int
-    
-    let isAppleDigitalMaster: Bool?
-    
-    let hasLyrics: Bool
-    
-    let name: String?
-    
-    let previews: [Preview]?
-    
-    let artistName: String?
 }

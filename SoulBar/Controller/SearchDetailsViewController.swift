@@ -40,8 +40,6 @@ class SearchDetailsViewController: UIViewController {
     
     var artists = [ArtistsSearchInfo]()
     
-    let musicManager = MusicManager()
-    
     var buttonTag = 0
     
     override func viewDidLoad() {
@@ -75,15 +73,15 @@ class SearchDetailsViewController: UIViewController {
         
         if buttonTag == allType {
             
-            musicManager.searchArtists(term: text, limit: 10) { artists in
+            MusicManager.sharedInstance.searchArtists(term: text, limit: 10) { artists in
                 
                 self.artists = artists
                 
-                self.musicManager.searchSongs(term: text, limit: 10) { songs in
+                MusicManager.sharedInstance.searchSongs(term: text, limit: 10) { songs in
 
                     self.songs = songs
 
-                    self.musicManager.searchAlbums(term: text, limit: 10) { albums in
+                    MusicManager.sharedInstance.searchAlbums(term: text, limit: 10) { albums in
 
                         self.albums = albums
 
@@ -97,7 +95,7 @@ class SearchDetailsViewController: UIViewController {
         }
         else if buttonTag == artistType {
             
-            musicManager.searchArtists(term: text, limit: 25) { artists in
+            MusicManager.sharedInstance.searchArtists(term: text, limit: 25) { artists in
                 
                 self.artists = artists
                 
@@ -110,7 +108,7 @@ class SearchDetailsViewController: UIViewController {
         
         else if buttonTag == songType {
             
-            musicManager.searchSongs(term: text, limit: 25) { songs in
+            MusicManager.sharedInstance.searchSongs(term: text, limit: 25) { songs in
 
                 self.songs = songs
 
@@ -122,7 +120,7 @@ class SearchDetailsViewController: UIViewController {
         }
         else if buttonTag == albumType {
             
-            musicManager.searchAlbums(term: text, limit: 25) { albums in
+            MusicManager.sharedInstance.searchAlbums(term: text, limit: 25) { albums in
 
                 self.albums = albums
 
@@ -132,9 +130,65 @@ class SearchDetailsViewController: UIViewController {
                 }
             }
         }
-
     }
     
+    func configureSelectedData(state: Int, indexPath: IndexPath) {
+        
+        if state == allType {
+            
+            switch indexPath.section {
+                
+            case 0:
+                
+                configureSelectedData(state: artistType, indexPath: indexPath)
+                
+            case 1:
+            
+                configureSelectedData(state: songType, indexPath: indexPath)
+                
+            case 2:
+                
+                configureSelectedData(state: albumType, indexPath: indexPath)
+                
+            default:
+                
+                print("Unknown section type")
+            }
+            
+        }
+        else if state == artistType {
+            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+
+                songlistVC.state = 3
+
+                songlistVC.artistID = artists[indexPath.row].id
+
+                self.navigationController!.pushViewController(songlistVC, animated: true)
+            }
+        }
+        else if state == songType {
+
+            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+                let songs = songs[indexPath.row]
+                    
+                playSongVC.songs = songs
+                
+                self.navigationController!.pushViewController(playSongVC, animated: true)
+            }
+        }
+        else if state == albumType {
+
+            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+
+                songlistVC.state = 2
+
+                songlistVC.albumID = albums[indexPath.row].id
+
+                self.navigationController!.pushViewController(songlistVC, animated: true)
+            }
+        }
+    }
 }
 
 extension SearchDetailsViewController: UITableViewDataSource {
@@ -219,16 +273,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
                     fatalError("Cannot create search details cell")
                 }
                 
-                cell.singerName.text = self.artists[indexPath.row].attributes?.name
-                
-                if let artworkURL = self.artists[indexPath.row].attributes?.artwork?.url,
-                   let width = self.artists[indexPath.row].attributes?.artwork?.width,
-                   let height = self.artists[indexPath.row].attributes?.artwork?.height {
-                    let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-            
-                    cell.allImage.kf.setImage(with: URL(string: pictureURL))
-                    
-                }
+                cell.configureCellArtistsData(data: self.artists, indexPath: indexPath)
 
                 return cell
             }
@@ -239,16 +284,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
                     fatalError("Cannot create search details cell")
                 }
                 
-                cell.singerName.text = self.songs[indexPath.row].attributes?.name
-                
-                if let artworkURL = self.songs[indexPath.row].attributes?.artwork?.url,
-                   let width = self.songs[indexPath.row].attributes?.artwork?.width,
-                   let height = self.songs[indexPath.row].attributes?.artwork?.height {
-                    let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-            
-                    cell.allImage.kf.setImage(with: URL(string: pictureURL))
-                    
-                }
+                cell.configureCellSongsData(data: self.songs, indexPath: indexPath)
 
                 return cell
             }
@@ -259,16 +295,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
                     fatalError("Cannot create search details cell")
                 }
                 
-                cell.singerName.text = self.albums[indexPath.row].attributes?.name
-                
-                if let artworkURL = self.albums[indexPath.row].attributes?.artwork?.url,
-                   let width = self.albums[indexPath.row].attributes?.artwork?.width,
-                   let height = self.albums[indexPath.row].attributes?.artwork?.height {
-                    let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-            
-                    cell.allImage.kf.setImage(with: URL(string: pictureURL))
-                    
-                }
+                cell.configureCellAlbumsData(data: self.albums, indexPath: indexPath)
 
                 return cell
             }
@@ -282,16 +309,13 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 fatalError("Cannot create search details cell")
             }
             
-            cell.artistLabel.text = self.artists[indexPath.row].attributes?.name
-            
-            if let artworkURL = self.artists[indexPath.row].attributes?.artwork?.url,
-               let width = self.artists[indexPath.row].attributes?.artwork?.width,
-               let height = self.artists[indexPath.row].attributes?.artwork?.height {
-                let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-        
-                cell.artistImage.kf.setImage(with: URL(string: pictureURL))
+            guard !self.artists.isEmpty else {
+                
+                return UITableViewCell()
                 
             }
+            
+            cell.configureCellData(data: self.artists, indexPath: indexPath)
 
             return cell
             
@@ -303,16 +327,13 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 fatalError("Cannot create search details cell")
             }
             
-            cell.songLabel.text = self.songs[indexPath.row].attributes?.name
-            
-            if let artworkURL = self.songs[indexPath.row].attributes?.artwork?.url,
-               let width = self.songs[indexPath.row].attributes?.artwork?.width,
-               let height = self.songs[indexPath.row].attributes?.artwork?.height {
-                let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-        
-                cell.songImage.kf.setImage(with: URL(string: pictureURL))
+            guard !self.songs.isEmpty else {
+                
+                return UITableViewCell()
                 
             }
+            
+            cell.configureCellData(data: self.songs, indexPath: indexPath)
 
             return cell
         }
@@ -322,16 +343,13 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 fatalError("Cannot create search details cell")
             }
             
-            cell.albumName.text = self.albums[indexPath.row].attributes?.name
-            cell.singerName.text = self.albums[indexPath.row].attributes?.artistName
-            if let artworkURL = self.albums[indexPath.row].attributes?.artwork?.url,
-               let width = self.albums[indexPath.row].attributes?.artwork?.width,
-               let height = self.albums[indexPath.row].attributes?.artwork?.height {
-                let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-        
-                cell.albumImage.kf.setImage(with: URL(string: pictureURL))
+            guard !self.albums.isEmpty else {
+                
+                return UITableViewCell()
                 
             }
+            
+            cell.configureCellData(data: self.albums, indexPath: indexPath)
 
             return cell
         }
@@ -361,15 +379,15 @@ extension SearchDetailsViewController: UITextFieldDelegate {
         }
         if buttonTag == allType {
             
-            musicManager.searchArtists(term: text, limit: 10) { artists in
+            MusicManager.sharedInstance.searchArtists(term: text, limit: 10) { artists in
                 
                 self.artists = artists
                 
-                self.musicManager.searchSongs(term: text, limit: 10) { songs in
+                MusicManager.sharedInstance.searchSongs(term: text, limit: 10) { songs in
 
                     self.songs = songs
 
-                    self.musicManager.searchAlbums(term: text, limit: 10) { albums in
+                    MusicManager.sharedInstance.searchAlbums(term: text, limit: 10) { albums in
 
                         self.albums = albums
 
@@ -383,7 +401,7 @@ extension SearchDetailsViewController: UITextFieldDelegate {
         }
         else if buttonTag == artistType {
             
-            musicManager.searchArtists(term: text, limit: 25) { artists in
+            MusicManager.sharedInstance.searchArtists(term: text, limit: 25) { artists in
                 
                 self.artists = artists
                 
@@ -396,7 +414,7 @@ extension SearchDetailsViewController: UITextFieldDelegate {
         
         else if buttonTag == songType {
             
-            musicManager.searchSongs(term: text, limit: 25) { songs in
+            MusicManager.sharedInstance.searchSongs(term: text, limit: 25) { songs in
 
                 self.songs = songs
                 
@@ -408,7 +426,7 @@ extension SearchDetailsViewController: UITextFieldDelegate {
         }
         else if buttonTag == albumType {
             
-            musicManager.searchAlbums(term: text, limit: 25) { albums in
+            MusicManager.sharedInstance.searchAlbums(term: text, limit: 25) { albums in
                 
                 self.albums = albums
                 
@@ -424,39 +442,75 @@ extension SearchDetailsViewController: UITextFieldDelegate {
 extension SearchDetailsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        if buttonTag == artistType {
-            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
-
-                songlistVC.state = 3
-
-                songlistVC.artistID = artists[indexPath.row].id
-
-                self.navigationController!.pushViewController(songlistVC, animated: true)
-            }
-        }
-        else if buttonTag == songType {
-
-            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-
-                let songs = songs[indexPath.row]
-                    
-                playSongVC.songs = songs
-                
-                self.navigationController!.pushViewController(playSongVC, animated: true)
-
-            }
-        }
-        else if buttonTag == albumType {
-
-            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
-
-                songlistVC.state = 2
-
-                songlistVC.albumID = albums[indexPath.row].id
-
-                self.navigationController!.pushViewController(songlistVC, animated: true)
-            }
-        }
+        
+        configureSelectedData(state: buttonTag, indexPath: indexPath)
+//        if buttonTag == allType {
+//
+//            if indexPath.section == 0 {
+//                if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+//
+//                    songlistVC.state = 3
+//
+//                    songlistVC.artistID = artists[indexPath.row].id
+//
+//                    self.navigationController!.pushViewController(songlistVC, animated: true)
+//                }
+//            }
+//            else if indexPath.section == 1 {
+//
+//                if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+//
+//                    let songs = songs[indexPath.row]
+//
+//                    playSongVC.songs = songs
+//
+//                    self.navigationController!.pushViewController(playSongVC, animated: true)
+//                }
+//            }
+//            else if indexPath.section == 2 {
+//
+//                if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+//
+//                    songlistVC.state = 2
+//
+//                    songlistVC.albumID = albums[indexPath.row].id
+//
+//                    self.navigationController!.pushViewController(songlistVC, animated: true)
+//                }
+//            }
+//
+//        }
+//        else if buttonTag == artistType {
+//            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+//
+//                songlistVC.state = 3
+//
+//                songlistVC.artistID = artists[indexPath.row].id
+//
+//                self.navigationController!.pushViewController(songlistVC, animated: true)
+//            }
+//        }
+//        else if buttonTag == songType {
+//
+//            if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+//
+//                let songs = songs[indexPath.row]
+//
+//                playSongVC.songs = songs
+//
+//                self.navigationController!.pushViewController(playSongVC, animated: true)
+//            }
+//        }
+//        else if buttonTag == albumType {
+//
+//            if let songlistVC = self.storyboard!.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+//
+//                songlistVC.state = 2
+//
+//                songlistVC.albumID = albums[indexPath.row].id
+//
+//                self.navigationController!.pushViewController(songlistVC, animated: true)
+//            }
+//        }
     }
 }

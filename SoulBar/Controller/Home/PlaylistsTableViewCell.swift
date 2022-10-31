@@ -20,8 +20,6 @@ class PlaylistsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var playlistsCollectionView: UICollectionView!
     
-    let musicManager = MusicManager()
-    
     var playlists: [PlaylistsCharts]?
     
     var playlistsNext: String?
@@ -47,7 +45,7 @@ class PlaylistsTableViewCell: UITableViewCell {
         
         self.playlistsCollectionView.setCollectionViewLayout(flowlayout, animated: true)
         
-        musicManager.fetchPlaylistsCharts { result in
+        MusicManager.sharedInstance.fetchPlaylistsCharts { result in
             
             self.playlists = result
             
@@ -85,7 +83,7 @@ class PlaylistsTableViewCell: UITableViewCell {
 
                 semaphore.wait()
 
-                self.musicManager.fetchPlaylistsCharts(inNext: self.playlistsNext!) { result in
+                MusicManager.sharedInstance.fetchPlaylistsCharts(inNext: self.playlistsNext!) { result in
 
                     self.playlists! += result
                     
@@ -145,7 +143,7 @@ extension PlaylistsTableViewCell: UICollectionViewDataSource {
            let height = playlists[indexPath.row].attributes?.artwork?.height {
             cell.playlistName.text = name
             
-            let pictureURL = musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+            let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
     
             cell.playlistImage.kf.setImage(with: URL(string: pictureURL))
             

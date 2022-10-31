@@ -81,4 +81,3 @@ struct AlbumsChartsAttributes: Codable {
     
     let isComplete: Bool
 }
-

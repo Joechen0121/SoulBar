@@ -18,8 +18,6 @@ class HomeViewController: UIViewController {
         case hotPlaylist
     }
     
-    let musicManager = MusicManager()
-    
     @IBOutlet weak var homeTableView: UITableView!
     
     override func viewDidLoad() {
@@ -132,7 +130,7 @@ extension HomeViewController: SongsDelegate {
         if let playSongVC = self.storyboard!.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
             
-            musicManager.fetchSong(with: songs.id) { result in
+            MusicManager.sharedInstance.fetchSong(with: songs.id) { result in
                 
                 playSongVC.songs = result[0]
                 

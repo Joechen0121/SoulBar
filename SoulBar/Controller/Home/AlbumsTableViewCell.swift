@@ -18,8 +18,6 @@ class AlbumsTableViewCell: UITableViewCell {
 
     static let identifier = String(describing: AlbumsTableViewCell.self)
     
-    let musicManager = MusicManager()
-    
     var albums: [AlbumsCharts]?
     
     var albumsNext: String?
@@ -47,7 +45,7 @@ class AlbumsTableViewCell: UITableViewCell {
         
         self.albumsCollectionView.setCollectionViewLayout(flowlayout, animated: true)
         
-        musicManager.fetchAlbumsCharts { result in
+        MusicManager.sharedInstance.fetchAlbumsCharts { result in
             
             self.albums = result
             
@@ -80,7 +78,7 @@ class AlbumsTableViewCell: UITableViewCell {
 
                 semaphore.wait()
                 
-                self.musicManager.fetchAlbumsCharts(inNext: self.albumsNext!) { result in
+                MusicManager.sharedInstance.fetchAlbumsCharts(inNext: self.albumsNext!) { result in
 
                     self.albums! += result
                     
@@ -141,7 +139,7 @@ extension AlbumsTableViewCell: UICollectionViewDataSource {
         {
             cell.albumName.text = name
             
-            let pictureURL = musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+            let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
     
             cell.albumImage.kf.setImage(with: URL(string: pictureURL))
             

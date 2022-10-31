@@ -20,6 +20,8 @@ enum MusicSearchCategory: String {
 
 class MusicManager {
     
+    static let sharedInstance = MusicManager()
+    
     static let appleMusicBaseURL = "https://api.music.apple.com"
     
     static let appleMusicChartsBaseURL = "https://api.music.apple.com/v1/catalog/tw/charts?"
@@ -450,7 +452,7 @@ class MusicManager {
         }
     }
     
-    func fetchAlbumsTracks(with albumID: String, completion: @escaping ([AlbumsTracksData]) -> Void) {
+    func fetchAlbumsTracks(with albumID: String, completion: @escaping ([SongsSearchInfo]) -> Void) {
 
         var headers = HTTPHeaders()
 
@@ -479,7 +481,7 @@ class MusicManager {
         }
     }
     
-    func fetchPlaylistsTracks(with playlistID: String, completion: @escaping ([PlaylistsTracksData]) -> Void) {
+    func fetchPlaylistsTracks(with playlistID: String, completion: @escaping ([SongsSearchInfo]) -> Void) {
 
         var headers = HTTPHeaders()
 
