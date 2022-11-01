@@ -63,6 +63,8 @@ struct AlbumsSearchAttributes: Codable {
     let name: String
     
     let trackCount: Int
+    
+    let url: String?
 }
 
 struct AlbumsRelationships: Codable {

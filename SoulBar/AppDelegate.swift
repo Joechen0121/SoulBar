@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Microphone permissions \(isGranted)")
             }
         }
-//
-//        try? AVAudioSession.sharedInstance().setCategory(.playback)
+
+        // try? AVAudioSession.sharedInstance().setCategory(.playback)
         return true
     }
 

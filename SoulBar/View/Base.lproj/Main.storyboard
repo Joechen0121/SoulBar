@@ -70,10 +70,19 @@
                                     <constraint firstAttribute="height" constant="50" id="tq8-TF-a3Y"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ph-RM-Tqt">
+                                <rect key="frame" x="308.5" y="358" width="55.5" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="shareplay" catalog="system"/>
+                                <connections>
+                                    <action selector="sharedButton:" destination="OZp-VT-HEW" eventType="touchUpInside" id="wEQ-8I-LEZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SWd-9f-aW9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6Ph-RM-Tqt" firstAttribute="top" secondItem="El3-oq-RS8" secondAttribute="bottom" constant="50" id="1i8-lZ-E2n"/>
                             <constraint firstItem="El3-oq-RS8" firstAttribute="centerX" secondItem="wRL-6y-UEf" secondAttribute="centerX" id="2ib-5f-U25"/>
                             <constraint firstItem="LKt-dh-QZt" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="50" id="9Ji-yC-Cau"/>
                             <constraint firstItem="El3-oq-RS8" firstAttribute="top" secondItem="SWd-9f-aW9" secondAttribute="top" constant="50" id="Ijd-6s-eqN"/>
@@ -83,6 +92,7 @@
                             <constraint firstItem="bE7-IC-Xc6" firstAttribute="top" secondItem="NOs-t9-AYb" secondAttribute="bottom" constant="20" id="QQd-b9-Pv7"/>
                             <constraint firstItem="jJ9-Xh-386" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="50" id="RJ1-wo-FG6"/>
                             <constraint firstItem="LKt-dh-QZt" firstAttribute="top" secondItem="jJ9-Xh-386" secondAttribute="bottom" constant="30" id="VmM-jg-7CM"/>
+                            <constraint firstItem="SWd-9f-aW9" firstAttribute="trailing" secondItem="6Ph-RM-Tqt" secondAttribute="trailing" constant="50" id="ecK-DO-mQY"/>
                             <constraint firstItem="bE7-IC-Xc6" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="60" id="f8U-bf-iK0"/>
                             <constraint firstItem="SWd-9f-aW9" firstAttribute="trailing" secondItem="jJ9-Xh-386" secondAttribute="trailing" constant="50" id="iQl-QN-zTM"/>
                             <constraint firstItem="NOs-t9-AYb" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="60" id="n7i-cj-gQv"/>
@@ -215,7 +225,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DQk-cq-2aT">
-                                <rect key="frame" x="0.0" y="244" width="414" height="618"/>
+                                <rect key="frame" x="0.0" y="315" width="414" height="547"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongListTableViewCell" id="xsr-YG-ob5" customClass="SongListTableViewCell" customModule="SoulBar" customModuleProvider="target">
@@ -263,16 +273,26 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leZ-Tx-n0m">
+                                <rect key="frame" x="328" y="274" width="56" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="shareplay" catalog="system"/>
+                                <connections>
+                                    <action selector="sharedButton:" destination="DYX-Zd-RHc" eventType="touchUpInside" id="yti-Sm-6bE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Pw7-rL-sUO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="DQk-cq-2aT" firstAttribute="top" secondItem="leZ-Tx-n0m" secondAttribute="bottom" constant="10" id="69O-Tb-dBj"/>
                             <constraint firstItem="DQk-cq-2aT" firstAttribute="leading" secondItem="Pw7-rL-sUO" secondAttribute="leading" id="EIu-r9-kRT"/>
+                            <constraint firstItem="Pw7-rL-sUO" firstAttribute="trailing" secondItem="leZ-Tx-n0m" secondAttribute="trailing" constant="30" id="Exs-6q-NzZ"/>
                             <constraint firstItem="Pw7-rL-sUO" firstAttribute="bottom" secondItem="DQk-cq-2aT" secondAttribute="bottom" id="IJl-Ok-sJG"/>
                             <constraint firstItem="Pw7-rL-sUO" firstAttribute="trailing" secondItem="QP9-hB-ZKq" secondAttribute="trailing" id="KXD-pA-akd"/>
                             <constraint firstItem="QP9-hB-ZKq" firstAttribute="top" secondItem="Pw7-rL-sUO" secondAttribute="top" id="TFa-m6-CJe"/>
+                            <constraint firstItem="leZ-Tx-n0m" firstAttribute="top" secondItem="QP9-hB-ZKq" secondAttribute="bottom" constant="30" id="euG-Iy-dw8"/>
                             <constraint firstItem="QP9-hB-ZKq" firstAttribute="leading" secondItem="Pw7-rL-sUO" secondAttribute="leading" id="fwe-YW-bNM"/>
-                            <constraint firstItem="DQk-cq-2aT" firstAttribute="top" secondItem="QP9-hB-ZKq" secondAttribute="bottom" id="j7d-d3-ze7"/>
                             <constraint firstItem="Pw7-rL-sUO" firstAttribute="trailing" secondItem="DQk-cq-2aT" secondAttribute="trailing" id="yVG-DJ-JXf"/>
                         </constraints>
                     </view>
@@ -792,6 +812,7 @@
         <image name="music.quarternote.3" catalog="system" width="128" height="103"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="play.circle" catalog="system" width="128" height="121"/>
+        <image name="shareplay" catalog="system" width="128" height="73"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

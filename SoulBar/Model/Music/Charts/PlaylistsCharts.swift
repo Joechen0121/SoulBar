@@ -39,7 +39,7 @@ struct PlaylistsChartsInfo: Codable {
 
     let type: String
 
-    let href: String
+    let href: String?
 
     let attributes: PlaylistsChartsAttributes?
 

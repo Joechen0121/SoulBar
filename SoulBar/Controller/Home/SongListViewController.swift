@@ -30,7 +30,11 @@ class SongListViewController: UIViewController {
     
     var albumID: String?
     
+    var albumURL: String?
+    
     var artistID: String?
+    
+    var artistURL: String?
     
     var artistAlbums = [ArtistsSearchInfo]()
     
@@ -166,6 +170,51 @@ class SongListViewController: UIViewController {
         }
     }
     
+    @IBAction func sharedButton(_ sender: UIButton) {
+        
+        var url: URL?
+        
+        switch state {
+            
+        case 0:
+
+            guard let playlistURL = playlist?.attributes?.url else { return }
+            
+            url = URL(string: playlistURL)
+            
+        case 1:
+            
+            guard let albumURL = album?.attributes?.url else { return }
+
+            url = URL(string: albumURL)
+            
+        case 2:
+            
+            guard let albumURL = albumURL else { return }
+            
+            url = URL(string: albumURL)
+
+        case 3:
+            
+            guard let artistURL = self.artistURL else { return }
+            
+            url = URL(string: artistURL)
+        
+        default:
+            
+            print("Unknown state for configuring song data")
+        }
+        
+        guard let url = url else {
+            
+            return
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
     func configureSongData(state: Int, indexPath: IndexPath) {
         
         if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
@@ -276,6 +325,7 @@ extension SongListViewController: UITableViewDelegate {
         guard let state = state else { return }
         
         configureSongData(state: state, indexPath: indexPath)
+        
         
     }
     

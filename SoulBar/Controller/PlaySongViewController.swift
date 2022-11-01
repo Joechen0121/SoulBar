@@ -10,6 +10,12 @@ import Kingfisher
 import AVFoundation
 import AVFAudio
 
+protocol PlaySongDelegate {
+    
+    func didUpdateSongs(indexPath: IndexPath)
+}
+
+
 class PlaySongViewController: UIViewController {
 
     static let storyboardID = "PlaySongVC"
@@ -50,6 +56,16 @@ class PlaySongViewController: UIViewController {
         super.viewWillAppear(animated)
         
         configureSong()
+    }
+    
+    @IBAction func sharedButton(_ sender: UIButton) {
+        
+        guard let songURL = songs?.attributes?.previews?[0].url else { return }
+        
+        let activityVC = UIActivityViewController(activityItems: [songURL], applicationActivities: nil)
+        
+        self.present(activityVC, animated: true, completion: nil)
+        
     }
     
     func configureSong() {
@@ -193,3 +209,4 @@ class PlaySongViewController: UIViewController {
         }
     }
 }
+

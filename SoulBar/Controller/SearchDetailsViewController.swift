@@ -162,7 +162,9 @@ class SearchDetailsViewController: UIViewController {
                 songlistVC.state = 3
 
                 songlistVC.artistID = artists[indexPath.row].id
-
+                
+                songlistVC.artistURL = artists[indexPath.row].attributes?.url
+                
                 self.navigationController?.pushViewController(songlistVC, animated: true)
             }
         }
@@ -182,8 +184,10 @@ class SearchDetailsViewController: UIViewController {
             if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
 
                 songlistVC.state = 2
-
+                
                 songlistVC.albumID = albums[indexPath.row].id
+                
+                songlistVC.albumURL = albums[indexPath.row].attributes?.url
 
                 self.navigationController?.pushViewController(songlistVC, animated: true)
             }

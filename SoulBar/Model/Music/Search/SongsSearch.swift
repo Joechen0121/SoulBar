@@ -37,7 +37,7 @@ struct SongsSearchInfo: Codable {
 
     let href: String?
 
-    let attributes: SongsSearchAttributes? //Songs.Attributes
+    let attributes: SongsSearchAttributes?
 
     //let relationships: Relationships //Songs.Relationships
 
