@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import MapKit
+import CarPlay
+import Cards
 
 class EventsViewController: UIViewController {
     
@@ -20,16 +23,18 @@ class EventsViewController: UIViewController {
         
         eventsTableView.dataSource = self
         
-//        eventsManager.getMusicEventsInformation(category: MusicEventsCategory.演唱會) { result in
-//            print(result)
-//            
-//            self.events = result
-//            
-//            DispatchQueue.main.async {
-//                
-//                self.eventsTableView.reloadData()
-//            }
-//        }
+        eventsTableView.delegate = self
+        
+        eventsManager.getMusicEventsInformation(category: MusicEventsCategory.演唱會) { result in
+            print(result)
+            
+            self.events = result
+            
+            DispatchQueue.main.async {
+                
+                self.eventsTableView.reloadData()
+            }
+        }
     }
     
 }
@@ -47,11 +52,32 @@ extension EventsViewController: UITableViewDataSource {
             
             fatalError("Cannot create event cells")
         }
-
-        cell.eventName.text = events[indexPath.row].title
-        cell.eventDate.text = events[indexPath.row].showInfo[0].time
-        cell.eventPlace.text = events[indexPath.row].showInfo[0].location
+        
+        cell.cardsView.backgroundColor = UIColor(red: 0, green: 94/255, blue: 112/255, alpha: 1)
+        cell.cardsView.icon = UIImage(systemName: "pause")
+        cell.cardsView.titleSize = 17
+        cell.cardsView.title = events[indexPath.row].title
+        cell.cardsView.itemTitle = events[indexPath.row].startDate
+        cell.cardsView.itemSubtitle = events[indexPath.row].comment
+        cell.cardsView.textColor = UIColor.white
+        cell.cardsView.hasParallax = true
+        
+        if let cardContent = storyboard?.instantiateViewController(withIdentifier: "CardContent") as? EventsCardsDetailsViewController {
+            
+            cardContent.events = events[indexPath.row]
+            
+            cell.cardsView.shouldPresent(cardContent, from: self, fullscreen: true)
+        }
         
         return cell
+        
+    }
+}
+
+extension EventsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
     }
 }

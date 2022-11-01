@@ -1,11 +1,15 @@
 PODS:
   - Alamofire (5.6.2)
+  - Cards (1.4.0):
+    - Player (= 0.13.0)
   - Kingfisher (7.3.2)
+  - Player (0.13.0)
   - Pulsator (0.6.0)
   - SwiftLint (0.49.1)
 
 DEPENDENCIES:
   - Alamofire
+  - Cards
   - Kingfisher
   - Pulsator
   - SwiftLint
@@ -13,16 +17,20 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Cards
     - Kingfisher
+    - Player
     - Pulsator
     - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
+  Cards: 45ae6bd0eca7b5e8016d3b6cb30b60b04753f68f
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
+  Player: 968d8d07d923bcdd6f7e4091c9e306eb44a5f7a4
   Pulsator: eb5a9f9be4bdcbd19903984c65deca6aabe50a17
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 63e6f4fe41ee79eccefff89b2b7c00c25f3cd7f2
+PODFILE CHECKSUM: 2c930a49e8458dc7ec88000129480b477a704706
 
 COCOAPODS: 1.11.3

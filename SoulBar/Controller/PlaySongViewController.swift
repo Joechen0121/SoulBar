@@ -71,44 +71,6 @@ class PlaySongViewController: UIViewController {
                 }
             }
         }
-        
-//        if let songs = songsFromPlaylists {
-//
-//            DispatchQueue.main.async {
-//
-//                self.songLabel.text = songs.attributes?.name
-//                self.singerLabel.text = songs.attributes?.artistName
-//
-//                if let artworkURL = songs.attributes?.artwork?.url,
-//                   let width = songs.attributes?.artwork?.width,
-//                   let height = songs.attributes?.artwork?.height {
-//
-//                    let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-//
-//                    self.songImage.kf.setImage(with: URL(string: pictureURL))
-//
-//                }
-//            }
-//        }
-//
-//        if let songs = songsFromAlbums {
-//
-//            DispatchQueue.main.async {
-//
-//                self.songLabel.text = songs.attributes?.name
-//                self.singerLabel.text = songs.attributes?.artistName
-//
-//                if let artworkURL = songs.attributes?.artwork?.url,
-//                   let width = songs.attributes?.artwork?.width,
-//                   let height = songs.attributes?.artwork?.height {
-//
-//                    let pictureURL = self.musicManager.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-//
-//                    self.songImage.kf.setImage(with: URL(string: pictureURL))
-//
-//                }
-//            }
-//        }
     }
     
     func playMusic(url: String) {

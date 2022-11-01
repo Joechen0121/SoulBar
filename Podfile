@@ -10,4 +10,5 @@ target 'SoulBar' do
   pod 'Kingfisher'
   pod 'Pulsator'
   pod 'SwiftLint'
+  pod 'Cards'
 end

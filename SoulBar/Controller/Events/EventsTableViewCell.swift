@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Cards
 
 class EventsTableViewCell: UITableViewCell {
 
@@ -16,6 +17,8 @@ class EventsTableViewCell: UITableViewCell {
     @IBOutlet weak var eventPlace: UILabel!
     
     @IBOutlet weak var eventDate: UILabel!
+    
+    @IBOutlet weak var cardsView: CardHighlight!
     
     @IBOutlet weak var eventImage: UIImageView!
     override func awakeFromNib() {
