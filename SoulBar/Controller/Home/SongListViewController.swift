@@ -208,7 +208,7 @@ class SongListViewController: UIViewController {
                 
                 let playlistID = playlist.id
                 
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: "playlists", id: playlistID)
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: playlistID)
                 
                 
             case fromAlbums:
@@ -217,20 +217,20 @@ class SongListViewController: UIViewController {
                 
                 let albumID = album.id
                 
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: "albums", id: albumID)
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
                 
                 
             case fromAlbumsSearch:
                 
                 guard let albumID = self.albumID else { return }
                 
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: "albums", id: albumID)
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
                 
             case fromArtist:
                 
                 guard let artistID = self.artistID else { return }
                 
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: "singers", id: artistID)
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.artists, id: artistID)
                 
             default:
                 
@@ -252,7 +252,7 @@ class SongListViewController: UIViewController {
                 
                 let playlistID = playlist.id
                 
-                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: "playlists", id: playlistID)
+                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.playlists, id: playlistID)
                     
                 self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 
@@ -262,13 +262,13 @@ class SongListViewController: UIViewController {
                 
                 let albumID = album.id
                 
-                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: "albums", id: albumID)
+                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
                 
             case fromAlbumsSearch:
                 
                 guard let albumID = self.albumID else { return }
                 
-                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: "albums", id: albumID)
+                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
                 
                 self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 
@@ -277,7 +277,7 @@ class SongListViewController: UIViewController {
                 
                 guard let artistID = self.artistID else { return }
                 
-                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: "singers", id: artistID)
+                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.artists, id: artistID)
                 
                 self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 
@@ -326,7 +326,7 @@ class SongListViewController: UIViewController {
             
             let playlistID = playlist.id
             
-            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: "playlists") { result in
+            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.playlists) { result in
                 
                 result.id.forEach { id in
                     
@@ -345,7 +345,7 @@ class SongListViewController: UIViewController {
             
             let albumID = album.id
             
-            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: "albums") { result in
+            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.albums) { result in
                 
                 result.id.forEach { id in
 
@@ -362,7 +362,7 @@ class SongListViewController: UIViewController {
             
             guard let albumID = self.albumID else { return }
             
-            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: "albums") { result in
+            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.albums) { result in
                 
                 result.id.forEach { id in
 
@@ -379,7 +379,7 @@ class SongListViewController: UIViewController {
             
             guard let artistID = self.artistID else { return }
             
-            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: "singers") { result in
+            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
                 
                 result.id.forEach { id in
 
@@ -554,8 +554,6 @@ extension SongListViewController: UITableViewDelegate {
         guard let state = state else { return }
         
         configureSongData(state: state, indexPath: indexPath)
-        
-        
+
     }
-    
 }
