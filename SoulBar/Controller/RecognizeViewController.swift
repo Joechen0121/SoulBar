@@ -101,18 +101,20 @@ class RecognizeViewController: UIViewController {
         let audioSession = AVAudioSession.sharedInstance()
         
         audioSession.requestRecordPermission { granted in
-            
+
             guard granted else { return }
-            
+
             try? audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-            
+
             let inputNode = self.audioEngine.inputNode
-            
+
+            inputNode.removeTap(onBus: 0)
+
             let recordingFormat = inputNode.outputFormat(forBus: 0)
-            
+
             inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) {
                 (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
-                
+    
                 self.session.matchStreamingBuffer(buffer, at: nil)
             }
         }
@@ -333,8 +335,9 @@ extension RecognizeViewController: SHSessionDelegate {
                     if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
                         playSongVC.songs = result[0]
-
-                        self.navigationController?.pushViewController(playSongVC, animated: true)
+                        
+                        self.present(playSongVC, animated: true)
+                        //self.navigationController?.pushViewController(playSongVC, animated: true)
                     }
                     
                 }

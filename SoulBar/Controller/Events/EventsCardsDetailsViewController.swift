@@ -27,6 +27,19 @@ class EventsCardsDetailsViewController: UIViewController {
     @IBAction func buyTicketButton(_ sender: UIButton) {
         
         print("buy")
+        
+        guard let events = events else {
+            return
+        }
+        
+        if let url = URL(string: events.webSales) {
+            
+            if UIApplication.shared.canOpenURL(url) {
+
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+
     }
     
     @IBAction func addChatroomButton(_ sender: UIButton) {
