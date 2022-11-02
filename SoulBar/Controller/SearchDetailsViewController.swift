@@ -70,6 +70,29 @@ class SearchDetailsViewController: UIViewController {
         searchDetailsTableView.register(UINib.init(nibName: SearchAlbumsResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchAlbumsResultTableViewCell.identifier)
         
         configureButton()
+        
+        configureTextField()
+    }
+    
+    func configureTextField() {
+        
+        searchTextField.clearButtonMode = .always
+
+        searchTextField.leftViewMode = .always
+
+        let searchView = UIImageView(frame: CGRect(x: 10, y: 0, width: 24, height: 24))
+        
+        let searchImage = UIImage(systemName: "magnifyingglass")
+
+        searchView.image = searchImage
+        
+        searchView.contentMode = .scaleAspectFit
+
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 24))
+        
+        view.addSubview(searchView)
+
+        searchTextField.leftView = view
     }
     
     func configureButton() {
