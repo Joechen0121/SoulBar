@@ -61,7 +61,7 @@ class PlaySongViewController: UIViewController {
     @IBAction func sharedButton(_ sender: UIButton) {
         
         guard let songURL = songs?.attributes?.previews?[0].url else { return }
-        
+    
         let activityVC = UIActivityViewController(activityItems: [songURL], applicationActivities: nil)
         
         self.present(activityVC, animated: true, completion: nil)

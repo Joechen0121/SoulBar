@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // try? AVAudioSession.sharedInstance().setCategory(.playback)
+        
+        FirebaseApp.configure()
         return true
     }
 

@@ -11,4 +11,11 @@ target 'SoulBar' do
   pod 'Pulsator'
   pod 'SwiftLint'
   pod 'Cards'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift' , '8.1.0-beta'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+
+
 end
