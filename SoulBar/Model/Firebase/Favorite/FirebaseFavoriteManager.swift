@@ -13,11 +13,13 @@ class FirebaseFavoriteManager {
     
     static let sharedInstance = FirebaseFavoriteManager()
     
+    let favoriteDB = Firestore.firestore().collection(K.FStore.user).document(K.FStore.music).collection(K.FStore.Favorite.collectionName)
+    
+    let listDB = Firestore.firestore().collection(K.FStore.user).document(K.FStore.music).collection(K.FStore.List.collectionName)
+    
     func addFavoriteMusicData(with term: String, id: String) {
         
-        let favorite = Firestore.firestore().collection("user").document("music").collection("favorite")
-        
-        let document = favorite.document(term)
+        let document = favoriteDB.document(term)
         
         let data: [String: Any] = [
             
@@ -28,7 +30,6 @@ class FirebaseFavoriteManager {
         document.getDocument { documentResult, error in
             
             if let documentResult = documentResult, documentResult.exists {
-                print("Update")
                 
                 document.updateData([
                     
@@ -37,7 +38,7 @@ class FirebaseFavoriteManager {
                 ])
                 
             } else {
-                print("Set")
+    
                 document.setData(data)
             }
         }
@@ -45,9 +46,7 @@ class FirebaseFavoriteManager {
     
     func fetchFavoriteMusicData(with type: String, completion: @escaping (FirebaseFavoriteData) -> Void) {
         
-        let favorite = Firestore.firestore().collection("user").document("music").collection("favorite")
-        
-        favorite.getDocuments { snapshot, error in
+        favoriteDB.getDocuments { snapshot, error in
             
             guard let snapshot = snapshot else { return }
             
@@ -67,9 +66,7 @@ class FirebaseFavoriteManager {
     
     func removeFavoriteMusicData(with type: String, id: String) {
         
-        let favorite = Firestore.firestore().collection("user").document("music").collection("favorite")
-        
-        let document = favorite.document(type)
+        let document = favoriteDB.document(type)
         
         document.updateData([
             "id": FieldValue.arrayRemove([id])
@@ -79,7 +76,7 @@ class FirebaseFavoriteManager {
     
     func removeFavoriteListData(with name: String) {
         
-        let favorite = Firestore.firestore().collection("user").document("music").collection("list")
+        let favorite = Firestore.firestore().collection(K.FStore.user).document("music").collection("list")
         
         let document = favorite.document(name)
         
@@ -97,9 +94,7 @@ class FirebaseFavoriteManager {
     
     func fetchFavoriteListData(with name: String, completion: @escaping () -> Void) {
         
-        let favorite = Firestore.firestore().collection("user").document("music").collection("list")
-        
-        favorite.getDocuments { snapshot, error in
+        listDB.getDocuments { snapshot, error in
             
             guard let snapshot = snapshot else { return }
             
@@ -121,9 +116,7 @@ class FirebaseFavoriteManager {
     
     func addFavoriteListData(with name: String, id: String, completion: @escaping () -> Void) {
         
-        let favorite = Firestore.firestore().collection("user").document("music").collection("list")
-        
-        let document = favorite.document(name)
+        let document = listDB.document(name)
         
         let data: [String: Any] = [
             

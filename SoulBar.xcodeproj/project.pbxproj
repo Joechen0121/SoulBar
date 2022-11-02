@@ -54,6 +54,7 @@
 		D874C89D29125BC600075AE9 /* FirebaseChatroomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C89C29125BC600075AE9 /* FirebaseChatroomManager.swift */; };
 		D874C89F29125BD700075AE9 /* FirebaseChatroomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C89E29125BD700075AE9 /* FirebaseChatroomData.swift */; };
 		D874C8A129127D4000075AE9 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C8A029127D4000075AE9 /* KingFisherWrapper.swift */; };
+		D874C8A32912835400075AE9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C8A22912835400075AE9 /* Constants.swift */; };
 		D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */; };
 		D88550B12910E3570083D050 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550B02910E3570083D050 /* MapManager.swift */; };
 		D88550B329114E620083D050 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D88550B229114E620083D050 /* GoogleService-Info.plist */; };
@@ -118,6 +119,7 @@
 		D874C89C29125BC600075AE9 /* FirebaseChatroomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseChatroomManager.swift; sourceTree = "<group>"; };
 		D874C89E29125BD700075AE9 /* FirebaseChatroomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseChatroomData.swift; sourceTree = "<group>"; };
 		D874C8A029127D4000075AE9 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
+		D874C8A22912835400075AE9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCardsDetailsViewController.swift; sourceTree = "<group>"; };
 		D88550B02910E3570083D050 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		D88550B229114E620083D050 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -266,7 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				D85EDB9C290966C1001583F6 /* AppDelegate.swift */,
-				D874C8A029127D4000075AE9 /* KingFisherWrapper.swift */,
+				D874C8A42912844F00075AE9 /* Third Party Wrapper */,
 				D85EDB9E290966C1001583F6 /* SceneDelegate.swift */,
 				D8088B1E29096CA30037555B /* Model */,
 				D8088B2129096D8C0037555B /* Events */,
@@ -275,6 +277,7 @@
 				D85EDBA5290966C3001583F6 /* Assets.xcassets */,
 				D88550B229114E620083D050 /* GoogleService-Info.plist */,
 				D85EDBA7290966C3001583F6 /* LaunchScreen.storyboard */,
+				D874C8A22912835400075AE9 /* Constants.swift */,
 				D85EDBAA290966C3001583F6 /* Info.plist */,
 			);
 			path = SoulBar;
@@ -327,6 +330,14 @@
 				D874C8992912566800075AE9 /* FirebaseUserManager.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		D874C8A42912844F00075AE9 /* Third Party Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				D874C8A029127D4000075AE9 /* KingFisherWrapper.swift */,
+			);
+			path = "Third Party Wrapper";
 			sourceTree = "<group>";
 		};
 		D8A1B96D290C22E5007F6775 /* Events */ = {
@@ -539,6 +550,7 @@
 				D874C8A129127D4000075AE9 /* KingFisherWrapper.swift in Sources */,
 				D8088B342909700B0037555B /* MusicManager.swift in Sources */,
 				D8088B1D29096C4D0037555B /* ProfileViewController.swift in Sources */,
+				D874C8A32912835400075AE9 /* Constants.swift in Sources */,
 				D8088B1B29096C400037555B /* FavoriteViewController.swift in Sources */,
 				D874C89D29125BC600075AE9 /* FirebaseChatroomManager.swift in Sources */,
 				D8088B2029096D850037555B /* EventsManager.swift in Sources */,

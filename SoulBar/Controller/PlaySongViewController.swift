@@ -74,7 +74,7 @@ class PlaySongViewController: UIViewController {
 
         guard let songID = songs.id else { return }
 
-        FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: "songs") { result in
+        FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.songs) { result in
             
             result.id.forEach { id in
 
@@ -114,7 +114,7 @@ class PlaySongViewController: UIViewController {
         
         if isFavorite {
     
-            FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: "songs", id: songsID)
+            FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.songs, id: songsID)
             
             self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
             
@@ -123,7 +123,7 @@ class PlaySongViewController: UIViewController {
         }
         else {
 
-            FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: "songs", id: songsID)
+            FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.songs, id: songsID)
                 
             self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             
