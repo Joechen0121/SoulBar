@@ -137,45 +137,57 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search singer, songs, albums" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BbH-5z-G8b">
-                                <rect key="frame" x="30" y="44" width="354" height="50"/>
+                                <rect key="frame" x="20" y="44" width="374" height="40"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="rgm-S0-wnD"/>
+                                    <constraint firstAttribute="height" constant="40" id="rgm-S0-wnD"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="A0C-C5-dJ9">
-                                <rect key="frame" x="0.0" y="94" width="414" height="50"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="A0C-C5-dJ9">
+                                <rect key="frame" x="0.0" y="92" width="414" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKg-6x-Bta">
-                                        <rect key="frame" x="0.0" y="0.0" width="103.5" height="50"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="All"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKg-6x-Bta" customClass="TransitionButton" customModule="TransitionButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="88.5" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="All">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="searchButton:" destination="Vcj-t8-z7R" eventType="touchUpInside" id="ies-gB-BlC"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-J2-tsA">
-                                        <rect key="frame" x="103.5" y="0.0" width="103.5" height="50"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Singer"/>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-J2-tsA" customClass="TransitionButton" customModule="TransitionButton">
+                                        <rect key="frame" x="108.5" y="0.0" width="88.5" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Singer">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="searchButton:" destination="Vcj-t8-z7R" eventType="touchUpInside" id="M0N-05-fOL"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgq-h7-C7u">
-                                        <rect key="frame" x="207" y="0.0" width="103.5" height="50"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Song"/>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgq-h7-C7u" customClass="TransitionButton" customModule="TransitionButton">
+                                        <rect key="frame" x="217" y="0.0" width="88.5" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Song">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="searchButton:" destination="Vcj-t8-z7R" eventType="touchUpInside" id="SZP-Ed-E4w"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjf-gl-4bx">
-                                        <rect key="frame" x="310.5" y="0.0" width="103.5" height="50"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Album"/>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjf-gl-4bx" customClass="TransitionButton" customModule="TransitionButton">
+                                        <rect key="frame" x="325.5" y="0.0" width="88.5" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Album">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="searchButton:" destination="Vcj-t8-z7R" eventType="touchUpInside" id="QHt-kA-uRG"/>
                                         </connections>
@@ -187,7 +199,7 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qZ5-bA-YLn">
-                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
+                                <rect key="frame" x="0.0" y="142" width="414" height="720"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -200,15 +212,20 @@
                             <constraint firstItem="hUU-FS-TaT" firstAttribute="bottom" secondItem="qZ5-bA-YLn" secondAttribute="bottom" id="2zD-oX-Yf3"/>
                             <constraint firstItem="qZ5-bA-YLn" firstAttribute="leading" secondItem="hUU-FS-TaT" secondAttribute="leading" id="B3E-kf-E79"/>
                             <constraint firstItem="hUU-FS-TaT" firstAttribute="trailing" secondItem="A0C-C5-dJ9" secondAttribute="trailing" id="DzO-7Y-xMD"/>
-                            <constraint firstItem="hUU-FS-TaT" firstAttribute="trailing" secondItem="BbH-5z-G8b" secondAttribute="trailing" constant="30" id="MhD-ap-IUE"/>
-                            <constraint firstItem="BbH-5z-G8b" firstAttribute="leading" secondItem="hUU-FS-TaT" secondAttribute="leading" constant="30" id="PSj-Dh-gOL"/>
-                            <constraint firstItem="A0C-C5-dJ9" firstAttribute="top" secondItem="BbH-5z-G8b" secondAttribute="bottom" id="jPf-hK-eC6"/>
+                            <constraint firstItem="hUU-FS-TaT" firstAttribute="trailing" secondItem="BbH-5z-G8b" secondAttribute="trailing" constant="20" id="MhD-ap-IUE"/>
+                            <constraint firstItem="BbH-5z-G8b" firstAttribute="leading" secondItem="hUU-FS-TaT" secondAttribute="leading" constant="20" id="PSj-Dh-gOL"/>
+                            <constraint firstItem="A0C-C5-dJ9" firstAttribute="top" secondItem="BbH-5z-G8b" secondAttribute="bottom" constant="8" id="jPf-hK-eC6"/>
                             <constraint firstItem="BbH-5z-G8b" firstAttribute="top" secondItem="hUU-FS-TaT" secondAttribute="top" id="jcY-BI-dU0"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="albumButton" destination="tjf-gl-4bx" id="pCn-Hk-gQC"/>
+                        <outlet property="allButton" destination="KKg-6x-Bta" id="PZg-mD-fhp"/>
+                        <outlet property="artistButton" destination="IaV-J2-tsA" id="QTK-KO-nBe"/>
+                        <outlet property="buttonStackView" destination="A0C-C5-dJ9" id="Ote-fW-hQl"/>
                         <outlet property="searchDetailsTableView" destination="qZ5-bA-YLn" id="dwS-a3-PZn"/>
                         <outlet property="searchTextField" destination="BbH-5z-G8b" id="ofa-Yq-Rqr"/>
+                        <outlet property="songButton" destination="zgq-h7-C7u" id="sYY-aS-vxH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xq5-bA-iru" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -599,18 +616,18 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YLg-4v-Thx">
-                                        <rect key="frame" x="0.0" y="100.5" width="414" height="717.5"/>
+                                        <rect key="frame" x="30" y="100.5" width="354" height="617.5"/>
                                     </mapView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="YLg-4v-Thx" firstAttribute="top" secondItem="SPm-7w-BW2" secondAttribute="bottom" constant="30" id="5Xd-Hq-uxb"/>
                                     <constraint firstItem="q0o-eW-AB3" firstAttribute="leading" secondItem="euu-ha-7Tj" secondAttribute="leading" constant="50" id="AZW-Q7-JTy"/>
-                                    <constraint firstAttribute="bottom" secondItem="YLg-4v-Thx" secondAttribute="bottom" id="LqR-L2-gXv"/>
                                     <constraint firstAttribute="trailing" secondItem="q0o-eW-AB3" secondAttribute="trailing" constant="50" id="am5-W6-f67"/>
-                                    <constraint firstAttribute="trailing" secondItem="YLg-4v-Thx" secondAttribute="trailing" id="d77-gs-8sY"/>
+                                    <constraint firstAttribute="trailing" secondItem="YLg-4v-Thx" secondAttribute="trailing" constant="30" id="d77-gs-8sY"/>
                                     <constraint firstItem="q0o-eW-AB3" firstAttribute="top" secondItem="euu-ha-7Tj" secondAttribute="top" id="d81-I5-BSg"/>
-                                    <constraint firstItem="YLg-4v-Thx" firstAttribute="leading" secondItem="euu-ha-7Tj" secondAttribute="leading" id="iFu-7o-5JV"/>
+                                    <constraint firstItem="YLg-4v-Thx" firstAttribute="leading" secondItem="euu-ha-7Tj" secondAttribute="leading" constant="30" id="iFu-7o-5JV"/>
+                                    <constraint firstAttribute="bottom" secondItem="YLg-4v-Thx" secondAttribute="bottom" constant="100" id="jK6-ga-FLz"/>
                                     <constraint firstItem="SPm-7w-BW2" firstAttribute="leading" secondItem="euu-ha-7Tj" secondAttribute="leading" constant="50" id="kp2-AJ-ZRL"/>
                                     <constraint firstItem="SPm-7w-BW2" firstAttribute="top" secondItem="q0o-eW-AB3" secondAttribute="bottom" constant="10" id="tKA-Ev-NHw"/>
                                 </constraints>
@@ -627,6 +644,7 @@
                     </view>
                     <connections>
                         <outlet property="eventMap" destination="YLg-4v-Thx" id="GAo-d2-rTt"/>
+                        <outlet property="locationLabel" destination="SPm-7w-BW2" id="MgO-da-Ox5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jvX-hj-q9N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -12,6 +12,8 @@ class EventsCardsDetailsViewController: UIViewController {
     
     @IBOutlet weak var eventMap: MKMapView!
     
+    @IBOutlet weak var locationLabel: UILabel!
+    
     var events: MusicEvents?
     
     let annotation = MKPointAnnotation()
@@ -37,6 +39,8 @@ class EventsCardsDetailsViewController: UIViewController {
         guard let events = events else {
             return
         }
+        
+        locationLabel.text = events.showInfo[0].location
         
         MapManager.sharedInstance.coordinates(forAddress: events.showInfo[0].location) { result in
             

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TransitionButton
 
 class SearchDetailsViewController: UIViewController {
     
@@ -31,7 +32,14 @@ class SearchDetailsViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     
     @IBOutlet weak var searchDetailsTableView: UITableView!
+
+    @IBOutlet weak var allButton: TransitionButton!
     
+    @IBOutlet weak var artistButton: TransitionButton!
+    
+    @IBOutlet weak var songButton: TransitionButton!
+    
+    @IBOutlet weak var albumButton: TransitionButton!
     static let storyboardID = "SearchDetailsVC"
     
     var songs = [SongsSearchInfo]()
@@ -40,11 +48,13 @@ class SearchDetailsViewController: UIViewController {
     
     var artists = [ArtistsSearchInfo]()
     
+    @IBOutlet weak var buttonStackView: UIStackView!
+    
     var buttonTag = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         searchDetailsTableView.dataSource = self
         
         searchDetailsTableView.delegate = self
@@ -59,19 +69,106 @@ class SearchDetailsViewController: UIViewController {
         
         searchDetailsTableView.register(UINib.init(nibName: SearchAlbumsResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchAlbumsResultTableViewCell.identifier)
         
+        configureButton()
+    }
+    
+    func configureButton() {
+        
+        buttonStackView.layoutMargins = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
+        buttonStackView.isLayoutMarginsRelativeArrangement = true
+        
+        allButton.backgroundColor = .clear
+        allButton.setTitle("All", for: .normal)
+        allButton.cornerRadius = 20
+        allButton.spinnerColor = .black
+        allButton.layer.borderColor = UIColor.black.cgColor
+        allButton.layer.borderWidth = 1
+        
+        artistButton.backgroundColor = .clear
+        artistButton.setTitle("Artist", for: .normal)
+        artistButton.cornerRadius = 20
+        artistButton.spinnerColor = .black
+        artistButton.layer.borderColor = UIColor.black.cgColor
+        artistButton.layer.borderWidth = 1
+        
+        songButton.backgroundColor = .clear
+        songButton.setTitle("Song", for: .normal)
+        songButton.cornerRadius = 20
+        songButton.spinnerColor = .black
+        songButton.layer.borderColor = UIColor.black.cgColor
+        songButton.layer.borderWidth = 1
+        
+        albumButton.backgroundColor = .clear
+        albumButton.setTitle("Album", for: .normal)
+        albumButton.cornerRadius = 20
+        albumButton.spinnerColor = .black
+        albumButton.layer.borderColor = UIColor.black.cgColor
+        albumButton.layer.borderWidth = 1
     }
     
     @IBAction func searchButton(_ sender: UIButton) {
-        
+
         self.buttonTag = sender.tag
         
-        guard let text = searchTextField.text else { return }
+        guard !searchTextField.text!.isEmpty else {
+            
+            if buttonTag == allType {
+                
+                allButton.startAnimation()
+                
+                DispatchQueue.main.async {
+                    
+                    self.allButton.stopAnimation(animationStyle: .shake) {
+                        print("text empty done animation")
+                    }
+                }
+            }
+            else if buttonTag == artistType {
+                
+                artistButton.startAnimation()
+                
+                DispatchQueue.main.async {
+                    
+                    self.artistButton.stopAnimation(animationStyle: .shake) {
+                        print("text empty done animation")
+                    }
+                }
+            }
+            else if buttonTag == songType {
+                
+                songButton.startAnimation()
+                
+                DispatchQueue.main.async {
+                    
+                    self.songButton.stopAnimation(animationStyle: .shake) {
+                        print("text empty done animation")
+                    }
+                }
+            }
+            else if buttonTag == albumType {
+             
+                albumButton.startAnimation()
+                
+                DispatchQueue.main.async {
+                    
+                    self.albumButton.stopAnimation(animationStyle: .shake) {
+                        print("text empty done animation")
+                    }
+                }
+            }
+            
+            return
+        }
+        
+        let text = searchTextField.text!
         
         self.albums = []
         self.songs = []
         self.artists = []
         
         if buttonTag == allType {
+            
+            allButton.startAnimation()
             
             MusicManager.sharedInstance.searchArtists(term: text, limit: 10) { artists in
                 
@@ -88,12 +185,18 @@ class SearchDetailsViewController: UIViewController {
                         DispatchQueue.main.async {
 
                             self.searchDetailsTableView.reloadData()
+                            
+                            self.allButton.stopAnimation(animationStyle: .normal) {
+                                print("done animation")
+                            }
                         }
                     }
                 }
             }
         }
         else if buttonTag == artistType {
+            
+            artistButton.startAnimation()
             
             MusicManager.sharedInstance.searchArtists(term: text, limit: 25) { artists in
                 
@@ -102,11 +205,17 @@ class SearchDetailsViewController: UIViewController {
                 DispatchQueue.main.async {
                     
                     self.searchDetailsTableView.reloadData()
+                    
+                    self.artistButton.stopAnimation(animationStyle: .normal) {
+                        print("done animation")
+                    }
                 }
             }
         }
         
         else if buttonTag == songType {
+            
+            songButton.startAnimation()
             
             MusicManager.sharedInstance.searchSongs(term: text, limit: 25) { songs in
 
@@ -115,10 +224,16 @@ class SearchDetailsViewController: UIViewController {
                 DispatchQueue.main.async {
 
                     self.searchDetailsTableView.reloadData()
+                    
+                    self.songButton.stopAnimation(animationStyle: .normal) {
+                        print("done animation")
+                    }
                 }
             }
         }
         else if buttonTag == albumType {
+            
+            albumButton.startAnimation()
             
             MusicManager.sharedInstance.searchAlbums(term: text, limit: 25) { albums in
 
@@ -127,6 +242,10 @@ class SearchDetailsViewController: UIViewController {
                 DispatchQueue.main.async {
 
                     self.searchDetailsTableView.reloadData()
+                    
+                    self.albumButton.stopAnimation(animationStyle: .normal) {
+                        print("done animation")
+                    }
                 }
             }
         }

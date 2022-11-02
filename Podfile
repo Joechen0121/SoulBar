@@ -16,6 +16,6 @@ target 'SoulBar' do
   pod 'FirebaseFirestoreSwift' , '8.1.0-beta'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
-
+  pod 'TransitionButton'
 
 end

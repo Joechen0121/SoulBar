@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        // try? AVAudioSession.sharedInstance().setCategory(.playback)
+        try? AVAudioSession.sharedInstance().setCategory(.playback)
         
         FirebaseApp.configure()
         return true

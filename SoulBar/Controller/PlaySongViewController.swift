@@ -10,12 +10,6 @@ import Kingfisher
 import AVFoundation
 import AVFAudio
 
-protocol PlaySongDelegate {
-    
-    func didUpdateSongs(indexPath: IndexPath)
-}
-
-
 class PlaySongViewController: UIViewController {
 
     static let storyboardID = "PlaySongVC"

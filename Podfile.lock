@@ -451,6 +451,7 @@ PODS:
   - PromisesObjC (2.0.0)
   - Pulsator (0.6.0)
   - SwiftLint (0.49.1)
+  - TransitionButton (0.5.3)
 
 DEPENDENCIES:
   - Alamofire
@@ -463,6 +464,7 @@ DEPENDENCIES:
   - Kingfisher
   - Pulsator
   - SwiftLint
+  - TransitionButton
 
 SPEC REPOS:
   trunk:
@@ -490,6 +492,7 @@ SPEC REPOS:
     - PromisesObjC
     - Pulsator
     - SwiftLint
+    - TransitionButton
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -516,7 +519,8 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Pulsator: eb5a9f9be4bdcbd19903984c65deca6aabe50a17
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
+  TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: 65cdfaadea377f630447b8eede20e08e4d3cb107
+PODFILE CHECKSUM: 9c4f27f8a1dbbc9f0c6e2fb9c32ae8aeeef523e0
 
 COCOAPODS: 1.11.3
