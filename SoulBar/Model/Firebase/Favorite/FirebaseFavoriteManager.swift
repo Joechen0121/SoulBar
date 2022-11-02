@@ -11,7 +11,9 @@ import FirebaseFirestore
 
 class FirebaseFavoriteManager {
     
-    func addFavoriteMusicData(with term: String, id: String, completion: @escaping () -> Void) {
+    static let sharedInstance = FirebaseFavoriteManager()
+    
+    func addFavoriteMusicData(with term: String, id: String) {
         
         let favorite = Firestore.firestore().collection("user").document("music").collection("favorite")
         
@@ -39,11 +41,9 @@ class FirebaseFavoriteManager {
                 document.setData(data)
             }
         }
-        
-        completion()
     }
     
-    func fetchFavoriteMusicData(with type: String, completion: @escaping () -> Void) {
+    func fetchFavoriteMusicData(with type: String, completion: @escaping (FirebaseFavoriteData) -> Void) {
         
         let favorite = Firestore.firestore().collection("user").document("music").collection("favorite")
         
@@ -57,16 +57,11 @@ class FirebaseFavoriteManager {
                     
                     guard let data = try? snapshot.data(as: FirebaseFavoriteData.self) else { return }
                     
-                    print(data)
-                    
+                    completion(data)
                 }
                 
             }
-            
-            completion()
         }
-        
-        completion()
     }
     
     

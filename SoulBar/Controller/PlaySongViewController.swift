@@ -46,6 +46,10 @@ class PlaySongViewController: UIViewController {
     
     var currentTime: Double = 0
     
+    var isFavorite = false
+    
+    @IBOutlet weak var favoriteButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,6 +60,78 @@ class PlaySongViewController: UIViewController {
         super.viewWillAppear(animated)
         
         configureSong()
+        
+        configureButton()
+    }
+    
+    func configureButton() {
+        
+        guard let songs = songs else {
+            
+            return
+            
+        }
+
+        guard let songID = songs.id else { return }
+
+        FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: "songs") { result in
+            
+            result.id.forEach { id in
+
+                if songID == id {
+                    
+                    self.isFavorite = true
+                }
+            }
+            
+            DispatchQueue.main.async {
+
+                if self.isFavorite {
+
+                    DispatchQueue.main.async {
+                        
+                        self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    }
+                    
+                }
+                else {
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    @IBAction func addToFavorite(_ sender: UIButton) {
+        
+        guard let songsID = songs?.id else {
+            return
+        }
+        
+        if isFavorite {
+    
+            FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: "songs", id: songsID)
+            
+            self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            
+            isFavorite = false
+
+        }
+        else {
+
+            FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: "songs", id: songsID)
+                
+            self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            
+            isFavorite = true
+
+        }
+        
+
     }
     
     @IBAction func sharedButton(_ sender: UIButton) {
