@@ -684,12 +684,29 @@
                                             <action selector="addToFavorite:" destination="Prc-WT-LS6" eventType="touchUpInside" id="5i8-Gk-fQ3"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-Bt-ov8">
+                                        <rect key="frame" x="137" y="737" width="140.5" height="31"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Event Location">
+                                            <imageReference key="image" image="location" catalog="system" symbolScale="large"/>
+                                        </state>
+                                        <buttonConfiguration key="configuration" style="plain" title="Event Location">
+                                            <imageReference key="image" image="location" catalog="system" symbolScale="large"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="locateEvents:" destination="Prc-WT-LS6" eventType="touchUpInside" id="EuC-AI-CKy"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="YLg-4v-Thx" firstAttribute="top" secondItem="SPm-7w-BW2" secondAttribute="bottom" constant="15" id="5Xd-Hq-uxb"/>
                                     <constraint firstAttribute="trailing" secondItem="cHt-6Y-azW" secondAttribute="trailing" constant="20" id="87v-qV-tf0"/>
                                     <constraint firstItem="q0o-eW-AB3" firstAttribute="leading" secondItem="euu-ha-7Tj" secondAttribute="leading" constant="20" id="AZW-Q7-JTy"/>
+                                    <constraint firstAttribute="bottom" secondItem="Vuk-Bt-ov8" secondAttribute="bottom" constant="50" id="DEr-zI-YyP"/>
+                                    <constraint firstItem="Vuk-Bt-ov8" firstAttribute="centerX" secondItem="euu-ha-7Tj" secondAttribute="centerX" id="DxW-N3-8R4"/>
                                     <constraint firstAttribute="trailing" secondItem="YLg-4v-Thx" secondAttribute="trailing" constant="30" id="d77-gs-8sY"/>
                                     <constraint firstItem="q0o-eW-AB3" firstAttribute="top" secondItem="euu-ha-7Tj" secondAttribute="top" constant="20" id="d81-I5-BSg"/>
                                     <constraint firstItem="YLg-4v-Thx" firstAttribute="leading" secondItem="euu-ha-7Tj" secondAttribute="leading" constant="30" id="iFu-7o-5JV"/>
@@ -710,6 +727,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="eventLocation" destination="Vuk-Bt-ov8" id="lHs-s3-8w5"/>
                         <outlet property="eventMap" destination="YLg-4v-Thx" id="GAo-d2-rTt"/>
                         <outlet property="favoriteButton" destination="cHt-6Y-azW" id="i7a-SP-BqK"/>
                         <outlet property="locationLabel" destination="SPm-7w-BW2" id="MgO-da-Ox5"/>
@@ -717,7 +735,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jvX-hj-q9N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="468" y="918"/>
+            <point key="canvasLocation" x="466.66666666666669" y="917.41071428571422"/>
         </scene>
         <!--Recognize Music-->
         <scene sceneID="1gP-f2-ZfM">
@@ -994,11 +1012,22 @@
                                             <action selector="addToFavorite:" destination="Jbj-EB-3uR" eventType="touchUpInside" id="xxK-2v-eXT"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYk-Ik-qzh">
+                                        <rect key="frame" x="137" y="737" width="140.5" height="31"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="location" catalog="system" title="Event Location"/>
+                                        <connections>
+                                            <action selector="locateEvent:" destination="Jbj-EB-3uR" eventType="touchUpInside" id="gbD-F3-Rwd"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="Dyb-MT-tNg" firstAttribute="leading" secondItem="6JI-ew-CBx" secondAttribute="leading" constant="20" id="Fg8-kt-eQk"/>
                                     <constraint firstItem="ryH-4m-WPb" firstAttribute="centerX" secondItem="6JI-ew-CBx" secondAttribute="centerX" id="Naf-4a-TdD"/>
+                                    <constraint firstItem="CYk-Ik-qzh" firstAttribute="centerX" secondItem="6JI-ew-CBx" secondAttribute="centerX" id="OAc-yQ-Wic"/>
                                     <constraint firstItem="Dyb-MT-tNg" firstAttribute="top" secondItem="6JI-ew-CBx" secondAttribute="top" constant="20" id="UUp-rv-Li8"/>
                                     <constraint firstAttribute="trailing" secondItem="qw3-8U-20Y" secondAttribute="trailing" constant="20" id="YBP-Fr-BLj"/>
                                     <constraint firstAttribute="trailing" secondItem="Lhj-12-AHe" secondAttribute="trailing" constant="30" id="ap6-Tp-42K"/>
@@ -1007,6 +1036,7 @@
                                     <constraint firstAttribute="bottom" secondItem="Lhj-12-AHe" secondAttribute="bottom" constant="100" id="f73-tF-Eb5"/>
                                     <constraint firstItem="Lhj-12-AHe" firstAttribute="leading" secondItem="6JI-ew-CBx" secondAttribute="leading" constant="30" id="fby-6Z-vTq"/>
                                     <constraint firstItem="qw3-8U-20Y" firstAttribute="top" secondItem="6JI-ew-CBx" secondAttribute="top" constant="20" id="h5W-cZ-KL4"/>
+                                    <constraint firstAttribute="bottom" secondItem="CYk-Ik-qzh" secondAttribute="bottom" constant="50" id="yNN-FY-8DJ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1020,6 +1050,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="eventLocation" destination="CYk-Ik-qzh" id="gMt-Ph-rHf"/>
                         <outlet property="eventsLocation" destination="ryH-4m-WPb" id="S2Q-6g-Ooa"/>
                         <outlet property="eventsMap" destination="Lhj-12-AHe" id="L61-PP-9VT"/>
                         <outlet property="favoriteButton" destination="qw3-8U-20Y" id="yp4-AR-udD"/>
@@ -1052,6 +1083,7 @@
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="homekit" catalog="system" width="128" height="106"/>
         <image name="link" catalog="system" width="128" height="122"/>
+        <image name="location" catalog="system" width="128" height="118"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
         <image name="music" width="128" height="128"/>
@@ -1065,6 +1097,9 @@
         <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -18,22 +18,29 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
     
     @IBOutlet weak var favoriteButton: UIButton!
     
+    @IBOutlet weak var eventLocation: UIButton!
+    
     let annotation = MKPointAnnotation()
     
     var isFavorite = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("====\(eventsFavorite)")
         
         configureEventLocation()
 
+        eventLocation.layer.cornerRadius = eventLocation.frame.height / 2
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         configureButton()
+    }
+    
+    @IBAction func locateEvent(_ sender: Any) {
+        
+        eventsMap.setRegion(MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000), animated: true)
     }
     
     @IBAction func buyTicketButton(_ sender: UIButton) {

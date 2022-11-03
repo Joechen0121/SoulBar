@@ -22,10 +22,15 @@ class EventsCardsDetailsViewController: UIViewController {
     
     let annotation = MKPointAnnotation()
     
+    @IBOutlet weak var eventLocation: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureEventLocation()
+        
+        eventLocation.layer.cornerRadius = eventLocation.frame.height / 2
+        
 
     }
     
@@ -120,6 +125,11 @@ class EventsCardsDetailsViewController: UIViewController {
 
     }
     
+    @IBAction func locateEvents(_ sender: Any) {
+        
+        eventMap.setRegion(MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000), animated: true)
+    }
+    
     @IBAction func addChatroomButton(_ sender: UIButton) {
         
         print("Add chatroom")
@@ -144,7 +154,7 @@ class EventsCardsDetailsViewController: UIViewController {
             self.annotation.coordinate = CLLocationCoordinate2D(latitude: result.latitude, longitude: result.longitude)
 
             self.eventMap.addAnnotation(self.annotation)
-            
+         
         }
     }
 }
