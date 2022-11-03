@@ -49,7 +49,7 @@ struct AlbumsChartsAttributes: Codable {
 
     let copyright: String?
 
-    let genreNames: [String]
+    let genreNames: [String]?
     
     let releaseDate: String?
     

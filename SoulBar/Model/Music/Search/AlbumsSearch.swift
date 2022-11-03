@@ -50,7 +50,7 @@ struct AlbumsSearchAttributes: Codable {
     
     let artwork: Artwork?
     
-    let genreNames: [String]
+    let genreNames: [String]?
     
     let isCompilation: Bool
     

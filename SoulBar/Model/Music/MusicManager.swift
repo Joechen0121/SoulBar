@@ -112,7 +112,7 @@ class MusicManager {
 
             }
             
-            debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -258,7 +258,7 @@ class MusicManager {
 
             }
             
-            debugPrint(response)
+            //debugPrint(response)
         }
     }
     
@@ -419,7 +419,7 @@ class MusicManager {
 
             }
             
-            debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -449,6 +449,35 @@ class MusicManager {
             }
             
             // debugPrint(response)
+        }
+    }
+    
+    func fetchPlaylistsCharts(with id: String, completion: @escaping ([SongsSearchInfo]) -> Void) {
+        
+        var headers = HTTPHeaders()
+        
+        let albumsURL = "https://api.music.apple.com/v1/catalog/tw/playlists/\(id)"
+        
+        guard let developerToken = fetchDeveloperToken() else {
+            
+            fatalError("Cannot fetch developer token")
+            
+        }
+        
+        headers = [
+            
+            .authorization(bearerToken: developerToken)
+            
+        ]
+
+        AF.request(albumsURL, method: .get, headers: headers).responseDecodable(of: SongsSearch.self) { (response) in
+            if let data = response.value?.data {
+
+                completion(data)
+
+            }
+            
+            debugPrint(response)
         }
     }
     

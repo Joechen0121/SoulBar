@@ -741,7 +741,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpZ-p5-giL">
-                                <rect key="frame" x="348.5" y="88" width="45.5" height="31"/>
+                                <rect key="frame" x="348.5" y="140" width="45.5" height="31"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="clear" catalog="system"/>
@@ -781,10 +781,25 @@
                     <view key="view" contentMode="scaleToFill" id="NEb-xo-Ll0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ieq-dr-MCZ">
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="aVg-kc-HRe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ieq-dr-MCZ" firstAttribute="leading" secondItem="aVg-kc-HRe" secondAttribute="leading" id="3ep-i3-eC7"/>
+                            <constraint firstItem="Ieq-dr-MCZ" firstAttribute="top" secondItem="aVg-kc-HRe" secondAttribute="top" id="FsU-4o-iVV"/>
+                            <constraint firstItem="aVg-kc-HRe" firstAttribute="bottom" secondItem="Ieq-dr-MCZ" secondAttribute="bottom" id="iiL-UI-cwh"/>
+                            <constraint firstItem="aVg-kc-HRe" firstAttribute="trailing" secondItem="Ieq-dr-MCZ" secondAttribute="trailing" id="u4s-7l-Jev"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Favorite Music" id="uex-IK-3FS"/>
+                    <connections>
+                        <outlet property="favoriteListTableView" destination="Ieq-dr-MCZ" id="2w3-gw-Vf0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIv-Du-59m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -835,8 +850,8 @@
                         <color key="badgeColor" systemColor="systemBackgroundColor"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1aF-gM-u9A">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="1aF-gM-u9A">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -853,8 +868,8 @@
             <objects>
                 <navigationController id="Ywh-au-ijP" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" image="character.book.closed.fill" catalog="system" id="T0P-zZ-jvv"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D23-zM-kjT">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="D23-zM-kjT">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -870,8 +885,8 @@
             <objects>
                 <navigationController id="JVS-8p-Iyg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" image="magnifyingglass" catalog="system" id="S9s-c8-oAi"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MjS-h6-AKt">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="MjS-h6-AKt">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -887,8 +902,8 @@
             <objects>
                 <navigationController id="NTe-YY-dLc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" image="music.quarternote.3" catalog="system" id="4I5-56-51n"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Drm-0T-eyS">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Drm-0T-eyS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -904,8 +919,8 @@
             <objects>
                 <navigationController id="ySv-bt-pVp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" image="person.fill" catalog="system" id="uTi-Tu-GJq"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6XQ-GW-ZHm">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="6XQ-GW-ZHm">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

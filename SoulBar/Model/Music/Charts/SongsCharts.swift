@@ -55,7 +55,7 @@ struct SongsChartsAttributes: Codable {
 
     let durationInMillis: Int
 
-    let genreNames: [String]
+    let genreNames: [String]?
 
     let hasLyrics: Bool
 
