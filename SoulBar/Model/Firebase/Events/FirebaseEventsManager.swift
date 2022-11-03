@@ -11,13 +11,16 @@ import FirebaseFirestore
 
 class FirebaseEventsManager {
     
+    static let sharedInstance = FirebaseEventsManager()
+    
     func removeEventsTypeData(with type: Int, uid: String) {
         
         let event = Firestore.firestore().collection("user").document("event").collection(String(type))
         
         let document = event.document(uid)
         
-        document.delete() { err in
+        document.delete { err in
+            
             if let err = err {
                 
                 print("Error removing document: \(err)")
@@ -29,7 +32,7 @@ class FirebaseEventsManager {
         }
     }
     
-    func addEventsTypeData(with type: Int, uid: String, eventName: String, eventTime: String, location: String, url: String, chatroom: String, completion: @escaping () -> Void) {
+    func addEventsTypeData(with type: Int, uid: String, webURL: String, eventName: String, eventTime: String, location: String, url: String, chatroom: String) {
         
         let event = Firestore.firestore().collection("user").document("event").collection(String(type))
         
@@ -47,7 +50,11 @@ class FirebaseEventsManager {
             
             "url": url,
             
-            "chatroom": chatroom
+            "chatroom": chatroom,
+            
+            "type": type,
+            
+            "webURL": webURL
         ]
         
         event.whereField("uid", isEqualTo: uid).getDocuments { snapshot, error in
@@ -69,7 +76,7 @@ class FirebaseEventsManager {
         }
     }
     
-    func fetchEventsTypeData(with type: Int, completion: @escaping () -> Void) {
+    func fetchEventsTypeData(with type: Int, completion: @escaping ([FirebaseEventsData]) -> Void) {
         
         var data = [FirebaseEventsData]()
         
@@ -86,11 +93,7 @@ class FirebaseEventsManager {
                 data.append(dataPath)
                 
             }
-            print(data)
+            completion(data)
         }
-        
-        completion()
     }
-    
-    
 }

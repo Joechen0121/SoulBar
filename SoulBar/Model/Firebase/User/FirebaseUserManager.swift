@@ -70,7 +70,7 @@ class FirebaseUserManager {
         
         let document = user.document(uuid)
         
-        document.delete() { err in
+        document.delete { err in
             if let err = err {
                 
                 print("Error removing document: \(err)")
@@ -81,7 +81,4 @@ class FirebaseUserManager {
             }
         }
     }
-    
-    
-    
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 import Alamofire
+import CoreMedia
+import CoreMIDI
 
 enum MusicEventsCategory: Int, CaseIterable {
     
@@ -46,12 +48,21 @@ class EventsManager {
     func getMusicEventsInformation(category: MusicEventsCategory, completion: @escaping ([MusicEvents]) -> Void) {
         
         let songsURL = "https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=\(category.rawValue)"
-
         
         AF.request(songsURL, method: .get).responseDecodable(of: [MusicEvents].self) { (response) in
             if let data = response.value {
             
-                completion(data)
+                var events = [MusicEvents]()
+                
+                events = data
+                
+                for i in 0..<events.count {
+                    
+                    events[i].url = songsURL
+                    events[i].type = category.rawValue
+                }
+
+                completion(events)
 
             }
              debugPrint(response)

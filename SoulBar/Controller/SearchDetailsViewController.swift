@@ -72,6 +72,8 @@ class SearchDetailsViewController: UIViewController {
         configureButton()
         
         configureTextField()
+        
+        searchDetailsTableView.isHidden = true
     }
     
     func configureTextField() {

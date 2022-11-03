@@ -21,4 +21,8 @@ struct FirebaseEventsData: Codable {
     let url: String
     
     let chatroom: String
+    
+    let type: Int
+    
+    let webURL: String
 }

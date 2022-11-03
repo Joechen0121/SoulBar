@@ -14,7 +14,11 @@ class EventsCardsDetailsViewController: UIViewController {
     
     @IBOutlet weak var locationLabel: UILabel!
     
+    @IBOutlet weak var favoriteButton: UIButton!
+    
     var events: MusicEvents?
+    
+    var isFavorite = false
     
     let annotation = MKPointAnnotation()
     
@@ -24,6 +28,80 @@ class EventsCardsDetailsViewController: UIViewController {
         configureEventLocation()
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureButton()
+    }
+                                                                 
+    func configureButton() {
+        
+        
+        guard let events = events, let type = events.type else {
+            return
+        }
+        
+        FirebaseEventsManager.sharedInstance.fetchEventsTypeData(with: type) { result in
+            
+            result.forEach { event in
+                
+                if events.UID == event.uid {
+                    
+                    self.isFavorite = true
+                }
+            }
+            
+            DispatchQueue.main.async {
+
+                if self.isFavorite {
+
+                    DispatchQueue.main.async {
+                        
+                        self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    }
+                    
+                }
+                else {
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    @IBAction func addToFavorite(_ sender: UIButton) {
+        
+        guard let events = events, let type = events.type, let url = events.url else {
+            return
+        }
+        
+        if isFavorite {
+    
+            FirebaseEventsManager.sharedInstance.removeEventsTypeData(with: type, uid: events.UID)
+            
+            self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            
+            isFavorite = false
+
+        }
+        else {
+            
+            FirebaseEventsManager.sharedInstance.addEventsTypeData(with: type, uid: events.UID, webURL: events.webSales, eventName: events.title, eventTime: events.startDate, location: events.showInfo[0].location, url: url, chatroom: events.UID)
+                
+            self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            
+            isFavorite = true
+
+        }
+
+        
+    }
+    
     @IBAction func buyTicketButton(_ sender: UIButton) {
         
         print("buy")

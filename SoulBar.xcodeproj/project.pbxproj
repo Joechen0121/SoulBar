@@ -43,6 +43,8 @@
 		D85EDBA4290966C1001583F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA2290966C1001583F6 /* Main.storyboard */; };
 		D85EDBA6290966C3001583F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA5290966C3001583F6 /* Assets.xcassets */; };
 		D85EDBA9290966C3001583F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA7290966C3001583F6 /* LaunchScreen.storyboard */; };
+		D86AD11429135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86AD11229135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift */; };
+		D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86AD11829138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift */; };
 		D874C8892912465800075AE9 /* FirebaseFavoriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C8882912465800075AE9 /* FirebaseFavoriteData.swift */; };
 		D874C88B2912466300075AE9 /* FirebaseFavoriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C88A2912466300075AE9 /* FirebaseFavoriteManager.swift */; };
 		D874C88E291247D300075AE9 /* FirebaseHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C88D291247D300075AE9 /* FirebaseHistoryData.swift */; };
@@ -108,6 +110,8 @@
 		D85EDBA5290966C3001583F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D85EDBA8290966C3001583F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D85EDBAA290966C3001583F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D86AD11229135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
+		D86AD11829138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFavoriteCardsDetailsViewController.swift; sourceTree = "<group>"; };
 		D874C8882912465800075AE9 /* FirebaseFavoriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFavoriteData.swift; sourceTree = "<group>"; };
 		D874C88A2912466300075AE9 /* FirebaseFavoriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFavoriteManager.swift; sourceTree = "<group>"; };
 		D874C88D291247D300075AE9 /* FirebaseHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHistoryData.swift; sourceTree = "<group>"; };
@@ -344,8 +348,10 @@
 			isa = PBXGroup;
 			children = (
 				D8088B1629096C200037555B /* EventsViewController.swift */,
+				D86AD11229135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift */,
 				D88550B02910E3570083D050 /* MapManager.swift */,
 				D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */,
+				D86AD11829138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift */,
 				D8A1B96B290C228E007F6775 /* EventsTableViewCell.swift */,
 			);
 			path = Events;
@@ -533,6 +539,7 @@
 				D8088B3B290A2A290037555B /* SongsCollectionViewCell.swift in Sources */,
 				D8A1B97C290C46C6007F6775 /* SongListViewController.swift in Sources */,
 				D8573372290E561B0009D734 /* SearchArtistsResultTableViewCell.swift in Sources */,
+				D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */,
 				D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */,
 				D874C89A2912566800075AE9 /* FirebaseUserManager.swift in Sources */,
 				D8088B3E290AB2EF0037555B /* AlbumsTableViewCell.swift in Sources */,
@@ -546,6 +553,7 @@
 				D857337C290EA4CC0009D734 /* SearchAlbumsResultTableViewCell.swift in Sources */,
 				D8088B2929096F610037555B /* PlaylistsCharts.swift in Sources */,
 				D8088B2D29096F8D0037555B /* SongsSearch.swift in Sources */,
+				D86AD11429135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift in Sources */,
 				D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */,
 				D874C8A129127D4000075AE9 /* KingFisherWrapper.swift in Sources */,
 				D8088B342909700B0037555B /* MusicManager.swift in Sources */,

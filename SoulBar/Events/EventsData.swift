@@ -50,6 +50,10 @@ struct MusicEvents: Codable {
     let endDate: String
     
     let hitRate: Int
+    
+    var url: String?
+    
+    var type: Int?
 }
 
 struct ShowInfo: Codable {

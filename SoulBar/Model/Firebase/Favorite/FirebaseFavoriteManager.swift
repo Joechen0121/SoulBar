@@ -80,7 +80,7 @@ class FirebaseFavoriteManager {
         
         let document = favorite.document(name)
         
-        document.delete() { err in
+        document.delete { err in
             if let err = err {
                 
                 print("Error removing document: \(err)")
@@ -94,7 +94,7 @@ class FirebaseFavoriteManager {
     
     func fetchFavoriteListData(with name: String, completion: @escaping () -> Void) {
         
-        listDB.getDocuments { snapshot, error in
+        listDB.getDocuments { snapshot, error  in
             
             guard let snapshot = snapshot else { return }
             
@@ -107,7 +107,6 @@ class FirebaseFavoriteManager {
                     print(data.songs)
                     
                 }
-                
             }
             
             completion()
