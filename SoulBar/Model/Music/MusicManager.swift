@@ -527,4 +527,13 @@ class MusicManager {
         
         return pictureURL
     }
+    
+    func stopAllSessions() {
+        
+        AF.session.getTasksWithCompletionHandler { (sessionDataTask, uploadData, downloadData) in
+            sessionDataTask.forEach { $0.cancel() }
+            uploadData.forEach { $0.cancel() }
+            downloadData.forEach { $0.cancel() }
+        }
+    }
 }

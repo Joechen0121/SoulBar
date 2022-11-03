@@ -24,6 +24,8 @@ class EventsViewController: UIViewController {
     
     var favoriteEvents = [FirebaseEventsData]()
     
+    var favoriteCount = 0
+    
     @IBOutlet weak var collectionHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
@@ -74,6 +76,8 @@ class EventsViewController: UIViewController {
             
             self.eventsFavorite = result
             
+            self.favoriteCount = result.count
+            
             if result.isEmpty{
                 
                 let height = self.eventsFavoriteCollectionView.collectionViewLayout.collectionViewContentSize.height
@@ -82,6 +86,7 @@ class EventsViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }
             else {
+                
                 self.collectionHeight.constant = 300
     
             }
@@ -92,10 +97,15 @@ class EventsViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension EventsViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return "Events Information"
+
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         

@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import FirebaseCore
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,8 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         //try? AVAudioSession.sharedInstance().setCategory(.playback)
+        IQKeyboardManager.shared.enable = true
         
         FirebaseApp.configure()
+        
         return true
     }
 

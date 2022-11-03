@@ -27,6 +27,8 @@ class SearchAllResultTableViewCell: UITableViewCell {
     }
     
     func configureCellArtistsData(data: [ArtistsSearchInfo], indexPath: IndexPath) {
+
+        guard !data.isEmpty else { return }
         
         self.singerName.text = data[indexPath.row].attributes?.name
         
@@ -41,6 +43,8 @@ class SearchAllResultTableViewCell: UITableViewCell {
     
     func configureCellSongsData(data: [SongsSearchInfo], indexPath: IndexPath) {
         
+        guard !data.isEmpty else { return }
+        
         self.singerName.text = data[indexPath.row].attributes?.name
         
         if let artworkURL = data[indexPath.row].attributes?.artwork?.url, let width = data[indexPath.row].attributes?.artwork?.width, let height = data[indexPath.row].attributes?.artwork?.height {
@@ -54,6 +58,8 @@ class SearchAllResultTableViewCell: UITableViewCell {
     }
     
     func configureCellAlbumsData(data: [AlbumsSearchInfo], indexPath: IndexPath) {
+        
+        guard !data.isEmpty else { return }
         
         self.singerName.text = data[indexPath.row].attributes?.name
         

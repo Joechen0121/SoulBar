@@ -17,5 +17,5 @@ target 'SoulBar' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'TransitionButton'
-
+  pod 'IQKeyboardManagerSwift'
 end
