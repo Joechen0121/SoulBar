@@ -188,8 +188,8 @@ extension FavoriteViewController: UITableViewDataSource {
             }
             
             guard !favoriteAlbums.isEmpty else { return UITableViewCell() }
-            
-            cell.musicName.text = favoriteAlbums[indexPath.row][0].attributes?.albumName
+            print("------\(favoriteAlbums)")
+            cell.musicName.text = favoriteAlbums[indexPath.row][0].attributes?.name
             cell.musicType.text = "Albums"
             
             cell.musicImage.kf.indicatorType = .activity
@@ -212,7 +212,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
             guard !favoritePlaylist.isEmpty else { return UITableViewCell() }
             
-            cell.musicName.text = favoritePlaylist[indexPath.row][0].attributes?.albumName
+            cell.musicName.text = favoritePlaylist[indexPath.row][0].attributes?.name
             cell.musicType.text = "Playlists"
             
             cell.musicImage.kf.indicatorType = .activity

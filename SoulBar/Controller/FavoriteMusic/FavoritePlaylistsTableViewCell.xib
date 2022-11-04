@@ -23,14 +23,14 @@
                             <constraint firstAttribute="width" secondItem="tTo-6u-Vek" secondAttribute="height" id="uNH-JL-SXF"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRL-1Y-pMs">
-                        <rect key="frame" x="148" y="30" width="44.5" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRL-1Y-pMs">
+                        <rect key="frame" x="148" y="30" width="206" height="20.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2td-jc-Po4">
-                        <rect key="frame" x="148" y="71" width="42" height="21"/>
+                        <rect key="frame" x="148" y="70.5" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -42,6 +42,7 @@
                     <constraint firstAttribute="bottom" secondItem="tTo-6u-Vek" secondAttribute="bottom" constant="8" id="MpG-VU-t6B"/>
                     <constraint firstItem="lRL-1Y-pMs" firstAttribute="leading" secondItem="tTo-6u-Vek" secondAttribute="trailing" constant="40" id="QOW-Rv-lpy"/>
                     <constraint firstItem="tTo-6u-Vek" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="ZVx-8S-YdZ"/>
+                    <constraint firstAttribute="trailing" secondItem="lRL-1Y-pMs" secondAttribute="trailing" constant="10" id="g2c-K5-mmd"/>
                     <constraint firstItem="2td-jc-Po4" firstAttribute="top" secondItem="lRL-1Y-pMs" secondAttribute="bottom" constant="20" id="nCd-PW-Eew"/>
                     <constraint firstItem="lRL-1Y-pMs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="sk1-Bb-via"/>
                 </constraints>

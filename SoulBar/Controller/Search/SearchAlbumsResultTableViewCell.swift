@@ -29,7 +29,11 @@ class SearchAlbumsResultTableViewCell: UITableViewCell {
     }
     
     func configureCellData(data: [AlbumsSearchInfo], indexPath: IndexPath) {
-    
+
+        guard !data.isEmpty else { return }
+        
+        guard data.count > indexPath.row else { return }
+
         self.albumName.text = data[indexPath.row].attributes?.name
         self.singerName.text = data[indexPath.row].attributes?.artistName
         if let artworkURL = data[indexPath.row].attributes?.artwork?.url, let width = data[indexPath.row].attributes?.artwork?.width, let height = data[indexPath.row].attributes?.artwork?.height {

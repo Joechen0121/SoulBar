@@ -28,6 +28,10 @@ class SearchArtistsResultTableViewCell: UITableViewCell {
     
     func configureCellData(data: [ArtistsSearchInfo], indexPath: IndexPath) {
         
+        guard !data.isEmpty else { return }
+        
+        guard data.count > indexPath.row else { return }
+        
         self.artistLabel.text = data[indexPath.row].attributes?.name
         
         if let artworkURL = data[indexPath.row].attributes?.artwork?.url, let width = data[indexPath.row].attributes?.artwork?.width, let height = data[indexPath.row].attributes?.artwork?.height {

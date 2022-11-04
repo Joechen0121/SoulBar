@@ -107,7 +107,7 @@ class SearchDetailsViewController: UIViewController {
         allButton.spinnerColor = .black
         allButton.layer.borderColor = UIColor.black.cgColor
         allButton.layer.borderWidth = 1
-        allButton.backgroundColor = UIColor(red: 210/255, green: 165/255, blue: 109/255, alpha: 1)
+        allButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
     
         artistButton.backgroundColor = .clear
         artistButton.setTitle("Artist", for: .normal)
@@ -134,28 +134,28 @@ class SearchDetailsViewController: UIViewController {
     func changeButtonColor(buttonTag: Int) {
         
         if buttonTag == allType {
-            allButton.backgroundColor = UIColor(red: 210/255, green: 165/255, blue: 109/255, alpha: 1)
+            allButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
             artistButton.backgroundColor = UIColor.clear
             songButton.backgroundColor = UIColor.clear
             albumButton.backgroundColor = UIColor.clear
         }
         else if buttonTag == artistType {
             allButton.backgroundColor = UIColor.clear
-            artistButton.backgroundColor = UIColor(red: 210/255, green: 165/255, blue: 109/255, alpha: 1)
+            artistButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
             songButton.backgroundColor = UIColor.clear
             albumButton.backgroundColor = UIColor.clear
         }
         else if buttonTag == songType {
             allButton.backgroundColor = UIColor.clear
             artistButton.backgroundColor = UIColor.clear
-            songButton.backgroundColor = UIColor(red: 210/255, green: 165/255, blue: 109/255, alpha: 1)
+            songButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
             albumButton.backgroundColor = UIColor.clear
         }
         else if buttonTag == albumType {
             allButton.backgroundColor = UIColor.clear
             artistButton.backgroundColor = UIColor.clear
             songButton.backgroundColor = UIColor.clear
-            albumButton.backgroundColor = UIColor(red: 210/255, green: 165/255, blue: 109/255, alpha: 1)
+            albumButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
         }
         
     }
@@ -166,7 +166,7 @@ class SearchDetailsViewController: UIViewController {
         
         changeButtonColor(buttonTag: sender.tag)
         
-        guard !searchTextField.text!.isEmpty else {
+        guard let text = searchTextField?.text else {
 
             if buttonTag == allType {
                 
@@ -174,9 +174,7 @@ class SearchDetailsViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self.allButton.stopAnimation(animationStyle: .shake) {
-                        print("text empty done animation")
-                    }
+                    self.allButton.stopAnimation(animationStyle: .shake)
                 }
             }
             else if buttonTag == artistType {
@@ -185,9 +183,7 @@ class SearchDetailsViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self.artistButton.stopAnimation(animationStyle: .shake) {
-                        print("text empty done animation")
-                    }
+                    self.artistButton.stopAnimation(animationStyle: .shake)
                 }
             }
             else if buttonTag == songType {
@@ -196,9 +192,7 @@ class SearchDetailsViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self.songButton.stopAnimation(animationStyle: .shake) {
-                        print("text empty done animation")
-                    }
+                    self.songButton.stopAnimation(animationStyle: .shake)
                 }
             }
             else if buttonTag == albumType {
@@ -207,98 +201,14 @@ class SearchDetailsViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self.albumButton.stopAnimation(animationStyle: .shake) {
-                        print("text empty done animation")
-                    }
+                    self.albumButton.stopAnimation(animationStyle: .shake)
                 }
             }
             
             return
         }
-        
-        let indexPath = IndexPath(row: 0, section: 0)
-        
-        searchDetailsTableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        
-        let text = searchTextField.text!
-        
-        MusicManager.sharedInstance.stopAllSessions()
-        
-        if buttonTag == allType {
-            
-            MusicManager.sharedInstance.searchArtists(term: text, limit: 10) { artists in
-                
-                self.artists = []
-                
-                self.artists = artists
-                
-                MusicManager.sharedInstance.searchSongs(term: text, limit: 10) { songs in
-                    
-                    self.songs = []
-                    
-                    self.songs = songs
-                    
-                    MusicManager.sharedInstance.searchAlbums(term: text, limit: 10) { albums in
-                        
-                        self.albums = []
-                        
-                        self.albums = albums
 
-                        DispatchQueue.main.async {
-            
-                            self.searchDetailsTableView.reloadData()
-
-                        }
-                    }
-                }
-            }
-        }
-        else if buttonTag == artistType {
-    
-            MusicManager.sharedInstance.searchArtists(term: text, limit: 25) { artists in
-                
-                self.artists = []
-                
-                self.artists = artists
-                
-                DispatchQueue.main.async {
-        
-                    self.searchDetailsTableView.reloadData()
-
-                }
-            }
-        }
-        
-        else if buttonTag == songType {
-
-            MusicManager.sharedInstance.searchSongs(term: text, limit: 25) { songs in
-                
-                self.songs = []
-                
-                self.songs = songs
-                
-                DispatchQueue.main.async {
-        
-                    self.searchDetailsTableView.reloadData()
-                    
-                }
-            }
-        }
-        else if buttonTag == albumType {
-    
-            MusicManager.sharedInstance.searchAlbums(term: text, limit: 25) { albums in
-                
-                self.albums = []
-                
-                self.albums = albums
-                
-                DispatchQueue.main.async {
-    
-                    self.searchDetailsTableView.reloadData()
-                    
-                }
-            }
-        }
+        fetchMusicData(buttonTag: buttonTag, text: text)
     }
     
     func configureSelectedData(state: Int, indexPath: IndexPath) {
@@ -374,7 +284,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
             
             if section == 0 {
                 
-                return "Singer"
+                return "Artists"
             }
             else if section == 1 {
                 
@@ -483,9 +393,9 @@ extension SearchDetailsViewController: UITableViewDataSource {
             }
             
             guard !self.artists.isEmpty else {
-                
+
                 return UITableViewCell()
-                
+
             }
             
             cell.configureCellData(data: self.artists, indexPath: indexPath)
@@ -501,9 +411,9 @@ extension SearchDetailsViewController: UITableViewDataSource {
             }
             
             guard !self.songs.isEmpty else {
-                
+
                 return UITableViewCell()
-                
+
             }
             
             cell.configureCellData(data: self.songs, indexPath: indexPath)
@@ -511,15 +421,16 @@ extension SearchDetailsViewController: UITableViewDataSource {
             return cell
         }
         else if buttonTag == albumType {
+            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAlbumsResultTableViewCell.identifier, for: indexPath) as? SearchAlbumsResultTableViewCell else {
 
                 fatalError("Cannot create search details cell")
             }
             
             guard !self.albums.isEmpty else {
-                
+
                 return UITableViewCell()
-                
+
             }
             
             cell.configureCellData(data: self.albums, indexPath: indexPath)
@@ -542,166 +453,15 @@ extension SearchDetailsViewController: UITextFieldDelegate {
             return
             
         }
-        
-        MusicManager.sharedInstance.stopAllSessions()
 
-        if buttonTag == allType {
-    
-            MusicManager.sharedInstance.searchArtists(term: text, limit: 10) { artists in
-                
-                self.artists = []
-                
-                self.artists = artists
-                
-                MusicManager.sharedInstance.searchSongs(term: text, limit: 10) { songs in
-                    
-                    self.songs = []
-                    
-                    self.songs = songs
-
-                    MusicManager.sharedInstance.searchAlbums(term: text, limit: 10) { albums in
-                        
-                        self.albums = []
-                        
-                        self.albums = albums
-
-                        DispatchQueue.main.async {
-                
-                            self.searchDetailsTableView.reloadData()
-                        }
-                    }
-                }
-            }
-        }
-        else if buttonTag == artistType {
-            
-            MusicManager.sharedInstance.searchArtists(term: text, limit: 25) { artists in
-                
-                self.artists = []
-                
-                self.artists = artists
-                
-                DispatchQueue.main.async {
-    
-                    self.searchDetailsTableView.reloadData()
-    
-                }
-            }
-        }
-        
-        else if buttonTag == songType {
-            
-            MusicManager.sharedInstance.searchSongs(term: text, limit: 25) { songs in
-                
-                self.songs = []
-                
-                self.songs = songs
-                
-                DispatchQueue.main.async {
-        
-                    self.searchDetailsTableView.reloadData()
-
-                }
-            }
-        }
-        else if buttonTag == albumType {
-    
-            MusicManager.sharedInstance.searchAlbums(term: text, limit: 25) { albums in
-                
-                self.albums = []
-                
-                self.albums = albums
-                
-                DispatchQueue.main.async {
-    
-                    self.searchDetailsTableView.reloadData()
-                    
-                }
-            }
-        }
+        fetchMusicData(buttonTag: buttonTag, text: text)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         guard let text = textField.text else { return }
-
-        MusicManager.sharedInstance.stopAllSessions()
         
-        if buttonTag == allType {
-            
-            MusicManager.sharedInstance.searchArtists(term: text, limit: 10) { artists in
-                
-                self.artists = []
-                
-                self.artists = artists
-                
-                MusicManager.sharedInstance.searchSongs(term: text, limit: 10) { songs in
-                    
-                    self.songs = []
-                    
-                    self.songs = songs
-                    
-                    MusicManager.sharedInstance.searchAlbums(term: text, limit: 10) { albums in
-                        
-                        self.albums = []
-                        
-                        self.albums = albums
-
-                        DispatchQueue.main.async {
-            
-                            self.searchDetailsTableView.reloadData()
-
-                        }
-                    }
-                }
-            }
-        }
-        else if buttonTag == artistType {
-    
-            MusicManager.sharedInstance.searchArtists(term: text, limit: 25) { artists in
-                
-                self.artists = []
-                
-                self.artists = artists
-                
-                DispatchQueue.main.async {
-        
-                    self.searchDetailsTableView.reloadData()
-
-                }
-            }
-        }
-        
-        else if buttonTag == songType {
-
-            MusicManager.sharedInstance.searchSongs(term: text, limit: 25) { songs in
-                
-                self.songs = []
-                
-                self.songs = songs
-                
-                DispatchQueue.main.async {
-        
-                    self.searchDetailsTableView.reloadData()
-                    
-                }
-            }
-        }
-        else if buttonTag == albumType {
-    
-            MusicManager.sharedInstance.searchAlbums(term: text, limit: 25) { albums in
-                
-                self.albums = []
-                
-                self.albums = albums
-                
-                DispatchQueue.main.async {
-    
-                    self.searchDetailsTableView.reloadData()
-                    
-                }
-            }
-        }
+        fetchMusicData(buttonTag: buttonTag, text: text)
     }
 }
 
@@ -711,5 +471,108 @@ extension SearchDetailsViewController: UITableViewDelegate {
         
         configureSelectedData(state: buttonTag, indexPath: indexPath)
 
+    }
+}
+
+extension SearchDetailsViewController {
+    
+    func fetchMusicData(buttonTag: Int, text: String) {
+        
+        MusicManager.sharedInstance.stopAllSessions()
+        
+        if buttonTag == allType {
+            
+            fetchAllTypes(text: text)
+        }
+        else if buttonTag == artistType {
+    
+            fetchArtists(text: text)
+        }
+        
+        else if buttonTag == songType {
+
+            fetchSongs(text: text)
+        }
+        else if buttonTag == albumType {
+    
+            fetchAlbums(text: text)
+        }
+    }
+    
+    func fetchAllTypes(text: String) {
+        
+        MusicManager.sharedInstance.searchArtists(term: text, limit: 10) { artists in
+            
+            self.artists = []
+            
+            self.artists = artists
+            
+            MusicManager.sharedInstance.searchSongs(term: text, limit: 10) { songs in
+                
+                self.songs = []
+                
+                self.songs = songs
+                
+                MusicManager.sharedInstance.searchAlbums(term: text, limit: 10) { albums in
+                    
+                    self.albums = []
+                    
+                    self.albums = albums
+
+                    DispatchQueue.main.async {
+                        
+                        self.searchDetailsTableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    func fetchSongs(text: String) {
+        
+        MusicManager.sharedInstance.searchSongs(term: text, limit: 25) { songs in
+            
+            self.songs = []
+            
+            self.songs = songs
+            
+            DispatchQueue.main.async {
+                
+                self.searchDetailsTableView.reloadData()
+                
+            }
+        }
+        
+    }
+    
+    func fetchArtists(text: String) {
+        
+        MusicManager.sharedInstance.searchArtists(term: text, limit: 25) { artists in
+            
+            self.artists = []
+            
+            self.artists = artists
+            
+            DispatchQueue.main.async {
+                
+                self.searchDetailsTableView.reloadData()
+            }
+        }
+        
+    }
+    
+    func fetchAlbums(text: String) {
+        
+        MusicManager.sharedInstance.searchAlbums(term: text, limit: 25) { albums in
+            
+            self.albums = []
+            
+            self.albums = albums
+            
+            DispatchQueue.main.async {
+                
+                self.searchDetailsTableView.reloadData()
+            }
+        }
     }
 }
