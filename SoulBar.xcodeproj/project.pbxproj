@@ -28,6 +28,11 @@
 		D8088B3F290AB2EF0037555B /* AlbumsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8088B3D290AB2EF0037555B /* AlbumsTableViewCell.xib */; };
 		D8088B44290AC1840037555B /* AlbumsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8088B42290AC1840037555B /* AlbumsCollectionViewCell.swift */; };
 		D8088B45290AC1840037555B /* AlbumsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8088B43290AC1840037555B /* AlbumsCollectionViewCell.xib */; };
+		D820B9212914C4AF000C8F88 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820B9202914C4AF000C8F88 /* ChatViewController.swift */; };
+		D820B9252914C552000C8F88 /* ChatMessageStrangerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820B9232914C552000C8F88 /* ChatMessageStrangerTableViewCell.swift */; };
+		D820B9262914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D820B9242914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib */; };
+		D820B92A291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D820B928291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift */; };
+		D820B92B291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */; };
 		D82369AC290BDA2100AE41AB /* SearchDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82369AB290BDA2000AE41AB /* SearchDetailsViewController.swift */; };
 		D8573372290E561B0009D734 /* SearchArtistsResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8573370290E561B0009D734 /* SearchArtistsResultTableViewCell.swift */; };
 		D8573373290E561B0009D734 /* SearchArtistsResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8573371290E561B0009D734 /* SearchArtistsResultTableViewCell.xib */; };
@@ -99,6 +104,11 @@
 		D8088B3D290AB2EF0037555B /* AlbumsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumsTableViewCell.xib; sourceTree = "<group>"; };
 		D8088B42290AC1840037555B /* AlbumsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8088B43290AC1840037555B /* AlbumsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumsCollectionViewCell.xib; sourceTree = "<group>"; };
+		D820B9202914C4AF000C8F88 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		D820B9232914C552000C8F88 /* ChatMessageStrangerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageStrangerTableViewCell.swift; sourceTree = "<group>"; };
+		D820B9242914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMessageStrangerTableViewCell.xib; sourceTree = "<group>"; };
+		D820B928291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageOwnerTableViewCell.swift; sourceTree = "<group>"; };
+		D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMessageOwnerTableViewCell.xib; sourceTree = "<group>"; };
 		D82369AB290BDA2000AE41AB /* SearchDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailsViewController.swift; sourceTree = "<group>"; };
 		D8573370290E561B0009D734 /* SearchArtistsResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchArtistsResultTableViewCell.swift; sourceTree = "<group>"; };
 		D8573371290E561B0009D734 /* SearchArtistsResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchArtistsResultTableViewCell.xib; sourceTree = "<group>"; };
@@ -188,6 +198,7 @@
 				D8088B1829096C2E0037555B /* RecognizeViewController.swift */,
 				D86AD11C2913F42C000208B6 /* FavoriteMusic */,
 				D8088B1C29096C4D0037555B /* ProfileViewController.swift */,
+				D820B9222914C50E000C8F88 /* Chat */,
 				D8573385290FBCA20009D734 /* PlaySongViewController.swift */,
 			);
 			path = Controller;
@@ -256,6 +267,18 @@
 				D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		D820B9222914C50E000C8F88 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				D820B9202914C4AF000C8F88 /* ChatViewController.swift */,
+				D820B9232914C552000C8F88 /* ChatMessageStrangerTableViewCell.swift */,
+				D820B9242914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib */,
+				D820B928291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift */,
+				D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		D85EDB90290966C1001583F6 = {
@@ -485,10 +508,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8573382290EA9150009D734 /* SearchAllResultTableViewCell.xib in Resources */,
+				D820B92B291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib in Resources */,
 				D88550B329114E620083D050 /* GoogleService-Info.plist in Resources */,
 				D85EDBA9290966C3001583F6 /* LaunchScreen.storyboard in Resources */,
 				D8573377290E9C640009D734 /* SearchSongsResultTableViewCell.xib in Resources */,
 				D86AD1202913F4D8000208B6 /* FavoriteMusicTableViewCell.xib in Resources */,
+				D820B9262914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib in Resources */,
 				D85EDBA6290966C3001583F6 /* Assets.xcassets in Resources */,
 				D85EDBA4290966C1001583F6 /* Main.storyboard in Resources */,
 				D857337D290EA4CC0009D734 /* SearchAlbumsResultTableViewCell.xib in Resources */,
@@ -568,6 +593,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D820B9252914C552000C8F88 /* ChatMessageStrangerTableViewCell.swift in Sources */,
 				D874C8932912545600075AE9 /* FirebaseEventsTypeData.swift in Sources */,
 				D8088B1929096C2E0037555B /* RecognizeViewController.swift in Sources */,
 				D8088B3129096FAF0037555B /* PlaylistsSearch.swift in Sources */,
@@ -586,10 +612,12 @@
 				D8A1B97C290C46C6007F6775 /* SongListViewController.swift in Sources */,
 				D8573372290E561B0009D734 /* SearchArtistsResultTableViewCell.swift in Sources */,
 				D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */,
+				D820B92A291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift in Sources */,
 				D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */,
 				D874C89A2912566800075AE9 /* FirebaseUserManager.swift in Sources */,
 				D8088B3E290AB2EF0037555B /* AlbumsTableViewCell.swift in Sources */,
 				D8088B2329096F1E0037555B /* EventsData.swift in Sources */,
+				D820B9212914C4AF000C8F88 /* ChatViewController.swift in Sources */,
 				D8573376290E9C640009D734 /* SearchSongsResultTableViewCell.swift in Sources */,
 				D88550B12910E3570083D050 /* MapManager.swift in Sources */,
 				D85EDB9F290966C1001583F6 /* SceneDelegate.swift in Sources */,
