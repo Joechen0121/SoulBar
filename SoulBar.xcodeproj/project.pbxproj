@@ -66,7 +66,6 @@
 		D874C89A2912566800075AE9 /* FirebaseUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C8992912566800075AE9 /* FirebaseUserManager.swift */; };
 		D874C89D29125BC600075AE9 /* FirebaseChatroomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C89C29125BC600075AE9 /* FirebaseChatroomManager.swift */; };
 		D874C89F29125BD700075AE9 /* FirebaseChatroomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C89E29125BD700075AE9 /* FirebaseChatroomData.swift */; };
-		D874C8A129127D4000075AE9 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C8A029127D4000075AE9 /* KingFisherWrapper.swift */; };
 		D874C8A32912835400075AE9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C8A22912835400075AE9 /* Constants.swift */; };
 		D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */; };
 		D88550B12910E3570083D050 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550B02910E3570083D050 /* MapManager.swift */; };
@@ -79,6 +78,7 @@
 		D8A1B977290C35D3007F6775 /* PlaylistsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A1B975290C35D3007F6775 /* PlaylistsCollectionViewCell.xib */; };
 		D8A1B97C290C46C6007F6775 /* SongListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1B97B290C46C6007F6775 /* SongListViewController.swift */; };
 		D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */; };
+		D8B528EA29163105004C8D2A /* PlaySongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B528E929163105004C8D2A /* PlaySongManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,7 +144,6 @@
 		D874C8992912566800075AE9 /* FirebaseUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserManager.swift; sourceTree = "<group>"; };
 		D874C89C29125BC600075AE9 /* FirebaseChatroomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseChatroomManager.swift; sourceTree = "<group>"; };
 		D874C89E29125BD700075AE9 /* FirebaseChatroomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseChatroomData.swift; sourceTree = "<group>"; };
-		D874C8A029127D4000075AE9 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		D874C8A22912835400075AE9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCardsDetailsViewController.swift; sourceTree = "<group>"; };
 		D88550B02910E3570083D050 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
@@ -157,6 +156,7 @@
 		D8A1B975290C35D3007F6775 /* PlaylistsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistsCollectionViewCell.xib; sourceTree = "<group>"; };
 		D8A1B97B290C46C6007F6775 /* SongListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListViewController.swift; sourceTree = "<group>"; };
 		D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListTableViewCell.swift; sourceTree = "<group>"; };
+		D8B528E929163105004C8D2A /* PlaySongManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySongManager.swift; sourceTree = "<group>"; };
 		DE5455BF34A43BE4803E4EB7 /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -200,6 +200,7 @@
 				D8088B1C29096C4D0037555B /* ProfileViewController.swift */,
 				D820B9222914C50E000C8F88 /* Chat */,
 				D8573385290FBCA20009D734 /* PlaySongViewController.swift */,
+				D8B528E929163105004C8D2A /* PlaySongManager.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -303,7 +304,6 @@
 			isa = PBXGroup;
 			children = (
 				D85EDB9C290966C1001583F6 /* AppDelegate.swift */,
-				D874C8A42912844F00075AE9 /* Third Party Wrapper */,
 				D85EDB9E290966C1001583F6 /* SceneDelegate.swift */,
 				D8088B1E29096CA30037555B /* Model */,
 				D8088B2129096D8C0037555B /* Events */,
@@ -402,14 +402,6 @@
 				D874C8992912566800075AE9 /* FirebaseUserManager.swift */,
 			);
 			path = User;
-			sourceTree = "<group>";
-		};
-		D874C8A42912844F00075AE9 /* Third Party Wrapper */ = {
-			isa = PBXGroup;
-			children = (
-				D874C8A029127D4000075AE9 /* KingFisherWrapper.swift */,
-			);
-			path = "Third Party Wrapper";
 			sourceTree = "<group>";
 		};
 		D8A1B96D290C22E5007F6775 /* Events */ = {
@@ -601,6 +593,7 @@
 				D874C88B2912466300075AE9 /* FirebaseFavoriteManager.swift in Sources */,
 				D8573386290FBCA20009D734 /* PlaySongViewController.swift in Sources */,
 				D82369AC290BDA2100AE41AB /* SearchDetailsViewController.swift in Sources */,
+				D8B528EA29163105004C8D2A /* PlaySongManager.swift in Sources */,
 				D86AD12329141124000208B6 /* FavoriteAlbumsTableViewCell.swift in Sources */,
 				D8A1B96C290C228E007F6775 /* EventsTableViewCell.swift in Sources */,
 				D85EDB9D290966C1001583F6 /* AppDelegate.swift in Sources */,
@@ -629,7 +622,6 @@
 				D8088B2D29096F8D0037555B /* SongsSearch.swift in Sources */,
 				D86AD11429135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift in Sources */,
 				D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */,
-				D874C8A129127D4000075AE9 /* KingFisherWrapper.swift in Sources */,
 				D8088B342909700B0037555B /* MusicManager.swift in Sources */,
 				D8088B1D29096C4D0037555B /* ProfileViewController.swift in Sources */,
 				D874C8A32912835400075AE9 /* Constants.swift in Sources */,

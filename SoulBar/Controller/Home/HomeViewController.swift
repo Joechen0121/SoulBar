@@ -132,7 +132,7 @@ extension HomeViewController: SongsDelegate {
             
             MusicManager.sharedInstance.fetchSong(with: songs.id) { result in
                 
-                playSongVC.songs = result[0]
+                playSongVC.songs = result
                 
                 self.navigationController?.pushViewController(playSongVC, animated: true)
             }

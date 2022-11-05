@@ -42,6 +42,8 @@ class RecognizeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        PlaySongManager.sharedInstance.pauseMusic()
+        
         stopButton.isHidden = true
         
         session.delegate = self
@@ -112,8 +114,7 @@ class RecognizeViewController: UIViewController {
 
             let recordingFormat = inputNode.outputFormat(forBus: 0)
 
-            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) {
-                (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
+            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
     
                 self.session.matchStreamingBuffer(buffer, at: nil)
             }
@@ -334,7 +335,7 @@ extension RecognizeViewController: SHSessionDelegate {
                     
                     if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
-                        playSongVC.songs = result[0]
+                        playSongVC.songs = result
                         
                         self.present(playSongVC, animated: true)
                         //self.navigationController?.pushViewController(playSongVC, animated: true)

@@ -18,6 +18,8 @@ class SongListViewController: UIViewController {
     
     @IBOutlet weak var favoriteButton: UIButton!
     
+    @IBOutlet weak var playButton: UIButton!
+    
     enum SongListType: Int {
         
         case fromPlaylist = 0
@@ -144,6 +146,8 @@ class SongListViewController: UIViewController {
         }
         else if state == fromArtist {
             
+            playButton.isHidden = true
+            
             artistAlbums = []
             
             artistAlbumsData = []
@@ -194,6 +198,33 @@ class SongListViewController: UIViewController {
         }
         
         configureButton()
+    }
+    
+    @IBAction func playButton(_ sender: UIButton) {
+        
+        if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+            
+            switch state {
+                
+            case fromPlaylist:
+    
+                playSongVC.songs = self.playlistTracks
+                
+            case fromAlbums, fromAlbumsSearch:
+
+                playSongVC.songs = self.albumTracks
+                
+            case fromArtist:
+                
+                playSongVC.songs = self.artistAllAlbumsTrack
+                
+            default:
+                
+                print("Unknown state for configuring song data")
+            }
+            print(playSongVC.songs)
+            self.present(playSongVC, animated: true)
+        }
     }
     
     @IBAction func addToFavoriteButton(_ sender: UIButton) {
@@ -448,30 +479,33 @@ class SongListViewController: UIViewController {
         
         if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
             
-            var songs: SongsSearchInfo?
+            var songs = [SongsSearchInfo]()
             
             switch state {
                 
             case fromPlaylist:
                 
-                songs = self.playlistTracks[indexPath.row]
+                songs.append(self.playlistTracks[indexPath.row])
+    
+                playSongVC.songs = songs
                 
             case fromAlbums, fromAlbumsSearch:
                 
-                songs = self.albumTracks[indexPath.row]
+                songs.append(self.albumTracks[indexPath.row])
+                
+                playSongVC.songs = songs
                 
             case fromArtist:
                 
-                songs = self.artistAllAlbumsTrack[indexPath.row]
+                songs.append(self.artistAllAlbumsTrack[indexPath.row])
+                
+                playSongVC.songs = songs
                 
             default:
                 
                 print("Unknown state for configuring song data")
             }
-            
-            
-            playSongVC.songs = songs
-            
+            print(songs)
             self.navigationController?.pushViewController(playSongVC, animated: true)
         }
     }

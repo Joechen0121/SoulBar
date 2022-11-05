@@ -250,10 +250,12 @@ class SearchDetailsViewController: UIViewController {
         else if state == songType {
 
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-
-                let songs = songs[indexPath.row]
+                
+                var response = [SongsSearchInfo]()
+                
+                response.append(songs[indexPath.row])
                     
-                playSongVC.songs = songs
+                playSongVC.songs = response
                 
                 self.navigationController?.pushViewController(playSongVC, animated: true)
             }
