@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="63" id="KGk-i7-Jjw" customClass="ChatMessageStrangerTableViewCell" customModule="SoulBar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="262" height="63"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="262" height="63"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="tb2-zn-WsD">
+                        <rect key="frame" x="10" y="10.5" width="40" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="tb2-zn-WsD" secondAttribute="height" id="Xvu-Gb-B9m"/>
+                            <constraint firstAttribute="width" constant="40" id="rdd-qk-w6s"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nd3-0k-3TH">
+                        <rect key="frame" x="65" y="12" width="177" height="36.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4h-dd-gch">
+                                <rect key="frame" x="8" y="8" width="50" height="20.5"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="i4h-dd-gch" secondAttribute="trailing" constant="8" id="43a-Jh-UlD"/>
+                            <constraint firstItem="i4h-dd-gch" firstAttribute="leading" secondItem="Nd3-0k-3TH" secondAttribute="leading" constant="8" id="C5S-pJ-A0h"/>
+                            <constraint firstItem="i4h-dd-gch" firstAttribute="top" secondItem="Nd3-0k-3TH" secondAttribute="top" constant="8" id="Qhh-j6-cBm"/>
+                            <constraint firstAttribute="bottom" secondItem="i4h-dd-gch" secondAttribute="bottom" constant="8" id="qr0-ys-v39"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Nd3-0k-3TH" firstAttribute="leading" secondItem="tb2-zn-WsD" secondAttribute="trailing" constant="15" id="FQb-2V-ula"/>
+                    <constraint firstItem="tb2-zn-WsD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="JzB-bw-j8M"/>
+                    <constraint firstAttribute="trailing" secondItem="Nd3-0k-3TH" secondAttribute="trailing" constant="20" id="Ubm-oY-PiV"/>
+                    <constraint firstItem="tb2-zn-WsD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="cah-rr-XMx"/>
+                    <constraint firstItem="tb2-zn-WsD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dlF-9I-Fov"/>
+                    <constraint firstAttribute="bottom" secondItem="tb2-zn-WsD" secondAttribute="bottom" constant="10" id="qb8-ge-gBf"/>
+                    <constraint firstItem="Nd3-0k-3TH" firstAttribute="centerY" secondItem="tb2-zn-WsD" secondAttribute="centerY" id="rT6-TB-fNn"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="messageBackground" destination="Nd3-0k-3TH" id="J23-WL-F3g"/>
+                <outlet property="messageLabel" destination="i4h-dd-gch" id="02P-a9-nQu"/>
+                <outlet property="othersImage" destination="tb2-zn-WsD" id="l2f-t0-d1c"/>
+            </connections>
+            <point key="canvasLocation" x="89.855072463768124" y="102.79017857142857"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

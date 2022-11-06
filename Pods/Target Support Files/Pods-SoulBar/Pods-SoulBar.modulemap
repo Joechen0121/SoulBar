@@ -1,0 +1,6 @@
+framework module Pods_SoulBar {
+  umbrella header "Pods-SoulBar-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,314 @@
+//
+//  PlaySongViewController.swift
+//  SoulBar
+//
+//  Created by 陳建綸 on 2022/10/31.
+//
+
+import UIKit
+import Kingfisher
+import AVFoundation
+import AVFAudio
+
+class PlaySongViewController: UIViewController {
+
+    static let storyboardID = "PlaySongVC"
+    
+    @IBOutlet weak var songImage: UIImageView!
+    
+    @IBOutlet weak var songLabel: UILabel!
+    
+    @IBOutlet weak var singerLabel: UILabel!
+    
+    @IBOutlet weak var musicSlider: UISlider!
+    
+    @IBOutlet weak var playPauseButton: UIButton!
+    
+    @IBOutlet weak var minTimeLabel: UILabel!
+    
+    @IBOutlet weak var maxTimeLabel: UILabel!
+    
+    var songs: [SongsSearchInfo]?
+    
+    var currentItemIndex: Int = 0
+    
+    var previousItemIndex: Int = 0
+    
+    var nextItemIndex: Int = 0
+    
+    var playerLooper: AVPlayerLooper?
+    
+    var isMusicPlaying = false
+    
+    var currentTime: Double = 0
+    
+    var isFavorite = false
+    
+    var status: PlayState = .pause
+    
+    var rule: PlayRule = .loop
+    
+    var sliderTrackLayer = CAGradientLayer()
+    
+    @IBOutlet weak var favoriteButton: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        PlaySongManager.sharedInstance.setupRemoteTransportControls()
+        
+        selectData(index: 0)
+        
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureSong()
+        
+        configureButton(currentItemIndex: currentItemIndex)
+    }
+    
+    func configureButton(currentItemIndex: Int) {
+        
+        guard let songs = songs else {
+            
+            return
+            
+        }
+
+        guard let songID = songs[currentItemIndex].id else { return }
+
+        FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.songs) { result in
+            
+            result.id.forEach { id in
+
+                if songID == id {
+                    
+                    self.isFavorite = true
+                }
+            }
+            
+            DispatchQueue.main.async {
+
+                if self.isFavorite {
+
+                    DispatchQueue.main.async {
+                        
+                        self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    }
+                    
+                }
+                else {
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    @IBAction func addToFavorite(_ sender: UIButton) {
+        
+        guard let songsID = songs?[self.currentItemIndex].id else {
+            return
+        }
+        
+        if isFavorite {
+    
+            FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.songs, id: songsID)
+            
+            self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            
+            isFavorite = false
+
+        }
+        else {
+
+            FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.songs, id: songsID)
+                
+            self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            
+            isFavorite = true
+
+        }
+        
+
+    }
+    
+    @IBAction func sharedButton(_ sender: UIButton) {
+        
+        guard let songs = songs else { return }
+        
+        guard let songURL = songs[self.currentItemIndex].attributes?.previews?[0].url else { return }
+    
+        let activityVC = UIActivityViewController(activityItems: [songURL], applicationActivities: nil)
+        
+        self.present(activityVC, animated: true, completion: nil)
+        
+    }
+    
+    func configureSong() {
+        
+        if let songs = songs {
+    
+            DispatchQueue.main.async {
+        
+                self.songLabel.text = songs[self.currentItemIndex].attributes?.name
+                
+                self.singerLabel.text = songs[self.currentItemIndex].attributes?.artistName
+                
+                if let artworkURL = songs[self.currentItemIndex].attributes?.artwork?.url, let width = songs[self.currentItemIndex].attributes?.artwork?.width, let height = songs[self.currentItemIndex].attributes?.artwork?.height {
+                    
+                    let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+                    
+                    self.songImage.kf.setImage(with: URL(string: pictureURL))
+                    
+                }
+            }
+        }
+    }
+    
+    @IBAction func previousButton(_ sender: UIButton) {
+        
+        guard let songs = songs else { return }
+
+        PlaySongManager.sharedInstance.closePlayer()
+        
+        currentItemIndex = (currentItemIndex + songs.count - 1) % songs.count
+        
+        selectData(index: currentItemIndex)
+        
+        configureSong()
+    }
+    
+    @IBAction func nextButton(_ sender: UIButton) {
+        
+        guard let songs = songs else { return }
+
+        PlaySongManager.sharedInstance.closePlayer()
+
+        currentItemIndex = (currentItemIndex + songs.count + 1) % songs.count
+        
+        selectData(index: currentItemIndex)
+        
+        configureSong()
+        
+    }
+    
+    @IBAction func playPauseButton(_ sender: UIButton) {
+  
+        guard let songs = songs else {
+            return
+        }
+
+        switch status {
+        case .pause:
+            PlaySongManager.sharedInstance.playMusic(url: (songs[self.currentItemIndex].attributes?.previews![0].url)!)
+            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            status = .play
+        case .play:
+            PlaySongManager.sharedInstance.pauseMusic()
+            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            status = .pause
+        case .unowned:
+            selectData(index: 0)
+            status = .play
+        }
+    }
+    
+    func selectData(index: Int) {
+        
+        guard let songs = songs else { return }
+
+        currentItemIndex = index
+
+        singerLabel.text = songs[self.currentItemIndex].attributes?.artistName
+        songLabel.text = songs[self.currentItemIndex].attributes?.name
+        
+        PlaySongManager.sharedInstance.current = currentItemIndex
+        PlaySongManager.sharedInstance.maxCount = songs.count
+        
+        if let url = songs[self.currentItemIndex].attributes?.previews?[0].url, let songURL = URL(string: url)  {
+            
+            PlaySongManager.sharedInstance.setupPlayer(with: songURL)
+            
+            PlaySongManager.sharedInstance.delegate = self
+            
+        }
+    }
+}
+
+extension PlaySongViewController: PlaySongDelegate {
+    
+    func didUpdatePosition(_ player: AVPlayer?, _ position: PlayerPosition) {
+        
+        musicSlider.value = Float(position.current) / Float(position.duration)
+        minTimeLabel.text = String(format: "%02d:%02d", position.current / 60, position.current % 60)
+        maxTimeLabel.text = String(format: "%02d:%02d", position.duration / 60, position.duration % 60)
+
+    }
+    
+    func didReceiveNotification(player: AVPlayer?, notification: Notification.Name) {
+        
+        print(#function)
+        
+        guard let songs = songs else { return }
+
+        switch notification {
+        case .PlayerUnknownNotification:
+            PlaySongManager.sharedInstance.closePlayer()
+            
+        case .PlayerReadyToPlayNotification:
+            break
+            
+        case .PlayerDidToPlayNotification:
+            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            
+            status = .play
+            
+        case .PlayerFailedNotification:
+            let alert = UIAlertController(title: "錯誤", message: "無法播放", preferredStyle: .alert)
+            let action = UIAlertAction(title: "確認", style: .default, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+            
+        case .PauseNotification:
+            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            status = .pause
+            
+        case .PlayerPlayFinishNotification:
+            PlaySongManager.sharedInstance.closePlayer()
+            
+            switch rule {
+                
+            case .loop:
+                currentItemIndex = (currentItemIndex + songs.count + 1) % songs.count
+                selectData(index: currentItemIndex)
+                
+            case .random:
+                currentItemIndex = Int.random(in: 0..<songs.count)
+                selectData(index: currentItemIndex)
+                
+            case .single:
+                if currentItemIndex + 1 < songs.count {
+                    currentItemIndex = (currentItemIndex + songs.count + 1) % songs.count
+                    selectData(index: currentItemIndex)
+                }
+                else {
+                    playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+                    status = .unowned
+                }
+            }
+
+        default:
+            break
+        }
+    }
+    
+    
+}
