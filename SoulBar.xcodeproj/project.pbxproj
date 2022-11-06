@@ -59,6 +59,7 @@
 		D874B98A2917E4EA0082F2D7 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */; };
 		D874B98B2917E4EA0082F2D7 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */; };
 		D874B98D2917E6890082F2D7 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874B98C2917E6890082F2D7 /* ProfileData.swift */; };
+		D874B9902917F52C0082F2D7 /* FavoriteAddNewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874B98F2917F52C0082F2D7 /* FavoriteAddNewListViewController.swift */; };
 		D874C8892912465800075AE9 /* FirebaseFavoriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C8882912465800075AE9 /* FirebaseFavoriteData.swift */; };
 		D874C88B2912466300075AE9 /* FirebaseFavoriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C88A2912466300075AE9 /* FirebaseFavoriteManager.swift */; };
 		D874C88E291247D300075AE9 /* FirebaseHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C88D291247D300075AE9 /* FirebaseHistoryData.swift */; };
@@ -140,6 +141,7 @@
 		D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		D874B98C2917E6890082F2D7 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
+		D874B98F2917F52C0082F2D7 /* FavoriteAddNewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAddNewListViewController.swift; sourceTree = "<group>"; };
 		D874C8882912465800075AE9 /* FirebaseFavoriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFavoriteData.swift; sourceTree = "<group>"; };
 		D874C88A2912466300075AE9 /* FirebaseFavoriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFavoriteManager.swift; sourceTree = "<group>"; };
 		D874C88D291247D300075AE9 /* FirebaseHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHistoryData.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				D8088B1A29096C400037555B /* FavoriteViewController.swift */,
+				D874B98F2917F52C0082F2D7 /* FavoriteAddNewListViewController.swift */,
 				D86AD12129141124000208B6 /* FavoriteAlbumsTableViewCell.swift */,
 				D86AD12529141139000208B6 /* FavoritePlaylistsTableViewCell.swift */,
 				D86AD12629141139000208B6 /* FavoritePlaylistsTableViewCell.xib */,
@@ -632,6 +635,7 @@
 				D8088B2329096F1E0037555B /* EventsData.swift in Sources */,
 				D820B9212914C4AF000C8F88 /* ChatViewController.swift in Sources */,
 				D8573376290E9C640009D734 /* SearchSongsResultTableViewCell.swift in Sources */,
+				D874B9902917F52C0082F2D7 /* FavoriteAddNewListViewController.swift in Sources */,
 				D88550B12910E3570083D050 /* MapManager.swift in Sources */,
 				D85EDB9F290966C1001583F6 /* SceneDelegate.swift in Sources */,
 				D8A1B976290C35D3007F6775 /* PlaylistsCollectionViewCell.swift in Sources */,

@@ -45,6 +45,8 @@ class ChatViewController: UIViewController {
             return
         }
         
+        //configureMessageData()
+        
         FirebaseChatroomManager.sharedInstance.addChatroomMembersData(chatroomID: eventsFavorite.uid, uuid: testName)
 
         addChatroomListener(chatroomID: eventsFavorite.uid)
@@ -53,15 +55,27 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.messages = []
+    }
+    
+    func configureMessageData() {
+        
         guard let eventsFavorite = eventsFavorite else {
             
             return
         }
         
+        self.messages = []
+        print("------\(self.messages)")
         FirebaseChatroomManager.sharedInstance.fetchChatroomMessagesData(with: eventsFavorite.uid) { result in
             
             result.forEach { message in
-                
+                print("------\(message)")
                 self.messages.append(message)
 
             }
@@ -71,18 +85,14 @@ class ChatViewController: UIViewController {
                 self.chatTableView.reloadData()
             }
         }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
         
-        self.messages = []
+        print("mmmmmmmm\(self.messages)")
     }
     
     func addChatroomListener(chatroomID: String) {
         
         var data = [ChatroomMessagesData]()
-        
+
         self.messages = []
         
         FirebaseChatroomManager.sharedInstance.chatroomDB.document(chatroomID).collection("messages").order(by: "time").addSnapshotListener { snapshot, error in
@@ -93,6 +103,8 @@ class ChatViewController: UIViewController {
                 
             } else {
                 
+                data = []
+                
                 guard let snapshot = snapshot else { return }
                 
                 snapshot.documents.forEach { snapshot in
@@ -100,11 +112,13 @@ class ChatViewController: UIViewController {
                     guard let dataPath = try? snapshot.data(as: ChatroomMessagesData.self) else { return }
                     
                     data.append(dataPath)
-                    
+    
                 }
                 
-                self.messages = data
+                self.messages = []
                 
+                self.messages = data
+                print("=======\(self.messages)")
                 DispatchQueue.main.async {
 
                     self.chatTableView.reloadData()
