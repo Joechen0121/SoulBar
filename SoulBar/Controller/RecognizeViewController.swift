@@ -116,11 +116,8 @@ class RecognizeViewController: UIViewController {
     }
     
     private func startListening() {
-        print("========111111")
         
         guard requestMicrophone() == true else { return }
-        
-        print("=====aaaaaaaa")
 
         guard !audioEngine.isRunning else {
             
@@ -348,6 +345,8 @@ extension RecognizeViewController: SHSessionDelegate {
     
     func session(_ session: SHSession, didFind match: SHMatch) {
         
+        var songs = [SongsSearchInfo]()
+        
         let items = match.mediaItems
         
         items.forEach { item in
@@ -357,27 +356,36 @@ extension RecognizeViewController: SHSessionDelegate {
             
             if let title = item.title {
                 
-                MusicManager.sharedInstance.searchSongs(term: title, limit: 1) { result in
+                MusicManager.sharedInstance.searchSongs(term: title, limit: 25) { result in
                     
-                    DispatchQueue.main.async {
-                        print("Stop listening")
-
-                        self.pulsator.stop()
-
-                        self.state = 0
-
-                        self.stopListening()
-
-                    }
                     
-                    if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-
-                        playSongVC.songs = result
+                    result.forEach { song in
                         
-                        self.present(playSongVC, animated: true)
-                        //self.navigationController?.pushViewController(playSongVC, animated: true)
+                        print(song.attributes?.artistName == item.artist)
+                        
+                        if song.attributes?.artistName == item.artist {
+
+                            songs.append(song)
+                            
+                            DispatchQueue.main.async {
+                                print("Stop listening")
+
+                                self.pulsator.stop()
+
+                                self.state = 0
+
+                                self.stopListening()
+
+                            }
+                            
+                            if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+                                playSongVC.songs = songs
+                                
+                                self.present(playSongVC, animated: true)
+                            }
+                        }
                     }
-                    
                 }
             }
         }

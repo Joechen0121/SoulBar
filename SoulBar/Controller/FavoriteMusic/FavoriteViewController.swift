@@ -29,6 +29,7 @@ class FavoriteViewController: UIViewController {
         
         favoriteListTableView.register(UINib.init(nibName: FavoritePlaylistsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoritePlaylistsTableViewCell.identifier)
         
+        configureNavigationButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,6 +99,20 @@ class FavoriteViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    func configureNavigationButton() {
+        
+        let addListButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addListButton))
+                        
+        self.navigationItem.rightBarButtonItem = addListButton
+    
+    }
+    
+    @objc func addListButton() {
+        
+        
+        
     }
 }
 
