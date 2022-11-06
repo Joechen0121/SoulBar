@@ -56,6 +56,9 @@
 		D86AD12429141124000208B6 /* FavoriteAlbumsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86AD12229141124000208B6 /* FavoriteAlbumsTableViewCell.xib */; };
 		D86AD12729141139000208B6 /* FavoritePlaylistsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86AD12529141139000208B6 /* FavoritePlaylistsTableViewCell.swift */; };
 		D86AD12829141139000208B6 /* FavoritePlaylistsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86AD12629141139000208B6 /* FavoritePlaylistsTableViewCell.xib */; };
+		D874B98A2917E4EA0082F2D7 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */; };
+		D874B98B2917E4EA0082F2D7 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */; };
+		D874B98D2917E6890082F2D7 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874B98C2917E6890082F2D7 /* ProfileData.swift */; };
 		D874C8892912465800075AE9 /* FirebaseFavoriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C8882912465800075AE9 /* FirebaseFavoriteData.swift */; };
 		D874C88B2912466300075AE9 /* FirebaseFavoriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C88A2912466300075AE9 /* FirebaseFavoriteManager.swift */; };
 		D874C88E291247D300075AE9 /* FirebaseHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874C88D291247D300075AE9 /* FirebaseHistoryData.swift */; };
@@ -134,6 +137,9 @@
 		D86AD12229141124000208B6 /* FavoriteAlbumsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteAlbumsTableViewCell.xib; sourceTree = "<group>"; };
 		D86AD12529141139000208B6 /* FavoritePlaylistsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlaylistsTableViewCell.swift; sourceTree = "<group>"; };
 		D86AD12629141139000208B6 /* FavoritePlaylistsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritePlaylistsTableViewCell.xib; sourceTree = "<group>"; };
+		D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
+		D874B98C2917E6890082F2D7 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		D874C8882912465800075AE9 /* FirebaseFavoriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFavoriteData.swift; sourceTree = "<group>"; };
 		D874C88A2912466300075AE9 /* FirebaseFavoriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFavoriteManager.swift; sourceTree = "<group>"; };
 		D874C88D291247D300075AE9 /* FirebaseHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHistoryData.swift; sourceTree = "<group>"; };
@@ -198,6 +204,8 @@
 				D8088B1829096C2E0037555B /* RecognizeViewController.swift */,
 				D86AD11C2913F42C000208B6 /* FavoriteMusic */,
 				D8088B1C29096C4D0037555B /* ProfileViewController.swift */,
+				D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */,
+				D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */,
 				D820B9222914C50E000C8F88 /* Chat */,
 				D8573385290FBCA20009D734 /* PlaySongViewController.swift */,
 				D8B528E929163105004C8D2A /* PlaySongManager.swift */,
@@ -208,7 +216,9 @@
 		D8088B1E29096CA30037555B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D8088B2129096D8C0037555B /* Events */,
 				D874C8872912462000075AE9 /* Firebase */,
+				D874B98E2917E6930082F2D7 /* Profile */,
 				D8088B2A29096F680037555B /* Music */,
 			);
 			path = Model;
@@ -306,7 +316,6 @@
 				D85EDB9C290966C1001583F6 /* AppDelegate.swift */,
 				D85EDB9E290966C1001583F6 /* SceneDelegate.swift */,
 				D8088B1E29096CA30037555B /* Model */,
-				D8088B2129096D8C0037555B /* Events */,
 				D8088B1329096BEE0037555B /* Controller */,
 				D8A1B978290C463B007F6775 /* View */,
 				D85EDBA5290966C3001583F6 /* Assets.xcassets */,
@@ -353,6 +362,14 @@
 				D86AD11E2913F4D8000208B6 /* FavoriteMusicTableViewCell.xib */,
 			);
 			path = FavoriteMusic;
+			sourceTree = "<group>";
+		};
+		D874B98E2917E6930082F2D7 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D874B98C2917E6890082F2D7 /* ProfileData.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		D874C8872912462000075AE9 /* Firebase */ = {
@@ -504,6 +521,7 @@
 				D88550B329114E620083D050 /* GoogleService-Info.plist in Resources */,
 				D85EDBA9290966C3001583F6 /* LaunchScreen.storyboard in Resources */,
 				D8573377290E9C640009D734 /* SearchSongsResultTableViewCell.xib in Resources */,
+				D874B98B2917E4EA0082F2D7 /* ProfileTableViewCell.xib in Resources */,
 				D86AD1202913F4D8000208B6 /* FavoriteMusicTableViewCell.xib in Resources */,
 				D820B92C2915720B000C8F88 /* Assets.xcassets in Resources */,
 				D820B9262914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib in Resources */,
@@ -588,6 +606,7 @@
 				D820B9252914C552000C8F88 /* ChatMessageStrangerTableViewCell.swift in Sources */,
 				D874C8932912545600075AE9 /* FirebaseEventsTypeData.swift in Sources */,
 				D8088B1929096C2E0037555B /* RecognizeViewController.swift in Sources */,
+				D874B98A2917E4EA0082F2D7 /* ProfileTableViewCell.swift in Sources */,
 				D8088B3129096FAF0037555B /* PlaylistsSearch.swift in Sources */,
 				D8088B2729096F550037555B /* AlbumsCharts.swift in Sources */,
 				D874C88B2912466300075AE9 /* FirebaseFavoriteManager.swift in Sources */,
@@ -607,6 +626,7 @@
 				D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */,
 				D820B92A291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift in Sources */,
 				D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */,
+				D874B98D2917E6890082F2D7 /* ProfileData.swift in Sources */,
 				D874C89A2912566800075AE9 /* FirebaseUserManager.swift in Sources */,
 				D8088B3E290AB2EF0037555B /* AlbumsTableViewCell.swift in Sources */,
 				D8088B2329096F1E0037555B /* EventsData.swift in Sources */,
