@@ -78,6 +78,36 @@ class RecognizeViewController: UIViewController {
         pulsator.position = searchImage.layer.position
     }
     
+    func requestMicrophone() -> Bool {
+        
+        var isPermissionDone = false
+        
+        AVAudioSession.sharedInstance().requestRecordPermission { isGranted in
+            
+            print("Microphone permissions \(isGranted)")
+            isPermissionDone = isGranted
+
+        }
+        
+        if isPermissionDone {
+            
+            return true
+            
+        }
+        else {
+            
+            let alert = UIAlertController(title: "Error", message: "Please allow microphone usage from settings", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Open settings", style: .default, handler: { action in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+            return false
+        }
+        
+    }
+    
     func stopListening() {
         
         audioEngine.stop()
@@ -86,7 +116,12 @@ class RecognizeViewController: UIViewController {
     }
     
     private func startListening() {
+        print("========111111")
         
+        guard requestMicrophone() == true else { return }
+        
+        print("=====aaaaaaaa")
+
         guard !audioEngine.isRunning else {
             
             audioEngine.stop()
@@ -231,6 +266,8 @@ class RecognizeViewController: UIViewController {
     
     @objc func handleUpdate() {
 
+        guard requestMicrophone() == true else { return }
+        
         switch self.state {
         
         case 0:

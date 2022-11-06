@@ -15,15 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        if AVAudioSession.sharedInstance().recordPermission != .granted {
 
-            AVAudioSession.sharedInstance().requestRecordPermission { isGranted in
-
-                print("Microphone permissions \(isGranted)")
-            }
-        }
-        
         //try? AVAudioSession.sharedInstance().setCategory(.playback)
         IQKeyboardManager.shared.enable = true
         
