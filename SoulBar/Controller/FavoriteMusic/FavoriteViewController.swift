@@ -18,6 +18,10 @@ class FavoriteViewController: UIViewController {
     
     var favoritePlaylist: [[SongsSearchInfo]] = []
     
+    var favoriteLists: [[SongsSearchInfo]] = []
+    
+    var favoriteListsInfo: [FirebaseFavoriteListData] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +33,8 @@ class FavoriteViewController: UIViewController {
         
         favoriteListTableView.register(UINib.init(nibName: FavoritePlaylistsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoritePlaylistsTableViewCell.identifier)
         
+        favoriteListTableView.register(UINib.init(nibName: FavoriteListsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteListsTableViewCell.identifier)
+        
         configureNavigationButton()
     }
     
@@ -38,6 +44,7 @@ class FavoriteViewController: UIViewController {
         setupFavoriteSongs()
         setupFavoriteAlbums()
         setupFavoritePlaylists()
+        setupFavoriteLists()
     }
     
     func setupFavoriteSongs() {
@@ -101,6 +108,32 @@ class FavoriteViewController: UIViewController {
         }
     }
     
+    func setupFavoriteLists() {
+        
+        self.favoriteListsInfo = []
+        
+        FirebaseFavoriteManager.sharedInstance.fetchFavoriteListData { result in
+            
+            self.favoriteListsInfo = result
+
+            result.forEach { result in
+                
+                result.songs.forEach { id in
+                    
+                    MusicManager.sharedInstance.fetchSong(with: id) { tracks in
+                        
+                        self.favoriteLists.append(tracks)
+                        
+                        DispatchQueue.main.async {
+
+                            self.favoriteListTableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func configureNavigationButton() {
         
         let addListButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addListButton))
@@ -111,12 +144,66 @@ class FavoriteViewController: UIViewController {
     
     @objc func addListButton() {
         
-        
+        if let newListVC = self.storyboard?.instantiateViewController(withIdentifier: FavoriteAddNewListViewController.storyboardID) as? FavoriteAddNewListViewController {
+            
+            self.present(newListVC, animated: true)
+        }
         
     }
 }
 
 extension FavoriteViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        if indexPath.section == 0 {
+            
+            return false
+        }
+        else {
+            
+            return true
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            switch indexPath.section {
+                
+            case 1:
+                
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: favoriteAlbums[indexPath.row][0].id!)
+                
+                self.favoriteAlbums.remove(at: indexPath.row)
+                
+                tableView.reloadData()
+                
+            case 2:
+                
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: favoritePlaylist[indexPath.row][0].id!)
+                
+                self.favoritePlaylist.remove(at: indexPath.row)
+                
+                tableView.reloadData()
+                
+            case 3:
+                
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteListData(with: favoriteListsInfo[indexPath.row].name)
+                
+                self.favoriteListsInfo.remove(at: indexPath.row)
+                
+                tableView.reloadData()
+                
+            default:
+                
+                print("Unknown state for deleting ")
+                
+            }
+        }
+        
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -130,7 +217,11 @@ extension FavoriteViewController: UITableViewDataSource {
         }
         else if section == 2 {
             
-            return "Favorite Playlist"
+            return "Favorite Playlists"
+        }
+        else if section == 3 {
+            
+            return "Favorite Lists"
         }
         else {
             
@@ -140,7 +231,7 @@ extension FavoriteViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -164,6 +255,10 @@ extension FavoriteViewController: UITableViewDataSource {
         else if section == 2 {
             
             return self.favoritePlaylist.count
+        }
+        else if section == 3 {
+            
+            return self.favoriteListsInfo.count
         }
         else {
             
@@ -203,7 +298,7 @@ extension FavoriteViewController: UITableViewDataSource {
             }
             
             guard !favoriteAlbums.isEmpty else { return UITableViewCell() }
-            print("------\(favoriteAlbums)")
+
             cell.musicName.text = favoriteAlbums[indexPath.row][0].attributes?.name
             cell.musicType.text = "Albums"
             
@@ -238,6 +333,19 @@ extension FavoriteViewController: UITableViewDataSource {
                 
                 cell.musicImage.kf.setImage(with: URL(string: pictureURL))
             }
+            
+            return cell
+        }
+        else if indexPath.section == 3 {
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteListsTableViewCell.identifier, for: indexPath) as? FavoriteListsTableViewCell else {
+
+                fatalError("Cannot create music cell")
+            }
+
+            guard !favoriteListsInfo.isEmpty else { return UITableViewCell() }
+
+            cell.listName.text = favoriteListsInfo[indexPath.row].name
             
             return cell
         }

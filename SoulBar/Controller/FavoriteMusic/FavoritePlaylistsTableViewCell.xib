@@ -53,7 +53,7 @@
                 <outlet property="musicName" destination="lRL-1Y-pMs" id="s6w-tE-hWr"/>
                 <outlet property="musicType" destination="2td-jc-Po4" id="Whp-HM-TUS"/>
             </connections>
-            <point key="canvasLocation" x="163.768115942029" y="133.25892857142856"/>
+            <point key="canvasLocation" x="163.768115942029" y="132.58928571428572"/>
         </tableViewCell>
     </objects>
 </document>

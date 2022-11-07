@@ -151,7 +151,7 @@ class MusicManager {
 
             }
 
-            debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -477,7 +477,7 @@ class MusicManager {
 
             }
             
-            debugPrint(response)
+            // debugPrint(response)
         }
     }
     

@@ -92,7 +92,9 @@ class FirebaseFavoriteManager {
         }
     }
     
-    func fetchFavoriteListData(with name: String, completion: @escaping () -> Void) {
+    func fetchFavoriteListData(completion: @escaping ([FirebaseFavoriteListData]) -> Void) {
+        
+        var data: [FirebaseFavoriteListData] = []
         
         listDB.getDocuments { snapshot, error  in
             
@@ -100,16 +102,15 @@ class FirebaseFavoriteManager {
             
             snapshot.documents.forEach { snapshot in
                 print(snapshot.documentID)
-                if snapshot.documentID == name {
-                    
-                    guard let data = try? snapshot.data(as: FirebaseFavoriteListData.self) else { return }
-                    
-                    print(data.songs)
-                    
-                }
+
+                guard let dataPath = try? snapshot.data(as: FirebaseFavoriteListData.self) else { return }
+                
+                print(dataPath)
+                data.append(dataPath)
+
             }
             
-            completion()
+            completion(data)
         }
     }
     
@@ -128,7 +129,6 @@ class FirebaseFavoriteManager {
         document.getDocument { documentResult, error in
             
             if let documentResult = documentResult, documentResult.exists {
-                print("Update")
                 
                 document.updateData([
                     
@@ -137,11 +137,12 @@ class FirebaseFavoriteManager {
                 ])
                 
             } else {
-                print("Set")
+
                 document.setData(data)
+
             }
+            
+            completion()
         }
-        
-        completion()
     }
 }

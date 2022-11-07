@@ -1261,7 +1261,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fEZ-bp-dwl">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Playlist Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fEZ-bp-dwl">
                                 <rect key="frame" x="50" y="218" width="314" height="34"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -1277,6 +1277,9 @@
                                 <state key="normal" title="建立">
                                     <color key="titleColor" systemColor="labelColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="addNewListButton:" destination="wTz-ao-hy4" eventType="touchUpInside" id="oEC-IX-oUP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Q98-X6-CtD"/>
@@ -1292,6 +1295,9 @@
                             <constraint firstItem="fEZ-bp-dwl" firstAttribute="top" secondItem="RQX-ZF-Q8a" secondAttribute="bottom" constant="50" id="zJl-BK-I6L"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="newListTextField" destination="fEZ-bp-dwl" id="FPb-K9-fJ7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7o2-sO-nM3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
