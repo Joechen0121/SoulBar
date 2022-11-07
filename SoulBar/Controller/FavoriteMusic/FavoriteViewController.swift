@@ -144,9 +144,17 @@ class FavoriteViewController: UIViewController {
     
     @objc func addListButton() {
         
-        if let newListVC = self.storyboard?.instantiateViewController(withIdentifier: FavoriteAddNewListViewController.storyboardID) as? FavoriteAddNewListViewController {
+//        if let newListVC = self.storyboard?.instantiateViewController(withIdentifier: FavoriteAddNewListViewController.storyboardID) as? FavoriteAddNewListViewController {
+//
+//            self.present(newListVC, animated: true)
+//        }
+        if let newListPopUpVC = self.storyboard?.instantiateViewController(withIdentifier: NewListPopUpViewController.storyboardID) as? NewListPopUpViewController {
+        
+            newListPopUpVC.modalPresentationStyle = .overCurrentContext
             
-            self.present(newListVC, animated: true)
+            newListPopUpVC.modalTransitionStyle = .crossDissolve
+            
+            self.present(newListPopUpVC, animated: true)
         }
         
     }

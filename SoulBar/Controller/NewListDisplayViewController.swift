@@ -27,7 +27,7 @@ class NewListDisplayViewController: UIViewController {
         newListTableView.dataSource = self
         
         newListTableView.delegate = self
-        print(song)
+    
         configureButton()
     }
     
@@ -63,7 +63,7 @@ class NewListDisplayViewController: UIViewController {
                 }
                 
             }
-            print("======\(self.isFavoriteInLists)")
+    
             DispatchQueue.main.async {
                 
                 self.newListTableView.reloadData()

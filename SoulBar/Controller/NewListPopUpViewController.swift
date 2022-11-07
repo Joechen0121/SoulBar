@@ -22,22 +22,23 @@ class NewListPopUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        let backgroundImageView = UIImageView(image: UIImage(named: "demoAlbum"))
+        backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
         let backgroundEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
         backgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        backgroundEffectView.backgroundColor = UIColor.black
-        
+
         let container = UIView()
         container.frame = view.bounds
         container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
+        backgroundImageView.frame = container.bounds
         backgroundEffectView.frame = container.bounds
         
+        container.addSubview(backgroundImageView)
         container.addSubview(backgroundEffectView)
         
         view.insertSubview(container, at: 0)
-        
-        //self.definesPresentationContext = true
         
         configureButton()
         
@@ -57,12 +58,13 @@ class NewListPopUpViewController: UIViewController {
     }
     
     @IBAction func confirmButton(_ sender: UIButton) {
-        
-        guard let text = newListTextField.text else { return }
-        
+    
+        guard let text = newListTextField.text, !text.isEmpty else { return }
+    
         FirebaseFavoriteManager.sharedInstance.addFavoriteListData(with: text, id: "") { [weak self] in
             
             guard let self = self else { return }
+            
             self.dismiss(animated: true)
         }
 
