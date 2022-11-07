@@ -13,6 +13,10 @@ class NewListDisplayViewController: UIViewController {
     
     var favoriteListsInfo: [FirebaseFavoriteListData] = []
     
+    var isFavoriteInLists: [Bool] = []
+    
+    var song: SongsSearchInfo?
+    
     @IBOutlet weak var newListTableView: UITableView!
     
     @IBOutlet weak var newListButton: UIButton!
@@ -23,7 +27,7 @@ class NewListDisplayViewController: UIViewController {
         newListTableView.dataSource = self
         
         newListTableView.delegate = self
-        
+        print(song)
         configureButton()
     }
     
@@ -37,10 +41,29 @@ class NewListDisplayViewController: UIViewController {
         
         self.favoriteListsInfo = []
         
+        self.isFavoriteInLists = []
+        
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteListData { result in
             
             self.favoriteListsInfo = result
-
+            
+            for listIndex in 0..<result.count {
+                
+                guard let song = self.song else {
+                    return
+                }
+                
+                if !result[listIndex].songs.filter({ $0 == song.id }).isEmpty {
+                    
+                    self.isFavoriteInLists.append(true)
+                }
+                else {
+                    
+                    self.isFavoriteInLists.append(false)
+                }
+                
+            }
+            print("======\(self.isFavoriteInLists)")
             DispatchQueue.main.async {
                 
                 self.newListTableView.reloadData()
@@ -82,7 +105,17 @@ extension NewListDisplayViewController: UITableViewDataSource {
             fatalError("Cannot create new list table cell")
         }
         
+        guard !favoriteListsInfo.isEmpty else { return UITableViewCell() }
+        
         cell.listName.text = favoriteListsInfo[indexPath.row].name
+
+        if isFavoriteInLists[indexPath.row] == true {
+            
+            cell.listStatusImage.image = UIImage(systemName: "checkmark.circle.fill")
+        }
+        else {
+            cell.listStatusImage.image = nil
+        }
         
         return cell
         
@@ -93,6 +126,32 @@ extension NewListDisplayViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print(indexPath.row)
+        guard let songID = song?.id else { return }
+
+        if isFavoriteInLists[indexPath.row] == true {
+            
+            // Remove
+            print("remove")
+            print(favoriteListsInfo[indexPath.row].name)
+            FirebaseFavoriteManager.sharedInstance.removeFavoriteSongListData(with: favoriteListsInfo[indexPath.row].name, songID: songID) {
+                print("1111111111")
+                self.isFavoriteInLists[indexPath.row] = false
+                
+                tableView.reloadData()
+            }
+            
+        }
+        else {
+            
+            // Add
+            FirebaseFavoriteManager.sharedInstance.addFavoriteListData(with: favoriteListsInfo[indexPath.row].name, id: songID) {
+                
+                print("add successfully")
+                
+                self.isFavoriteInLists[indexPath.row] = true
+                
+                tableView.reloadData()
+            }
+        }
     }
 }

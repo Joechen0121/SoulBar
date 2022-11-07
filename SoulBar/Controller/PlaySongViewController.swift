@@ -95,6 +95,12 @@ class PlaySongViewController: UIViewController {
             if let sheetPresentationController = newListVC.sheetPresentationController {
                 sheetPresentationController.detents = [.medium()]
                 
+                guard let songs = songs else {
+                    return
+                }
+                
+                newListVC.song = songs[currentItemIndex]
+                
                 present(newListVC, animated: true)
             }
         }

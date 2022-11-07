@@ -130,17 +130,24 @@ class FirebaseFavoriteManager {
             
             if let documentResult = documentResult, documentResult.exists {
                 
-                document.updateData([
-                    
-                    "songs": FieldValue.arrayUnion([id])
-                    
-                ])
+                document.updateData(["songs": FieldValue.arrayUnion([id])])
                 
             } else {
 
                 document.setData(data)
-
             }
+            
+            completion()
+        }
+    }
+    
+    func removeFavoriteSongListData(with name: String, songID: String, completion: @escaping () -> Void) {
+        
+        let document = listDB.document(name)
+    
+        document.updateData(["songs": FieldValue.arrayRemove([songID])]) { error in
+
+            guard error == nil else { return }
             
             completion()
         }
