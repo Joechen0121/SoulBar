@@ -88,6 +88,19 @@ class PlaySongViewController: UIViewController {
         configureButton(currentItemIndex: currentItemIndex)
     }
     
+    @IBAction func addToListButton(_ sender: UIButton) {
+        
+        if let newListVC = self.storyboard?.instantiateViewController(withIdentifier: NewListDisplayViewController.storyboardID) as? NewListDisplayViewController {
+            
+            if let sheetPresentationController = newListVC.sheetPresentationController {
+                sheetPresentationController.detents = [.medium()]
+                
+                present(newListVC, animated: true)
+            }
+        }
+        
+    }
+    
     func configureButton(currentItemIndex: Int) {
         
         guard let songs = songs else {
