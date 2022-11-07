@@ -54,6 +54,24 @@ class PlaySongViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backgroundImageView = UIImageView(image: UIImage(named: "demoAlbum"))
+        backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let backgroundEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+        backgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let container = UIView()
+        container.frame = view.bounds
+        container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        backgroundImageView.frame = container.bounds
+        backgroundEffectView.frame = container.bounds
+        
+        container.addSubview(backgroundImageView)
+        container.addSubview(backgroundEffectView)
+        
+        view.insertSubview(container, at: 0)
 
         PlaySongManager.sharedInstance.setupRemoteTransportControls()
         
@@ -309,6 +327,4 @@ extension PlaySongViewController: PlaySongDelegate {
             break
         }
     }
-    
-    
 }
