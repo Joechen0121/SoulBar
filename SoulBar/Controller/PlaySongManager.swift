@@ -65,7 +65,7 @@ class PlaySongManager: NSObject {
     
     var queuePlayer: AVQueuePlayer?
     
-    var playerItem: [AVPlayerItem]?
+    var playerItem: AVPlayerItem?
     
     var currentSong: SongsSearchInfo?
     
