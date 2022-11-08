@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol MiniPlayerDelegate {
     
@@ -25,7 +26,6 @@ class MiniPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //self.view.backgroundColor = .white
         let backgroundImageView = UIImageView(image: UIImage(named: "demoAlbum"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
@@ -92,6 +92,28 @@ class MiniPlayerViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
         view.addGestureRecognizer(tap)
         view.isUserInteractionEnabled = true
+        
+        self.playPauseButton.addTarget(self, action: #selector(playPauseMusic), for: .touchUpInside)
+    }
+    
+    @objc func playPauseMusic() {
+        
+        if PlaySongManager.sharedInstance.player.timeControlStatus == .playing {
+
+            PlaySongManager.sharedInstance.pauseMusic()
+            
+            self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        }
+        else {
+            guard let song = PlaySongManager.sharedInstance.currentSong, let url = PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url else {
+                
+                return
+            }
+            
+            PlaySongManager.sharedInstance.playMusic(url: url)
+            
+            self.playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
     }
 
     @objc func tapDetected() {

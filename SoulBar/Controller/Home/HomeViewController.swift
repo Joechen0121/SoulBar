@@ -134,7 +134,9 @@ extension HomeViewController: SongsDelegate {
                 
                 playSongVC.songs = result
                 
-                self.navigationController?.pushViewController(playSongVC, animated: true)
+                
+                self.present(playSongVC, animated: true)
+                //self.navigationController?.pushViewController(playSongVC, animated: true)
             }
            
         }

@@ -31,6 +31,71 @@ class RootTabBarViewController: UITabBarController {
 
         setConstraints()
         print("Tab bar controller")
+        
+        if PlaySongManager.sharedInstance.player.status == AVPlayer.Status.readyToPlay {
+            
+            miniPlayer.view.isHidden = false
+        }
+        else {
+            
+            miniPlayer.view.isHidden = true
+        }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateMiniPlayerView),
+            name: Notification.Name(rawValue: "didUpdateMiniPlayerView"),
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateMiniPlayerButton),
+            name: Notification.Name(rawValue: "didUpdateMiniPlayerButton"),
+            object: nil
+        )
+    }
+    
+    @objc func updateMiniPlayerView() {
+        
+        miniPlayer.view.isHidden = false
+        
+        updateMiniPlayerUI()
+    }
+    
+    @objc func updateMiniPlayerButton() {
+
+        print(#function)
+        
+        print("--------\(PlaySongManager.sharedInstance.player.timeControlStatus)")
+        
+        if PlaySongManager.sharedInstance.player.timeControlStatus == .paused {
+            
+            print("=======mini play")
+            miniPlayer.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            
+        }
+        else {
+            
+            print("=======mini pause")
+            miniPlayer.playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        
+        }
+    }
+    
+    func updateMiniPlayerUI() {
+
+        guard let song = PlaySongManager.sharedInstance.currentSong else { return }
+    
+        miniPlayer.songName.text = song.attributes?.name
+        
+        if let artworkURL = song.attributes?.artwork?.url, let width = song.attributes?.artwork?.width, let height = song.attributes?.artwork?.height {
+            
+            let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+            
+            miniPlayer.songImage.kf.setImage(with: URL(string: pictureURL))
+        }
+        
     }
 
     func addChildView() {
@@ -54,6 +119,12 @@ class RootTabBarViewController: UITabBarController {
             miniPlayer.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("tab bar=======")
+    }
 }
 
 extension RootTabBarViewController: MiniPlayerDelegate {
@@ -66,12 +137,12 @@ extension RootTabBarViewController: MiniPlayerDelegate {
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
                 guard let url = PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url else { return }
+
+                var data = [SongsSearchInfo]()
                 
-                var song: [SongsSearchInfo] = []
-                
-                song.append(PlaySongManager.sharedInstance.currentSong!)
-                
-                playSongVC.songs = song
+                data.append(PlaySongManager.sharedInstance.currentSong!)
+                print(data)
+                playSongVC.songs = data
 
                 self.present(playSongVC, animated: true)
             }

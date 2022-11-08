@@ -257,7 +257,8 @@ class SearchDetailsViewController: UIViewController {
                     
                 playSongVC.songs = response
                 
-                self.navigationController?.pushViewController(playSongVC, animated: true)
+                present(playSongVC, animated: true)
+                //self.navigationController?.pushViewController(playSongVC, animated: true)
             }
         }
         else if state == albumType {

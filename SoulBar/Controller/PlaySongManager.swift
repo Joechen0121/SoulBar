@@ -63,9 +63,15 @@ class PlaySongManager: NSObject {
     
     var timerInvalid = false
     
-    var playerItem: AVPlayerItem?
+    var queuePlayer: AVQueuePlayer?
+    
+    var playerItem: [AVPlayerItem]?
     
     var currentSong: SongsSearchInfo?
+    
+    var songs: [SongsSearchInfo]?
+    
+    var currentTime: Double = 0
     
     func setupPlayer(with url: URL) {
         
@@ -107,6 +113,8 @@ class PlaySongManager: NSObject {
                 
                 let currentTime = currentItem.currentTime()
                 self.position = PlayerPosition(duration: Int(duration), current: Int(CMTimeGetSeconds(currentTime)))
+                
+                self.currentTime = self.player.currentTime().seconds
                 
                 self.delegate?.didUpdatePosition(self.player, self.position)
             }
@@ -163,17 +171,20 @@ class PlaySongManager: NSObject {
             if let isPlaybackLikelyToKeepUp = player.currentItem?.isPlaybackLikelyToKeepUp,
                 player.timeControlStatus != .playing && !isPlaybackLikelyToKeepUp {
                 delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingStartNotification)
-                print("Playerstatus Buffer Start")
+                //print("Playerstatus Buffer Start")
             } else {
                 delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingEndNotification)
-                print("PlayerStatus Buffer End")
+                //print("PlayerStatus Buffer End")
             }
         }
     }
     
     func startPlayer() {
         
-        PlaySongManager.sharedInstance.player.play()
+        guard let song = currentSong, let url = song.attributes?.previews?[0].url else { return }
+        
+        PlaySongManager.sharedInstance.playMusic(url: url)
+        //self.player.play()
         
         delegate?.didReceiveNotification(player: self.player, notification: .PlayerDidToPlayNotification)
         
@@ -231,6 +242,7 @@ class PlaySongManager: NSObject {
         switch notification.name {
         case .AVPlayerItemDidPlayToEndTime:
             delegate?.didReceiveNotification(player: self.player, notification: .PlayerPlayFinishNotification)
+            self.currentTime = 0
         case .AVPlayerItemFailedToPlayToEndTime:
             delegate?.didReceiveNotification(player: self.player, notification: .PlayerFailedNotification)
         default:
@@ -263,7 +275,7 @@ class PlaySongManager: NSObject {
         
         commandCenter.changePlaybackPositionCommand.addTarget { [unowned self] event in
             
-            if let event = event as? MPChangePlaybackPositionCommandEvent{
+            if let event = event as? MPChangePlaybackPositionCommandEvent {
                 let percent = Float(event.positionTime) / Float(self.position.duration)
                 print("change playback", percent)
                 seekTo(Double(percent))
@@ -316,18 +328,16 @@ class PlaySongManager: NSObject {
     func playMusic(url: String) {
         
         print("Play")
-        
-        guard let time = playerItem?.currentTime() else { return }
-        
-        player.seek(to: time)
-        
-        print(time)
 
-        let musicURL = URL.init(fileURLWithPath: url)
-
-        playerItem = AVPlayerItem(url: musicURL)
+        let musicURL = URL(string: url)
+        
+        playerItem = AVPlayerItem(url: musicURL!)
 
         player.replaceCurrentItem(with: playerItem)
+        
+        let time = CMTime(seconds: self.currentTime, preferredTimescale: 1)
+        
+        player.seek(to: time)
         
         player.play()
 

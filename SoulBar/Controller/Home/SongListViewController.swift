@@ -506,7 +506,8 @@ class SongListViewController: UIViewController {
                 print("Unknown state for configuring song data")
             }
             print(songs)
-            self.navigationController?.pushViewController(playSongVC, animated: true)
+            present(playSongVC, animated: true)
+            //self.navigationController?.pushViewController(playSongVC, animated: true)
         }
     }
     
