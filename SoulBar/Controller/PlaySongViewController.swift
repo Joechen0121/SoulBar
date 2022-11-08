@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 import AVFoundation
 import AVFAudio
+import SwiftUI
 
 class PlaySongViewController: UIViewController {
 
@@ -74,6 +75,11 @@ class PlaySongViewController: UIViewController {
         view.insertSubview(container, at: 0)
 
         PlaySongManager.sharedInstance.setupRemoteTransportControls()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         guard let songs = songs else {
             return
@@ -81,12 +87,10 @@ class PlaySongViewController: UIViewController {
         
         PlaySongManager.sharedInstance.songs = songs
         
-        if songs[0].attributes?.previews?[0].url == PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url {
+        if songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url == PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url {
             
             print("From miniplayer")
-            
-            guard let url = PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url else { return }
-            
+            print("\(#function)  \(PlaySongManager.sharedInstance.current)")
             selectData(index: PlaySongManager.sharedInstance.current, isFromMiniPlayer: true)
             
             playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
@@ -97,14 +101,18 @@ class PlaySongViewController: UIViewController {
             
             PlaySongManager.sharedInstance.currentTime = 0
             
-            selectData(index: 0, isFromMiniPlayer: false)
+            if songs.count < PlaySongManager.sharedInstance.current {
+                
+                selectData(index: 0, isFromMiniPlayer: false)
+            }
+            else {
+                selectData(index: PlaySongManager.sharedInstance.current, isFromMiniPlayer: false)
+            }
+            
+            print("\(#function)  \(PlaySongManager.sharedInstance.current)")
+            
 
         }
-
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         configureSong()
         
@@ -247,6 +255,8 @@ class PlaySongViewController: UIViewController {
         selectData(index: currentItemIndex, isFromMiniPlayer: false)
         
         configureSong()
+        
+        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
     }
     
     @IBAction func nextButton(_ sender: UIButton) {
@@ -260,6 +270,8 @@ class PlaySongViewController: UIViewController {
         selectData(index: currentItemIndex, isFromMiniPlayer: false)
         
         configureSong()
+        
+        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
         
     }
     
@@ -305,15 +317,17 @@ class PlaySongViewController: UIViewController {
     func selectData(index: Int, isFromMiniPlayer: Bool) {
         
         guard let songs = songs else { return }
-
+        
+        print("\(#function)  \(index)")
+        print("\(#function)  \(songs.count)")
         currentItemIndex = index
-
+        print("\(#function)  \(currentItemIndex)")
         singerLabel.text = songs[self.currentItemIndex].attributes?.artistName
         songLabel.text = songs[self.currentItemIndex].attributes?.name
         
         PlaySongManager.sharedInstance.current = currentItemIndex
         PlaySongManager.sharedInstance.maxCount = songs.count
-        
+        print("\(#function)  \(PlaySongManager.sharedInstance.current)")
         if let url = songs[self.currentItemIndex].attributes?.previews?[0].url, let songURL = URL(string: url) {
             
             if isFromMiniPlayer == true {

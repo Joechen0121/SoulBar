@@ -197,6 +197,7 @@ class PlaySongManager: NSObject {
     func closePlayer() {
         self.pauseMusic()
         self.player.replaceCurrentItem(with: nil)
+        self.currentTime = 0
         self.removePlayerObserve()
         self.removeTimeObserve()
         NotificationCenter.default.removeObserver(self)

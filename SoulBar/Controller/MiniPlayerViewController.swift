@@ -105,7 +105,8 @@ class MiniPlayerViewController: UIViewController {
             self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
         else {
-            guard let song = PlaySongManager.sharedInstance.currentSong, let url = PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url else {
+            
+            guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current], let url = song.attributes?.previews?[0].url else {
                 
                 return
             }

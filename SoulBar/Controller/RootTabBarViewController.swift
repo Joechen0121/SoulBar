@@ -64,20 +64,14 @@ class RootTabBarViewController: UITabBarController {
     }
     
     @objc func updateMiniPlayerButton() {
-
-        print(#function)
-        
-        print("--------\(PlaySongManager.sharedInstance.player.timeControlStatus)")
         
         if PlaySongManager.sharedInstance.player.timeControlStatus == .paused {
             
-            print("=======mini play")
             miniPlayer.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             
         }
         else {
             
-            print("=======mini pause")
             miniPlayer.playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
         
         }
@@ -122,28 +116,20 @@ class RootTabBarViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        print("tab bar=======")
+    
     }
 }
 
 extension RootTabBarViewController: MiniPlayerDelegate {
     
     func presentPlaySongView() {
-        print("======delegate present")
 
         if PlaySongManager.sharedInstance.player.status == AVPlayer.Status.readyToPlay {
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
-                guard let url = PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url else { return }
-
-                var data = [SongsSearchInfo]()
+                playSongVC.songs = PlaySongManager.sharedInstance.songs
                 
-                data.append(PlaySongManager.sharedInstance.currentSong!)
-                print(data)
-                playSongVC.songs = data
-
                 self.present(playSongVC, animated: true)
             }
         }
