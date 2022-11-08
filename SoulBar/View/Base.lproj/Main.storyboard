@@ -1113,10 +1113,10 @@
             </objects>
             <point key="canvasLocation" x="4279.7101449275369" y="191.51785714285714"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Root Tab Bar View Controller-->
         <scene sceneID="CMT-sn-W7v">
             <objects>
-                <tabBarController id="bqb-rr-Jth" sceneMemberID="viewController">
+                <tabBarController id="bqb-rr-Jth" customClass="RootTabBarViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qNE-kc-EQd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

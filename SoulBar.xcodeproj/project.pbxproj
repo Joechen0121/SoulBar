@@ -88,6 +88,8 @@
 		D8A1B97C290C46C6007F6775 /* SongListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1B97B290C46C6007F6775 /* SongListViewController.swift */; };
 		D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */; };
 		D8B528EA29163105004C8D2A /* PlaySongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B528E929163105004C8D2A /* PlaySongManager.swift */; };
+		D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */; };
+		D8FABE482919F1450094A77F /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE472919F1450094A77F /* RootTabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -175,6 +177,8 @@
 		D8A1B97B290C46C6007F6775 /* SongListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListViewController.swift; sourceTree = "<group>"; };
 		D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListTableViewCell.swift; sourceTree = "<group>"; };
 		D8B528E929163105004C8D2A /* PlaySongManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySongManager.swift; sourceTree = "<group>"; };
+		D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
+		D8FABE472919F1450094A77F /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
 		DE5455BF34A43BE4803E4EB7 /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -224,6 +228,8 @@
 				D874B997291900260082F2D7 /* NewListPopUpViewController.swift */,
 				D874B99929190B720082F2D7 /* NewListDisplayViewController.swift */,
 				D874B99B29190E340082F2D7 /* NewListTableViewCell.swift */,
+				D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */,
+				D8FABE472919F1450094A77F /* RootTabBarViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -626,6 +632,7 @@
 				D874C8932912545600075AE9 /* FirebaseEventsTypeData.swift in Sources */,
 				D8088B1929096C2E0037555B /* RecognizeViewController.swift in Sources */,
 				D874B98A2917E4EA0082F2D7 /* ProfileTableViewCell.swift in Sources */,
+				D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */,
 				D874B99A29190B720082F2D7 /* NewListDisplayViewController.swift in Sources */,
 				D8088B3129096FAF0037555B /* PlaylistsSearch.swift in Sources */,
 				D874B99C29190E340082F2D7 /* NewListTableViewCell.swift in Sources */,
@@ -637,6 +644,7 @@
 				D86AD12329141124000208B6 /* FavoriteAlbumsTableViewCell.swift in Sources */,
 				D8A1B96C290C228E007F6775 /* EventsTableViewCell.swift in Sources */,
 				D85EDB9D290966C1001583F6 /* AppDelegate.swift in Sources */,
+				D8FABE482919F1450094A77F /* RootTabBarViewController.swift in Sources */,
 				D8A1B96A290C1B56007F6775 /* ArtistsSearch.swift in Sources */,
 				D8A1B970290C3419007F6775 /* PlaylistsTableViewCell.swift in Sources */,
 				D8573381290EA9150009D734 /* SearchAllResultTableViewCell.swift in Sources */,

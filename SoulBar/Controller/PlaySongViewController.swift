@@ -75,9 +75,28 @@ class PlaySongViewController: UIViewController {
 
         PlaySongManager.sharedInstance.setupRemoteTransportControls()
         
-        selectData(index: 0)
+        guard let songs = songs else {
+            return
+        }
         
-
+        if songs[0].attributes?.previews?[0].url == PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url {
+            
+            print("From miniplayer")
+            
+            guard let url = PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url else { return }
+            
+            selectData(index: PlaySongManager.sharedInstance.current, isFromMiniPlayer: true)
+            
+            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
+        else {
+            
+            print("From clicked")
+            
+            selectData(index: 0, isFromMiniPlayer: false)
+            
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -218,7 +237,7 @@ class PlaySongViewController: UIViewController {
         
         currentItemIndex = (currentItemIndex + songs.count - 1) % songs.count
         
-        selectData(index: currentItemIndex)
+        selectData(index: currentItemIndex, isFromMiniPlayer: false)
         
         configureSong()
     }
@@ -231,7 +250,7 @@ class PlaySongViewController: UIViewController {
 
         currentItemIndex = (currentItemIndex + songs.count + 1) % songs.count
         
-        selectData(index: currentItemIndex)
+        selectData(index: currentItemIndex, isFromMiniPlayer: false)
         
         configureSong()
         
@@ -253,12 +272,12 @@ class PlaySongViewController: UIViewController {
             playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             status = .pause
         case .unowned:
-            selectData(index: 0)
+            selectData(index: 0, isFromMiniPlayer: false)
             status = .play
         }
     }
     
-    func selectData(index: Int) {
+    func selectData(index: Int, isFromMiniPlayer: Bool) {
         
         guard let songs = songs else { return }
 
@@ -270,9 +289,19 @@ class PlaySongViewController: UIViewController {
         PlaySongManager.sharedInstance.current = currentItemIndex
         PlaySongManager.sharedInstance.maxCount = songs.count
         
-        if let url = songs[self.currentItemIndex].attributes?.previews?[0].url, let songURL = URL(string: url)  {
+        if let url = songs[self.currentItemIndex].attributes?.previews?[0].url, let songURL = URL(string: url) {
             
-            PlaySongManager.sharedInstance.setupPlayer(with: songURL)
+            if isFromMiniPlayer == true {
+                
+                PlaySongManager.sharedInstance.playMusic(url: url)
+                
+            }
+            else {
+                
+                PlaySongManager.sharedInstance.setupPlayer(with: songURL)
+            }
+            
+            PlaySongManager.sharedInstance.currentSong = songs[currentItemIndex]
             
             PlaySongManager.sharedInstance.delegate = self
             
@@ -325,16 +354,16 @@ extension PlaySongViewController: PlaySongDelegate {
                 
             case .loop:
                 currentItemIndex = (currentItemIndex + songs.count + 1) % songs.count
-                selectData(index: currentItemIndex)
+                selectData(index: currentItemIndex, isFromMiniPlayer: false)
                 
             case .random:
                 currentItemIndex = Int.random(in: 0..<songs.count)
-                selectData(index: currentItemIndex)
+                selectData(index: currentItemIndex, isFromMiniPlayer: false)
                 
             case .single:
                 if currentItemIndex + 1 < songs.count {
                     currentItemIndex = (currentItemIndex + songs.count + 1) % songs.count
-                    selectData(index: currentItemIndex)
+                    selectData(index: currentItemIndex, isFromMiniPlayer: false)
                 }
                 else {
                     playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)

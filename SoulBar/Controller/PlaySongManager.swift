@@ -15,7 +15,7 @@ public protocol PlaySongDelegate: AnyObject {
     
     func didUpdatePosition(_ player: AVPlayer?, _ position: PlayerPosition)
     
-    func selectData(index: Int)
+    func selectData(index: Int, isFromMiniPlayer: Bool)
 }
 
 public struct PlayerPosition {
@@ -61,9 +61,11 @@ class PlaySongManager: NSObject {
     
     var playerObserver: Any?
     
-    var timerInvalid: Bool = false
+    var timerInvalid = false
     
     var playerItem: AVPlayerItem?
+    
+    var currentSong: SongsSearchInfo?
     
     func setupPlayer(with url: URL) {
         
@@ -171,7 +173,7 @@ class PlaySongManager: NSObject {
     
     func startPlayer() {
         
-        self.player.play()
+        PlaySongManager.sharedInstance.player.play()
         
         delegate?.didReceiveNotification(player: self.player, notification: .PlayerDidToPlayNotification)
         
@@ -272,7 +274,7 @@ class PlaySongManager: NSObject {
         
         commandCenter.previousTrackCommand.addTarget { [unowned self] _ in
             print((current + maxCount - 1) % maxCount)
-            delegate?.selectData(index: (current + maxCount - 1) % maxCount)
+            delegate?.selectData(index: (current + maxCount - 1) % maxCount, isFromMiniPlayer: false)
             
             return.success
             
@@ -281,7 +283,7 @@ class PlaySongManager: NSObject {
         commandCenter.nextTrackCommand.addTarget { [unowned self] event in
             if event.timestamp != 0 {
                 print((current + maxCount + 1) % maxCount)
-                delegate?.selectData(index: (current + maxCount + 1) % maxCount)
+                delegate?.selectData(index: (current + maxCount + 1) % maxCount, isFromMiniPlayer: false)
             }
             return.success
             
@@ -314,6 +316,12 @@ class PlaySongManager: NSObject {
     func playMusic(url: String) {
         
         print("Play")
+        
+        guard let time = playerItem?.currentTime() else { return }
+        
+        player.seek(to: time)
+        
+        print(time)
 
         let musicURL = URL.init(fileURLWithPath: url)
 
