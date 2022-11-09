@@ -171,10 +171,10 @@ class PlaySongManager: NSObject {
             if let isPlaybackLikelyToKeepUp = player.currentItem?.isPlaybackLikelyToKeepUp,
                 player.timeControlStatus != .playing && !isPlaybackLikelyToKeepUp {
                 delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingStartNotification)
-                //print("Playerstatus Buffer Start")
+                print("Playerstatus Buffer Start")
             } else {
                 delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingEndNotification)
-                //print("PlayerStatus Buffer End")
+                print("PlayerStatus Buffer End")
             }
         }
     }

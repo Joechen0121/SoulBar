@@ -42,8 +42,6 @@ class RecognizeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PlaySongManager.sharedInstance.pauseMusic()
-        
         stopButton.isHidden = true
         
         session.delegate = self
@@ -97,9 +95,10 @@ class RecognizeViewController: UIViewController {
         else {
             
             let alert = UIAlertController(title: "Error", message: "Please allow microphone usage from settings", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Open settings", style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: "Open settings", style: .default) { _ in
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-            }))
+            })
+            
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
             
@@ -133,6 +132,21 @@ class RecognizeViewController: UIViewController {
         }
         
         let audioSession = AVAudioSession.sharedInstance()
+        
+        do {
+            
+            try audioSession.setCategory(.playAndRecord)
+            
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            
+        } catch {
+            print("setting category or active state failed")
+            
+        }
+        
+        PlaySongManager.sharedInstance.pauseMusic()
+        
+        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
         
         audioSession.requestRecordPermission { granted in
 
