@@ -573,7 +573,7 @@
             </objects>
             <point key="canvasLocation" x="-1615.9420289855075" y="175.44642857142856"/>
         </scene>
-        <!--SoulBar-->
+        <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
@@ -582,7 +582,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fCi-KE-X60">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongsTableViewCell" rowHeight="369" id="BRk-J5-n34" customClass="SongsTableViewCell" customModule="SoulBar" customModuleProvider="target">
@@ -680,10 +680,10 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fCi-KE-X60" secondAttribute="bottom" id="ERp-WT-CAd"/>
                             <constraint firstItem="fCi-KE-X60" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Qjw-9l-yjg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fCi-KE-X60" secondAttribute="trailing" id="Tz0-vu-qqr"/>
-                            <constraint firstItem="fCi-KE-X60" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uGC-DF-zEp"/>
+                            <constraint firstItem="fCi-KE-X60" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="uGC-DF-zEp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="SoulBar" id="KRc-DL-F3R"/>
+                    <navigationItem key="navigationItem" id="KRc-DL-F3R"/>
                     <connections>
                         <outlet property="homeTableView" destination="fCi-KE-X60" id="5qn-dq-cPu"/>
                     </connections>
@@ -1143,9 +1143,13 @@
                         <color key="badgeColor" systemColor="systemBackgroundColor"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="1aF-gM-u9A">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1aF-gM-u9A">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1160,10 +1164,13 @@
         <scene sceneID="BO9-GS-3zB">
             <objects>
                 <navigationController id="Ywh-au-ijP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="character.book.closed.fill" catalog="system" id="T0P-zZ-jvv"/>
+                    <tabBarItem key="tabBarItem" title="" image="character.book.closed.fill" catalog="system" id="T0P-zZ-jvv">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="D23-zM-kjT">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="pV2-rL-4LZ" kind="relationship" relationship="rootViewController" id="sQm-2N-lyZ"/>
@@ -1181,6 +1188,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="MjS-h6-AKt">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="qDZ-Z1-qd8" kind="relationship" relationship="rootViewController" id="KhV-ar-JbG"/>
@@ -1198,6 +1206,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Drm-0T-eyS">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="am1-SD-28r" kind="relationship" relationship="rootViewController" id="YXb-if-Dp8"/>
@@ -1215,6 +1224,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="6XQ-GW-ZHm">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="e2c-J1-ieh" kind="relationship" relationship="rootViewController" id="d7p-Yu-Bvq"/>

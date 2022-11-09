@@ -72,6 +72,16 @@ class SearchDetailsViewController: UIViewController {
         configureButton()
         
         configureTextField()
+        
+//        self.navigationItem.title = "Search"
+//
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)]
+//
+//        self.navigationController?.navigationBar.backgroundColor = .white
+//
+//        self.navigationItem.largeTitleDisplayMode = .never
+//
+//        self.navigationItem.leftBarButtonItem?.tintColor = UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)
 
     }
     
