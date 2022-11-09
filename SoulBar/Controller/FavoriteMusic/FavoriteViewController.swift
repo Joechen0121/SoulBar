@@ -8,7 +8,7 @@
 import UIKit
 import CoreMedia
 
-class FavoriteViewController: UIViewController {
+class FavoriteViewController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var favoriteListTableView: UITableView!
     
@@ -22,10 +22,14 @@ class FavoriteViewController: UIViewController {
     
     var favoriteListsInfo: [FirebaseFavoriteListData] = []
     
+    private let imageView = UIImageView(image: UIImage(systemName: "plus"))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         favoriteListTableView.dataSource = self
+        
+        favoriteListTableView.delegate = self
         
         favoriteListTableView.register(UINib.init(nibName: FavoriteMusicTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicTableViewCell.identifier)
         
@@ -35,7 +39,79 @@ class FavoriteViewController: UIViewController {
         
         favoriteListTableView.register(UINib.init(nibName: FavoriteListsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteListsTableViewCell.identifier)
         
-        configureNavigationButton()
+        //configureNavigationButton()
+        
+        setupUI()
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        showImage(false)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showImage(true)
+    }
+    
+    private func showImage(_ show: Bool) {
+        UIView.animate(withDuration: 0.2) {
+            self.imageView.alpha = show ? 1.0 : 0.0
+        }
+    }
+    
+    private func setupUI() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+        title = "Music Library"
+
+        // Initial setup for image for Large NavBar state since the the screen always has Large NavBar once it gets opened
+        guard let navigationBar = self.navigationController?.navigationBar else { return }
+        navigationBar.addSubview(imageView)
+        imageView.layer.cornerRadius = K.ImageSizeForLargeState / 2
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -K.ImageRightMargin),
+            imageView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -K.ImageBottomMarginForLargeState),
+            imageView.heightAnchor.constraint(equalToConstant: K.ImageSizeForLargeState),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)])
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addListButton))
+        
+        imageView.isUserInteractionEnabled = true
+        
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    private func moveAndResizeImage(for height: CGFloat) {
+        let coeff: CGFloat = {
+            let delta = height - K.NavBarHeightSmallState
+            let heightDifferenceBetweenStates = (K.NavBarHeightLargeState - K.NavBarHeightSmallState)
+            return delta / heightDifferenceBetweenStates
+        }()
+
+        let factor = K.ImageSizeForSmallState / K.ImageSizeForLargeState
+
+        let scale: CGFloat = {
+            let sizeAddendumFactor = coeff * (1.0 - factor)
+            return min(1.0, sizeAddendumFactor + factor)
+        }()
+
+        // Value of difference between icons for large and small states
+        let sizeDiff = K.ImageSizeForLargeState * (1.0 - factor) // 8.0
+        let yTranslation: CGFloat = {
+ 
+            let maxYTranslation = K.ImageBottomMarginForLargeState - K.ImageBottomMarginForSmallState + sizeDiff
+            return max(0, min(maxYTranslation, (maxYTranslation - coeff * (K.ImageBottomMarginForSmallState + sizeDiff))))
+        }()
+
+        let xTranslation = max(0, sizeDiff - coeff * sizeDiff)
+
+        imageView.transform = CGAffineTransform.identity
+            .scaledBy(x: scale, y: scale)
+            .translatedBy(x: xTranslation, y: yTranslation)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -358,4 +434,15 @@ extension FavoriteViewController: UITableViewDataSource {
             return UITableViewCell()
         }
     }
+}
+
+extension FavoriteViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        guard let height = navigationController?.navigationBar.frame.height else { return }
+        
+        moveAndResizeImage(for: height)
+    }
+
 }
