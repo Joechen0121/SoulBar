@@ -68,16 +68,29 @@ class SongListViewController: UIViewController {
     
     var isFavorite = false
     
+    @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         songListTableView.dataSource = self
         
         songListTableView.delegate = self
+        
+        imageWidthConstraint.constant = UIScreen.main.bounds.height / 2
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.navigationItem.largeTitleDisplayMode = .always
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationItem.largeTitleDisplayMode = .never
         
         if state == fromPlaylist {
             

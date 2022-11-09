@@ -23,6 +23,7 @@ class SearchArtistsResultTableViewCell: UITableViewCell {
         widthConstraint.constant = UIScreen.main.bounds.height / 7
         
         self.artistImage.layer.masksToBounds = true
+        
         self.artistImage.layer.cornerRadius = UIScreen.main.bounds.height / 7 / 2
         // Initialization code
     }

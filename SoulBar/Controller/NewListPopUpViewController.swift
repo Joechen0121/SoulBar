@@ -23,7 +23,7 @@ class NewListPopUpViewController: UIViewController {
         super.viewDidLoad()
         
         //let backgroundImageView = UIImageView(image: UIImage(named: "demoAlbum"))
-        let backgroundImageView = UIImageView(image: UIImage(named: "red"))
+        let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         let backgroundEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))

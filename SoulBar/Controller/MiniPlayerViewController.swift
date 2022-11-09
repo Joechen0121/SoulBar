@@ -27,7 +27,7 @@ class MiniPlayerViewController: UIViewController {
         super.viewDidLoad()
 
         //let backgroundImageView = UIImageView(image: UIImage(named: "demoAlbum"))
-        let backgroundImageView = UIImageView(image: UIImage(named: "red"))
+        let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         let backgroundEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
@@ -41,7 +41,7 @@ class MiniPlayerViewController: UIViewController {
         backgroundEffectView.frame = container.bounds
         
         container.addSubview(backgroundImageView)
-        container.addSubview(backgroundEffectView)
+        //container.addSubview(backgroundEffectView)
         
         view.insertSubview(container, at: 0)
 
