@@ -73,16 +73,23 @@ class SearchDetailsViewController: UIViewController {
         
         configureTextField()
         
-//        self.navigationItem.title = "Search"
-//
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)]
-//
-//        self.navigationController?.navigationBar.backgroundColor = .white
-//
-//        self.navigationItem.largeTitleDisplayMode = .never
-//
-//        self.navigationItem.leftBarButtonItem?.tintColor = UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)
+        self.navigationItem.title = "Search"
+        
+        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.navigationItem.largeTitleDisplayMode = .always
+        
     }
     
     func configureTextField() {
@@ -96,6 +103,8 @@ class SearchDetailsViewController: UIViewController {
         let searchImage = UIImage(systemName: "magnifyingglass")
 
         searchView.image = searchImage
+        
+        searchView.tintColor = .black
         
         searchView.contentMode = .scaleAspectFit
 
@@ -370,6 +379,8 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 }
                 
                 cell.configureCellArtistsData(data: self.artists, indexPath: indexPath)
+                
+                cell.allImage.layer.cornerRadius = UIScreen.main.bounds.height / 7 / 2
 
                 return cell
             }
@@ -381,6 +392,8 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 }
                 
                 cell.configureCellSongsData(data: self.songs, indexPath: indexPath)
+                
+                cell.allImage.layer.cornerRadius = 0
 
                 return cell
             }
@@ -392,6 +405,8 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 }
                 
                 cell.configureCellAlbumsData(data: self.albums, indexPath: indexPath)
+                
+                cell.allImage.layer.cornerRadius = 0
 
                 return cell
             }

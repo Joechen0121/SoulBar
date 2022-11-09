@@ -23,11 +23,11 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R21-2v-dWA">
-                        <rect key="frame" x="20" y="173" width="42" height="20"/>
+                        <rect key="frame" x="0.0" y="173" width="284" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="CrV-cF-tu1"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -38,7 +38,8 @@
                 <constraint firstItem="R21-2v-dWA" firstAttribute="top" secondItem="fqD-U8-UWX" secondAttribute="bottom" constant="15" id="OLn-I9-YA0"/>
                 <constraint firstItem="fqD-U8-UWX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="T6t-B9-1ic"/>
                 <constraint firstItem="fqD-U8-UWX" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Vcu-uw-ncg"/>
-                <constraint firstItem="R21-2v-dWA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="dC2-p5-ZVo"/>
+                <constraint firstItem="R21-2v-dWA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="dC2-p5-ZVo"/>
+                <constraint firstAttribute="trailing" secondItem="R21-2v-dWA" secondAttribute="trailing" constant="10" id="m3n-eB-6sw"/>
                 <constraint firstAttribute="bottom" secondItem="R21-2v-dWA" secondAttribute="bottom" constant="8" id="mAg-aU-s6z"/>
             </constraints>
             <size key="customSize" width="294" height="201"/>

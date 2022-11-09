@@ -78,7 +78,7 @@ class EventsViewController: UIViewController {
             
             self.favoriteCount = result.count
             
-            if result.isEmpty{
+            if result.isEmpty {
                 
                 let height = self.eventsFavoriteCollectionView.collectionViewLayout.collectionViewContentSize.height
             

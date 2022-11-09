@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
         homeTableView.delegate = self
         
         homeTableView.rowHeight = UITableView.automaticDimension
-        homeTableView.rowHeight = 250
+        homeTableView.rowHeight = UIScreen.main.bounds.height / 3.5
         
         homeTableView.separatorStyle = .none
         
@@ -46,16 +46,27 @@ class HomeViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+  
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)]
+
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)
+
         showImage(false)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)]
+        
+        self.navigationItem.largeTitleDisplayMode = .automatic
+ 
         showImage(true)
+        
     }
     
     private func showImage(_ show: Bool) {
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.1) {
             self.imageView.alpha = show ? 1.0 : 0.0
         }
     }
@@ -63,9 +74,6 @@ class HomeViewController: UIViewController {
     private func setupUI() {
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        title = "SoulBar"
-
-        // Initial setup for image for Large NavBar state since the the screen always has Large NavBar once it gets opened
         guard let navigationBar = self.navigationController?.navigationBar else { return }
         navigationBar.addSubview(imageView)
         imageView.layer.cornerRadius = K.ImageSizeForLargeState / 2
@@ -235,23 +243,58 @@ extension HomeViewController: AlbumsDelegate {
 
 extension HomeViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        switch section {
             
-            return "Hot Songs"
-        }
-        else if section == 1 {
+        case 0:
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
             
-            return "Hot Albums"
-        }
-        else if section == 2 {
+            let label = UILabel()
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
+            label.text = "Hot Songs"
+            label.font = UIFont.boldSystemFont(ofSize: 20)
+            label.textColor = .black
+            headerView.backgroundColor = .white
             
-            return "Hot Playlists"
-        }
-        else {
+            headerView.addSubview(label)
             
-            return ""
+            return headerView
+        case 1:
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            
+            let label = UILabel()
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
+            label.text = "Hot Albums"
+            label.font = UIFont.boldSystemFont(ofSize: 20)
+            label.textColor = .black
+            headerView.backgroundColor = .white
+            
+            headerView.addSubview(label)
+            
+            return headerView
+        case 2:
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            
+            let label = UILabel()
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
+            label.text = "Hot Playlists"
+            label.font = UIFont.boldSystemFont(ofSize: 20)
+            label.textColor = .black
+            headerView.backgroundColor = .white
+            
+            headerView.addSubview(label)
+            
+            return headerView
+        default:
+            
+            return UIView()
+ 
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UIScreen.main.bounds.height / 15
     }
 }
 

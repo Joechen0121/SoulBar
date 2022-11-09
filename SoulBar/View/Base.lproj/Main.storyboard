@@ -126,20 +126,20 @@
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewListTableViewCell" id="2YI-gj-gA3" customClass="NewListTableViewCell" customModule="SoulBar" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="414" height="41"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="41.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2YI-gj-gA3" id="3mQ-71-NKh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="41"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="41.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8N0-JT-VhQ">
-                                                            <rect key="frame" x="30" y="10" width="42" height="21"/>
+                                                            <rect key="frame" x="30" y="10" width="42" height="21.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3AF-UH-rkK">
-                                                            <rect key="frame" x="383" y="10" width="21" height="21"/>
+                                                            <rect key="frame" x="382.5" y="10" width="21.5" height="21.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="3AF-UH-rkK" secondAttribute="height" id="TKY-P6-EKr"/>
                                                             </constraints>
@@ -573,7 +573,7 @@
             </objects>
             <point key="canvasLocation" x="-1615.9420289855075" y="175.44642857142856"/>
         </scene>
-        <!--Home View Controller-->
+        <!--SoulBar-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
@@ -585,15 +585,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongsTableViewCell" rowHeight="369" id="BRk-J5-n34" customClass="SongsTableViewCell" customModule="SoulBar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="369"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongsTableViewCell" id="BRk-J5-n34" customClass="SongsTableViewCell" customModule="SoulBar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BRk-J5-n34" id="fJD-8f-Hc8">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="369"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aAJ-PE-bt1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="369"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AIL-hb-htZ">
                                                         <size key="itemSize" width="300" height="423"/>
@@ -610,26 +610,26 @@
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music" translatesAutoresizingMaskIntoConstraints="NO" id="LcX-Ad-Obn">
-                                                                        <rect key="frame" x="-23.5" y="0.0" width="347" height="347"/>
+                                                                        <rect key="frame" x="-29.5" y="0.0" width="359" height="359"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="LcX-Ad-Obn" secondAttribute="height" id="Fmh-gk-FHd"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pf1-2j-sBs">
-                                                                        <rect key="frame" x="0.0" y="355" width="300" height="20"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pf1-2j-sBs">
+                                                                        <rect key="frame" x="0.0" y="367" width="300" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="20" id="i9z-HQ-6m7"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="20"/>
+                                                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="15"/>
                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owr-1S-rqE">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owr-1S-rqE">
                                                                         <rect key="frame" x="0.0" y="395" width="300" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="20" id="ygb-ao-jFC"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="18"/>
+                                                                        <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -639,7 +639,7 @@
                                                                     <constraint firstItem="LcX-Ad-Obn" firstAttribute="centerX" secondItem="Af7-zb-O6e" secondAttribute="centerX" id="6Wj-qn-vOO"/>
                                                                     <constraint firstItem="pf1-2j-sBs" firstAttribute="top" secondItem="LcX-Ad-Obn" secondAttribute="bottom" constant="8" id="K9M-ox-0h1"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Owr-1S-rqE" secondAttribute="bottom" constant="8" id="fTf-fL-Lhy"/>
-                                                                    <constraint firstItem="Owr-1S-rqE" firstAttribute="top" secondItem="pf1-2j-sBs" secondAttribute="bottom" constant="20" id="hdJ-Jz-hUC"/>
+                                                                    <constraint firstItem="Owr-1S-rqE" firstAttribute="top" secondItem="pf1-2j-sBs" secondAttribute="bottom" constant="8" id="hdJ-Jz-hUC"/>
                                                                     <constraint firstAttribute="trailing" secondItem="pf1-2j-sBs" secondAttribute="trailing" id="ilX-d5-IzD"/>
                                                                     <constraint firstItem="Owr-1S-rqE" firstAttribute="leading" secondItem="Af7-zb-O6e" secondAttribute="leading" id="p3m-uX-D0N"/>
                                                                     <constraint firstItem="pf1-2j-sBs" firstAttribute="centerX" secondItem="Af7-zb-O6e" secondAttribute="centerX" id="plb-p0-jbX"/>
@@ -683,7 +683,7 @@
                             <constraint firstItem="fCi-KE-X60" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="uGC-DF-zEp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="KRc-DL-F3R"/>
+                    <navigationItem key="navigationItem" title="SoulBar" id="KRc-DL-F3R"/>
                     <connections>
                         <outlet property="homeTableView" destination="fCi-KE-X60" id="5qn-dq-cPu"/>
                     </connections>
@@ -996,7 +996,7 @@
             </objects>
             <point key="canvasLocation" x="1667" y="192"/>
         </scene>
-        <!--Favorite Music-->
+        <!--Music Library-->
         <scene sceneID="HZk-Kq-oUc">
             <objects>
                 <viewController id="am1-SD-28r" customClass="FavoriteViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
@@ -1018,7 +1018,7 @@
                             <constraint firstItem="aVg-kc-HRe" firstAttribute="trailing" secondItem="Ieq-dr-MCZ" secondAttribute="trailing" id="u4s-7l-Jev"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Favorite Music" id="uex-IK-3FS"/>
+                    <navigationItem key="navigationItem" title="Music Library" id="uex-IK-3FS"/>
                     <connections>
                         <outlet property="favoriteListTableView" destination="Ieq-dr-MCZ" id="2w3-gw-Vf0"/>
                     </connections>
@@ -1146,7 +1146,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1aF-gM-u9A">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                         </textAttributes>
@@ -1170,7 +1169,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="D23-zM-kjT">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="pV2-rL-4LZ" kind="relationship" relationship="rootViewController" id="sQm-2N-lyZ"/>
@@ -1188,7 +1186,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="MjS-h6-AKt">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="qDZ-Z1-qd8" kind="relationship" relationship="rootViewController" id="KhV-ar-JbG"/>
@@ -1206,7 +1203,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Drm-0T-eyS">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="am1-SD-28r" kind="relationship" relationship="rootViewController" id="YXb-if-Dp8"/>
@@ -1224,7 +1220,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="6XQ-GW-ZHm">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="e2c-J1-ieh" kind="relationship" relationship="rootViewController" id="d7p-Yu-Bvq"/>

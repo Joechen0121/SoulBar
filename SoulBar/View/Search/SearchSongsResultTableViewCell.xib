@@ -12,19 +12,19 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchSongsResultTableViewCell" rowHeight="234" id="KGk-i7-Jjw" customClass="SearchSongsResultTableViewCell" customModule="SoulBar" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="374" height="234"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="374" height="234"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZ1-0F-feM">
-                        <rect key="frame" x="15" y="15" width="70" height="204"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bZ1-0F-feM">
+                        <rect key="frame" x="15" y="15" width="292.5" height="292.5"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="bZ1-0F-feM" secondAttribute="height" id="0sk-5D-cMg"/>
                             <constraint firstAttribute="width" constant="70" id="5By-qV-Dh4"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XrG-tp-KV6">
-                        <rect key="frame" x="100" y="106.5" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XrG-tp-KV6">
+                        <rect key="frame" x="322.5" y="151" width="41.5" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -34,6 +34,7 @@
                     <constraint firstItem="bZ1-0F-feM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="5th-Ed-zcZ"/>
                     <constraint firstItem="bZ1-0F-feM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="GQr-jB-o4E"/>
                     <constraint firstAttribute="bottom" secondItem="bZ1-0F-feM" secondAttribute="bottom" constant="15" id="JRA-Zh-6t0"/>
+                    <constraint firstAttribute="trailing" secondItem="XrG-tp-KV6" secondAttribute="trailing" constant="10" id="iud-57-IFa"/>
                     <constraint firstItem="XrG-tp-KV6" firstAttribute="leading" secondItem="bZ1-0F-feM" secondAttribute="trailing" constant="15" id="kix-7P-c1G"/>
                     <constraint firstItem="XrG-tp-KV6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="o34-qW-ZtZ"/>
                     <constraint firstItem="bZ1-0F-feM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rX4-gp-WLj"/>
@@ -43,6 +44,7 @@
             <connections>
                 <outlet property="songImage" destination="bZ1-0F-feM" id="4Gl-nq-Mb0"/>
                 <outlet property="songLabel" destination="XrG-tp-KV6" id="JmR-Hl-c0N"/>
+                <outlet property="widthConstraint" destination="5By-qV-Dh4" id="b3Z-hg-cIC"/>
             </connections>
             <point key="canvasLocation" x="169.56521739130437" y="124.55357142857142"/>
         </tableViewCell>

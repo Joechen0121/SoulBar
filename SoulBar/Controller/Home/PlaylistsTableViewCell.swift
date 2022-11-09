@@ -37,9 +37,9 @@ class PlaylistsTableViewCell: UITableViewCell {
         
         let flowlayout = UICollectionViewFlowLayout()
         
-        flowlayout.itemSize = CGSize(width: 200, height: 200)
+        flowlayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 4)
         
-        flowlayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
         
         flowlayout.scrollDirection = .horizontal
         
