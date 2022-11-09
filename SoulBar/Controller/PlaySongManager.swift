@@ -73,18 +73,26 @@ class PlaySongManager: NSObject {
     
     var currentTime: Double = 0
     
+    var isBackground = false
+
     func setupPlayer(with url: URL) {
         
         let asset = AVURLAsset(url: url)
         
         let item = AVPlayerItem(asset: asset)
-
+        
         item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
+        
         DispatchQueue.main.async {
+            
             self.player.replaceCurrentItem(with: item)
+            
             self.player.addObserver(self, forKeyPath: #keyPath(AVPlayer.timeControlStatus), options: [.new], context: nil)
+            
             self.addTimeObserve()
+            
             self.player.allowsExternalPlayback = true
+            
             self.player.usesExternalPlaybackWhileExternalScreenIsActive = true
             
         }
@@ -138,14 +146,16 @@ class PlaySongManager: NSObject {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
 
         if keyPath == #keyPath(AVPlayerItem.status) {
+            
             let status: AVPlayerItem.Status
+            
             if let statusNumber = change?[.newKey] as? NSNumber {
                 status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
-            } else {
+            }
+            else {
                 status = .unknown
             }
 
-            // Switch over status value
             switch status {
             case .readyToPlay:
                 delegate?.didReceiveNotification(player: self.player, notification: .PlayerReadyToPlayNotification)
@@ -168,23 +178,36 @@ class PlaySongManager: NSObject {
         // handle keypath callback
         if keyPath == #keyPath(AVPlayer.timeControlStatus) {
             
-            if let isPlaybackLikelyToKeepUp = player.currentItem?.isPlaybackLikelyToKeepUp,
-                player.timeControlStatus != .playing && !isPlaybackLikelyToKeepUp {
-                delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingStartNotification)
-                print("Playerstatus Buffer Start")
+            if player.timeControlStatus == .paused {
+    
+                if delegate != nil {
+    
+                    delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingEndNotification)
+                }
+                else {
+                    
+                    backgroundMode()
+                }
+                
             } else {
-                delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingEndNotification)
-                print("PlayerStatus Buffer End")
+                
+                delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingStartNotification)
+                
+                isBackground = false
+
             }
         }
     }
     
     func startPlayer() {
         
-        guard let song = currentSong, let url = song.attributes?.previews?[0].url else { return }
+        guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current] else {
+            return
+        }
+        
+        guard let url = song.attributes?.previews?[0].url else { return }
         
         PlaySongManager.sharedInstance.playMusic(url: url)
-        //self.player.play()
         
         delegate?.didReceiveNotification(player: self.player, notification: .PlayerDidToPlayNotification)
         
@@ -303,37 +326,14 @@ class PlaySongManager: NSObject {
         }
     }
     
-    func setupNowPlaying(title: String, image: UIImage?) {
-        // Define Now Playing Info
-        var nowPlayingInfo = [String: Any]()
-        nowPlayingInfo[MPMediaItemPropertyTitle] = title
-
-        if let image = image {
-           
-            nowPlayingInfo[MPMediaItemPropertyArtwork] =
-                
-            MPMediaItemArtwork(boundsSize: image.size) { _ in
-        
-                    return image
-        
-                }
-        }
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.player.currentItem?.currentTime().seconds
-        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = self.player.currentItem?.asset.duration.seconds
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
-
-        // Set the metadata
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-    }
-    
     func playMusic(url: String) {
         
         print("Play")
 
-        let musicURL = URL(string: url)
-        
-        playerItem = AVPlayerItem(url: musicURL!)
-
+        guard let musicURL = URL(string: url) else { return }
+            
+        playerItem = AVPlayerItem(url: musicURL)
+    
         player.replaceCurrentItem(with: playerItem)
         
         let time = CMTime(seconds: self.currentTime, preferredTimescale: 1)
@@ -346,12 +346,46 @@ class PlaySongManager: NSObject {
     
     
     func pauseMusic() {
+        
+        isBackground = true
 
         player.pause()
     }
     
-    deinit {
+    func backgroundMode() {
         
+        guard isBackground == false else { return }
+        
+        isBackground = true
+        
+        if self.current + 1 < self.maxCount {
+
+            pauseMusic()
+            
+            currentTime = 0
+
+            self.current += 1
+
+            guard let songs = songs, let url = songs[current].attributes?.previews?[0].url else {
+                return
+            }
+            
+            startPlayer()
+            
+            NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
+        }
+        else {
+            
+            pauseMusic()
+            
+            self.current = maxCount
+        }
+        
+        
+    }
+    
+    deinit {
+
         delegate = nil
         
         NotificationCenter.default.removeObserver(self)

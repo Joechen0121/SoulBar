@@ -80,24 +80,25 @@ class PlaySongViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         guard let songs = songs else {
             return
         }
         
         PlaySongManager.sharedInstance.songs = songs
         
-        if songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url == PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url {
+        if songs.count <= PlaySongManager.sharedInstance.current {
             
-            print("From miniplayer")
-            print("\(#function)  \(PlaySongManager.sharedInstance.current)")
+            PlaySongManager.sharedInstance.current = 0
+        }
+        
+        if songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url == PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url {
+
             selectData(index: PlaySongManager.sharedInstance.current, isFromMiniPlayer: true)
             
             playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
         }
         else {
-            
-            print("From clicked")
             
             PlaySongManager.sharedInstance.currentTime = 0
             
@@ -106,12 +107,9 @@ class PlaySongViewController: UIViewController {
                 selectData(index: 0, isFromMiniPlayer: false)
             }
             else {
+                
                 selectData(index: PlaySongManager.sharedInstance.current, isFromMiniPlayer: false)
             }
-            
-            print("\(#function)  \(PlaySongManager.sharedInstance.current)")
-            
-
         }
         
         configureSong()
@@ -293,22 +291,6 @@ class PlaySongViewController: UIViewController {
             playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             status = .pause
         }
-
-//        switch status {
-//        case .pause:
-//            PlaySongManager.sharedInstance.playMusic(url: (songs[self.currentItemIndex].attributes?.previews![0].url)!)
-//            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-//            status = .play
-//
-//        case .play:
-//            PlaySongManager.sharedInstance.pauseMusic()
-//            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-//            status = .pause
-//
-//        case .unowned:
-//            selectData(index: 0, isFromMiniPlayer: false)
-//            status = .play
-//        }
         
         NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
         
@@ -317,17 +299,15 @@ class PlaySongViewController: UIViewController {
     func selectData(index: Int, isFromMiniPlayer: Bool) {
         
         guard let songs = songs else { return }
-        
-        print("\(#function)  \(index)")
-        print("\(#function)  \(songs.count)")
+
         currentItemIndex = index
-        print("\(#function)  \(currentItemIndex)")
+    
         singerLabel.text = songs[self.currentItemIndex].attributes?.artistName
         songLabel.text = songs[self.currentItemIndex].attributes?.name
         
         PlaySongManager.sharedInstance.current = currentItemIndex
         PlaySongManager.sharedInstance.maxCount = songs.count
-        print("\(#function)  \(PlaySongManager.sharedInstance.current)")
+
         if let url = songs[self.currentItemIndex].attributes?.previews?[0].url, let songURL = URL(string: url) {
             
             if isFromMiniPlayer == true {
@@ -359,20 +339,20 @@ extension PlaySongViewController: PlaySongDelegate {
     }
     
     func didReceiveNotification(player: AVPlayer?, notification: Notification.Name) {
-        
+
         guard let songs = songs else { return }
 
         switch notification {
         case .PlayerUnknownNotification:
+            
             PlaySongManager.sharedInstance.closePlayer()
             
         case .PlayerReadyToPlayNotification:
-            print("Notification ready to play")
             
             NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
             
         case .PlayerDidToPlayNotification:
-            print("Notification play")
+
             playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             
             status = .play
@@ -380,13 +360,14 @@ extension PlaySongViewController: PlaySongDelegate {
             NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
             
         case .PlayerFailedNotification:
+            
             let alert = UIAlertController(title: "錯誤", message: "無法播放", preferredStyle: .alert)
             let action = UIAlertAction(title: "確認", style: .default, handler: nil)
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
             
         case .PauseNotification:
-            print("Notification pause")
+    
             playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             
             status = .pause
@@ -394,6 +375,7 @@ extension PlaySongViewController: PlaySongDelegate {
             NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
             
         case .PlayerPlayFinishNotification:
+
             PlaySongManager.sharedInstance.closePlayer()
             
             switch rule {

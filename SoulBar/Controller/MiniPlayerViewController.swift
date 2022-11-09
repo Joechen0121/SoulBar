@@ -97,7 +97,7 @@ class MiniPlayerViewController: UIViewController {
     }
     
     @objc func playPauseMusic() {
-        
+
         if PlaySongManager.sharedInstance.player.timeControlStatus == .playing {
 
             PlaySongManager.sharedInstance.pauseMusic()
@@ -105,7 +105,7 @@ class MiniPlayerViewController: UIViewController {
             self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
         else {
-            
+
             guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current], let url = song.attributes?.previews?[0].url else {
                 
                 return
