@@ -1014,37 +1014,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8ic-Qn-z2G">
-                                <rect key="frame" x="157" y="398.5" width="100" height="99"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recognize" translatesAutoresizingMaskIntoConstraints="NO" id="8ic-Qn-z2G">
+                                <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="c5f-1P-Lhk"/>
                                     <constraint firstAttribute="height" constant="100" id="vpK-fC-isb"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Search..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Trq-0l-oFD">
-                                <rect key="frame" x="92.5" y="293" width="229" height="35"/>
-                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Trq-0l-oFD">
+                                <rect key="frame" x="143" y="324" width="128" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpZ-p5-giL">
-                                <rect key="frame" x="348.5" y="140" width="45.5" height="31"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpZ-p5-giL">
+                                <rect key="frame" x="348.5" y="88" width="45.5" height="31"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="clear" catalog="system"/>
                                 <connections>
                                     <action selector="stopButton:" destination="qDZ-Z1-qd8" eventType="touchUpInside" id="TaN-Vo-v4q"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pQo-UN-0M2">
+                                <rect key="frame" x="115" y="323.5" width="24" height="24"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pQo-UN-0M2" secondAttribute="height" id="hVo-T2-CgN"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure your device can hear the song clearly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bY-KH-i36">
+                                <rect key="frame" x="40" y="548" width="334" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4df-OA-cFN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8ic-Qn-z2G" firstAttribute="top" secondItem="Trq-0l-oFD" secondAttribute="bottom" constant="70" id="7tk-yg-6mO"/>
+                            <constraint firstItem="1bY-KH-i36" firstAttribute="top" secondItem="8ic-Qn-z2G" secondAttribute="bottom" constant="50" id="4vk-cG-0Ve"/>
+                            <constraint firstItem="Trq-0l-oFD" firstAttribute="leading" secondItem="pQo-UN-0M2" secondAttribute="trailing" constant="4" id="7lX-HP-OIQ"/>
+                            <constraint firstItem="8ic-Qn-z2G" firstAttribute="top" secondItem="Trq-0l-oFD" secondAttribute="bottom" constant="50" id="7tk-yg-6mO"/>
+                            <constraint firstItem="Trq-0l-oFD" firstAttribute="centerY" secondItem="pQo-UN-0M2" secondAttribute="centerY" id="Bio-v5-CdY"/>
+                            <constraint firstItem="4df-OA-cFN" firstAttribute="trailing" secondItem="1bY-KH-i36" secondAttribute="trailing" constant="40" id="GDB-Us-CAl"/>
                             <constraint firstItem="4df-OA-cFN" firstAttribute="trailing" secondItem="bpZ-p5-giL" secondAttribute="trailing" constant="20" id="Mjn-pm-IBx"/>
                             <constraint firstItem="8ic-Qn-z2G" firstAttribute="centerY" secondItem="4Sp-gK-Tcw" secondAttribute="centerY" id="O9V-aL-2SA"/>
                             <constraint firstItem="8ic-Qn-z2G" firstAttribute="centerX" secondItem="4Sp-gK-Tcw" secondAttribute="centerX" id="g3B-Yg-Kpi"/>
+                            <constraint firstItem="1bY-KH-i36" firstAttribute="centerX" secondItem="4Sp-gK-Tcw" secondAttribute="centerX" id="i44-iR-W00"/>
+                            <constraint firstItem="1bY-KH-i36" firstAttribute="leading" secondItem="4df-OA-cFN" secondAttribute="leading" constant="40" id="i6k-ln-4xX"/>
                             <constraint firstItem="Trq-0l-oFD" firstAttribute="centerX" secondItem="4Sp-gK-Tcw" secondAttribute="centerX" id="kqA-5y-KKz"/>
+                            <constraint firstItem="pQo-UN-0M2" firstAttribute="height" secondItem="Trq-0l-oFD" secondAttribute="height" id="vG3-2b-GcC"/>
                             <constraint firstItem="bpZ-p5-giL" firstAttribute="top" secondItem="4df-OA-cFN" secondAttribute="top" id="vSy-Q8-PfY"/>
                         </constraints>
                     </view>
@@ -1052,6 +1074,8 @@
                     <navigationItem key="navigationItem" title="Recognize Music" id="eq1-wX-p9k"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="micImage" destination="pQo-UN-0M2" id="fqQ-oI-CN8"/>
+                        <outlet property="noticeLabel" destination="1bY-KH-i36" id="4YS-cl-1KB"/>
                         <outlet property="searchImage" destination="8ic-Qn-z2G" id="M2j-gW-mKf"/>
                         <outlet property="searchStatusLabel" destination="Trq-0l-oFD" id="rqG-DW-31c"/>
                         <outlet property="stopButton" destination="bpZ-p5-giL" id="NiO-54-oLs"/>
@@ -1059,7 +1083,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVD-j9-cP9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1667" y="192"/>
+            <point key="canvasLocation" x="1666.6666666666667" y="191.51785714285714"/>
         </scene>
         <!--Music Library-->
         <scene sceneID="HZk-Kq-oUc">
@@ -1070,7 +1094,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ieq-dr-MCZ">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -1234,6 +1258,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="D23-zM-kjT">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="0.0"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="pV2-rL-4LZ" kind="relationship" relationship="rootViewController" id="sQm-2N-lyZ"/>
@@ -1248,8 +1275,8 @@
             <objects>
                 <navigationController id="JVS-8p-Iyg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" id="S9s-c8-oAi"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="MjS-h6-AKt">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MjS-h6-AKt">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1265,8 +1292,8 @@
             <objects>
                 <navigationController id="NTe-YY-dLc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="music.quarternote.3" catalog="system" id="4I5-56-51n"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Drm-0T-eyS">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Drm-0T-eyS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1590,7 +1617,7 @@
         <image name="link" catalog="system" width="128" height="122"/>
         <image name="location" catalog="system" width="128" height="118"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
+        <image name="mic.fill" catalog="system" width="108" height="128"/>
         <image name="music" width="128" height="128"/>
         <image name="music.house" catalog="system" width="128" height="106"/>
         <image name="music.note.list" catalog="system" width="128" height="115"/>
@@ -1600,10 +1627,11 @@
         <image name="person.and.person" catalog="system" width="128" height="81"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="play.fill" width="1024" height="1024"/>
+        <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="previous" width="1024" height="1024"/>
+        <image name="recognize" width="2048" height="2048"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
         <image name="shareplay" catalog="system" width="128" height="73"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>

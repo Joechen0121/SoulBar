@@ -17,6 +17,10 @@ class RecognizeViewController: UIViewController {
     
     @IBOutlet weak var searchStatusLabel: UILabel!
     
+    @IBOutlet weak var micImage: UIImageView!
+    
+    @IBOutlet weak var noticeLabel: UILabel!
+    
     var displayLink: CADisplayLink?
     
     var pulseLayers = [CAShapeLayer]()
@@ -39,6 +43,8 @@ class RecognizeViewController: UIViewController {
     
     var state = 1
     
+    let gradientLayer = CAGradientLayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,13 +56,24 @@ class RecognizeViewController: UIViewController {
         
         pulsator.radius = 360
         
-        pulsator.backgroundColor = UIColor.lightGray.cgColor
+        pulsator.backgroundColor = K.Colors.customRed.cgColor
 
         pulsator.animationDuration = 5
 
         view.layer.insertSublayer(pulsator, below: searchImage.layer)
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleUpdate)))
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupPulsatingLayer()
+        
+        animatePulsatingLayer()
+        
+        noticeLabel.isHidden = true
         
     }
     
@@ -207,15 +224,17 @@ class RecognizeViewController: UIViewController {
         
         pulsatingLayer.strokeColor = UIColor.lightGray.cgColor
         
-        pulsatingLayer.lineWidth = 10
+        //pulsatingLayer.backgroundColor = UIColor.lightGray.cgColor
         
-        pulsatingLayer.fillColor = UIColor.clear.cgColor
+        pulsatingLayer.lineWidth = 1
+        
+        pulsatingLayer.fillColor = UIColor.lightGray.cgColor
         
         pulsatingLayer.lineCap = CAShapeLayerLineCap.round
         
         pulsatingLayer.position = view.center
         
-        view.layer.addSublayer(pulsatingLayer)
+        searchImage.layer.addSublayer(pulsatingLayer)
     }
     
     func setupTrackLayer() {
@@ -241,7 +260,7 @@ class RecognizeViewController: UIViewController {
         
         shapeLayer.path = circularPath.cgPath
         
-        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.strokeColor = K.Colors.customRed.cgColor
         
         shapeLayer.lineWidth = 15
         
@@ -262,9 +281,9 @@ class RecognizeViewController: UIViewController {
         
         let animation = CABasicAnimation(keyPath: "transform.scale")
         
-        animation.toValue = 1.7
+        animation.toValue = 1.2
         
-        animation.duration = 0.8
+        animation.duration = 1.5
         
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         
@@ -283,23 +302,38 @@ class RecognizeViewController: UIViewController {
         
         case 0:
             print("tap to start")
+            
+            noticeLabel.isHidden = true
+            
+            micImage.isHidden = false
+            
+            searchStatusLabel.fadeTransition(0.4)
+            
             stopButton.isHidden = true
             
             stopListening()
             
             pulsator.stop()
             
-            self.searchStatusLabel.text = "Tap to Search..."
+            self.searchStatusLabel.text = "Tap to Search"
             
             state = 1
             
         case 1:
             print("processing")
+            noticeLabel.isHidden = false
+            
+            micImage.isHidden = true
+            
             stopButton.isHidden = false
+            
+            searchImage.stopAnimating()
             
             pulsator.start()
             
-            self.searchStatusLabel.text = "Processing..."
+            searchStatusLabel.fadeTransition(0.4)
+            
+            self.searchStatusLabel.text = "Processing"
             
             startListening()
             
@@ -314,6 +348,8 @@ class RecognizeViewController: UIViewController {
             stopListening()
             
             pulsator.stop()
+            
+            searchStatusLabel.fadeTransition(0.4)
             
             self.searchStatusLabel.text = "End searching"
             
@@ -386,9 +422,17 @@ extension RecognizeViewController: SHSessionDelegate {
 
                                 self.pulsator.stop()
 
-                                self.state = 0
+                                self.state = 1
 
                                 self.stopListening()
+                                
+                                self.noticeLabel.isHidden = true
+                                
+                                self.stopButton.isHidden = true
+                                
+                                self.micImage.isHidden = false
+                                
+                                self.searchStatusLabel.text = "Tap to Search"
 
                             }
                             
@@ -413,5 +457,16 @@ extension RecognizeViewController: SHSessionDelegate {
             
             print(error)
         }
+    }
+}
+
+extension UIView {
+    
+    func fadeTransition(_ duration:CFTimeInterval) {
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType.fade
+        animation.duration = duration
+        layer.add(animation, forKey: CATransitionType.fade.rawValue)
     }
 }
