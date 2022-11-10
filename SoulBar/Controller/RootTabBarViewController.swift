@@ -30,7 +30,6 @@ class RootTabBarViewController: UITabBarController {
         addChildView()
 
         setConstraints()
-        print("Tab bar controller")
         
         if PlaySongManager.sharedInstance.player.status == AVPlayer.Status.readyToPlay {
             

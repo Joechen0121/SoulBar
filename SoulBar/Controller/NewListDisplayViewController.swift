@@ -148,11 +148,8 @@ extension NewListDisplayViewController: UITableViewDelegate {
 
         if isFavoriteInLists[indexPath.row] == true {
             
-            // Remove
-            print("remove")
-            print(favoriteListsInfo[indexPath.row].name)
             FirebaseFavoriteManager.sharedInstance.removeFavoriteSongListData(with: favoriteListsInfo[indexPath.row].name, songID: songID) {
-                print("1111111111")
+    
                 self.isFavoriteInLists[indexPath.row] = false
                 
                 tableView.reloadData()
@@ -160,11 +157,8 @@ extension NewListDisplayViewController: UITableViewDelegate {
             
         }
         else {
-            
-            // Add
+
             FirebaseFavoriteManager.sharedInstance.addFavoriteListData(with: favoriteListsInfo[indexPath.row].name, id: songID) {
-                
-                print("add successfully")
                 
                 self.isFavoriteInLists[indexPath.row] = true
                 

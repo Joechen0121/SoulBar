@@ -26,7 +26,6 @@ class MiniPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //let backgroundImageView = UIImageView(image: UIImage(named: "demoAlbum"))
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
@@ -60,21 +59,6 @@ class MiniPlayerViewController: UIViewController {
             songImage.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 8),
             songImage.widthAnchor.constraint(equalToConstant: 48.0)
         ])
-        
-        songName.textAlignment = .left
-
-        songName.text = "Song Name"
-
-        self.view.addSubview(songName)
-
-        songName.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            songName.leadingAnchor.constraint(equalTo: self.songImage.trailingAnchor, constant: 20),
-            songName.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            songName.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            songName.topAnchor.constraint(equalTo: self.view.topAnchor)
-        ])
 
         playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         playPauseButton.tintColor = .black
@@ -89,6 +73,21 @@ class MiniPlayerViewController: UIViewController {
             playPauseButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -8),
             playPauseButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             playPauseButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 8)
+        ])
+        
+        songName.textAlignment = .left
+
+        songName.text = "Song Name"
+
+        self.view.addSubview(songName)
+
+        songName.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            songName.leadingAnchor.constraint(equalTo: self.songImage.trailingAnchor, constant: 20),
+            songName.trailingAnchor.constraint(equalTo: self.playPauseButton.leadingAnchor, constant: 5),
+            songName.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            songName.topAnchor.constraint(equalTo: self.view.topAnchor)
         ])
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
@@ -107,6 +106,8 @@ class MiniPlayerViewController: UIViewController {
             self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
         else {
+            
+            guard let songs = PlaySongManager.sharedInstance.songs, !songs.isEmpty else { return }
 
             guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current], let url = song.attributes?.previews?[0].url else {
                 

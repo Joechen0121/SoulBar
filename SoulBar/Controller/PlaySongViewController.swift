@@ -64,7 +64,11 @@ class PlaySongViewController: UIViewController {
     
     @IBOutlet weak var songImageTopConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var playerButtonBottomStackView: NSLayoutConstraint!
+    @IBOutlet weak var previousImage: UIImageView!
+    
+    @IBOutlet weak var playPauseImage: UIImageView!
+    
+    @IBOutlet weak var nextImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,14 +91,25 @@ class PlaySongViewController: UIViewController {
         PlaySongManager.sharedInstance.setupRemoteTransportControls()
         
         songImageWidthConstraint.constant = UIScreen.main.bounds.height / 2
-        
+
         songImageHeightConstraint.constant = UIScreen.main.bounds.height / 3
-        
+
         songImageTopConstraint.constant = UIScreen.main.bounds.height / 7
-        
+
         detailButtonWidthStackView.constant = UIScreen.main.bounds.width / 3
+
+        let previousTap = UITapGestureRecognizer(target: self, action: #selector(previousButton(_:)))
+        previousImage.isUserInteractionEnabled = true
+        previousImage.addGestureRecognizer(previousTap)
         
-        playerButtonBottomStackView.constant = UIScreen.main.bounds.height / 7
+        let playPauseTap = UITapGestureRecognizer(target: self, action: #selector(playPauseButton(_:)))
+        playPauseImage.isUserInteractionEnabled = true
+        playPauseImage.addGestureRecognizer(playPauseTap)
+        
+        let nextTap = UITapGestureRecognizer(target: self, action: #selector(nextButton(_:)))
+        nextImage.isUserInteractionEnabled = true
+        nextImage.addGestureRecognizer(nextTap)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,11 +126,14 @@ class PlaySongViewController: UIViewController {
             PlaySongManager.sharedInstance.current = 0
         }
         
+        print(songs[PlaySongManager.sharedInstance.current].attributes?.name)
+        print(PlaySongManager.sharedInstance.currentSong?.attributes?.name)
         if songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url == PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url {
 
             selectData(index: PlaySongManager.sharedInstance.current, isFromMiniPlayer: true)
             
-            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            playPauseImage.image = UIImage(named: "pause.fill")
+            
         }
         else {
             
@@ -140,8 +158,7 @@ class PlaySongViewController: UIViewController {
     }
     
     @IBAction func closeButton(_ sender: UIButton) {
-        
-            dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     @IBAction func addToListButton(_ sender: UIButton) {
@@ -270,7 +287,32 @@ class PlaySongViewController: UIViewController {
         }
     }
     
-    @IBAction func previousButton(_ sender: UIButton) {
+    func configureCurrentSong() {
+        
+        guard let songs = PlaySongManager.sharedInstance.songs, !songs.isEmpty else { return }
+        
+        guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current], let url = song.attributes?.previews?[0].url else {
+            
+            return
+        }
+        
+        DispatchQueue.main.async {
+            
+            self.songLabel.text = song.attributes?.name
+            
+            self.singerLabel.text = song.attributes?.artistName
+            
+            if let artworkURL = song.attributes?.artwork?.url, let width = song.attributes?.artwork?.width, let height = song.attributes?.artwork?.height {
+                
+                let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+                
+                self.songImage.kf.setImage(with: URL(string: pictureURL))
+            }
+        }
+    }
+    
+    
+    @objc func previousButton(_ sender: UIButton) {
         
         guard let songs = songs else { return }
 
@@ -285,7 +327,7 @@ class PlaySongViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
     }
     
-    @IBAction func nextButton(_ sender: UIButton) {
+    @objc func nextButton(_ sender: UIButton) {
         
         guard let songs = songs else { return }
 
@@ -301,7 +343,7 @@ class PlaySongViewController: UIViewController {
         
     }
     
-    @IBAction func playPauseButton(_ sender: UIButton) {
+    @objc func playPauseButton(_ sender: UIButton) {
   
         guard let songs = songs else {
             return
@@ -310,13 +352,17 @@ class PlaySongViewController: UIViewController {
         if PlaySongManager.sharedInstance.player.timeControlStatus == .paused {
             
             PlaySongManager.sharedInstance.playMusic(url: (songs[self.currentItemIndex].attributes?.previews![0].url)!)
-            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            
+            playPauseImage.image = UIImage(named: "pause.fill")
+
             status = .play
         }
         else {
             
             PlaySongManager.sharedInstance.pauseMusic()
-            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            
+            playPauseImage.image = UIImage(named: "play.fill")
+            
             status = .pause
         }
         
@@ -325,7 +371,7 @@ class PlaySongViewController: UIViewController {
     }
     
     func selectData(index: Int, isFromMiniPlayer: Bool) {
-        
+        print(#function)
         guard let songs = songs else { return }
 
         currentItemIndex = index
@@ -339,12 +385,12 @@ class PlaySongViewController: UIViewController {
         if let url = songs[self.currentItemIndex].attributes?.previews?[0].url, let songURL = URL(string: url) {
             
             if isFromMiniPlayer == true {
-                
-                PlaySongManager.sharedInstance.playMusic(url: url)
+
+                configureCurrentSong()
                 
             }
             else {
-
+    
                 PlaySongManager.sharedInstance.setupPlayer(with: songURL)
             }
             
@@ -381,7 +427,7 @@ extension PlaySongViewController: PlaySongDelegate {
             
         case .PlayerDidToPlayNotification:
 
-            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            playPauseImage.image = UIImage(named: "pause.fill")
             
             status = .play
             
@@ -396,7 +442,7 @@ extension PlaySongViewController: PlaySongDelegate {
             
         case .PauseNotification:
     
-            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            playPauseImage.image = UIImage(named: "play.fill")
             
             status = .pause
             
@@ -422,7 +468,9 @@ extension PlaySongViewController: PlaySongDelegate {
                     selectData(index: currentItemIndex, isFromMiniPlayer: false)
                 }
                 else {
-                    playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+                    
+                    playPauseImage.image = UIImage(named: "play.fill")
+
                     status = .unowned
                 }
             }

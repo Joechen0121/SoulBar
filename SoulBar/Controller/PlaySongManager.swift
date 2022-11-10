@@ -81,9 +81,9 @@ class PlaySongManager: NSObject {
         
         let item = AVPlayerItem(asset: asset)
         
-        item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
-
         self.currentTime = 0
+
+        item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.new], context: nil)
         
         DispatchQueue.main.async {
             
@@ -103,7 +103,7 @@ class PlaySongManager: NSObject {
     func addTimeObserve() {
         
         self.timerInvalid = false
-        self.playerObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1 / 30.0, preferredTimescale: Int32(NSEC_PER_SEC)), queue: .main) { [weak self] _ in
+        self.playerObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC)), queue: .main) { [weak self] _ in
 
             guard let self = self else { return }
             
@@ -124,8 +124,6 @@ class PlaySongManager: NSObject {
                 let currentTime = currentItem.currentTime()
                 
                 self.position = PlayerPosition(duration: Int(duration), current: Int(CMTimeGetSeconds(currentTime)))
-                
-                self.currentTime = 0
                 
                 self.currentTime = CMTimeGetSeconds(self.player.currentTime())
             
@@ -165,6 +163,7 @@ class PlaySongManager: NSObject {
             case .readyToPlay:
                 delegate?.didReceiveNotification(player: self.player, notification: .PlayerReadyToPlayNotification)
                 self.startPlayer()
+                NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
                 print("PlayerStatus ReadyToPlay")
                 
             case .failed:
@@ -211,6 +210,8 @@ class PlaySongManager: NSObject {
         }
         
         guard let url = song.attributes?.previews?[0].url else { return }
+        
+        self.currentSong = song
         
         PlaySongManager.sharedInstance.playMusic(url: url)
         
@@ -340,7 +341,7 @@ class PlaySongManager: NSObject {
         playerItem = AVPlayerItem(url: musicURL)
     
         player.replaceCurrentItem(with: playerItem)
-       
+        print("======\(self.currentTime)")
         let time = CMTime(seconds: self.currentTime, preferredTimescale: 1000)
         print(time)
         player.seek(to: time)
@@ -377,7 +378,6 @@ class PlaySongManager: NSObject {
             
             startPlayer()
             
-            NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
         }
         else {
             
@@ -386,7 +386,8 @@ class PlaySongManager: NSObject {
             self.current = maxCount
         }
         
-        
+        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
     }
     
     deinit {
