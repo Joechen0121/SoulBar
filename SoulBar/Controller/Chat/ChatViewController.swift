@@ -71,22 +71,20 @@ class ChatViewController: UIViewController {
         }
         
         self.messages = []
-        print("------\(self.messages)")
+
         FirebaseChatroomManager.sharedInstance.fetchChatroomMessagesData(with: eventsFavorite.uid) { result in
             
             result.forEach { message in
-                print("------\(message)")
+
                 self.messages.append(message)
 
             }
-            print("=====\(self.messages)")
+    
             DispatchQueue.main.async {
                 
                 self.chatTableView.reloadData()
             }
         }
-        
-        print("mmmmmmmm\(self.messages)")
     }
     
     func addChatroomListener(chatroomID: String) {
@@ -118,7 +116,7 @@ class ChatViewController: UIViewController {
                 self.messages = []
                 
                 self.messages = data
-                print("=======\(self.messages)")
+
                 DispatchQueue.main.async {
 
                     self.chatTableView.reloadData()
@@ -195,7 +193,5 @@ extension ChatViewController: UITableViewDataSource {
 
             return cell
         }
-        
-        return UITableViewCell()
     }
 }

@@ -82,6 +82,8 @@ class PlaySongManager: NSObject {
         let item = AVPlayerItem(asset: asset)
         
         item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
+
+        self.currentTime = 0
         
         DispatchQueue.main.async {
             
@@ -120,10 +122,13 @@ class PlaySongManager: NSObject {
                 }
                 
                 let currentTime = currentItem.currentTime()
+                
                 self.position = PlayerPosition(duration: Int(duration), current: Int(CMTimeGetSeconds(currentTime)))
                 
-                self.currentTime = self.player.currentTime().seconds
+                self.currentTime = 0
                 
+                self.currentTime = CMTimeGetSeconds(self.player.currentTime())
+            
                 self.delegate?.didUpdatePosition(self.player, self.position)
             }
         }
@@ -337,7 +342,7 @@ class PlaySongManager: NSObject {
         player.replaceCurrentItem(with: playerItem)
         
         let time = CMTime(seconds: self.currentTime, preferredTimescale: 1)
-        
+
         player.seek(to: time)
         
         player.play()

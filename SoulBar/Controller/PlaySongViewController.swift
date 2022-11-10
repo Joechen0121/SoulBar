@@ -121,12 +121,12 @@ class PlaySongViewController: UIViewController {
             
             PlaySongManager.sharedInstance.currentTime = 0
             
-            if songs.count <= PlaySongManager.sharedInstance.current {
-                
+            if songs.count < PlaySongManager.sharedInstance.current {
+
                 selectData(index: 0, isFromMiniPlayer: false)
             }
             else {
-                
+    
                 selectData(index: PlaySongManager.sharedInstance.current, isFromMiniPlayer: false)
             }
         }
@@ -150,6 +150,10 @@ class PlaySongViewController: UIViewController {
             
             if let sheetPresentationController = newListVC.sheetPresentationController {
                 sheetPresentationController.detents = [.medium()]
+                
+                sheetPresentationController.prefersGrabberVisible = true
+                
+                sheetPresentationController.preferredCornerRadius = 40.0
                 
                 guard let songs = songs else {
                     return
@@ -340,7 +344,7 @@ class PlaySongViewController: UIViewController {
                 
             }
             else {
-                
+
                 PlaySongManager.sharedInstance.setupPlayer(with: songURL)
             }
             

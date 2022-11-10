@@ -27,6 +27,24 @@ class NewListDisplayViewController: UIViewController {
         newListTableView.dataSource = self
         
         newListTableView.delegate = self
+        
+        let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
+        backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let backgroundEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+        backgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let container = UIView()
+        container.frame = view.bounds
+        container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        backgroundImageView.frame = container.bounds
+        backgroundEffectView.frame = container.bounds
+        
+        container.addSubview(backgroundImageView)
+        container.addSubview(backgroundEffectView)
+        
+        view.insertSubview(container, at: 0)
     
         configureButton()
     }
