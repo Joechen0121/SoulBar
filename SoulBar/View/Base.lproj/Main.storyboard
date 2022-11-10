@@ -126,31 +126,42 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewListTableViewCell" id="2YI-gj-gA3" customClass="NewListTableViewCell" customModule="SoulBar" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="414" height="41"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="41.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2YI-gj-gA3" id="3mQ-71-NKh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="41"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="41.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8N0-JT-VhQ">
-                                                            <rect key="frame" x="30" y="10" width="42" height="21"/>
+                                                            <rect key="frame" x="61.5" y="10" width="42" height="21.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3AF-UH-rkK">
-                                                            <rect key="frame" x="383" y="10" width="21" height="21"/>
+                                                            <rect key="frame" x="382.5" y="10" width="21.5" height="21.5"/>
+                                                            <color key="tintColor" systemColor="systemBrownColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="3AF-UH-rkK" secondAttribute="height" id="TKY-P6-EKr"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.note.list" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="W74-Sa-WgP">
+                                                            <rect key="frame" x="20" y="10.5" width="21.5" height="20.5"/>
+                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="W74-Sa-WgP" secondAttribute="height" id="U4P-DU-ZXu"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="3AF-UH-rkK" firstAttribute="top" secondItem="3mQ-71-NKh" secondAttribute="top" constant="10" id="AaG-IW-GhT"/>
+                                                        <constraint firstItem="W74-Sa-WgP" firstAttribute="leading" secondItem="3mQ-71-NKh" secondAttribute="leading" constant="20" id="GzF-N4-dV9"/>
+                                                        <constraint firstItem="8N0-JT-VhQ" firstAttribute="leading" secondItem="W74-Sa-WgP" secondAttribute="trailing" constant="20" id="PGh-pZ-3xU"/>
                                                         <constraint firstItem="8N0-JT-VhQ" firstAttribute="top" secondItem="3mQ-71-NKh" secondAttribute="top" constant="10" id="Qre-id-2g4"/>
                                                         <constraint firstAttribute="bottom" secondItem="3AF-UH-rkK" secondAttribute="bottom" constant="10" id="Wid-jd-ofJ"/>
                                                         <constraint firstAttribute="bottom" secondItem="8N0-JT-VhQ" secondAttribute="bottom" constant="10" id="axH-HI-Huk"/>
-                                                        <constraint firstItem="8N0-JT-VhQ" firstAttribute="leading" secondItem="3mQ-71-NKh" secondAttribute="leading" constant="30" id="i7S-Z8-MJ5"/>
+                                                        <constraint firstItem="W74-Sa-WgP" firstAttribute="top" secondItem="3mQ-71-NKh" secondAttribute="top" constant="10" id="iF3-gu-PyD"/>
+                                                        <constraint firstAttribute="bottom" secondItem="W74-Sa-WgP" secondAttribute="bottom" constant="10" id="tHS-6X-rg2"/>
                                                         <constraint firstAttribute="trailing" secondItem="3AF-UH-rkK" secondAttribute="trailing" constant="10" id="wYn-zr-jUy"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
@@ -1593,6 +1604,7 @@
         <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
         <image name="music" width="128" height="128"/>
         <image name="music.house" catalog="system" width="128" height="106"/>
+        <image name="music.note.list" catalog="system" width="128" height="115"/>
         <image name="music.quarternote.3" catalog="system" width="128" height="103"/>
         <image name="paperplane" catalog="system" width="128" height="118"/>
         <image name="person.and.person" catalog="system" width="128" height="81"/>
@@ -1611,6 +1623,9 @@
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
