@@ -77,6 +77,7 @@ class MiniPlayerViewController: UIViewController {
         ])
 
         playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        playPauseButton.tintColor = .black
         
         self.view.addSubview(playPauseButton)
 

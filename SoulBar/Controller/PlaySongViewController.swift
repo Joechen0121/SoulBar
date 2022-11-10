@@ -29,6 +29,13 @@ class PlaySongViewController: UIViewController {
     
     @IBOutlet weak var maxTimeLabel: UILabel!
     
+    @IBOutlet weak var songImageAspectRatio: NSLayoutConstraint!
+    
+    @IBOutlet weak var detailButtonWidthStackView: NSLayoutConstraint!
+    
+    @IBOutlet weak var songImageWidthConstraint:
+    NSLayoutConstraint!
+    
     var songs: [SongsSearchInfo]?
     
     var currentItemIndex: Int = 0
@@ -53,6 +60,12 @@ class PlaySongViewController: UIViewController {
     
     @IBOutlet weak var favoriteButton: UIButton!
     
+    @IBOutlet weak var songImageHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var songImageTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var playerButtonBottomStackView: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,13 +85,22 @@ class PlaySongViewController: UIViewController {
         view.insertSubview(container, at: 0)
 
         PlaySongManager.sharedInstance.setupRemoteTransportControls()
-
+        
+        songImageWidthConstraint.constant = UIScreen.main.bounds.height / 2
+        
+        songImageHeightConstraint.constant = UIScreen.main.bounds.height / 3
+        
+        songImageTopConstraint.constant = UIScreen.main.bounds.height / 7
+        
+        detailButtonWidthStackView.constant = UIScreen.main.bounds.width / 3
+        
+        playerButtonBottomStackView.constant = UIScreen.main.bounds.height / 7
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        guard let songs = songs else {
+        guard let songs = songs, !songs.isEmpty else {
             return
         }
         
@@ -99,7 +121,7 @@ class PlaySongViewController: UIViewController {
             
             PlaySongManager.sharedInstance.currentTime = 0
             
-            if songs.count < PlaySongManager.sharedInstance.current {
+            if songs.count <= PlaySongManager.sharedInstance.current {
                 
                 selectData(index: 0, isFromMiniPlayer: false)
             }
@@ -115,6 +137,11 @@ class PlaySongViewController: UIViewController {
         
         NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
 
+    }
+    
+    @IBAction func closeButton(_ sender: UIButton) {
+        
+            dismiss(animated: true)
     }
     
     @IBAction func addToListButton(_ sender: UIButton) {

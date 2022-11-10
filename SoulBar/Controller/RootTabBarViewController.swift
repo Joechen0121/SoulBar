@@ -78,7 +78,8 @@ class RootTabBarViewController: UITabBarController {
     }
     
     func updateMiniPlayerUI() {
-
+        print("======\(PlaySongManager.sharedInstance.current)")
+        print("======\(PlaySongManager.sharedInstance.songs?.count)")
         guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current] else { return }
     
         miniPlayer.songName.text = song.attributes?.name
@@ -129,6 +130,8 @@ extension RootTabBarViewController: MiniPlayerDelegate {
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
                 playSongVC.songs = PlaySongManager.sharedInstance.songs
+                
+                playSongVC.modalPresentationStyle = .fullScreen
                 
                 self.present(playSongVC, animated: true)
             }

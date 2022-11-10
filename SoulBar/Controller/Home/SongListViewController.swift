@@ -68,6 +68,8 @@ class SongListViewController: UIViewController {
     
     var isFavorite = false
     
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
@@ -77,7 +79,9 @@ class SongListViewController: UIViewController {
         
         songListTableView.delegate = self
         
-        imageWidthConstraint.constant = UIScreen.main.bounds.height / 2
+        imageWidthConstraint.constant = UIScreen.main.bounds.height / 3
+        
+        imageViewHeightConstraint.constant = UIScreen.main.bounds.height / 3
 
     }
     
@@ -236,6 +240,9 @@ class SongListViewController: UIViewController {
                 print("Unknown state for configuring song data")
             }
             print(playSongVC.songs)
+            
+            playSongVC.modalPresentationStyle = .fullScreen
+            
             self.present(playSongVC, animated: true)
         }
     }
@@ -518,7 +525,9 @@ class SongListViewController: UIViewController {
                 
                 print("Unknown state for configuring song data")
             }
-            print(songs)
+            
+            playSongVC.modalPresentationStyle = .fullScreen
+            
             present(playSongVC, animated: true)
             //self.navigationController?.pushViewController(playSongVC, animated: true)
         }

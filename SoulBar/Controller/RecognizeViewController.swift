@@ -396,6 +396,8 @@ extension RecognizeViewController: SHSessionDelegate {
 
                                 playSongVC.songs = songs
                                 
+                                playSongVC.modalPresentationStyle = .fullScreen
+                                
                                 self.present(playSongVC, animated: true)
                             }
                         }
