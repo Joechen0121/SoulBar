@@ -41,6 +41,8 @@ class RecognizeViewController: UIViewController {
     
     var isRecording = false
     
+    var isFound = false
+    
     var state = 1
     
     let gradientLayer = CAGradientLayer()
@@ -75,6 +77,8 @@ class RecognizeViewController: UIViewController {
         
         noticeLabel.isHidden = true
         
+        isFound = false
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,6 +95,23 @@ class RecognizeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         pulsator.position = searchImage.layer.position
+    }
+    
+    func initViewStatus() {
+        
+        self.pulsator.stop()
+
+        self.state = 1
+
+        self.stopListening()
+        
+        self.noticeLabel.isHidden = true
+        
+        self.stopButton.isHidden = true
+        
+        self.micImage.isHidden = false
+        
+        self.searchStatusLabel.text = "Tap to Search"
     }
     
     func requestMicrophone() -> Bool {
@@ -224,8 +245,6 @@ class RecognizeViewController: UIViewController {
         
         pulsatingLayer.strokeColor = UIColor.lightGray.cgColor
         
-        //pulsatingLayer.backgroundColor = UIColor.lightGray.cgColor
-        
         pulsatingLayer.lineWidth = 1
         
         pulsatingLayer.fillColor = UIColor.lightGray.cgColor
@@ -341,6 +360,29 @@ class RecognizeViewController: UIViewController {
             
             state = 2
             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                print("time out!!!!!")
+            
+                if self.isFound == false {
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.initViewStatus()
+                        
+                    }
+                    
+                    if let recErrVC = self.storyboard?.instantiateViewController(withIdentifier: RecognizeErrorViewController.storyboardID) as? RecognizeErrorViewController {
+                    
+                        recErrVC.modalPresentationStyle = .currentContext
+                        
+                        recErrVC.modalTransitionStyle = .crossDissolve
+                        
+                        self.present(recErrVC, animated: true)
+                    }
+                }
+                else {}
+            }
+            
         case 2:
             print("end searching")
             stopButton.isHidden = true
@@ -408,7 +450,6 @@ extension RecognizeViewController: SHSessionDelegate {
                 
                 MusicManager.sharedInstance.searchSongs(term: title, limit: 25) { result in
                     
-                    
                     result.forEach { song in
                         
                         print(song.attributes?.artistName == item.artist)
@@ -420,19 +461,9 @@ extension RecognizeViewController: SHSessionDelegate {
                             DispatchQueue.main.async {
                                 print("Stop listening")
 
-                                self.pulsator.stop()
-
-                                self.state = 1
-
-                                self.stopListening()
+                                self.isFound = true
                                 
-                                self.noticeLabel.isHidden = true
-                                
-                                self.stopButton.isHidden = true
-                                
-                                self.micImage.isHidden = false
-                                
-                                self.searchStatusLabel.text = "Tap to Search"
+                                self.initViewStatus()
 
                             }
                             

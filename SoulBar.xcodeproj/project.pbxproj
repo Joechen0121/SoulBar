@@ -35,6 +35,7 @@
 		D820B92B291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */; };
 		D820B92C2915720B000C8F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA5290966C3001583F6 /* Assets.xcassets */; };
 		D82369AC290BDA2100AE41AB /* SearchDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82369AB290BDA2000AE41AB /* SearchDetailsViewController.swift */; };
+		D837B364291D6532008BE6D0 /* RecognizeErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */; };
 		D8573372290E561B0009D734 /* SearchArtistsResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8573370290E561B0009D734 /* SearchArtistsResultTableViewCell.swift */; };
 		D8573373290E561B0009D734 /* SearchArtistsResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8573371290E561B0009D734 /* SearchArtistsResultTableViewCell.xib */; };
 		D8573376290E9C640009D734 /* SearchSongsResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8573374290E9C640009D734 /* SearchSongsResultTableViewCell.swift */; };
@@ -121,6 +122,7 @@
 		D820B928291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageOwnerTableViewCell.swift; sourceTree = "<group>"; };
 		D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMessageOwnerTableViewCell.xib; sourceTree = "<group>"; };
 		D82369AB290BDA2000AE41AB /* SearchDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailsViewController.swift; sourceTree = "<group>"; };
+		D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeErrorViewController.swift; sourceTree = "<group>"; };
 		D8573370290E561B0009D734 /* SearchArtistsResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchArtistsResultTableViewCell.swift; sourceTree = "<group>"; };
 		D8573371290E561B0009D734 /* SearchArtistsResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchArtistsResultTableViewCell.xib; sourceTree = "<group>"; };
 		D8573374290E9C640009D734 /* SearchSongsResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongsResultTableViewCell.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				D8A1B96D290C22E5007F6775 /* Events */,
 				D86AD11B2913F3F9000208B6 /* Search */,
 				D8088B1829096C2E0037555B /* RecognizeViewController.swift */,
+				D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */,
 				D86AD11C2913F42C000208B6 /* FavoriteMusic */,
 				D8088B1C29096C4D0037555B /* ProfileViewController.swift */,
 				D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */,
@@ -656,6 +659,7 @@
 				D820B92A291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift in Sources */,
 				D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */,
 				D874B98D2917E6890082F2D7 /* ProfileData.swift in Sources */,
+				D837B364291D6532008BE6D0 /* RecognizeErrorViewController.swift in Sources */,
 				D874C89A2912566800075AE9 /* FirebaseUserManager.swift in Sources */,
 				D8088B3E290AB2EF0037555B /* AlbumsTableViewCell.swift in Sources */,
 				D874B998291900260082F2D7 /* NewListPopUpViewController.swift in Sources */,
