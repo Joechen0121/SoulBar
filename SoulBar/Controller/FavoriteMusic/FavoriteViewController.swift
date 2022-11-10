@@ -49,11 +49,6 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
         super.viewWillDisappear(animated)
         showImage(false)
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showImage(true)
-    }
     
     private func showImage(_ show: Bool) {
         UIView.animate(withDuration: 0.2) {
@@ -116,7 +111,8 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        showImage(true)
         setupFavoriteSongs()
         setupFavoriteAlbums()
         setupFavoritePlaylists()
@@ -222,7 +218,7 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
     
         if let newListPopUpVC = self.storyboard?.instantiateViewController(withIdentifier: NewListPopUpViewController.storyboardID) as? NewListPopUpViewController {
         
-            newListPopUpVC.modalPresentationStyle = .overCurrentContext
+            newListPopUpVC.modalPresentationStyle = .currentContext
             
             newListPopUpVC.modalTransitionStyle = .crossDissolve
             
