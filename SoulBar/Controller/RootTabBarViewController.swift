@@ -79,6 +79,8 @@ class RootTabBarViewController: UITabBarController {
     
     func updateMiniPlayerUI() {
         
+        guard let songs = PlaySongManager.sharedInstance.songs, songs.count > PlaySongManager.sharedInstance.current else { return }
+        
         guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current] else { return }
     
         miniPlayer.songName.text = song.attributes?.name

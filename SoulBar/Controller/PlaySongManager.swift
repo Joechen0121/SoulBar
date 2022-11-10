@@ -340,9 +340,9 @@ class PlaySongManager: NSObject {
         playerItem = AVPlayerItem(url: musicURL)
     
         player.replaceCurrentItem(with: playerItem)
-        
-        let time = CMTime(seconds: self.currentTime, preferredTimescale: 1)
-
+       
+        let time = CMTime(seconds: self.currentTime, preferredTimescale: 1000)
+        print(time)
         player.seek(to: time)
         
         player.play()
