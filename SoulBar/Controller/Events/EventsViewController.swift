@@ -127,7 +127,7 @@ extension EventsViewController: UITableViewDataSource {
         }
         
         cell.cardsView.backgroundColor = UIColor(red: 0, green: 94/255, blue: 112/255, alpha: 1)
-        cell.cardsView.icon = UIImage(systemName: "pause")
+        cell.cardsView.icon = UIImage(systemName: "music.quarternote.3")
         cell.cardsView.titleSize = 17
         cell.cardsView.title = events[indexPath.row].title
         cell.cardsView.itemTitle = events[indexPath.row].startDate

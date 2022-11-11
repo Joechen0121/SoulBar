@@ -252,7 +252,7 @@ extension HomeViewController: UITableViewDelegate {
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
             
             let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
             label.text = "Hot Songs"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
@@ -265,7 +265,7 @@ extension HomeViewController: UITableViewDelegate {
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
             
             let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
             label.text = "Hot Albums"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
@@ -278,7 +278,7 @@ extension HomeViewController: UITableViewDelegate {
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
             
             let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width-10, height: headerView.frame.height-10)
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
             label.text = "Hot Playlists"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black

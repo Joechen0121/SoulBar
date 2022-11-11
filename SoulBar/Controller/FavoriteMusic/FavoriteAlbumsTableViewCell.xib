@@ -23,14 +23,14 @@
                             <constraint firstAttribute="width" secondItem="4KL-j5-3Bm" secondAttribute="height" id="wC1-Wi-y1W"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRc-AN-4Gg">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRc-AN-4Gg">
                         <rect key="frame" x="148" y="30" width="194" height="20.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYM-3P-IAA">
-                        <rect key="frame" x="148" y="70.5" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYM-3P-IAA">
+                        <rect key="frame" x="148" y="70.5" width="194" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -43,8 +43,10 @@
                     <constraint firstAttribute="trailing" secondItem="mRc-AN-4Gg" secondAttribute="trailing" constant="10" id="Jy0-8F-dXp"/>
                     <constraint firstItem="FYM-3P-IAA" firstAttribute="leading" secondItem="4KL-j5-3Bm" secondAttribute="trailing" constant="40" id="NEr-8o-2lr"/>
                     <constraint firstItem="FYM-3P-IAA" firstAttribute="top" secondItem="mRc-AN-4Gg" secondAttribute="bottom" constant="20" id="TsP-gf-Gm9"/>
+                    <constraint firstAttribute="trailing" secondItem="FYM-3P-IAA" secondAttribute="trailing" constant="10" id="bgY-dQ-Imv"/>
                     <constraint firstAttribute="bottom" secondItem="4KL-j5-3Bm" secondAttribute="bottom" constant="8" id="chH-eQ-jAz"/>
                     <constraint firstItem="mRc-AN-4Gg" firstAttribute="leading" secondItem="4KL-j5-3Bm" secondAttribute="trailing" constant="40" id="f3z-Kl-igm"/>
+                    <constraint firstAttribute="bottom" secondItem="FYM-3P-IAA" secondAttribute="bottom" constant="10" id="nn3-eC-sYg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -396,7 +396,7 @@ class RecognizeViewController: UIViewController {
             
             state = 2
             
-            self.timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
+            self.timer = Timer.scheduledTimer(withTimeInterval: 8.0, repeats: false) { timer in
 
                 guard self.state == 2 else {
                     

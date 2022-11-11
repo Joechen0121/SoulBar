@@ -23,8 +23,8 @@
                             <constraint firstAttribute="width" secondItem="kRO-Ol-0Vh" secondAttribute="height" id="cPd-z1-Ruu"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPz-KM-E95">
-                        <rect key="frame" x="148" y="47.5" width="44.5" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPz-KM-E95">
+                        <rect key="frame" x="148" y="48" width="173" height="20.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -34,6 +34,7 @@
                     <constraint firstItem="kRO-Ol-0Vh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Cj4-mO-EoY"/>
                     <constraint firstItem="kRO-Ol-0Vh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Hxj-kH-UlW"/>
                     <constraint firstItem="bPz-KM-E95" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="V4R-NJ-a7f"/>
+                    <constraint firstAttribute="trailing" secondItem="bPz-KM-E95" secondAttribute="trailing" constant="10" id="ZaZ-3Z-G65"/>
                     <constraint firstAttribute="bottom" secondItem="kRO-Ol-0Vh" secondAttribute="bottom" constant="8" id="Zks-Yg-8u4"/>
                     <constraint firstItem="bPz-KM-E95" firstAttribute="leading" secondItem="kRO-Ol-0Vh" secondAttribute="trailing" constant="40" id="bRB-xy-p5U"/>
                     <constraint firstItem="kRO-Ol-0Vh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="xH6-GO-rte"/>

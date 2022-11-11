@@ -551,7 +551,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rP8-Xa-Lde">
                                                 <rect key="frame" x="0.0" y="0.0" width="48.5" height="30"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" image="play.fill" catalog="system">
+                                                <buttonConfiguration key="configuration" style="plain" image="play.circle" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="medium"/>
                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </buttonConfiguration>
@@ -826,6 +826,11 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="epB-lS-qk6" secondAttribute="height" multiplier="5:6" id="NPF-hN-tH8"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="iconRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -1154,7 +1159,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ieq-dr-MCZ">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -1162,7 +1167,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Ieq-dr-MCZ" firstAttribute="leading" secondItem="aVg-kc-HRe" secondAttribute="leading" id="3ep-i3-eC7"/>
-                            <constraint firstItem="Ieq-dr-MCZ" firstAttribute="top" secondItem="aVg-kc-HRe" secondAttribute="top" id="FsU-4o-iVV"/>
+                            <constraint firstItem="Ieq-dr-MCZ" firstAttribute="top" secondItem="NEb-xo-Ll0" secondAttribute="top" id="FsU-4o-iVV"/>
                             <constraint firstItem="aVg-kc-HRe" firstAttribute="bottom" secondItem="Ieq-dr-MCZ" secondAttribute="bottom" id="iiL-UI-cwh"/>
                             <constraint firstItem="aVg-kc-HRe" firstAttribute="trailing" secondItem="Ieq-dr-MCZ" secondAttribute="trailing" id="u4s-7l-Jev"/>
                         </constraints>
@@ -1352,8 +1357,8 @@
             <objects>
                 <navigationController id="NTe-YY-dLc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="music.quarternote.3" catalog="system" id="4I5-56-51n"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Drm-0T-eyS">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Drm-0T-eyS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1777,8 +1782,8 @@
         <image name="person.2.circle" catalog="system" width="128" height="121"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="play.circle" catalog="system" width="128" height="121"/>
         <image name="play.fill" width="1024" height="1024"/>
-        <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="previous" width="1024" height="1024"/>
         <image name="recognize" width="2048" height="2048"/>

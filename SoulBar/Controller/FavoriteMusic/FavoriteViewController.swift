@@ -59,9 +59,6 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
     private func setupUI() {
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        //title = "Music Library"
-
-        // Initial setup for image for Large NavBar state since the the screen always has Large NavBar once it gets opened
         guard let navigationBar = self.navigationController?.navigationBar else { return }
         navigationBar.addSubview(imageView)
         imageView.layer.cornerRadius = K.ImageSizeForLargeState / 2
@@ -229,6 +226,79 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
 }
 
 extension FavoriteViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        
+        switch section {
+        
+        case 0:
+            
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            
+            let label = UILabel()
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.text = "Favorite Songs"
+            label.font = UIFont.boldSystemFont(ofSize: 20)
+            label.textColor = .black
+            headerView.backgroundColor = .white
+            
+            headerView.addSubview(label)
+            
+            return headerView
+            
+        case 1:
+            
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            
+            let label = UILabel()
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.text = "Favorite Albums"
+            label.font = UIFont.boldSystemFont(ofSize: 20)
+            label.textColor = .black
+            headerView.backgroundColor = .white
+            
+            headerView.addSubview(label)
+            
+            return headerView
+            
+        case 2:
+            
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            
+            let label = UILabel()
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.text = "Favorite Playlists"
+            label.font = UIFont.boldSystemFont(ofSize: 20)
+            label.textColor = .black
+            headerView.backgroundColor = .white
+            
+            headerView.addSubview(label)
+            
+            return headerView
+            
+        case 3:
+            
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            
+            let label = UILabel()
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.text = "Favorite Lists"
+            label.font = UIFont.boldSystemFont(ofSize: 20)
+            label.textColor = .black
+            headerView.backgroundColor = .white
+            
+            headerView.addSubview(label)
+            
+            return headerView
+            
+        default:
+            
+            return UIView()
+            
+        }
+        
+    }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
@@ -435,7 +505,7 @@ extension FavoriteViewController: UITableViewDataSource {
 extension FavoriteViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+
         guard let height = navigationController?.navigationBar.frame.height else { return }
         
         moveAndResizeImage(for: height)
