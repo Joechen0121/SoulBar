@@ -419,6 +419,8 @@ class PlaySongManager: NSObject {
     
     
     func pauseMusic() {
+        
+        isBackground = true
 
         player.pause()
     }
