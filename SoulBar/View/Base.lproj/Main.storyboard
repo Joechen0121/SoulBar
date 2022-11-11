@@ -1023,8 +1023,8 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Trq-0l-oFD">
-                                <rect key="frame" x="130" y="323.5" width="154.5" height="24.5"/>
-                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="20"/>
+                                <rect key="frame" x="143" y="324" width="128" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1039,23 +1039,35 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pQo-UN-0M2">
-                                <rect key="frame" x="101.5" y="323" width="24.5" height="24.5"/>
+                                <rect key="frame" x="115" y="323.5" width="24" height="24"/>
                                 <color key="tintColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="pQo-UN-0M2" secondAttribute="height" id="hVo-T2-CgN"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure your device can hear the song clearly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bY-KH-i36">
-                                <rect key="frame" x="40" y="548" width="334" height="16"/>
+                                <rect key="frame" x="40" y="578" width="334" height="16"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K14-VJ-qzJ" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="182" y="518" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="K14-VJ-qzJ" secondAttribute="height" id="dXy-mC-OHu"/>
+                                    <constraint firstAttribute="width" constant="50" id="mup-Yv-BGt"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="processing"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4df-OA-cFN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="1bY-KH-i36" firstAttribute="top" secondItem="8ic-Qn-z2G" secondAttribute="bottom" constant="50" id="4vk-cG-0Ve"/>
+                            <constraint firstItem="K14-VJ-qzJ" firstAttribute="centerX" secondItem="4Sp-gK-Tcw" secondAttribute="centerX" id="6j4-gR-L2x"/>
                             <constraint firstItem="Trq-0l-oFD" firstAttribute="leading" secondItem="pQo-UN-0M2" secondAttribute="trailing" constant="4" id="7lX-HP-OIQ"/>
                             <constraint firstItem="8ic-Qn-z2G" firstAttribute="top" secondItem="Trq-0l-oFD" secondAttribute="bottom" constant="50" id="7tk-yg-6mO"/>
                             <constraint firstItem="Trq-0l-oFD" firstAttribute="centerY" secondItem="pQo-UN-0M2" secondAttribute="centerY" id="Bio-v5-CdY"/>
@@ -1066,6 +1078,8 @@
                             <constraint firstItem="1bY-KH-i36" firstAttribute="centerX" secondItem="4Sp-gK-Tcw" secondAttribute="centerX" id="i44-iR-W00"/>
                             <constraint firstItem="1bY-KH-i36" firstAttribute="leading" secondItem="4df-OA-cFN" secondAttribute="leading" constant="40" id="i6k-ln-4xX"/>
                             <constraint firstItem="Trq-0l-oFD" firstAttribute="centerX" secondItem="4Sp-gK-Tcw" secondAttribute="centerX" id="kqA-5y-KKz"/>
+                            <constraint firstItem="1bY-KH-i36" firstAttribute="top" secondItem="K14-VJ-qzJ" secondAttribute="bottom" constant="10" id="qbO-2w-6jk"/>
+                            <constraint firstItem="K14-VJ-qzJ" firstAttribute="top" secondItem="8ic-Qn-z2G" secondAttribute="bottom" constant="20" id="rkg-vC-j5c"/>
                             <constraint firstItem="pQo-UN-0M2" firstAttribute="height" secondItem="Trq-0l-oFD" secondAttribute="height" id="vG3-2b-GcC"/>
                             <constraint firstItem="bpZ-p5-giL" firstAttribute="top" secondItem="4df-OA-cFN" secondAttribute="top" id="vSy-Q8-PfY"/>
                         </constraints>
@@ -1076,6 +1090,7 @@
                     <connections>
                         <outlet property="micImage" destination="pQo-UN-0M2" id="fqQ-oI-CN8"/>
                         <outlet property="noticeLabel" destination="1bY-KH-i36" id="4YS-cl-1KB"/>
+                        <outlet property="processingView" destination="K14-VJ-qzJ" id="NVp-SX-Hlo"/>
                         <outlet property="searchImage" destination="8ic-Qn-z2G" id="M2j-gW-mKf"/>
                         <outlet property="searchStatusLabel" destination="Trq-0l-oFD" id="rqG-DW-31c"/>
                         <outlet property="stopButton" destination="bpZ-p5-giL" id="NiO-54-oLs"/>

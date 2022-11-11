@@ -8,6 +8,7 @@
 import UIKit
 import ShazamKit
 import Pulsator
+import Lottie
 
 class RecognizeViewController: UIViewController {
     
@@ -20,6 +21,8 @@ class RecognizeViewController: UIViewController {
     @IBOutlet weak var micImage: UIImageView!
     
     @IBOutlet weak var noticeLabel: UILabel!
+    
+    @IBOutlet weak var processingView: AnimationView!
     
     var displayLink: CADisplayLink?
     
@@ -46,6 +49,14 @@ class RecognizeViewController: UIViewController {
     var state = 1
     
     let gradientLayer = CAGradientLayer()
+    
+    var timer: Timer? {
+        
+        didSet {
+            
+            oldValue?.invalidate()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +89,8 @@ class RecognizeViewController: UIViewController {
         noticeLabel.isHidden = true
         
         isFound = false
+        
+        animateProcessingViewStop()
         
     }
     
@@ -256,6 +269,26 @@ class RecognizeViewController: UIViewController {
         searchImage.layer.addSublayer(pulsatingLayer)
     }
     
+    func animateProcessingViewStart() {
+        
+        processingView.isHidden = false
+        
+        processingView.loopMode = .loop
+        
+        view.addSubview(processingView)
+        
+        processingView.play()
+        
+    }
+    
+    func animateProcessingViewStop() {
+        
+        processingView.stop()
+        
+        processingView.isHidden = true
+        
+    }
+    
     func setupTrackLayer() {
         
         let trackLayer = CAShapeLayer()
@@ -322,6 +355,8 @@ class RecognizeViewController: UIViewController {
         case 0:
             print("tap to start")
             
+            animateProcessingViewStop()
+            
             noticeLabel.isHidden = true
             
             micImage.isHidden = false
@@ -340,6 +375,9 @@ class RecognizeViewController: UIViewController {
             
         case 1:
             print("processing")
+
+            animateProcessingViewStart()
+            
             noticeLabel.isHidden = false
             
             micImage.isHidden = true
@@ -360,9 +398,13 @@ class RecognizeViewController: UIViewController {
             
             state = 2
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-                print("time out!!!!!")
-            
+            self.timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
+
+                guard self.state == 2 else {
+                    
+                    return
+                }
+                
                 if self.isFound == false {
                     
                     DispatchQueue.main.async {
@@ -380,12 +422,19 @@ class RecognizeViewController: UIViewController {
                         self.present(recErrVC, animated: true)
                     }
                 }
-                else {}
+                else { }
             }
             
         case 2:
             print("end searching")
+            
+            animateProcessingViewStop()
+            
             stopButton.isHidden = true
+            
+            processingView.isHidden = true
+            
+            noticeLabel.isHidden = true
             
             stopListening()
             
@@ -401,35 +450,6 @@ class RecognizeViewController: UIViewController {
             
             print("Unknown state")
         }
-    }
-    
-    @objc func handleStart() {
-
-        self.searchStatusLabel.text = "Start"
-
-    }
-    
-    @objc func handleSearch() {
-        
-        self.searchStatusLabel.text = "Searching"
-
-    }
-    
-    
-    @objc func handleEnd() {
-        
-        shapeLayer.removeFromSuperlayer()
-        
-        self.searchStatusLabel.text = "The End"
-        
-        setupShapeLayer()
-        
-    }
-    
-    @objc func handleProcessing() {
-     
-        self.searchStatusLabel.text = "Processing"
-        
     }
 }
 
@@ -488,16 +508,5 @@ extension RecognizeViewController: SHSessionDelegate {
             
             print(error)
         }
-    }
-}
-
-extension UIView {
-    
-    func fadeTransition(_ duration:CFTimeInterval) {
-        let animation = CATransition()
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        animation.type = CATransitionType.fade
-        animation.duration = duration
-        layer.add(animation, forKey: CATransitionType.fade.rawValue)
     }
 }

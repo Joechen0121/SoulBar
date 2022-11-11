@@ -36,6 +36,8 @@
 		D820B92C2915720B000C8F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA5290966C3001583F6 /* Assets.xcassets */; };
 		D82369AC290BDA2100AE41AB /* SearchDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82369AB290BDA2000AE41AB /* SearchDetailsViewController.swift */; };
 		D837B364291D6532008BE6D0 /* RecognizeErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */; };
+		D837B36B291DF7C2008BE6D0 /* processing.json in Resources */ = {isa = PBXBuildFile; fileRef = D837B36A291DF7C2008BE6D0 /* processing.json */; };
+		D837B36E291DF94D008BE6D0 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */; };
 		D8573372290E561B0009D734 /* SearchArtistsResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8573370290E561B0009D734 /* SearchArtistsResultTableViewCell.swift */; };
 		D8573373290E561B0009D734 /* SearchArtistsResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8573371290E561B0009D734 /* SearchArtistsResultTableViewCell.xib */; };
 		D8573376290E9C640009D734 /* SearchSongsResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8573374290E9C640009D734 /* SearchSongsResultTableViewCell.swift */; };
@@ -123,6 +125,8 @@
 		D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMessageOwnerTableViewCell.xib; sourceTree = "<group>"; };
 		D82369AB290BDA2000AE41AB /* SearchDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailsViewController.swift; sourceTree = "<group>"; };
 		D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeErrorViewController.swift; sourceTree = "<group>"; };
+		D837B36A291DF7C2008BE6D0 /* processing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = processing.json; sourceTree = "<group>"; };
+		D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		D8573370290E561B0009D734 /* SearchArtistsResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchArtistsResultTableViewCell.swift; sourceTree = "<group>"; };
 		D8573371290E561B0009D734 /* SearchArtistsResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchArtistsResultTableViewCell.xib; sourceTree = "<group>"; };
 		D8573374290E9C640009D734 /* SearchSongsResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongsResultTableViewCell.swift; sourceTree = "<group>"; };
@@ -316,6 +320,22 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
+		D837B365291DEE64008BE6D0 /* LottieAsset */ = {
+			isa = PBXGroup;
+			children = (
+				D837B36A291DF7C2008BE6D0 /* processing.json */,
+			);
+			path = LottieAsset;
+			sourceTree = "<group>";
+		};
+		D837B36C291DF93E008BE6D0 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		D85EDB90290966C1001583F6 = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +359,8 @@
 			children = (
 				D85EDB9C290966C1001583F6 /* AppDelegate.swift */,
 				D85EDB9E290966C1001583F6 /* SceneDelegate.swift */,
+				D837B36C291DF93E008BE6D0 /* Extension */,
+				D837B365291DEE64008BE6D0 /* LottieAsset */,
 				D8088B1E29096CA30037555B /* Model */,
 				D8088B1329096BEE0037555B /* Controller */,
 				D8A1B978290C463B007F6775 /* View */,
@@ -549,6 +571,7 @@
 				D85EDBA9290966C3001583F6 /* LaunchScreen.storyboard in Resources */,
 				D8573377290E9C640009D734 /* SearchSongsResultTableViewCell.xib in Resources */,
 				D874B98B2917E4EA0082F2D7 /* ProfileTableViewCell.xib in Resources */,
+				D837B36B291DF7C2008BE6D0 /* processing.json in Resources */,
 				D86AD1202913F4D8000208B6 /* FavoriteMusicTableViewCell.xib in Resources */,
 				D820B92C2915720B000C8F88 /* Assets.xcassets in Resources */,
 				D820B9262914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib in Resources */,
@@ -653,6 +676,7 @@
 				D8573381290EA9150009D734 /* SearchAllResultTableViewCell.swift in Sources */,
 				D8088B1729096C200037555B /* EventsViewController.swift in Sources */,
 				D8088B3B290A2A290037555B /* SongsCollectionViewCell.swift in Sources */,
+				D837B36E291DF94D008BE6D0 /* UIView+Ext.swift in Sources */,
 				D8A1B97C290C46C6007F6775 /* SongListViewController.swift in Sources */,
 				D8573372290E561B0009D734 /* SearchArtistsResultTableViewCell.swift in Sources */,
 				D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */,
