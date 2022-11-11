@@ -81,9 +81,9 @@ class RecognizeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        print(#function)
         setupPulsatingLayer()
-        
+        print(state)
         animatePulsatingLayer()
         
         noticeLabel.isHidden = true
@@ -92,16 +92,14 @@ class RecognizeViewController: UIViewController {
         
         animateProcessingViewStop()
         
+        initViewStatus()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        state = 1
-        
-        pulsator.stop()
-        
-        stopListening()
+        initViewStatus()
     }
     
     override func viewDidLayoutSubviews() {
@@ -135,27 +133,22 @@ class RecognizeViewController: UIViewController {
             
             print("Microphone permissions \(isGranted)")
             isPermissionDone = isGranted
+            
+            if !isPermissionDone {
+                
+                let alert = UIAlertController(title: "Error", message: "Please allow microphone usage from settings", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Open settings", style: .default) { _ in
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                })
+                
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+
+            }
 
         }
         
-        if isPermissionDone {
-            
-            return true
-            
-        }
-        else {
-            
-            let alert = UIAlertController(title: "Error", message: "Please allow microphone usage from settings", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Open settings", style: .default) { _ in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-            })
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-            
-            return false
-        }
-        
+        return isPermissionDone
     }
     
     func stopListening() {
@@ -167,7 +160,7 @@ class RecognizeViewController: UIViewController {
     
     private func startListening() {
         
-        guard requestMicrophone() == true else { return }
+        //guard requestMicrophone() == true else { return }
 
         guard !audioEngine.isRunning else {
             
@@ -188,7 +181,8 @@ class RecognizeViewController: UIViewController {
             
             try audioSession.setCategory(.playAndRecord)
             
-            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            // try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            try audioSession.setActive(true)
             
         } catch {
             print("setting category or active state failed")
@@ -209,7 +203,7 @@ class RecognizeViewController: UIViewController {
 
             inputNode.removeTap(onBus: 0)
 
-            let recordingFormat = inputNode.outputFormat(forBus: 0)
+            let recordingFormat = inputNode.inputFormat(forBus: 0)
 
             inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
     
@@ -244,7 +238,11 @@ class RecognizeViewController: UIViewController {
         
         stopButton.isHidden = true
         
-        self.searchStatusLabel.text = "Tap to Start..."
+        noticeLabel.isHidden = true
+        
+        animateProcessingViewStop()
+        
+        self.searchStatusLabel.text = "Tap to Start"
         
         state = 1
         

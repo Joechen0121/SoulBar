@@ -19,6 +19,10 @@ class ChatViewController: UIViewController {
 
     @IBOutlet weak var messageTextField: UITextField!
     
+    @IBOutlet weak var infoHeightConstraint: NSLayoutConstraint!
+   
+    @IBOutlet weak var textFieldHeightConstraint: NSLayoutConstraint!
+   
     static let storyboardID = "ChatVC"
     
     var eventsFavorite: FirebaseEventsData?
@@ -39,6 +43,10 @@ class ChatViewController: UIViewController {
         chatTableView.separatorStyle = .none
         
         configureInformation()
+        
+        infoHeightConstraint.constant = UIScreen.main.bounds.height / 7
+        
+        textFieldHeightConstraint.constant = UIScreen.main.bounds.height / 10
         
         guard let eventsFavorite = eventsFavorite else {
             

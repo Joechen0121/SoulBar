@@ -60,7 +60,7 @@ class EventsViewController: UIViewController {
         
         let flowlayout = UICollectionViewFlowLayout()
         
-        flowlayout.itemSize = CGSize(width: 300, height: 300)
+        flowlayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.width / 2 / 5 * 6)
         
         flowlayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
@@ -87,7 +87,7 @@ class EventsViewController: UIViewController {
             }
             else {
                 
-                self.collectionHeight.constant = 300
+                self.collectionHeight.constant = UIScreen.main.bounds.width / 2 / 5 * 6
     
             }
             
@@ -134,6 +134,7 @@ extension EventsViewController: UITableViewDataSource {
         cell.cardsView.itemSubtitle = events[indexPath.row].comment
         cell.cardsView.textColor = UIColor.white
         cell.cardsView.hasParallax = true
+        cell.widthConstraint.constant = UIScreen.main.bounds.width / 2
 
         if let cardContent = storyboard?.instantiateViewController(withIdentifier: "CardContent") as? EventsCardsDetailsViewController {
 

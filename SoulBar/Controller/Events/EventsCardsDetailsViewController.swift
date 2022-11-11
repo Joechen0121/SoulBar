@@ -16,6 +16,10 @@ class EventsCardsDetailsViewController: UIViewController {
     
     @IBOutlet weak var favoriteButton: UIButton!
     
+    @IBOutlet weak var favoriteImage: UIImageView!
+    
+    @IBOutlet weak var linkImage: UIImageView!
+    
     var events: MusicEvents?
     
     var isFavorite = false
@@ -31,6 +35,17 @@ class EventsCardsDetailsViewController: UIViewController {
         
         eventLocation.layer.cornerRadius = eventLocation.frame.height / 2
         
+        let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
+        
+        favoriteImage.isUserInteractionEnabled = true
+        
+        favoriteImage.addGestureRecognizer(favoriteTap)
+        
+        let linkTap = UITapGestureRecognizer(target: self, action: #selector(buyTicketButton))
+        
+        linkImage.isUserInteractionEnabled = true
+        
+        linkImage.addGestureRecognizer(linkTap)
 
     }
     
@@ -63,7 +78,9 @@ class EventsCardsDetailsViewController: UIViewController {
 
                     DispatchQueue.main.async {
                         
-                        self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                        self.favoriteImage.image = UIImage(systemName: "heart.circle.fill")
+                        
+                        self.favoriteImage.tintColor = UIColor.red
                     }
                     
                 }
@@ -71,7 +88,9 @@ class EventsCardsDetailsViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         
-                        self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                        self.favoriteImage.image = UIImage(systemName: "heart.circle")
+                        
+                        self.favoriteImage.tintColor = UIColor.tintColor
                     }
                 }
             }
@@ -79,7 +98,7 @@ class EventsCardsDetailsViewController: UIViewController {
         
     }
     
-    @IBAction func addToFavorite(_ sender: UIButton) {
+    @objc func addToFavorite() {
         
         guard let events = events, let type = events.type, let url = events.url else {
             return
@@ -89,7 +108,9 @@ class EventsCardsDetailsViewController: UIViewController {
     
             FirebaseEventsManager.sharedInstance.removeEventsTypeData(with: type, uid: events.UID)
             
-            self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            self.favoriteImage.image = UIImage(systemName: "heart.circle")
+            
+            self.favoriteImage.tintColor = UIColor.tintColor
             
             isFavorite = false
 
@@ -98,7 +119,9 @@ class EventsCardsDetailsViewController: UIViewController {
             
             FirebaseEventsManager.sharedInstance.addEventsTypeData(with: type, uid: events.UID, webURL: events.webSales, eventName: events.title, eventTime: events.startDate, location: events.showInfo[0].location, url: url, chatroom: events.UID)
                 
-            self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            self.favoriteImage.image = UIImage(systemName: "heart.circle.fill")
+            
+            self.favoriteImage.tintColor = UIColor.red
             
             isFavorite = true
 
@@ -107,7 +130,7 @@ class EventsCardsDetailsViewController: UIViewController {
         
     }
     
-    @IBAction func buyTicketButton(_ sender: UIButton) {
+    @objc func buyTicketButton() {
         
         print("buy")
         

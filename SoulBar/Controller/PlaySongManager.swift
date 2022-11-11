@@ -82,6 +82,8 @@ class PlaySongManager: NSObject {
         let item = AVPlayerItem(asset: asset)
         
         self.currentTime = 0
+        
+        setupNowPlaying()
 
         item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.new], context: nil)
         
@@ -215,6 +217,8 @@ class PlaySongManager: NSObject {
         
         PlaySongManager.sharedInstance.playMusic(url: url)
         
+        setupNowPlaying()
+        
         delegate?.didReceiveNotification(player: self.player, notification: .PlayerDidToPlayNotification)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerNotification(notification:)), name: .AVPlayerItemDidPlayToEndTime, object: self.player.currentItem)
@@ -330,6 +334,39 @@ class PlaySongManager: NSObject {
             return.success
             
         }
+    }
+    
+    func setupNowPlaying() {
+
+        var nowPlayingInfo = [String : Any]()
+        
+        guard let song = PlaySongManager.sharedInstance.currentSong else { return }
+        
+        if let artworkURL = song.attributes?.artwork?.url, let width = song.attributes?.artwork?.width, let height = song.attributes?.artwork?.height {
+            
+            nowPlayingInfo[MPMediaItemPropertyTitle] = PlaySongManager.sharedInstance.currentSong?.attributes?.name
+            
+            let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+            
+            if let data = try? Data(contentsOf: URL(string: pictureURL)!) {
+                let image: UIImage = UIImage(data: data)!
+                
+                nowPlayingInfo[MPMediaItemPropertyArtwork] =
+                MPMediaItemArtwork(boundsSize: image.size) { size in
+                    return image
+                }
+            }
+            
+        }
+
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.player.currentItem?.currentTime().seconds
+        
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = self.player.currentItem?.asset.duration.seconds
+        
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
+
+        // Set the metadata
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
     
     func playMusic(url: String) {

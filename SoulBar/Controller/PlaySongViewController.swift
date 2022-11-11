@@ -114,7 +114,7 @@ class PlaySongViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         guard let songs = songs, !songs.isEmpty else {
             return
         }
@@ -148,6 +148,8 @@ class PlaySongViewController: UIViewController {
         }
         
         configureSong()
+        
+        configureButtonView()
         
         configureView()
         
@@ -195,6 +197,19 @@ class PlaySongViewController: UIViewController {
             }
         }
         
+    }
+    
+    func configureButtonView() {
+        
+        if PlaySongManager.sharedInstance.player.timeControlStatus == .playing {
+            
+            playPauseImage.image = UIImage(named: "pause.fill")
+            
+        }
+        else {
+            
+            playPauseImage.image = UIImage(named: "play.fill")
+        }
     }
     
     func configureView() {

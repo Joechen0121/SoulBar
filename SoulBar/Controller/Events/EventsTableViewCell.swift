@@ -21,6 +21,9 @@ class EventsTableViewCell: UITableViewCell {
     @IBOutlet weak var cardsView: CardHighlight!
     
     @IBOutlet weak var eventImage: UIImageView!
+    
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

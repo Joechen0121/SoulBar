@@ -20,6 +20,12 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
     
     @IBOutlet weak var eventLocation: UIButton!
     
+    @IBOutlet weak var ticketImage: UIImageView!
+    
+    @IBOutlet weak var chatroomImage: UIImageView!
+    
+    @IBOutlet weak var favoriteImage: UIImageView!
+    
     let annotation = MKPointAnnotation()
     
     var isFavorite = false
@@ -30,6 +36,24 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
         configureEventLocation()
 
         eventLocation.layer.cornerRadius = eventLocation.frame.height / 2
+        
+        let ticketTap = UITapGestureRecognizer(target: self, action: #selector(buyTicketButton))
+        
+        ticketImage.isUserInteractionEnabled = true
+        
+        ticketImage.addGestureRecognizer(ticketTap)
+        
+        let chatroomTap = UITapGestureRecognizer(target: self, action: #selector(gotToChatroom))
+        
+        chatroomImage.isUserInteractionEnabled = true
+        
+        chatroomImage.addGestureRecognizer(chatroomTap)
+        
+        let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
+        
+        favoriteImage.isUserInteractionEnabled = true
+        
+        favoriteImage.addGestureRecognizer(favoriteTap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +67,7 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
         eventsMap.setRegion(MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000), animated: true)
     }
     
-    @IBAction func buyTicketButton(_ sender: UIButton) {
+    @objc func buyTicketButton() {
         
         guard let eventsFavorite = eventsFavorite else {
             return
@@ -57,7 +81,7 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
             }
         }
     }
-    @IBAction func gotToChatroom(_ sender: UIButton) {
+    @objc func gotToChatroom() {
         print("Got to chatroom")
         
         if let chatVC = self.storyboard?.instantiateViewController(withIdentifier: ChatViewController.storyboardID) as? ChatViewController {
@@ -70,7 +94,7 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
         }
     }
     
-    @IBAction func addToFavorite(_ sender: UIButton) {
+    @objc func addToFavorite() {
         
         guard let eventsFavorite = eventsFavorite else {
             return
@@ -80,7 +104,9 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
     
             FirebaseEventsManager.sharedInstance.removeEventsTypeData(with: eventsFavorite.type, uid: eventsFavorite.uid)
             
-            self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            self.favoriteImage.image = UIImage(systemName: "heart.circle")
+            
+            self.favoriteImage.tintColor = UIColor.tintColor
             
             isFavorite = false
 
@@ -89,7 +115,9 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
             
             FirebaseEventsManager.sharedInstance.addEventsTypeData(with: eventsFavorite.type, uid: eventsFavorite.uid, webURL: eventsFavorite.webURL, eventName: eventsFavorite.eventTime, eventTime: eventsFavorite.eventTime, location: eventsFavorite.location, url: eventsFavorite.url, chatroom: eventsFavorite.uid)
                 
-            self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            self.favoriteImage.image = UIImage(systemName: "heart.circle.fill")
+            
+            self.favoriteImage.tintColor = UIColor.red
             
             isFavorite = true
 
@@ -143,7 +171,9 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
 
                     DispatchQueue.main.async {
                         
-                        self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                        self.favoriteImage.image = UIImage(systemName: "heart.circle.fill")
+                        
+                        self.favoriteImage.tintColor = UIColor.red
                     }
                     
                 }
@@ -151,7 +181,9 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         
-                        self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                        self.favoriteImage.image = UIImage(systemName: "heart.circle")
+                        
+                        self.favoriteImage.tintColor = UIColor.tintColor
                     }
                 }
             }
