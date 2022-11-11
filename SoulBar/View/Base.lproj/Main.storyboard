@@ -952,14 +952,14 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPm-7w-BW2">
-                                        <rect key="frame" x="30" y="120" width="354" height="18"/>
+                                        <rect key="frame" x="30" y="100.5" width="354" height="18"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YLg-4v-Thx">
-                                        <rect key="frame" x="30" y="153" width="354" height="565"/>
+                                        <rect key="frame" x="30" y="133.5" width="354" height="584.5"/>
                                     </mapView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-Bt-ov8">
                                         <rect key="frame" x="137" y="737" width="140.5" height="31"/>
@@ -977,7 +977,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ticket Web" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSP-a6-iVi">
-                                        <rect key="frame" x="89.5" y="59.5" width="85.5" height="20.5"/>
+                                        <rect key="frame" x="89.5" y="60" width="85.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1003,7 +1003,7 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uE-pk-ebV">
-                                        <rect key="frame" x="252" y="60" width="60.5" height="20"/>
+                                        <rect key="frame" x="252" y="60" width="60.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1012,17 +1012,17 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="SPm-7w-BW2" secondAttribute="trailing" constant="30" id="0TT-69-UBl"/>
+                                    <constraint firstItem="eSP-a6-iVi" firstAttribute="top" secondItem="Tc2-em-yUP" secondAttribute="bottom" id="4jN-r2-kjd"/>
                                     <constraint firstItem="YLg-4v-Thx" firstAttribute="top" secondItem="SPm-7w-BW2" secondAttribute="bottom" constant="15" id="5Xd-Hq-uxb"/>
                                     <constraint firstItem="Tc2-em-yUP" firstAttribute="centerX" secondItem="euu-ha-7Tj" secondAttribute="centerX" id="60F-j8-lTi"/>
                                     <constraint firstItem="SPm-7w-BW2" firstAttribute="leading" secondItem="euu-ha-7Tj" secondAttribute="leading" constant="30" id="Cv3-Rf-R9j"/>
                                     <constraint firstAttribute="bottom" secondItem="Vuk-Bt-ov8" secondAttribute="bottom" constant="50" id="DEr-zI-YyP"/>
                                     <constraint firstItem="Vuk-Bt-ov8" firstAttribute="centerX" secondItem="euu-ha-7Tj" secondAttribute="centerX" id="DxW-N3-8R4"/>
                                     <constraint firstItem="5uE-pk-ebV" firstAttribute="centerX" secondItem="L6Q-89-QaB" secondAttribute="centerX" id="No5-ZR-YNc"/>
-                                    <constraint firstItem="SPm-7w-BW2" firstAttribute="top" secondItem="5uE-pk-ebV" secondAttribute="bottom" constant="40" id="O2f-Oz-Yik"/>
                                     <constraint firstItem="Tc2-em-yUP" firstAttribute="top" secondItem="euu-ha-7Tj" secondAttribute="top" constant="10" id="Q8f-vP-PhC"/>
-                                    <constraint firstItem="SPm-7w-BW2" firstAttribute="top" secondItem="eSP-a6-iVi" secondAttribute="bottom" constant="40" id="R0P-J8-vMZ"/>
-                                    <constraint firstItem="SPm-7w-BW2" firstAttribute="top" secondItem="euu-ha-7Tj" secondAttribute="top" constant="120" id="Ufk-FO-5dF"/>
                                     <constraint firstAttribute="trailing" secondItem="YLg-4v-Thx" secondAttribute="trailing" constant="30" id="d77-gs-8sY"/>
+                                    <constraint firstItem="SPm-7w-BW2" firstAttribute="top" secondItem="eSP-a6-iVi" secondAttribute="bottom" constant="20" id="fmP-n4-uxW"/>
+                                    <constraint firstItem="SPm-7w-BW2" firstAttribute="top" secondItem="5uE-pk-ebV" secondAttribute="bottom" constant="20" id="gWE-CP-P1B"/>
                                     <constraint firstItem="YLg-4v-Thx" firstAttribute="leading" secondItem="euu-ha-7Tj" secondAttribute="leading" constant="30" id="iFu-7o-5JV"/>
                                     <constraint firstAttribute="bottom" secondItem="YLg-4v-Thx" secondAttribute="bottom" constant="100" id="jK6-ga-FLz"/>
                                     <constraint firstItem="mWm-Dr-Hhj" firstAttribute="centerX" secondItem="eSP-a6-iVi" secondAttribute="centerX" id="lWp-Ih-jPu"/>
