@@ -157,6 +157,12 @@ class PlaySongViewController: UIViewController {
 
     }
     
+    @IBAction func songSlider(_ sender: UISlider) {
+        
+        PlaySongManager.sharedInstance.seekTo(Double(sender.value))
+        
+    }
+    
     @IBAction func closeButton(_ sender: UIButton) {
         dismiss(animated: true)
     }

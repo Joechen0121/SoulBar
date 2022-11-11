@@ -235,6 +235,9 @@
                                 <rect key="frame" x="48" y="280.5" width="318" height="31"/>
                                 <color key="tintColor" systemColor="systemGrayColor"/>
                                 <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="songSlider:" destination="OZp-VT-HEW" eventType="valueChanged" id="ayx-bh-cig"/>
+                                </connections>
                             </slider>
                             <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0OP-eQ-jsx">
                                 <rect key="frame" x="234" y="194" width="150" height="31"/>
