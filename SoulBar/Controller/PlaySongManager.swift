@@ -77,6 +77,8 @@ class PlaySongManager: NSObject {
 
     func setupPlayer(with url: URL) {
         
+        print(#function)
+        
         let asset = AVURLAsset(url: url)
         
         let item = AVPlayerItem(asset: asset)
@@ -85,7 +87,7 @@ class PlaySongManager: NSObject {
         
         setupNowPlaying()
 
-        item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.new], context: nil)
+        item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
         
         DispatchQueue.main.async {
             
@@ -128,7 +130,7 @@ class PlaySongManager: NSObject {
                 self.position = PlayerPosition(duration: Int(duration), current: Int(CMTimeGetSeconds(currentTime)))
                 
                 self.currentTime = CMTimeGetSeconds(self.player.currentTime())
-            
+                print("-----\(self.currentTime)")
                 self.delegate?.didUpdatePosition(self.player, self.position)
             }
         }
@@ -136,15 +138,25 @@ class PlaySongManager: NSObject {
     
     func removePlayerObserve() {
         
-        self.player.removeObserver(self, forKeyPath: #keyPath(AVPlayer.timeControlStatus), context: nil)
-        self.player.currentItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), context: nil)
-        
+        if let observer = self.playerObserver {
+            
+            if player.timeControlStatus != .playing {
+                print(#function)
+                self.player.removeObserver(self, forKeyPath: #keyPath(AVPlayer.timeControlStatus), context: nil)
+                
+                self.player.currentItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), context: nil)
+            }
+        }
     }
     
     func removeTimeObserve() {
         
         if let observer = self.playerObserver {
-            self.player.removeTimeObserver(observer)
+            
+            if player.timeControlStatus != .playing {
+                print(#function)
+                self.player.removeTimeObserver(observer)
+            }
         }
     }
     
@@ -206,10 +218,17 @@ class PlaySongManager: NSObject {
     }
     
     func startPlayer() {
+        print(#function)
+        print(PlaySongManager.sharedInstance.current)
+        print(PlaySongManager.sharedInstance.songs?.count)
+        guard let songs = PlaySongManager.sharedInstance.songs, !songs.isEmpty else { return }
         
-        guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current] else {
-            return
+        if PlaySongManager.sharedInstance.current >= songs.count {
+            
+            PlaySongManager.sharedInstance.current = 0
         }
+        
+        let song = songs[PlaySongManager.sharedInstance.current]
         
         guard let url = song.attributes?.previews?[0].url else { return }
         
@@ -307,29 +326,39 @@ class PlaySongManager: NSObject {
             return .commandFailed
         }
         
-        commandCenter.changePlaybackPositionCommand.addTarget { [unowned self] event in
+        commandCenter.changePlaybackPositionCommand.addTarget { [weak self] event in
+            
+            guard let self = self else { return .commandFailed }
             
             if let event = event as? MPChangePlaybackPositionCommandEvent {
                 let percent = Float(event.positionTime) / Float(self.position.duration)
                 print("change playback", percent)
-                seekTo(Double(percent))
+                self.seekTo(Double(percent))
             }
             
             return .success
         }
         
-        commandCenter.previousTrackCommand.addTarget { [unowned self] _ in
-            print((current + maxCount - 1) % maxCount)
-            delegate?.selectData(index: (current + maxCount - 1) % maxCount, isFromMiniPlayer: false)
+        commandCenter.previousTrackCommand.addTarget { [weak self] _ in
+            
+            guard let self = self else { return .commandFailed }
+            
+            print((self.current + self.maxCount - 1) % self.maxCount)
+            self.closePlayer()
+            self.delegate?.selectData(index: (self.current + self.maxCount - 1) % self.maxCount, isFromMiniPlayer: false)
             
             return.success
             
         }
         
-        commandCenter.nextTrackCommand.addTarget { [unowned self] event in
+        commandCenter.nextTrackCommand.addTarget { [weak self] event in
+            
+            guard let self = self else { return .commandFailed }
+            
             if event.timestamp != 0 {
-                print((current + maxCount + 1) % maxCount)
-                delegate?.selectData(index: (current + maxCount + 1) % maxCount, isFromMiniPlayer: false)
+                self.closePlayer()
+                print((self.current + self.maxCount + 1) % self.maxCount)
+                self.delegate?.selectData(index: (self.current + self.maxCount + 1) % self.maxCount, isFromMiniPlayer: false)
             }
             return.success
             
@@ -380,6 +409,7 @@ class PlaySongManager: NSObject {
         player.replaceCurrentItem(with: playerItem)
         print("======\(self.currentTime)")
         let time = CMTime(seconds: self.currentTime, preferredTimescale: 1000)
+
         print(time)
         player.seek(to: time)
         
@@ -389,8 +419,6 @@ class PlaySongManager: NSObject {
     
     
     func pauseMusic() {
-        
-        isBackground = true
 
         player.pause()
     }
