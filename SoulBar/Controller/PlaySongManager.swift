@@ -49,7 +49,7 @@ class PlaySongManager: NSObject {
     
     static let sharedInstance = PlaySongManager()
     
-    private var position = PlayerPosition()
+    var position = PlayerPosition()
     
     let player = AVPlayer()
     

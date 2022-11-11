@@ -29,8 +29,6 @@ class PlaySongViewController: UIViewController {
     
     @IBOutlet weak var maxTimeLabel: UILabel!
     
-    @IBOutlet weak var songImageAspectRatio: NSLayoutConstraint!
-    
     @IBOutlet weak var detailButtonWidthStackView: NSLayoutConstraint!
     
     @IBOutlet weak var songImageWidthConstraint:
@@ -70,6 +68,8 @@ class PlaySongViewController: UIViewController {
     
     @IBOutlet weak var nextImage: UIImageView!
     
+    @IBOutlet weak var volumeSilder: UISlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -90,11 +90,11 @@ class PlaySongViewController: UIViewController {
 
         PlaySongManager.sharedInstance.setupRemoteTransportControls()
         
-        songImageWidthConstraint.constant = UIScreen.main.bounds.height / 2
+        songImageWidthConstraint.constant = UIScreen.main.bounds.height / 1.5
 
         songImageHeightConstraint.constant = UIScreen.main.bounds.height / 3
 
-        songImageTopConstraint.constant = UIScreen.main.bounds.height / 7
+        songImageTopConstraint.constant = UIScreen.main.bounds.height / 20
 
         detailButtonWidthStackView.constant = UIScreen.main.bounds.width / 3
 
@@ -125,9 +125,7 @@ class PlaySongViewController: UIViewController {
             
             PlaySongManager.sharedInstance.current = 0
         }
-        
-        print(songs[PlaySongManager.sharedInstance.current].attributes?.name)
-        print(PlaySongManager.sharedInstance.currentSong?.attributes?.name)
+ 
         if songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url == PlaySongManager.sharedInstance.currentSong?.attributes?.previews?[0].url {
 
             selectData(index: PlaySongManager.sharedInstance.current, isFromMiniPlayer: true)
@@ -151,6 +149,8 @@ class PlaySongViewController: UIViewController {
         
         configureSong()
         
+        configureView()
+        
         configureButton(currentItemIndex: currentItemIndex)
         
         NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
@@ -161,6 +161,13 @@ class PlaySongViewController: UIViewController {
         
         PlaySongManager.sharedInstance.seekTo(Double(sender.value))
         
+    }
+    
+    @IBAction func setSongVolumeSlider(_ sender: UISlider) {
+        
+        PlaySongManager.sharedInstance.player.volume = sender.value
+
+        volumeSilder.value = sender.value
     }
     
     @IBAction func closeButton(_ sender: UIButton) {
@@ -188,6 +195,17 @@ class PlaySongViewController: UIViewController {
             }
         }
         
+    }
+    
+    func configureView() {
+        
+        volumeSilder.value = PlaySongManager.sharedInstance.player.volume
+        
+        musicSlider.value = Float(Double(PlaySongManager.sharedInstance.currentTime) / Double( PlaySongManager.sharedInstance.position.duration))
+        
+        minTimeLabel.text = String(format: "%02d:%02d", Int(PlaySongManager.sharedInstance.currentTime) / 60, Int(PlaySongManager.sharedInstance.currentTime) % 60)
+        
+        maxTimeLabel.text = String(format: "%02d:%02d", Int( PlaySongManager.sharedInstance.position.duration) / 60, Int( PlaySongManager.sharedInstance.position.duration) % 60)
     }
     
     func configureButton(currentItemIndex: Int) {
