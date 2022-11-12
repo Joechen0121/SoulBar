@@ -234,14 +234,14 @@ extension FavoriteViewController: UITableViewDataSource {
         
         case 0:
             
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
             let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.frame = CGRect.init(x: 5, y: -headerView.frame.midY / 2, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
             label.text = "Favorite Songs"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .white
+            headerView.backgroundColor = .clear
             
             headerView.addSubview(label)
             
@@ -249,14 +249,14 @@ extension FavoriteViewController: UITableViewDataSource {
             
         case 1:
             
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
             let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.frame = CGRect.init(x: 5, y: -headerView.frame.midY / 2, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
             label.text = "Favorite Albums"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .white
+            headerView.backgroundColor = .clear
             
             headerView.addSubview(label)
             
@@ -264,14 +264,14 @@ extension FavoriteViewController: UITableViewDataSource {
             
         case 2:
             
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
             let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.frame = CGRect.init(x: 5, y: -headerView.frame.midY / 2, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
             label.text = "Favorite Playlists"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .white
+            headerView.backgroundColor = .clear
             
             headerView.addSubview(label)
             
@@ -279,14 +279,14 @@ extension FavoriteViewController: UITableViewDataSource {
             
         case 3:
             
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
             let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.frame = CGRect.init(x: 5, y: -headerView.frame.midY / 2, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
             label.text = "Favorite Lists"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .white
+            headerView.backgroundColor = .clear
             
             headerView.addSubview(label)
             
@@ -446,7 +446,6 @@ extension FavoriteViewController: UITableViewDataSource {
             guard !favoriteAlbums.isEmpty else { return UITableViewCell() }
 
             cell.musicName.text = favoriteAlbums[indexPath.row][0].attributes?.name
-            cell.musicType.text = "Albums"
             
             cell.musicImage.kf.indicatorType = .activity
             
@@ -469,7 +468,6 @@ extension FavoriteViewController: UITableViewDataSource {
             guard !favoritePlaylist.isEmpty else { return UITableViewCell() }
             
             cell.musicName.text = favoritePlaylist[indexPath.row][0].attributes?.name
-            cell.musicType.text = "Playlists"
             
             cell.musicImage.kf.indicatorType = .activity
             

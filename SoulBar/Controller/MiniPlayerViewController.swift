@@ -66,6 +66,16 @@ class MiniPlayerViewController: UIViewController {
         self.view.addSubview(playPauseButton)
 
         playPauseButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        songName.textAlignment = .left
+
+        songName.text = "Song Name"
+        
+        songName.font = UIFont(name: "Kohinoor Bangla Semibold", size: 15.0)
+        
+        self.view.addSubview(songName)
+
+        songName.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             playPauseButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
@@ -74,14 +84,6 @@ class MiniPlayerViewController: UIViewController {
             playPauseButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             playPauseButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 8)
         ])
-        
-        songName.textAlignment = .left
-
-        songName.text = "Song Name"
-
-        self.view.addSubview(songName)
-
-        songName.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             songName.leadingAnchor.constraint(equalTo: self.songImage.trailingAnchor, constant: 20),

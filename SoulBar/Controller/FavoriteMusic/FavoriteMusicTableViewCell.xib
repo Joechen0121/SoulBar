@@ -24,8 +24,8 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMN-Lq-IHv">
-                        <rect key="frame" x="148" y="47.5" width="44.5" height="21"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <rect key="frame" x="148" y="46" width="42.5" height="24"/>
+                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -41,6 +41,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="musicImage" destination="TjO-G0-N9e" id="AP7-nN-Ydx"/>
+                <outlet property="musicImageHeight" destination="FU6-Xu-bdr" id="FC4-SO-h5p"/>
                 <outlet property="musicName" destination="dMN-Lq-IHv" id="WlG-yP-2sl"/>
             </connections>
             <point key="canvasLocation" x="186.95652173913044" y="115.51339285714285"/>
