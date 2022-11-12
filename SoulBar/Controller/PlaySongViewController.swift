@@ -159,6 +159,12 @@ class PlaySongViewController: UIViewController {
 
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        PlaySongManager.sharedInstance.removeTimeObserve()
+    }
+    
     @IBAction func songSlider(_ sender: UISlider) {
         
         PlaySongManager.sharedInstance.seekTo(Double(sender.value))
@@ -429,7 +435,7 @@ class PlaySongViewController: UIViewController {
                 
             }
             else {
-    
+                print("setup player")
                 PlaySongManager.sharedInstance.setupPlayer(with: songURL)
             }
             

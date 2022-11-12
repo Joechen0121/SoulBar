@@ -59,7 +59,13 @@ class PlaySongManager: NSObject {
     
     var maxCount = 0
     
-    var playerObserver: Any?
+    var previousBackCount = 0
+    
+    var nextBackCount = 0
+    
+    var playerObserver: NSKeyValueObservation?
+    
+    var timeObserver: Any?
     
     var timerInvalid = false
     
@@ -88,7 +94,7 @@ class PlaySongManager: NSObject {
         setupNowPlaying()
 
         item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
-        
+
         DispatchQueue.main.async {
             
             self.player.replaceCurrentItem(with: item)
@@ -106,8 +112,10 @@ class PlaySongManager: NSObject {
     
     func addTimeObserve() {
         
+        guard self.timeObserver == nil else { return }
+        
         self.timerInvalid = false
-        self.playerObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC)), queue: .main) { [weak self] _ in
+        self.timeObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC)), queue: .main) { [weak self] _ in
 
             guard let self = self else { return }
             
@@ -140,8 +148,8 @@ class PlaySongManager: NSObject {
         
         if let observer = self.playerObserver {
             
-            if player.timeControlStatus != .playing {
-                print(#function)
+            if player.timeControlStatus == .paused {
+    
                 self.player.removeObserver(self, forKeyPath: #keyPath(AVPlayer.timeControlStatus), context: nil)
                 
                 self.player.currentItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), context: nil)
@@ -151,17 +159,18 @@ class PlaySongManager: NSObject {
     
     func removeTimeObserve() {
         
-        if let observer = self.playerObserver {
+        if let observer = timeObserver {
             
-            if player.timeControlStatus != .playing {
-                print(#function)
+            if player.timeControlStatus == .paused {
+    
                 self.player.removeTimeObserver(observer)
+                self.timeObserver = nil
             }
         }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-
+        
         if keyPath == #keyPath(AVPlayerItem.status) {
             
             let status: AVPlayerItem.Status
@@ -176,7 +185,11 @@ class PlaySongManager: NSObject {
             switch status {
             case .readyToPlay:
                 delegate?.didReceiveNotification(player: self.player, notification: .PlayerReadyToPlayNotification)
+
                 self.startPlayer()
+                
+                previousBackCount = 0
+                nextBackCount = 0
                 NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
                 print("PlayerStatus ReadyToPlay")
                 
@@ -218,9 +231,6 @@ class PlaySongManager: NSObject {
     }
     
     func startPlayer() {
-        print(#function)
-        print(PlaySongManager.sharedInstance.current)
-        print(PlaySongManager.sharedInstance.songs?.count)
         guard let songs = PlaySongManager.sharedInstance.songs, !songs.isEmpty else { return }
         
         if PlaySongManager.sharedInstance.current >= songs.count {
@@ -340,26 +350,27 @@ class PlaySongManager: NSObject {
         }
         
         commandCenter.previousTrackCommand.addTarget { [weak self] _ in
+        
+            guard let self = self, self.previousBackCount == 0 else { return .commandFailed }
             
-            guard let self = self else { return .commandFailed }
-            
+            self.previousBackCount += 1
             print((self.current + self.maxCount - 1) % self.maxCount)
             self.closePlayer()
             self.delegate?.selectData(index: (self.current + self.maxCount - 1) % self.maxCount, isFromMiniPlayer: false)
-            
+        
             return.success
             
         }
         
         commandCenter.nextTrackCommand.addTarget { [weak self] event in
+        
+            guard let self = self, self.nextBackCount == 0 else { return .commandFailed }
             
-            guard let self = self else { return .commandFailed }
-            
-            if event.timestamp != 0 {
-                self.closePlayer()
-                print((self.current + self.maxCount + 1) % self.maxCount)
-                self.delegate?.selectData(index: (self.current + self.maxCount + 1) % self.maxCount, isFromMiniPlayer: false)
-            }
+            self.nextBackCount += 1
+            self.closePlayer()
+            print((self.current + self.maxCount + 1) % self.maxCount)
+            self.delegate?.selectData(index: (self.current + self.maxCount + 1) % self.maxCount, isFromMiniPlayer: false)
+
             return.success
             
         }
@@ -407,10 +418,9 @@ class PlaySongManager: NSObject {
         playerItem = AVPlayerItem(url: musicURL)
     
         player.replaceCurrentItem(with: playerItem)
-        print("======\(self.currentTime)")
+
         let time = CMTime(seconds: self.currentTime, preferredTimescale: 1000)
 
-        print(time)
         player.seek(to: time)
         
         player.play()
