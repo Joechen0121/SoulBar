@@ -7,8 +7,9 @@
 
 import UIKit
 import CoreMedia
+import SwiftUI
 
-class FavoriteViewController: UIViewController, UITableViewDelegate {
+class FavoriteViewController: UIViewController {
 
     @IBOutlet weak var favoriteListTableView: UITableView!
     
@@ -41,12 +42,25 @@ class FavoriteViewController: UIViewController, UITableViewDelegate {
         
         //configureNavigationButton()
         
+        favoriteListTableView.separatorStyle = .none
+        
         setupUI()
 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        favoriteSongs = []
+        
+        favoriteAlbums = []
+        
+        favoritePlaylist = []
+        
+        favoriteLists = []
+        
+        favoriteListsInfo = []
+        
         showImage(false)
     }
     
@@ -425,14 +439,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
             cell.musicName.text = "Love Songs"
             
-            cell.musicImage.kf.indicatorType = .activity
-            
-            if let artworkURL = favoriteSongs[indexPath.row][0].attributes?.artwork?.url, let width = favoriteSongs[indexPath.row][0].attributes?.artwork?.width, let height = favoriteSongs[indexPath.row][0].attributes?.artwork?.height {
-                
-                let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-                
-                cell.musicImage.kf.setImage(with: URL(string: pictureURL))
-            }
+            cell.musicImage.image = UIImage(named: "loveLogo")
             
             return cell
         }
@@ -498,6 +505,53 @@ extension FavoriteViewController: UITableViewDataSource {
             return UITableViewCell()
         }
     }
+}
+
+extension FavoriteViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0 {
+            
+            guard !self.favoriteSongs.isEmpty else {
+                
+                return
+            }
+            
+            var data = [SongsSearchInfo]()
+            
+            favoriteSongs.forEach { song in
+                data.append(song[0])
+            }
+            
+            if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
+                
+                musicDetails.favoriteSongs = data
+                print("\(#function) \(data.count)")
+                self.navigationController?.pushViewController(musicDetails, animated: true)
+            }
+        }
+        else if indexPath.section == 1 {
+            
+            // favoriteAlbums: [[SongsSearchInfo]] = []
+            
+        }
+        
+        else if indexPath.section == 2 {
+            
+            // var favoritePlaylist: [[SongsSearchInfo]] = []
+            
+        }
+        else {
+            
+            
+            // favoriteLists: [[SongsSearchInfo]] = []
+            
+            
+        }
+    }
+    
+    
 }
 
 extension FavoriteViewController: UIScrollViewDelegate {

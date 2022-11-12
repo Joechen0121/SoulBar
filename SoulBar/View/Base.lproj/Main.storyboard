@@ -1690,6 +1690,89 @@
             </objects>
             <point key="canvasLocation" x="1703" y="1030"/>
         </scene>
+        <!--Favorite Music Details View Controller-->
+        <scene sceneID="UQ7-7D-6Ah">
+            <objects>
+                <viewController storyboardIdentifier="FavoriteMusicDetailsVC" id="kPM-38-QbO" customClass="FavoriteMusicDetailsViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="n64-TM-LRQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iIW-sX-Byd">
+                                <rect key="frame" x="0.0" y="244" width="414" height="618"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cw6-lr-2Qt">
+                                <rect key="frame" x="0.0" y="44" width="414" height="200"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loveLogo" translatesAutoresizingMaskIntoConstraints="NO" id="hyw-1J-vI1">
+                                        <rect key="frame" x="10" y="10" width="180" height="180"/>
+                                        <color key="tintColor" systemColor="systemRedColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="hyw-1J-vI1" secondAttribute="height" id="BQe-Hl-AIQ"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play.fill" translatesAutoresizingMaskIntoConstraints="NO" id="e2h-1l-yud">
+                                        <rect key="frame" x="334" y="130" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="ORZ-6Z-TSJ"/>
+                                            <constraint firstAttribute="width" secondItem="e2h-1l-yud" secondAttribute="height" id="lX4-en-QWx"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love Songs" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shC-e8-Xaz">
+                                        <rect key="frame" x="210" y="10" width="174" height="28"/>
+                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="20"/>
+                                        <color key="textColor" red="0.96470588235294119" green="0.40392156862745099" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oda-yK-1ZI">
+                                        <rect key="frame" x="210" y="58" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="shC-e8-Xaz" firstAttribute="leading" secondItem="hyw-1J-vI1" secondAttribute="trailing" constant="20" id="0e0-Uo-pbQ"/>
+                                    <constraint firstItem="hyw-1J-vI1" firstAttribute="leading" secondItem="Cw6-lr-2Qt" secondAttribute="leading" constant="10" id="1lM-3l-A6G"/>
+                                    <constraint firstAttribute="bottom" secondItem="e2h-1l-yud" secondAttribute="bottom" constant="20" id="ED9-K2-x3A"/>
+                                    <constraint firstAttribute="bottom" secondItem="hyw-1J-vI1" secondAttribute="bottom" constant="10" id="KUD-5Y-LPk"/>
+                                    <constraint firstItem="Oda-yK-1ZI" firstAttribute="top" secondItem="shC-e8-Xaz" secondAttribute="bottom" constant="20" id="SkG-lc-9Sb"/>
+                                    <constraint firstItem="shC-e8-Xaz" firstAttribute="top" secondItem="Cw6-lr-2Qt" secondAttribute="top" constant="10" id="VPO-Bj-4Z6"/>
+                                    <constraint firstAttribute="height" constant="200" id="ZbZ-7k-WJj"/>
+                                    <constraint firstAttribute="trailing" secondItem="shC-e8-Xaz" secondAttribute="trailing" constant="30" id="dXo-gq-yyx"/>
+                                    <constraint firstItem="Oda-yK-1ZI" firstAttribute="leading" secondItem="hyw-1J-vI1" secondAttribute="trailing" constant="20" id="eAI-TY-EuC"/>
+                                    <constraint firstAttribute="trailing" secondItem="e2h-1l-yud" secondAttribute="trailing" constant="30" id="vLV-8R-4YQ"/>
+                                    <constraint firstItem="hyw-1J-vI1" firstAttribute="top" secondItem="Cw6-lr-2Qt" secondAttribute="top" constant="10" id="yh7-Mm-ICY"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="NR6-Lp-fpt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iIW-sX-Byd" firstAttribute="leading" secondItem="NR6-Lp-fpt" secondAttribute="leading" id="82b-pz-MHZ"/>
+                            <constraint firstItem="NR6-Lp-fpt" firstAttribute="bottom" secondItem="iIW-sX-Byd" secondAttribute="bottom" id="Nis-Xt-b2g"/>
+                            <constraint firstItem="Cw6-lr-2Qt" firstAttribute="leading" secondItem="NR6-Lp-fpt" secondAttribute="leading" id="PhQ-Nf-31V"/>
+                            <constraint firstItem="NR6-Lp-fpt" firstAttribute="trailing" secondItem="iIW-sX-Byd" secondAttribute="trailing" id="co2-Id-3WY"/>
+                            <constraint firstItem="NR6-Lp-fpt" firstAttribute="trailing" secondItem="Cw6-lr-2Qt" secondAttribute="trailing" id="hrC-yk-9bt"/>
+                            <constraint firstItem="iIW-sX-Byd" firstAttribute="top" secondItem="Cw6-lr-2Qt" secondAttribute="bottom" id="yN6-X8-pug"/>
+                            <constraint firstItem="Cw6-lr-2Qt" firstAttribute="top" secondItem="NR6-Lp-fpt" secondAttribute="top" id="yPK-Hw-7xi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="listTitle" destination="shC-e8-Xaz" id="XPU-xS-DzX"/>
+                        <outlet property="musicDetailsTableView" destination="iIW-sX-Byd" id="UXt-0O-yEY"/>
+                        <outlet property="playPauseButtonWidth" destination="ORZ-6Z-TSJ" id="zOg-9h-A50"/>
+                        <outlet property="playPauseView" destination="e2h-1l-yud" id="fpl-m0-rHG"/>
+                        <outlet property="songCount" destination="Oda-yK-1ZI" id="tAQ-Uu-Fbr"/>
+                        <outlet property="viewHeight" destination="ZbZ-7k-WJj" id="dUN-de-2tb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="48D-ZI-wqN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2999" y="1030"/>
+        </scene>
         <!--Favorite Add New List View Controller-->
         <scene sceneID="jd3-cT-4VB">
             <objects>
@@ -1745,7 +1828,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7o2-sO-nM3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2998.5507246376815" y="1041.9642857142858"/>
+            <point key="canvasLocation" x="1703" y="1781"/>
         </scene>
     </scenes>
     <designables>
@@ -1772,6 +1855,7 @@
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="link.circle" catalog="system" width="128" height="121"/>
         <image name="location" catalog="system" width="128" height="118"/>
+        <image name="loveLogo" width="1024" height="1024"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="mic.fill" catalog="system" width="108" height="128"/>
         <image name="music" width="128" height="128"/>
