@@ -17,7 +17,11 @@ class FavoriteViewController: UIViewController {
     
     var favoriteAlbums: [[SongsSearchInfo]] = []
     
+    var favoriteAlbumsInfo: [[SongsSearchInfo]] = []
+    
     var favoritePlaylist: [[SongsSearchInfo]] = []
+    
+    var favoritePlaylistInfo: [[SongsSearchInfo]] = []
     
     var favoriteLists: [[SongsSearchInfo]] = []
     
@@ -40,8 +44,6 @@ class FavoriteViewController: UIViewController {
         
         favoriteListTableView.register(UINib.init(nibName: FavoriteListsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteListsTableViewCell.identifier)
         
-        //configureNavigationButton()
-        
         favoriteListTableView.separatorStyle = .none
         
         setupUI()
@@ -60,6 +62,10 @@ class FavoriteViewController: UIViewController {
         favoriteLists = []
         
         favoriteListsInfo = []
+        
+        favoritePlaylistInfo = []
+        
+        favoriteAlbumsInfo = []
         
         showImage(false)
     }
@@ -124,29 +130,10 @@ class FavoriteViewController: UIViewController {
         super.viewWillAppear(animated)
 
         showImage(true)
-        setupFavoriteSongs()
+
         setupFavoriteAlbums()
         setupFavoritePlaylists()
         setupFavoriteLists()
-    }
-    
-    func setupFavoriteSongs() {
-        
-        FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.songs) { result in
-            
-            result.id.forEach { id in
-                
-                MusicManager.sharedInstance.fetchSong(with: id) { result in
-
-                    self.favoriteSongs.append(result)
-                    
-                    DispatchQueue.main.async {
-
-                        self.favoriteListTableView.reloadData()
-                    }
-                }
-            }
-        }
     }
     
     func setupFavoriteAlbums() {
@@ -159,12 +146,13 @@ class FavoriteViewController: UIViewController {
                 
                 MusicManager.sharedInstance.fetchAlbumsCharts(with: id) { tracks in
                     
-                    self.favoriteAlbums.append(tracks)
-                    
+                    self.favoriteAlbumsInfo.append(tracks)
+                    print(self.favoriteAlbumsInfo)
                     DispatchQueue.main.async {
 
                         self.favoriteListTableView.reloadData()
                     }
+                    
                 }
             }
         }
@@ -178,14 +166,15 @@ class FavoriteViewController: UIViewController {
             
             result.id.forEach { id in
                 
-                MusicManager.sharedInstance.fetchPlaylistsCharts(with: id) { tracks in
+                MusicManager.sharedInstance.fetchPlaylistsCharts(with: id) { playlist in
                     
-                    self.favoritePlaylist.append(tracks)
+                    self.favoritePlaylistInfo.append(playlist)
                     
                     DispatchQueue.main.async {
 
                         self.favoriteListTableView.reloadData()
                     }
+                    
                 }
             }
         }
@@ -198,22 +187,7 @@ class FavoriteViewController: UIViewController {
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteListData { result in
             
             self.favoriteListsInfo = result
-
-            result.forEach { result in
-                
-                result.songs.forEach { id in
-                    
-                    MusicManager.sharedInstance.fetchSong(with: id) { tracks in
-                        
-                        self.favoriteLists.append(tracks)
-                        
-                        DispatchQueue.main.async {
-
-                            self.favoriteListTableView.reloadData()
-                        }
-                    }
-                }
-            }
+            
         }
     }
     
@@ -334,7 +308,7 @@ extension FavoriteViewController: UITableViewDataSource {
                 
             case 1:
                 
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: favoriteAlbums[indexPath.row][0].id!)
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: favoriteAlbumsInfo[indexPath.row][0].id!)
                 
                 self.favoriteAlbums.remove(at: indexPath.row)
                 
@@ -342,7 +316,7 @@ extension FavoriteViewController: UITableViewDataSource {
                 
             case 2:
                 
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: favoritePlaylist[indexPath.row][0].id!)
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: favoritePlaylistInfo[indexPath.row][0].id!)
                 
                 self.favoritePlaylist.remove(at: indexPath.row)
                 
@@ -397,24 +371,17 @@ extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-         
-            if favoriteSongs.isEmpty {
-                
-                return 0
-            }
-            else {
-                
-                return 1
-            }
+            
+            return 1
             
         }
         else if section == 1 {
 
-            return self.favoriteAlbums.count
+            return self.favoriteAlbumsInfo.count
         }
         else if section == 2 {
             
-            return self.favoritePlaylist.count
+            return self.favoritePlaylistInfo.count
         }
         else if section == 3 {
             
@@ -435,8 +402,6 @@ extension FavoriteViewController: UITableViewDataSource {
                 fatalError("Cannot create music cell")
             }
             
-            guard !favoriteSongs.isEmpty else { return UITableViewCell() }
-            
             cell.musicName.text = "Love Songs"
             
             cell.musicImage.image = UIImage(named: "loveLogo")
@@ -450,13 +415,13 @@ extension FavoriteViewController: UITableViewDataSource {
                 fatalError("Cannot create music cell")
             }
             
-            guard !favoriteAlbums.isEmpty else { return UITableViewCell() }
+            guard !favoriteAlbumsInfo.isEmpty else { return UITableViewCell() }
 
-            cell.musicName.text = favoriteAlbums[indexPath.row][0].attributes?.name
+            cell.musicName.text = favoriteAlbumsInfo[indexPath.row][0].attributes?.name
             
             cell.musicImage.kf.indicatorType = .activity
             
-            if let artworkURL = favoriteAlbums[indexPath.row][0].attributes?.artwork?.url, let width = favoriteAlbums[indexPath.row][0].attributes?.artwork?.width, let height = favoriteAlbums[indexPath.row][0].attributes?.artwork?.height {
+            if let artworkURL = favoriteAlbumsInfo[indexPath.row][0].attributes?.artwork?.url, let width = favoriteAlbumsInfo[indexPath.row][0].attributes?.artwork?.width, let height = favoriteAlbumsInfo[indexPath.row][0].attributes?.artwork?.height {
                 
                 let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
@@ -472,13 +437,13 @@ extension FavoriteViewController: UITableViewDataSource {
                 fatalError("Cannot create music cell")
             }
             
-            guard !favoritePlaylist.isEmpty else { return UITableViewCell() }
+            guard !favoritePlaylistInfo.isEmpty else { return UITableViewCell() }
             
-            cell.musicName.text = favoritePlaylist[indexPath.row][0].attributes?.name
+            cell.musicName.text = favoritePlaylistInfo[indexPath.row][0].attributes?.name
             
             cell.musicImage.kf.indicatorType = .activity
             
-            if let artworkURL = favoritePlaylist[indexPath.row][0].attributes?.artwork?.url, let width = favoritePlaylist[indexPath.row][0].attributes?.artwork?.width, let height = favoritePlaylist[indexPath.row][0].attributes?.artwork?.height {
+            if let artworkURL = favoritePlaylistInfo[indexPath.row][0].attributes?.artwork?.url, let width = favoritePlaylistInfo[indexPath.row][0].attributes?.artwork?.width, let height = favoritePlaylistInfo[indexPath.row][0].attributes?.artwork?.height {
                 
                 let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
@@ -513,40 +478,63 @@ extension FavoriteViewController: UITableViewDelegate {
         
         if indexPath.section == 0 {
             
-            guard !self.favoriteSongs.isEmpty else {
-                
-                return
-            }
-            
-            var data = [SongsSearchInfo]()
-            
-            favoriteSongs.forEach { song in
-                data.append(song[0])
-            }
-            
             if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
                 
-                musicDetails.favoriteSongs = data
-                print("\(#function) \(data.count)")
+                musicDetails.state = 0
+        
                 self.navigationController?.pushViewController(musicDetails, animated: true)
             }
         }
         else if indexPath.section == 1 {
             
-            // favoriteAlbums: [[SongsSearchInfo]] = []
+            guard !self.favoriteAlbumsInfo.isEmpty else {
+                
+                return
+            }
+            
+            if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
+                
+                musicDetails.state = 1
+                
+                musicDetails.favoriteSongsInfo = favoriteAlbumsInfo[indexPath.row]
+
+                self.navigationController?.pushViewController(musicDetails, animated: true)
+            }
             
         }
         
         else if indexPath.section == 2 {
             
-            // var favoritePlaylist: [[SongsSearchInfo]] = []
+            guard !self.favoritePlaylistInfo.isEmpty else {
+                
+                return
+            }
+            
+            if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
+                
+                musicDetails.state = 2
+                
+                musicDetails.favoriteSongsInfo = favoritePlaylistInfo[indexPath.row]
+                
+                self.navigationController?.pushViewController(musicDetails, animated: true)
+            }
             
         }
         else {
             
-            
-            // favoriteLists: [[SongsSearchInfo]] = []
-            
+//            guard !self.favoriteListsInfo.isEmpty else {
+//
+//                return
+//            }
+
+            if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
+                
+                musicDetails.state = 3
+                
+                musicDetails.favoriteListsName = favoriteListsInfo[indexPath.row].name
+    
+                self.navigationController?.pushViewController(musicDetails, animated: true)
+            }
             
         }
     }

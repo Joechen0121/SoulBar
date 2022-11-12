@@ -1761,6 +1761,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageLogo" destination="hyw-1J-vI1" id="KD5-Sv-ZvJ"/>
                         <outlet property="listTitle" destination="shC-e8-Xaz" id="XPU-xS-DzX"/>
                         <outlet property="musicDetailsTableView" destination="iIW-sX-Byd" id="UXt-0O-yEY"/>
                         <outlet property="playPauseButtonWidth" destination="ORZ-6Z-TSJ" id="zOg-9h-A50"/>

@@ -82,6 +82,8 @@
 		D88071B6291F80BF00554B18 /* FavroiteMusicDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071B5291F80BF00554B18 /* FavroiteMusicDetailsViewController.swift */; };
 		D88071B9291F818800554B18 /* FavoriteMusicDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071B7291F818800554B18 /* FavoriteMusicDetailsTableViewCell.swift */; };
 		D88071BA291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88071B8291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib */; };
+		D88071BD291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071BB291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift */; };
+		D88071BE291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88071BC291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib */; };
 		D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */; };
 		D88550B12910E3570083D050 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550B02910E3570083D050 /* MapManager.swift */; };
 		D88550B329114E620083D050 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D88550B229114E620083D050 /* GoogleService-Info.plist */; };
@@ -177,6 +179,8 @@
 		D88071B5291F80BF00554B18 /* FavroiteMusicDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavroiteMusicDetailsViewController.swift; sourceTree = "<group>"; };
 		D88071B7291F818800554B18 /* FavoriteMusicDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMusicDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		D88071B8291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteMusicDetailsTableViewCell.xib; sourceTree = "<group>"; };
+		D88071BB291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMusicDetailsNoHeartTableViewCell.swift; sourceTree = "<group>"; };
+		D88071BC291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteMusicDetailsNoHeartTableViewCell.xib; sourceTree = "<group>"; };
 		D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCardsDetailsViewController.swift; sourceTree = "<group>"; };
 		D88550B02910E3570083D050 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		D88550B229114E620083D050 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -246,6 +250,8 @@
 				D88071B5291F80BF00554B18 /* FavroiteMusicDetailsViewController.swift */,
 				D88071B7291F818800554B18 /* FavoriteMusicDetailsTableViewCell.swift */,
 				D88071B8291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib */,
+				D88071BB291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift */,
+				D88071BC291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -594,6 +600,7 @@
 				D8088B3F290AB2EF0037555B /* AlbumsTableViewCell.xib in Resources */,
 				D8573373290E561B0009D734 /* SearchArtistsResultTableViewCell.xib in Resources */,
 				D86AD12429141124000208B6 /* FavoriteAlbumsTableViewCell.xib in Resources */,
+				D88071BE291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib in Resources */,
 				D86AD12829141139000208B6 /* FavoritePlaylistsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -700,6 +707,7 @@
 				D874B998291900260082F2D7 /* NewListPopUpViewController.swift in Sources */,
 				D8088B2329096F1E0037555B /* EventsData.swift in Sources */,
 				D820B9212914C4AF000C8F88 /* ChatViewController.swift in Sources */,
+				D88071BD291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift in Sources */,
 				D8573376290E9C640009D734 /* SearchSongsResultTableViewCell.swift in Sources */,
 				D874B9902917F52C0082F2D7 /* FavoriteAddNewListViewController.swift in Sources */,
 				D88550B12910E3570083D050 /* MapManager.swift in Sources */,
