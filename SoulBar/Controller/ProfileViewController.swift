@@ -11,14 +11,32 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var profileTableView: UITableView!
     
+    @IBOutlet weak var prfileViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var logoutViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var logoutButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         profileTableView.dataSource = self
+        
+        profileTableView.delegate = self
     
         profileTableView.register(UINib.init(nibName: ProfileTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileTableViewCell.identifier)
         
-        profileTableView.rowHeight = 50
+        prfileViewHeightConstraint.constant = UIScreen.main.bounds.height / 7
+        
+        profileTableView.rowHeight = UIScreen.main.bounds.height / 10
+        
+        logoutViewHeightConstraint.constant = UIScreen.main.bounds.height / 15
+        
+        logoutButton.layer.masksToBounds = true
+        
+        logoutButton.layer.cornerRadius = logoutButton.frame.height / 2
+        
+        logoutButton.backgroundColor = K.Colors.customRed
     }
 
 }
@@ -41,5 +59,13 @@ extension ProfileViewController: UITableViewDataSource {
         cell.profileName.text = ProfileData.data[indexPath.row].profileName
         
         return cell
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.section)
+        print(indexPath.row)
     }
 }

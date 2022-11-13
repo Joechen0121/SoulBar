@@ -229,7 +229,7 @@ extension FavoriteViewController: UITableViewDataSource {
             label.text = "Favorite Songs"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .clear
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
@@ -244,7 +244,7 @@ extension FavoriteViewController: UITableViewDataSource {
             label.text = "Favorite Albums"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .clear
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
@@ -259,7 +259,7 @@ extension FavoriteViewController: UITableViewDataSource {
             label.text = "Favorite Playlists"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .clear
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
@@ -274,7 +274,7 @@ extension FavoriteViewController: UITableViewDataSource {
             label.text = "Favorite Lists"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .clear
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
@@ -402,7 +402,7 @@ extension FavoriteViewController: UITableViewDataSource {
                 fatalError("Cannot create music cell")
             }
             
-            cell.musicName.text = "Love Songs"
+            cell.musicName.text = "Liked Songs"
             
             cell.musicImage.image = UIImage(named: "loveLogo")
             

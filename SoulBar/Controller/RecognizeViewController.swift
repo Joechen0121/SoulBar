@@ -485,13 +485,18 @@ extension RecognizeViewController: SHSessionDelegate {
 
                             }
                             
-                            if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+                            guard let songID = song.id else { return }
+                            
+                            FirebaseHistoryManager.sharedInstance.addHistoryPlayData(with: songID) {
+                                
+                                if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
-                                playSongVC.songs = songs
-                                
-                                playSongVC.modalPresentationStyle = .fullScreen
-                                
-                                self.present(playSongVC, animated: true)
+                                    playSongVC.songs = songs
+                                    
+                                    playSongVC.modalPresentationStyle = .fullScreen
+                                    
+                                    self.present(playSongVC, animated: true)
+                                }
                             }
                         }
                     }

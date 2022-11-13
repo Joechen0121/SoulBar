@@ -11,6 +11,8 @@ import FirebaseFirestore
 
 class FirebaseHistoryManager {
     
+    static let sharedInstance = FirebaseHistoryManager()
+    
     func addHistorySearchData(text: String, completion: @escaping () -> Void) {
         
         let favorite = Firestore.firestore().collection("user").document("history").collection("search")

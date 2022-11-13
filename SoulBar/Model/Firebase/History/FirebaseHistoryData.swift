@@ -17,7 +17,7 @@ struct FirebaseHistorySearchList: Codable {
     
     let time: TimeInterval
     
-    let text: String
+    let songID: String
 }
 
 struct FirebaseHistoryPlayData: Codable {

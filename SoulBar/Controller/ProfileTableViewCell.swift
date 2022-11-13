@@ -15,9 +15,12 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var profileName: UILabel!
     
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        imageHeightConstraint.constant = UIScreen.main.bounds.height / 10
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

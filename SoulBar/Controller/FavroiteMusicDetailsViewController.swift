@@ -100,7 +100,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
             
             setupFavoriteSongs()
             
-            self.listTitle.text = "Love Songs"
+            self.listTitle.text = "Liked Songs"
             
         case 1:
             
