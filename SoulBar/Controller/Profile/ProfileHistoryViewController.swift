@@ -21,6 +21,8 @@ class ProfileHistoryViewController: UIViewController {
     
     @IBOutlet weak var viewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var playButtonWidth: NSLayoutConstraint!
+    
     var history: [FirebaseHistoryPlayData] = []
     
     var songsTracks: [SongsSearchInfo] = []
@@ -42,6 +44,7 @@ class ProfileHistoryViewController: UIViewController {
         
         playImage.addGestureRecognizer(playTap)
         
+        playButtonWidth.constant = viewHeightConstraint.constant / 3
     }
     
     override func viewWillAppear(_ animated: Bool) {

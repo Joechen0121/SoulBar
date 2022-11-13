@@ -18,6 +18,8 @@ class FavoriteMusicDetailsViewController: UIViewController {
     
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var playPuaseButtonWidth: NSLayoutConstraint!
+    
     @IBOutlet weak var songCount: UILabel!
     
     @IBOutlet weak var listTitle: UILabel!
@@ -60,16 +62,14 @@ class FavoriteMusicDetailsViewController: UIViewController {
         musicDetailsTableView.register(UINib.init(nibName: FavoriteMusicDetailsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicDetailsTableViewCell.identifier)
         
         musicDetailsTableView.register(UINib.init(nibName: FavoriteMusicDetailsNoHeartTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicDetailsNoHeartTableViewCell.identifier)
-        
-        //viewHeight.constant = UIScreen.main.bounds.height / 5
-        
-        //playPauseButtonWidth.constant = viewHeight.constant / 3
-        
+
         let playPauseTap = UITapGestureRecognizer(target: self, action: #selector(playPauseButton))
         
         playPauseView.isUserInteractionEnabled = true
         
         playPauseView.addGestureRecognizer(playPauseTap)
+        
+        playPuaseButtonWidth.constant = imageLogo.frame.height / 5
         
         configureLabel()
         

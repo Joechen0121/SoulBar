@@ -24,7 +24,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRL-1Y-pMs">
-                        <rect key="frame" x="155" y="8" width="199" height="24"/>
+                        <rect key="frame" x="145" y="8" width="209" height="24"/>
                         <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -33,7 +33,7 @@
                 <constraints>
                     <constraint firstItem="tTo-6u-Vek" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="ACt-rG-de8"/>
                     <constraint firstAttribute="bottom" secondItem="tTo-6u-Vek" secondAttribute="bottom" constant="8" id="MpG-VU-t6B"/>
-                    <constraint firstItem="lRL-1Y-pMs" firstAttribute="leading" secondItem="tTo-6u-Vek" secondAttribute="trailing" constant="40" id="QOW-Rv-lpy"/>
+                    <constraint firstItem="lRL-1Y-pMs" firstAttribute="leading" secondItem="tTo-6u-Vek" secondAttribute="trailing" constant="30" id="QOW-Rv-lpy"/>
                     <constraint firstItem="lRL-1Y-pMs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VNF-hF-bDo"/>
                     <constraint firstItem="tTo-6u-Vek" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="ZVx-8S-YdZ"/>
                     <constraint firstAttribute="trailing" secondItem="lRL-1Y-pMs" secondAttribute="trailing" constant="10" id="g2c-K5-mmd"/>

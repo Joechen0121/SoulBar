@@ -89,6 +89,8 @@
 		D88071C92920EA3300554B18 /* ProfileHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071C72920EA3300554B18 /* ProfileHistoryTableViewCell.swift */; };
 		D88071CA2920EA3300554B18 /* ProfileHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88071C82920EA3300554B18 /* ProfileHistoryTableViewCell.xib */; };
 		D88071CC2920F4A400554B18 /* DateFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071CB2920F4A400554B18 /* DateFormatter+Ext.swift */; };
+		D88071CE2921213400554B18 /* ProfileArtistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071CD2921213400554B18 /* ProfileArtistsViewController.swift */; };
+		D88071D0292121A600554B18 /* ProfileArtistsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071CF292121A600554B18 /* ProfileArtistsTableViewCell.swift */; };
 		D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */; };
 		D88550B12910E3570083D050 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550B02910E3570083D050 /* MapManager.swift */; };
 		D88550B329114E620083D050 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D88550B229114E620083D050 /* GoogleService-Info.plist */; };
@@ -191,6 +193,8 @@
 		D88071C72920EA3300554B18 /* ProfileHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		D88071C82920EA3300554B18 /* ProfileHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		D88071CB2920F4A400554B18 /* DateFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Ext.swift"; sourceTree = "<group>"; };
+		D88071CD2921213400554B18 /* ProfileArtistsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileArtistsViewController.swift; sourceTree = "<group>"; };
+		D88071CF292121A600554B18 /* ProfileArtistsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileArtistsTableViewCell.swift; sourceTree = "<group>"; };
 		D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCardsDetailsViewController.swift; sourceTree = "<group>"; };
 		D88550B02910E3570083D050 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		D88550B229114E620083D050 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -512,6 +516,8 @@
 				D88071C72920EA3300554B18 /* ProfileHistoryTableViewCell.swift */,
 				D88071C82920EA3300554B18 /* ProfileHistoryTableViewCell.xib */,
 				D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */,
+				D88071CD2921213400554B18 /* ProfileArtistsViewController.swift */,
+				D88071CF292121A600554B18 /* ProfileArtistsTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -705,6 +711,7 @@
 			files = (
 				D820B9252914C552000C8F88 /* ChatMessageStrangerTableViewCell.swift in Sources */,
 				D874C8932912545600075AE9 /* FirebaseEventsTypeData.swift in Sources */,
+				D88071CE2921213400554B18 /* ProfileArtistsViewController.swift in Sources */,
 				D8088B1929096C2E0037555B /* RecognizeViewController.swift in Sources */,
 				D874B98A2917E4EA0082F2D7 /* ProfileTableViewCell.swift in Sources */,
 				D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */,
@@ -768,6 +775,7 @@
 				D874C8892912465800075AE9 /* FirebaseFavoriteData.swift in Sources */,
 				D874B9952918EB7F0082F2D7 /* FavoriteListsTableViewCell.swift in Sources */,
 				D8088B44290AC1840037555B /* AlbumsCollectionViewCell.swift in Sources */,
+				D88071D0292121A600554B18 /* ProfileArtistsTableViewCell.swift in Sources */,
 				D874C88E291247D300075AE9 /* FirebaseHistoryData.swift in Sources */,
 				D874C8982912565000075AE9 /* FirebaseUserData.swift in Sources */,
 				D8088B1529096C0C0037555B /* HomeViewController.swift in Sources */,

@@ -98,6 +98,10 @@ extension ProfileViewController: UITableViewDelegate {
         case .LikedArtists:
             
             print("liked artist")
+            if let artistVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileArtistsViewController.storyboardID) as? ProfileArtistsViewController {
+        
+                self.navigationController?.pushViewController(artistVC, animated: true)
+            }
             
         case .RecogHistory:
             
