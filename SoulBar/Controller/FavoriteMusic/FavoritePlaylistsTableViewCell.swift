@@ -20,7 +20,7 @@ class FavoritePlaylistsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        musicImageHeight.constant = UIScreen.main.bounds.height / 10
+        musicImageHeight.constant = UIScreen.main.bounds.height / 7
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

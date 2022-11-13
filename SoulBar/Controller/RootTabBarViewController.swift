@@ -106,7 +106,7 @@ class RootTabBarViewController: UITabBarController {
             containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: tabBar.topAnchor),
-            containerView.heightAnchor.constraint(equalToConstant: 64.0),
+            containerView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 10),
             
             miniPlayer.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             miniPlayer.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),

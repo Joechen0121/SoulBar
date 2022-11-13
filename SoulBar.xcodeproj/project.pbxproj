@@ -84,6 +84,7 @@
 		D88071BA291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88071B8291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib */; };
 		D88071BD291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071BB291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift */; };
 		D88071BE291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88071BC291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib */; };
+		D88071C12920C39300554B18 /* FavoriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071C02920C39300554B18 /* FavoriteData.swift */; };
 		D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */; };
 		D88550B12910E3570083D050 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550B02910E3570083D050 /* MapManager.swift */; };
 		D88550B329114E620083D050 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D88550B229114E620083D050 /* GoogleService-Info.plist */; };
@@ -181,6 +182,7 @@
 		D88071B8291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteMusicDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		D88071BB291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMusicDetailsNoHeartTableViewCell.swift; sourceTree = "<group>"; };
 		D88071BC291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteMusicDetailsNoHeartTableViewCell.xib; sourceTree = "<group>"; };
+		D88071C02920C39300554B18 /* FavoriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteData.swift; sourceTree = "<group>"; };
 		D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCardsDetailsViewController.swift; sourceTree = "<group>"; };
 		D88550B02910E3570083D050 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		D88550B229114E620083D050 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 		D8088B1E29096CA30037555B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D88071BF2920C38300554B18 /* Favorite */,
 				D8088B2129096D8C0037555B /* Events */,
 				D874C8872912462000075AE9 /* Firebase */,
 				D874B98E2917E6930082F2D7 /* Profile */,
@@ -485,6 +488,14 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		D88071BF2920C38300554B18 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				D88071C02920C39300554B18 /* FavoriteData.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
 		D8A1B96D290C22E5007F6775 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -683,6 +694,7 @@
 				D874C88B2912466300075AE9 /* FirebaseFavoriteManager.swift in Sources */,
 				D8573386290FBCA20009D734 /* PlaySongViewController.swift in Sources */,
 				D82369AC290BDA2100AE41AB /* SearchDetailsViewController.swift in Sources */,
+				D88071C12920C39300554B18 /* FavoriteData.swift in Sources */,
 				D8B528EA29163105004C8D2A /* PlaySongManager.swift in Sources */,
 				D86AD12329141124000208B6 /* FavoriteAlbumsTableViewCell.swift in Sources */,
 				D8A1B96C290C228E007F6775 /* EventsTableViewCell.swift in Sources */,

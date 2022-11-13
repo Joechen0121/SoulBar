@@ -1726,14 +1726,14 @@
                                             <constraint firstAttribute="width" secondItem="e2h-1l-yud" secondAttribute="height" id="lX4-en-QWx"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love Songs" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shC-e8-Xaz">
-                                        <rect key="frame" x="210" y="10" width="174" height="28"/>
-                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Liked Songs" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shC-e8-Xaz">
+                                        <rect key="frame" x="210" y="10" width="174" height="24"/>
+                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="17"/>
                                         <color key="textColor" red="0.96470588235294119" green="0.40392156862745099" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oda-yK-1ZI">
-                                        <rect key="frame" x="210" y="58" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oda-yK-1ZI">
+                                        <rect key="frame" x="210" y="54" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1780,6 +1780,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="48D-ZI-wqN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2999" y="1030"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cM6-gO-BWU">
+            <objects>
+                <viewController id="ANi-AY-XAs" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="acp-bx-VEq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="hCV-3x-gsd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2DV-8X-3uL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5068" y="960"/>
         </scene>
         <!--Favorite Add New List View Controller-->
         <scene sceneID="jd3-cT-4VB">

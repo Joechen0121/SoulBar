@@ -218,9 +218,9 @@ extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         
-        switch section {
+        switch FavoriteType(rawValue: section) {
         
-        case 0:
+        case .FavSongs:
             
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
@@ -235,7 +235,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
             return headerView
             
-        case 1:
+        case .FavAlbums:
             
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
@@ -250,7 +250,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
             return headerView
             
-        case 2:
+        case .FavPlaylists:
             
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
@@ -265,7 +265,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
             return headerView
             
-        case 3:
+        case .FavLists:
             
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
@@ -290,7 +290,7 @@ extension FavoriteViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
-        if indexPath.section == 0 {
+        if indexPath.section == FavoriteType.FavSongs.rawValue {
             
             return false
         }
@@ -304,9 +304,9 @@ extension FavoriteViewController: UITableViewDataSource {
         
         if editingStyle == .delete {
             
-            switch indexPath.section {
+            switch FavoriteType(rawValue: indexPath.section) {
                 
-            case 1:
+            case .FavAlbums:
                 
                 FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: favoriteAlbumsInfo[indexPath.row][0].id!)
                 
@@ -314,7 +314,7 @@ extension FavoriteViewController: UITableViewDataSource {
                 
                 tableView.reloadData()
                 
-            case 2:
+            case .FavPlaylists:
                 
                 FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: favoritePlaylistInfo[indexPath.row][0].id!)
                 
@@ -322,7 +322,7 @@ extension FavoriteViewController: UITableViewDataSource {
                 
                 tableView.reloadData()
                 
-            case 3:
+            case .FavLists:
                 
                 FirebaseFavoriteManager.sharedInstance.removeFavoriteListData(with: favoriteListsInfo[indexPath.row].name)
                 
@@ -339,30 +339,6 @@ extension FavoriteViewController: UITableViewDataSource {
         
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        if section == 0 {
-            
-            return "Favorite songs"
-        }
-        else if section == 1 {
-            
-            return "Favorite Albums"
-        }
-        else if section == 2 {
-            
-            return "Favorite Playlists"
-        }
-        else if section == 3 {
-            
-            return "Favorite Lists"
-        }
-        else {
-            
-            return ""
-        }
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 4
@@ -370,32 +346,37 @@ extension FavoriteViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if section == 0 {
+        switch FavoriteType(rawValue: section) {
+            
+        case .FavSongs:
             
             return 1
             
-        }
-        else if section == 1 {
-
+        case .FavAlbums:
+            
             return self.favoriteAlbumsInfo.count
-        }
-        else if section == 2 {
+            
+        case .FavPlaylists:
             
             return self.favoritePlaylistInfo.count
-        }
-        else if section == 3 {
+            
+        case .FavLists:
             
             return self.favoriteListsInfo.count
-        }
-        else {
+            
+        default:
             
             return 1
+            
+            
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 {
+        let section = FavoriteType(rawValue: indexPath.section)
+        
+        if section == .FavSongs {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteMusicTableViewCell.identifier, for: indexPath) as? FavoriteMusicTableViewCell else {
                 
@@ -408,7 +389,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
             return cell
         }
-        else if indexPath.section == 1 {
+        else if section == .FavAlbums {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteAlbumsTableViewCell.identifier, for: indexPath) as? FavoriteAlbumsTableViewCell else {
                 
@@ -430,7 +411,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
             return cell
         }
-        else if indexPath.section == 2 {
+        else if section == .FavPlaylists {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoritePlaylistsTableViewCell.identifier, for: indexPath) as? FavoritePlaylistsTableViewCell else {
                 
@@ -452,7 +433,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
             return cell
         }
-        else if indexPath.section == 3 {
+        else if section == .FavLists {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteListsTableViewCell.identifier, for: indexPath) as? FavoriteListsTableViewCell else {
 
@@ -476,16 +457,18 @@ extension FavoriteViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == 0 {
+        let section = FavoriteType(rawValue: indexPath.section)
+        
+        if section == .FavSongs {
             
             if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
                 
-                musicDetails.state = 0
+                musicDetails.state = .FavSongs
         
                 self.navigationController?.pushViewController(musicDetails, animated: true)
             }
         }
-        else if indexPath.section == 1 {
+        else if section == .FavAlbums {
             
             guard !self.favoriteAlbumsInfo.isEmpty else {
                 
@@ -494,7 +477,7 @@ extension FavoriteViewController: UITableViewDelegate {
             
             if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
                 
-                musicDetails.state = 1
+                musicDetails.state = .FavAlbums
                 
                 musicDetails.favoriteSongsInfo = favoriteAlbumsInfo[indexPath.row]
 
@@ -503,7 +486,7 @@ extension FavoriteViewController: UITableViewDelegate {
             
         }
         
-        else if indexPath.section == 2 {
+        else if section == .FavPlaylists {
             
             guard !self.favoritePlaylistInfo.isEmpty else {
                 
@@ -512,7 +495,7 @@ extension FavoriteViewController: UITableViewDelegate {
             
             if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
                 
-                musicDetails.state = 2
+                musicDetails.state = .FavPlaylists
                 
                 musicDetails.favoriteSongsInfo = favoritePlaylistInfo[indexPath.row]
                 
@@ -521,15 +504,10 @@ extension FavoriteViewController: UITableViewDelegate {
             
         }
         else {
-            
-//            guard !self.favoriteListsInfo.isEmpty else {
-//
-//                return
-//            }
 
             if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
                 
-                musicDetails.state = 3
+                musicDetails.state = .FavLists
                 
                 musicDetails.favoriteListsName = favoriteListsInfo[indexPath.row].name
     

@@ -44,7 +44,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
     
     var listName: String = ""
     
-    var state: Int?
+    var state: FavoriteType?
     
     var favoriteListsName: String?
     
@@ -87,6 +87,14 @@ class FavoriteMusicDetailsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        songsTracks = []
+        
+        albumTracks = []
+        
+        playlistTracks = []
+        
+        listTracks = []
+        
         self.navigationItem.largeTitleDisplayMode = .always
     }
     
@@ -96,25 +104,25 @@ class FavoriteMusicDetailsViewController: UIViewController {
         
         switch state {
             
-        case 0:
+        case .FavSongs:
             
             setupFavoriteSongs()
             
             self.listTitle.text = "Liked Songs"
             
-        case 1:
+        case .FavAlbums:
             
             setupFavoriteAlbums()
             
             configureView()
             
-        case 2:
+        case .FavPlaylists:
             
             setupFavoritePlaylists()
             
             configureView()
             
-        case 3:
+        case .FavLists:
             
             setupFavoriteLists()
             
@@ -152,7 +160,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
                 
                 MusicManager.sharedInstance.fetchSong(with: id) { result in
 
-                    self.songsTracks = result
+                    self.songsTracks.append(result[0])
                     
                     DispatchQueue.main.async {
                         
@@ -160,6 +168,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
 
                         self.musicDetailsTableView.reloadData()
                     }
+            
                 }
             }
         }
@@ -251,9 +260,12 @@ class FavoriteMusicDetailsViewController: UIViewController {
     
     @objc func playPauseButton() {
         
+        guard let state = state else { return }
+
         switch state {
             
-        case 0:
+        case .FavSongs:
+            
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
                 playSongVC.songs = songsTracks
@@ -264,7 +276,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
                 
             }
             
-        case 1:
+        case .FavAlbums:
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
@@ -276,7 +288,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
                 
             }
             
-        case 2:
+        case .FavPlaylists:
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
@@ -288,7 +300,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
                 
             }
             
-        case 3:
+        case .FavLists:
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
@@ -313,22 +325,23 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        guard let state = state else { return 0 }
+        
         switch state {
             
-            
-        case 0:
+        case .FavSongs:
             
             return songsTracks.count
             
-        case 1:
+        case .FavAlbums:
             
             return albumTracks.count
             
-        case 2:
+        case .FavPlaylists:
             
             return playlistTracks.count
             
-        case 3:
+        case .FavLists:
             
             return listTracks.count
             
@@ -340,9 +353,11 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        guard let state = state else { return UITableViewCell() }
+        
         switch state {
          
-        case 0:
+        case .FavSongs:
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteMusicDetailsTableViewCell.identifier, for: indexPath) as? FavoriteMusicDetailsTableViewCell else {
                 
@@ -366,7 +381,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
             
             return cell
             
-        case 1:
+        case .FavAlbums:
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteMusicDetailsNoHeartTableViewCell.identifier, for: indexPath) as? FavoriteMusicDetailsNoHeartTableViewCell else {
                 
@@ -390,7 +405,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
             
             return cell
             
-        case 2:
+        case .FavPlaylists:
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteMusicDetailsNoHeartTableViewCell.identifier, for: indexPath) as? FavoriteMusicDetailsNoHeartTableViewCell else {
                 
@@ -414,7 +429,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
             
             return cell
             
-        case 3:
+        case .FavLists:
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteMusicDetailsNoHeartTableViewCell.identifier, for: indexPath) as? FavoriteMusicDetailsNoHeartTableViewCell else {
                 
@@ -449,10 +464,11 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let state = state else { return }
+        
         switch state {
             
-            
-        case 0:
+        case .FavSongs:
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
@@ -464,8 +480,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
                 
             }
             
-            
-        case 1:
+        case .FavAlbums:
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
@@ -477,7 +492,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
                 
             }
             
-        case 2:
+        case .FavPlaylists:
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
@@ -489,7 +504,9 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
                 
             }
             
-        case 3:
+        case .FavLists:
+            
+            print("lists!!!!!")
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
@@ -501,12 +518,9 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
                 
             }
             
-            
         default:
             
             print("Unknown state")
         }
-        
-
     }
 }

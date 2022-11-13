@@ -8,6 +8,20 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    enum ProfileType: Int {
+        
+        case LikedSongs = 0
+        
+        case MyEvent
+        
+        case LikedArtists
+        
+        case RecogHistory
+        
+        case Blacklists
+        
+    }
 
     @IBOutlet weak var profileTableView: UITableView!
     
@@ -65,7 +79,38 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.section)
-        print(indexPath.row)
+        
+        switch ProfileType(rawValue: indexPath.row) {
+            
+        case .LikedSongs:
+            
+            if let musicDetails = self.storyboard?.instantiateViewController(withIdentifier: FavoriteMusicDetailsViewController.storyboardID) as? FavoriteMusicDetailsViewController {
+                
+                musicDetails.state = .FavSongs
+        
+                self.navigationController?.pushViewController(musicDetails, animated: true)
+            }
+            
+        case .MyEvent:
+            
+            print("myevent")
+            
+        case .LikedArtists:
+            
+            print("liked artist")
+            
+        case .RecogHistory:
+            
+            print("recog")
+            
+        case .Blacklists:
+            
+            print("blacklist")
+            
+        default:
+            
+            print("Unknown type")
+            
+        }
     }
 }
