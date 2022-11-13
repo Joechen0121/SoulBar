@@ -40,11 +40,12 @@ class MiniPlayerViewController: UIViewController {
         backgroundEffectView.frame = container.bounds
         
         container.addSubview(backgroundImageView)
-        //container.addSubview(backgroundEffectView)
         
         view.insertSubview(container, at: 0)
 
         songImage.image = UIImage(systemName: "music")
+        
+        songImage.contentMode = .scaleAspectFill
         
         songImage.backgroundColor = .black
         
@@ -61,6 +62,9 @@ class MiniPlayerViewController: UIViewController {
         ])
 
         playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        
+        playPauseButton.imageView?.tintColor = K.Colors.customRed
+        
         playPauseButton.tintColor = .black
         
         self.view.addSubview(playPauseButton)
@@ -106,6 +110,8 @@ class MiniPlayerViewController: UIViewController {
             PlaySongManager.sharedInstance.pauseMusic()
             
             self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            
+            playPauseButton.imageView?.tintColor = K.Colors.customRed
         }
         else {
             
@@ -119,6 +125,7 @@ class MiniPlayerViewController: UIViewController {
             PlaySongManager.sharedInstance.playMusic(url: url)
             
             self.playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            playPauseButton.imageView?.tintColor = K.Colors.customRed
         }
     }
 

@@ -251,7 +251,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
         
         songCount.layer.masksToBounds = true
         
-        songCount.layer.borderColor = UIColor.black.cgColor
+        songCount.layer.borderColor = UIColor.gray.cgColor
         
         songCount.layer.borderWidth = 1
         
