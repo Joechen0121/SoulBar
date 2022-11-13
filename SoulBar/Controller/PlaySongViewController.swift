@@ -22,14 +22,14 @@ class PlaySongViewController: UIViewController {
     @IBOutlet weak var singerLabel: UILabel!
     
     @IBOutlet weak var musicSlider: UISlider!
+
+    @IBOutlet weak var favoriteView: UIImageView!
     
-    @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var addToListView: UIImageView!
     
     @IBOutlet weak var minTimeLabel: UILabel!
     
     @IBOutlet weak var maxTimeLabel: UILabel!
-    
-    @IBOutlet weak var detailButtonWidthStackView: NSLayoutConstraint!
     
     @IBOutlet weak var songImageWidthConstraint:
     NSLayoutConstraint!
@@ -56,8 +56,6 @@ class PlaySongViewController: UIViewController {
     
     var sliderTrackLayer = CAGradientLayer()
     
-    @IBOutlet weak var favoriteButton: UIButton!
-    
     @IBOutlet weak var songImageHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var songImageTopConstraint: NSLayoutConstraint!
@@ -69,6 +67,8 @@ class PlaySongViewController: UIViewController {
     @IBOutlet weak var nextImage: UIImageView!
     
     @IBOutlet weak var volumeSilder: UISlider!
+    
+    @IBOutlet weak var sharedView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,8 +96,6 @@ class PlaySongViewController: UIViewController {
 
         songImageTopConstraint.constant = UIScreen.main.bounds.height / 20
 
-        detailButtonWidthStackView.constant = UIScreen.main.bounds.width / 3
-
         let previousTap = UITapGestureRecognizer(target: self, action: #selector(previousButton(_:)))
         previousImage.isUserInteractionEnabled = true
         previousImage.addGestureRecognizer(previousTap)
@@ -109,6 +107,18 @@ class PlaySongViewController: UIViewController {
         let nextTap = UITapGestureRecognizer(target: self, action: #selector(nextButton(_:)))
         nextImage.isUserInteractionEnabled = true
         nextImage.addGestureRecognizer(nextTap)
+        
+        let addToListTap = UITapGestureRecognizer(target: self, action: #selector(addToList))
+        addToListView.isUserInteractionEnabled = true
+        addToListView.addGestureRecognizer(addToListTap)
+        
+        let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
+        favoriteView.isUserInteractionEnabled = true
+        favoriteView.addGestureRecognizer(favoriteTap)
+        
+        let sharedTap = UITapGestureRecognizer(target: self, action: #selector(shared))
+        sharedView.isUserInteractionEnabled = true
+        sharedView.addGestureRecognizer(sharedTap)
         
     }
     
@@ -182,7 +192,7 @@ class PlaySongViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @IBAction func addToListButton(_ sender: UIButton) {
+    @objc func addToList() {
         
         if let newListVC = self.storyboard?.instantiateViewController(withIdentifier: NewListDisplayViewController.storyboardID) as? NewListDisplayViewController {
             
@@ -255,7 +265,7 @@ class PlaySongViewController: UIViewController {
 
                     DispatchQueue.main.async {
                         
-                        self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                        self.favoriteView.image = UIImage(named: "heart.fill")
                     }
                     
                 }
@@ -263,7 +273,7 @@ class PlaySongViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         
-                        self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                        self.favoriteView.image = UIImage(systemName: "heart")
                     }
                 }
             }
@@ -271,7 +281,7 @@ class PlaySongViewController: UIViewController {
         
     }
     
-    @IBAction func addToFavorite(_ sender: UIButton) {
+    @objc func addToFavorite() {
         
         guard let songsID = songs?[self.currentItemIndex].id else {
             return
@@ -281,7 +291,7 @@ class PlaySongViewController: UIViewController {
     
             FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.songs, id: songsID)
             
-            self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            self.favoriteView.image = UIImage(systemName: "heart")
             
             isFavorite = false
 
@@ -290,7 +300,7 @@ class PlaySongViewController: UIViewController {
 
             FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.songs, id: songsID)
                 
-            self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            self.favoriteView.image = UIImage(systemName: "heart.fill")
             
             isFavorite = true
 
@@ -299,7 +309,7 @@ class PlaySongViewController: UIViewController {
 
     }
     
-    @IBAction func sharedButton(_ sender: UIButton) {
+    @objc func shared() {
         
         guard let songs = songs else { return }
         

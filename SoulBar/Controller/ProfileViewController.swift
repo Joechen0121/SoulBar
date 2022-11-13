@@ -69,7 +69,7 @@ extension ProfileViewController: UITableViewDataSource {
             fatalError("Cannot create profile cell")
         }
         
-        cell.profileImage.image = UIImage(systemName: ProfileData.data[indexPath.row].profileImage)
+        cell.profileImage.image = UIImage(named: ProfileData.data[indexPath.row].profileImage)
         cell.profileName.text = ProfileData.data[indexPath.row].profileName
         
         return cell

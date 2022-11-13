@@ -20,9 +20,9 @@ class ProfileData {
     static let data = [
     
         Profile(profileName: "Liked Songs", profileImage: "heart.fill"),
-        Profile(profileName: "My Events", profileImage: "note.text"),
-        Profile(profileName: "Liked Artists", profileImage: "person.crop.circle.badge.plus"),
-        Profile(profileName: "Recognize History", profileImage: "timer"),
-        Profile(profileName: "Blacklist", profileImage: "person.fill.xmark.rtl")
+        Profile(profileName: "My Events", profileImage: "event"),
+        Profile(profileName: "Liked Artists", profileImage: "likedArtist"),
+        Profile(profileName: "Recognize History", profileImage: "history"),
+        Profile(profileName: "Blacklist", profileImage: "blacklist")
     ]
 }

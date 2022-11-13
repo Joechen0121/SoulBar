@@ -14,8 +14,6 @@ class EventsCardsDetailsViewController: UIViewController {
     
     @IBOutlet weak var locationLabel: UILabel!
     
-    @IBOutlet weak var favoriteButton: UIButton!
-    
     @IBOutlet weak var favoriteImage: UIImageView!
     
     @IBOutlet weak var linkImage: UIImageView!
@@ -80,7 +78,7 @@ class EventsCardsDetailsViewController: UIViewController {
                         
                         self.favoriteImage.image = UIImage(systemName: "heart.circle.fill")
                         
-                        self.favoriteImage.tintColor = UIColor.red
+                        self.favoriteImage.tintColor = K.Colors.customRed
                     }
                     
                 }
@@ -90,7 +88,7 @@ class EventsCardsDetailsViewController: UIViewController {
                         
                         self.favoriteImage.image = UIImage(systemName: "heart.circle")
                         
-                        self.favoriteImage.tintColor = UIColor.tintColor
+                        self.favoriteImage.tintColor = UIColor.lightGray
                     }
                 }
             }
@@ -110,7 +108,7 @@ class EventsCardsDetailsViewController: UIViewController {
             
             self.favoriteImage.image = UIImage(systemName: "heart.circle")
             
-            self.favoriteImage.tintColor = UIColor.tintColor
+            self.favoriteImage.tintColor = UIColor.lightGray
             
             isFavorite = false
 
@@ -121,7 +119,7 @@ class EventsCardsDetailsViewController: UIViewController {
                 
             self.favoriteImage.image = UIImage(systemName: "heart.circle.fill")
             
-            self.favoriteImage.tintColor = UIColor.red
+            self.favoriteImage.tintColor = K.Colors.customRed
             
             isFavorite = true
 
