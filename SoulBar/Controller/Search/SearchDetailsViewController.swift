@@ -284,6 +284,8 @@ class SearchDetailsViewController: UIViewController {
 
                 songlistVC.artistID = artists[indexPath.row].id
                 
+                songlistVC.artistInfo = artists[indexPath.row]
+                
                 songlistVC.artistURL = artists[indexPath.row].attributes?.url
                 
                 self.navigationController?.pushViewController(songlistVC, animated: true)
@@ -314,6 +316,8 @@ class SearchDetailsViewController: UIViewController {
                 songlistVC.albumID = albums[indexPath.row].id
                 
                 songlistVC.albumURL = albums[indexPath.row].attributes?.url
+                
+                songlistVC.albumInfo = albums[indexPath.row]
 
                 self.navigationController?.pushViewController(songlistVC, animated: true)
             }

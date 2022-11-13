@@ -222,12 +222,8 @@ extension HomeViewController: SongsDelegate {
                 self.present(playSongVC, animated: true)
                 //self.navigationController?.pushViewController(playSongVC, animated: true)
             }
-           
         }
-        
     }
-    
-    
 }
 
 
