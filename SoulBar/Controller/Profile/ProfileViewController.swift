@@ -103,6 +103,11 @@ extension ProfileViewController: UITableViewDelegate {
             
             print("recog")
             
+            if let historyVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileHistoryViewController.storyboardID) as? ProfileHistoryViewController {
+                
+                self.navigationController?.pushViewController(historyVC, animated: true)
+            }
+            
         case .Blacklists:
             
             print("blacklist")

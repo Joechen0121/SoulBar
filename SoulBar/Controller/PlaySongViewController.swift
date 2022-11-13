@@ -273,7 +273,7 @@ class PlaySongViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         
-                        self.favoriteView.image = UIImage(systemName: "heart")
+                        self.favoriteView.image = UIImage(named: "heart")
                     }
                 }
             }
@@ -291,7 +291,7 @@ class PlaySongViewController: UIViewController {
     
             FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.songs, id: songsID)
             
-            self.favoriteView.image = UIImage(systemName: "heart")
+            self.favoriteView.image = UIImage(named: "heart")
             
             isFavorite = false
 
@@ -300,7 +300,7 @@ class PlaySongViewController: UIViewController {
 
             FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.songs, id: songsID)
                 
-            self.favoriteView.image = UIImage(systemName: "heart.fill")
+            self.favoriteView.image = UIImage(named: "heart.fill")
             
             isFavorite = true
 

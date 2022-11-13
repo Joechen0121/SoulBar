@@ -111,7 +111,7 @@ class FirebaseHistoryManager {
         completion()
     }
     
-    func fetchHistoryPlayData(completion: @escaping () -> Void) {
+    func fetchHistoryPlayData(completion: @escaping ([FirebaseHistoryPlayData]) -> Void) {
         
         var data = [FirebaseHistoryPlayData]()
         
@@ -128,9 +128,7 @@ class FirebaseHistoryManager {
                 data.append(dataPath)
                 
             }
-            print(data)
+            completion(data)
         }
-        
-        completion()
     }
 }

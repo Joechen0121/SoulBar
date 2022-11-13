@@ -61,9 +61,9 @@ class FavoriteMusicDetailsViewController: UIViewController {
         
         musicDetailsTableView.register(UINib.init(nibName: FavoriteMusicDetailsNoHeartTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicDetailsNoHeartTableViewCell.identifier)
         
-        viewHeight.constant = UIScreen.main.bounds.height / 5
+        //viewHeight.constant = UIScreen.main.bounds.height / 5
         
-        playPauseButtonWidth.constant = viewHeight.constant / 3
+        //playPauseButtonWidth.constant = viewHeight.constant / 3
         
         let playPauseTap = UITapGestureRecognizer(target: self, action: #selector(playPauseButton))
         

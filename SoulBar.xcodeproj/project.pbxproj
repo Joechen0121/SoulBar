@@ -85,6 +85,10 @@
 		D88071BD291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071BB291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift */; };
 		D88071BE291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88071BC291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib */; };
 		D88071C12920C39300554B18 /* FavoriteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071C02920C39300554B18 /* FavoriteData.swift */; };
+		D88071C62920EA1400554B18 /* ProfileHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071C52920EA1400554B18 /* ProfileHistoryViewController.swift */; };
+		D88071C92920EA3300554B18 /* ProfileHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071C72920EA3300554B18 /* ProfileHistoryTableViewCell.swift */; };
+		D88071CA2920EA3300554B18 /* ProfileHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88071C82920EA3300554B18 /* ProfileHistoryTableViewCell.xib */; };
+		D88071CC2920F4A400554B18 /* DateFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88071CB2920F4A400554B18 /* DateFormatter+Ext.swift */; };
 		D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */; };
 		D88550B12910E3570083D050 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88550B02910E3570083D050 /* MapManager.swift */; };
 		D88550B329114E620083D050 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D88550B229114E620083D050 /* GoogleService-Info.plist */; };
@@ -183,6 +187,10 @@
 		D88071BB291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMusicDetailsNoHeartTableViewCell.swift; sourceTree = "<group>"; };
 		D88071BC291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteMusicDetailsNoHeartTableViewCell.xib; sourceTree = "<group>"; };
 		D88071C02920C39300554B18 /* FavoriteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteData.swift; sourceTree = "<group>"; };
+		D88071C52920EA1400554B18 /* ProfileHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHistoryViewController.swift; sourceTree = "<group>"; };
+		D88071C72920EA3300554B18 /* ProfileHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		D88071C82920EA3300554B18 /* ProfileHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		D88071CB2920F4A400554B18 /* DateFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Ext.swift"; sourceTree = "<group>"; };
 		D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCardsDetailsViewController.swift; sourceTree = "<group>"; };
 		D88550B02910E3570083D050 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		D88550B229114E620083D050 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -238,9 +246,7 @@
 				D8088B1829096C2E0037555B /* RecognizeViewController.swift */,
 				D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */,
 				D86AD11C2913F42C000208B6 /* FavoriteMusic */,
-				D8088B1C29096C4D0037555B /* ProfileViewController.swift */,
-				D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */,
-				D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */,
+				D88071C42920E9CF00554B18 /* Profile */,
 				D820B9222914C50E000C8F88 /* Chat */,
 				D8573385290FBCA20009D734 /* PlaySongViewController.swift */,
 				D8B528E929163105004C8D2A /* PlaySongManager.swift */,
@@ -350,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */,
+				D88071CB2920F4A400554B18 /* DateFormatter+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -496,6 +503,19 @@
 			path = Favorite;
 			sourceTree = "<group>";
 		};
+		D88071C42920E9CF00554B18 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D8088B1C29096C4D0037555B /* ProfileViewController.swift */,
+				D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */,
+				D88071C52920EA1400554B18 /* ProfileHistoryViewController.swift */,
+				D88071C72920EA3300554B18 /* ProfileHistoryTableViewCell.swift */,
+				D88071C82920EA3300554B18 /* ProfileHistoryTableViewCell.xib */,
+				D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		D8A1B96D290C22E5007F6775 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,6 +612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8573382290EA9150009D734 /* SearchAllResultTableViewCell.xib in Resources */,
+				D88071CA2920EA3300554B18 /* ProfileHistoryTableViewCell.xib in Resources */,
 				D88071BA291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib in Resources */,
 				D820B92B291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib in Resources */,
 				D88550B329114E620083D050 /* GoogleService-Info.plist in Resources */,
@@ -687,6 +708,7 @@
 				D8088B1929096C2E0037555B /* RecognizeViewController.swift in Sources */,
 				D874B98A2917E4EA0082F2D7 /* ProfileTableViewCell.swift in Sources */,
 				D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */,
+				D88071C92920EA3300554B18 /* ProfileHistoryTableViewCell.swift in Sources */,
 				D874B99A29190B720082F2D7 /* NewListDisplayViewController.swift in Sources */,
 				D8088B3129096FAF0037555B /* PlaylistsSearch.swift in Sources */,
 				D874B99C29190E340082F2D7 /* NewListTableViewCell.swift in Sources */,
@@ -707,6 +729,7 @@
 				D8088B3B290A2A290037555B /* SongsCollectionViewCell.swift in Sources */,
 				D837B36E291DF94D008BE6D0 /* UIView+Ext.swift in Sources */,
 				D8A1B97C290C46C6007F6775 /* SongListViewController.swift in Sources */,
+				D88071C62920EA1400554B18 /* ProfileHistoryViewController.swift in Sources */,
 				D8573372290E561B0009D734 /* SearchArtistsResultTableViewCell.swift in Sources */,
 				D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */,
 				D820B92A291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift in Sources */,
@@ -736,6 +759,7 @@
 				D8088B1D29096C4D0037555B /* ProfileViewController.swift in Sources */,
 				D874C8A32912835400075AE9 /* Constants.swift in Sources */,
 				D8088B1B29096C400037555B /* FavoriteViewController.swift in Sources */,
+				D88071CC2920F4A400554B18 /* DateFormatter+Ext.swift in Sources */,
 				D86AD12729141139000208B6 /* FavoritePlaylistsTableViewCell.swift in Sources */,
 				D86AD11F2913F4D8000208B6 /* FavoriteMusicTableViewCell.swift in Sources */,
 				D874C89D29125BC600075AE9 /* FirebaseChatroomManager.swift in Sources */,
