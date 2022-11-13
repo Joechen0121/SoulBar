@@ -232,7 +232,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
                         
                         MusicManager.sharedInstance.fetchSong(with: id) { tracks in
                             
-                            self.listTracks = tracks
+                            self.listTracks.append(tracks[0])
                             
                             DispatchQueue.main.async {
                                 
