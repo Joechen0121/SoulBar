@@ -16,9 +16,15 @@ class SongListViewController: UIViewController {
     
     @IBOutlet weak var songListTableView: UITableView!
     
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var playView: UIImageView!
     
-    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var favoriteView: UIImageView!
+    
+    @IBOutlet weak var sharedView: UIImageView!
+    
+    @IBOutlet weak var songName: UILabel!
+    
+    @IBOutlet weak var artistName: UILabel!
     
     enum SongListType: Int {
         
@@ -56,9 +62,13 @@ class SongListViewController: UIViewController {
     
     var albumURL: String?
     
+    var albumInfo: AlbumsSearchInfo?
+    
     var artistID: String?
     
     var artistURL: String?
+    
+    var artistInfo: ArtistsSearchInfo?
     
     var artistAlbums = [ArtistsSearchInfo]()
     
@@ -68,18 +78,50 @@ class SongListViewController: UIViewController {
     
     var isFavorite = false
     
+    @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         songListTableView.dataSource = self
         
         songListTableView.delegate = self
+        
+        imageWidthConstraint.constant = UIScreen.main.bounds.height / 3
+        
+        let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
+        favoriteView.addGestureRecognizer(favoriteTap)
+        favoriteView.isUserInteractionEnabled = true
+        
+        let sharedTap = UITapGestureRecognizer(target: self, action: #selector(shared))
+        sharedView.addGestureRecognizer(sharedTap)
+        sharedView.isUserInteractionEnabled = true
+        
+        let playTap = UITapGestureRecognizer(target: self, action: #selector(play))
+        playView.addGestureRecognizer(playTap)
+        playView.isUserInteractionEnabled = true
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.navigationItem.largeTitleDisplayMode = .always
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationItem.largeTitleDisplayMode = .never
+        
         if state == fromPlaylist {
+            
+            DispatchQueue.main.async {
+                
+                self.songName.text = self.playlist?.attributes?.name
+                
+                self.artistName.isHidden = true
+            }
             
             MusicManager.sharedInstance.fetchPlaylistsTracks(with: playlist!.id) { tracks in
                 self.playlistTracks = tracks
@@ -99,6 +141,13 @@ class SongListViewController: UIViewController {
             }
         }
         else if state == fromAlbums {
+            
+            DispatchQueue.main.async {
+                
+                self.songName.text = self.album?.attributes?.name
+                
+                self.artistName.text = self.album?.attributes?.artistName
+            }
             
             guard let albumID = album?.id else {
                 return
@@ -124,6 +173,13 @@ class SongListViewController: UIViewController {
         }
         else if state == fromAlbumsSearch {
             
+            DispatchQueue.main.async {
+                
+                self.songName.text = self.albumInfo?.attributes?.name
+                
+                self.artistName.text = self.albumInfo?.attributes?.artistName
+            }
+            
             guard let albumID = albumID else { return }
             
             MusicManager.sharedInstance.fetchAlbumsTracks(with: albumID) { tracks in
@@ -146,7 +202,14 @@ class SongListViewController: UIViewController {
         }
         else if state == fromArtist {
             
-            playButton.isHidden = true
+            DispatchQueue.main.async {
+                
+                self.songName.text = self.artistInfo?.attributes?.name
+                
+                self.artistName.isHidden = true
+            }
+            
+            playView.isHidden = true
             
             artistAlbums = []
             
@@ -200,7 +263,7 @@ class SongListViewController: UIViewController {
         configureButton()
     }
     
-    @IBAction func playButton(_ sender: UIButton) {
+    @objc func play() {
         
         if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
             
@@ -223,11 +286,14 @@ class SongListViewController: UIViewController {
                 print("Unknown state for configuring song data")
             }
             print(playSongVC.songs)
+            
+            playSongVC.modalPresentationStyle = .fullScreen
+            
             self.present(playSongVC, animated: true)
         }
     }
     
-    @IBAction func addToFavoriteButton(_ sender: UIButton) {
+    @objc func addToFavorite() {
         
         if isFavorite {
             
@@ -268,7 +334,7 @@ class SongListViewController: UIViewController {
                 print("Unknown state for configuring song data")
             }
             
-            self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            self.favoriteView.image = UIImage(named: "heart")
             
             isFavorite = false
             
@@ -285,7 +351,7 @@ class SongListViewController: UIViewController {
                 
                 FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.playlists, id: playlistID)
                     
-                self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.favoriteView.image = UIImage(named: "heart.fill")
                 
             case fromAlbums:
                 
@@ -301,7 +367,7 @@ class SongListViewController: UIViewController {
                 
                 FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
                 
-                self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.favoriteView.image = UIImage(named: "heart.fill")
                 
                 
             case fromArtist:
@@ -310,7 +376,7 @@ class SongListViewController: UIViewController {
                 
                 FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.artists, id: artistID)
                 
-                self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.favoriteView.image = UIImage(named: "heart.fill")
                 
                 
             default:
@@ -318,7 +384,7 @@ class SongListViewController: UIViewController {
                 print("Unknown state for configuring song data")
             }
             
-            self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            self.favoriteView.image = UIImage(named: "heart.fill")
             
             isFavorite = true
         }
@@ -332,7 +398,7 @@ class SongListViewController: UIViewController {
 
                 DispatchQueue.main.async {
                     
-                    self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    self.favoriteView.image = UIImage(named: "heart.fill")
                 }
                 
             }
@@ -340,7 +406,7 @@ class SongListViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     
-                    self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                    self.favoriteView.image = UIImage(named: "heart")
                 }
             }
         }
@@ -430,7 +496,7 @@ class SongListViewController: UIViewController {
         
     }
     
-    @IBAction func sharedButton(_ sender: UIButton) {
+    @objc func shared() {
         
         var url: URL?
         
@@ -505,8 +571,11 @@ class SongListViewController: UIViewController {
                 
                 print("Unknown state for configuring song data")
             }
-            print(songs)
-            self.navigationController?.pushViewController(playSongVC, animated: true)
+            
+            playSongVC.modalPresentationStyle = .fullScreen
+            
+            present(playSongVC, animated: true)
+            //self.navigationController?.pushViewController(playSongVC, animated: true)
         }
     }
     

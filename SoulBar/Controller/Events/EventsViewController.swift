@@ -60,7 +60,7 @@ class EventsViewController: UIViewController {
         
         let flowlayout = UICollectionViewFlowLayout()
         
-        flowlayout.itemSize = CGSize(width: 300, height: 300)
+        flowlayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.width / 2 / 5 * 6)
         
         flowlayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
@@ -78,7 +78,7 @@ class EventsViewController: UIViewController {
             
             self.favoriteCount = result.count
             
-            if result.isEmpty{
+            if result.isEmpty {
                 
                 let height = self.eventsFavoriteCollectionView.collectionViewLayout.collectionViewContentSize.height
             
@@ -87,7 +87,7 @@ class EventsViewController: UIViewController {
             }
             else {
                 
-                self.collectionHeight.constant = 300
+                self.collectionHeight.constant = UIScreen.main.bounds.width / 2 / 5 * 6
     
             }
             
@@ -127,13 +127,14 @@ extension EventsViewController: UITableViewDataSource {
         }
         
         cell.cardsView.backgroundColor = UIColor(red: 0, green: 94/255, blue: 112/255, alpha: 1)
-        cell.cardsView.icon = UIImage(systemName: "pause")
+        cell.cardsView.icon = UIImage(systemName: "music.quarternote.3")
         cell.cardsView.titleSize = 17
         cell.cardsView.title = events[indexPath.row].title
         cell.cardsView.itemTitle = events[indexPath.row].startDate
         cell.cardsView.itemSubtitle = events[indexPath.row].comment
         cell.cardsView.textColor = UIColor.white
         cell.cardsView.hasParallax = true
+        cell.widthConstraint.constant = UIScreen.main.bounds.width / 2
 
         if let cardContent = storyboard?.instantiateViewController(withIdentifier: "CardContent") as? EventsCardsDetailsViewController {
 

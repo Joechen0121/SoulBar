@@ -19,12 +19,10 @@ class ProfileData {
     
     static let data = [
     
-        Profile(profileName: "已按讚的歌曲", profileImage: "heart.fill"),
-        Profile(profileName: "我的播放清單", profileImage: "music.note.house"),
-        Profile(profileName: "收藏的清單", profileImage: "music.note.list"),
-        Profile(profileName: "我的活動", profileImage: "note.text"),
-        Profile(profileName: "追蹤的音樂人", profileImage: "person.crop.circle.badge.plus"),
-        Profile(profileName: "播放紀錄", profileImage: "timer"),
-        Profile(profileName: "已封鎖的黑名單", profileImage: "person.fill.xmark.rtl")
+        Profile(profileName: "Liked Songs", profileImage: "heart.fill"),
+        Profile(profileName: "My Events", profileImage: "event"),
+        Profile(profileName: "Liked Artists", profileImage: "likedArtist"),
+        Profile(profileName: "Recognize History", profileImage: "history"),
+        Profile(profileName: "Blacklist", profileImage: "blacklist")
     ]
 }

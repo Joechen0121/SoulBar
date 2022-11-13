@@ -15,7 +15,7 @@ public protocol PlaySongDelegate: AnyObject {
     
     func didUpdatePosition(_ player: AVPlayer?, _ position: PlayerPosition)
     
-    func selectData(index: Int)
+    func selectData(index: Int, isFromMiniPlayer: Bool)
 }
 
 public struct PlayerPosition {
@@ -49,7 +49,7 @@ class PlaySongManager: NSObject {
     
     static let sharedInstance = PlaySongManager()
     
-    private var position = PlayerPosition()
+    var position = PlayerPosition()
     
     let player = AVPlayer()
     
@@ -59,24 +59,52 @@ class PlaySongManager: NSObject {
     
     var maxCount = 0
     
-    var playerObserver: Any?
+    var previousBackCount = 0
     
-    var timerInvalid: Bool = false
+    var nextBackCount = 0
+    
+    var playerObserver: NSKeyValueObservation?
+    
+    var timeObserver: Any?
+    
+    var timerInvalid = false
+    
+    var queuePlayer: AVQueuePlayer?
     
     var playerItem: AVPlayerItem?
     
+    var currentSong: SongsSearchInfo?
+    
+    var songs: [SongsSearchInfo]?
+    
+    var currentTime: Double = 0
+    
+    var isBackground = false
+
     func setupPlayer(with url: URL) {
+        
+        print(#function)
         
         let asset = AVURLAsset(url: url)
         
         let item = AVPlayerItem(asset: asset)
+        
+        self.currentTime = 0
+        
+        setupNowPlaying()
 
         item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
+
         DispatchQueue.main.async {
+            
             self.player.replaceCurrentItem(with: item)
+            
             self.player.addObserver(self, forKeyPath: #keyPath(AVPlayer.timeControlStatus), options: [.new], context: nil)
+            
             self.addTimeObserve()
+            
             self.player.allowsExternalPlayback = true
+            
             self.player.usesExternalPlaybackWhileExternalScreenIsActive = true
             
         }
@@ -84,8 +112,10 @@ class PlaySongManager: NSObject {
     
     func addTimeObserve() {
         
+        guard self.timeObserver == nil else { return }
+        
         self.timerInvalid = false
-        self.playerObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1 / 30.0, preferredTimescale: Int32(NSEC_PER_SEC)), queue: .main) { [weak self] _ in
+        self.timeObserver = self.player.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC)), queue: .main) { [weak self] _ in
 
             guard let self = self else { return }
             
@@ -104,8 +134,11 @@ class PlaySongManager: NSObject {
                 }
                 
                 let currentTime = currentItem.currentTime()
+                
                 self.position = PlayerPosition(duration: Int(duration), current: Int(CMTimeGetSeconds(currentTime)))
                 
+                self.currentTime = CMTimeGetSeconds(self.player.currentTime())
+                print("-----\(self.currentTime)")
                 self.delegate?.didUpdatePosition(self.player, self.position)
             }
         }
@@ -113,33 +146,51 @@ class PlaySongManager: NSObject {
     
     func removePlayerObserve() {
         
-        self.player.removeObserver(self, forKeyPath: #keyPath(AVPlayer.timeControlStatus), context: nil)
-        self.player.currentItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), context: nil)
-        
+        if let observer = self.playerObserver {
+            
+            if player.timeControlStatus == .paused {
+    
+                self.player.removeObserver(self, forKeyPath: #keyPath(AVPlayer.timeControlStatus), context: nil)
+                
+                self.player.currentItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), context: nil)
+            }
+        }
     }
     
     func removeTimeObserve() {
         
-        if let observer = self.playerObserver {
-            self.player.removeTimeObserver(observer)
+        if let observer = timeObserver {
+            
+            if player.timeControlStatus == .paused {
+    
+                self.player.removeTimeObserver(observer)
+                self.timeObserver = nil
+            }
         }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-
+        
         if keyPath == #keyPath(AVPlayerItem.status) {
+            
             let status: AVPlayerItem.Status
+            
             if let statusNumber = change?[.newKey] as? NSNumber {
                 status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
-            } else {
+            }
+            else {
                 status = .unknown
             }
 
-            // Switch over status value
             switch status {
             case .readyToPlay:
                 delegate?.didReceiveNotification(player: self.player, notification: .PlayerReadyToPlayNotification)
+
                 self.startPlayer()
+                
+                previousBackCount = 0
+                nextBackCount = 0
+                NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
                 print("PlayerStatus ReadyToPlay")
                 
             case .failed:
@@ -158,20 +209,44 @@ class PlaySongManager: NSObject {
         // handle keypath callback
         if keyPath == #keyPath(AVPlayer.timeControlStatus) {
             
-            if let isPlaybackLikelyToKeepUp = player.currentItem?.isPlaybackLikelyToKeepUp,
-                player.timeControlStatus != .playing && !isPlaybackLikelyToKeepUp {
-                delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingStartNotification)
-                print("Playerstatus Buffer Start")
+            if player.timeControlStatus == .paused {
+    
+                if delegate != nil {
+    
+                    delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingEndNotification)
+                }
+                else {
+                    
+                    backgroundMode()
+                }
+                
             } else {
-                delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingEndNotification)
-                print("PlayerStatus Buffer End")
+                
+                delegate?.didReceiveNotification(player: player, notification: .PlayerBufferingStartNotification)
+                
+                isBackground = false
+
             }
         }
     }
     
     func startPlayer() {
+        guard let songs = PlaySongManager.sharedInstance.songs, !songs.isEmpty else { return }
         
-        self.player.play()
+        if PlaySongManager.sharedInstance.current >= songs.count {
+            
+            PlaySongManager.sharedInstance.current = 0
+        }
+        
+        let song = songs[PlaySongManager.sharedInstance.current]
+        
+        guard let url = song.attributes?.previews?[0].url else { return }
+        
+        self.currentSong = song
+        
+        PlaySongManager.sharedInstance.playMusic(url: url)
+        
+        setupNowPlaying()
         
         delegate?.didReceiveNotification(player: self.player, notification: .PlayerDidToPlayNotification)
         
@@ -184,6 +259,7 @@ class PlaySongManager: NSObject {
     func closePlayer() {
         self.pauseMusic()
         self.player.replaceCurrentItem(with: nil)
+        self.currentTime = 0
         self.removePlayerObserve()
         self.removeTimeObserve()
         NotificationCenter.default.removeObserver(self)
@@ -229,6 +305,7 @@ class PlaySongManager: NSObject {
         switch notification.name {
         case .AVPlayerItemDidPlayToEndTime:
             delegate?.didReceiveNotification(player: self.player, notification: .PlayerPlayFinishNotification)
+            self.currentTime = 0
         case .AVPlayerItemFailedToPlayToEndTime:
             delegate?.didReceiveNotification(player: self.player, notification: .PlayerFailedNotification)
         default:
@@ -259,52 +336,73 @@ class PlaySongManager: NSObject {
             return .commandFailed
         }
         
-        commandCenter.changePlaybackPositionCommand.addTarget { [unowned self] event in
+        commandCenter.changePlaybackPositionCommand.addTarget { [weak self] event in
             
-            if let event = event as? MPChangePlaybackPositionCommandEvent{
+            guard let self = self else { return .commandFailed }
+            
+            if let event = event as? MPChangePlaybackPositionCommandEvent {
                 let percent = Float(event.positionTime) / Float(self.position.duration)
                 print("change playback", percent)
-                seekTo(Double(percent))
+                self.seekTo(Double(percent))
             }
             
             return .success
         }
         
-        commandCenter.previousTrackCommand.addTarget { [unowned self] _ in
-            print((current + maxCount - 1) % maxCount)
-            delegate?.selectData(index: (current + maxCount - 1) % maxCount)
+        commandCenter.previousTrackCommand.addTarget { [weak self] _ in
+        
+            guard let self = self, self.previousBackCount == 0 else { return .commandFailed }
             
+            self.previousBackCount += 1
+            print((self.current + self.maxCount - 1) % self.maxCount)
+            self.closePlayer()
+            self.delegate?.selectData(index: (self.current + self.maxCount - 1) % self.maxCount, isFromMiniPlayer: false)
+        
             return.success
             
         }
         
-        commandCenter.nextTrackCommand.addTarget { [unowned self] event in
-            if event.timestamp != 0 {
-                print((current + maxCount + 1) % maxCount)
-                delegate?.selectData(index: (current + maxCount + 1) % maxCount)
-            }
+        commandCenter.nextTrackCommand.addTarget { [weak self] event in
+        
+            guard let self = self, self.nextBackCount == 0 else { return .commandFailed }
+            
+            self.nextBackCount += 1
+            self.closePlayer()
+            print((self.current + self.maxCount + 1) % self.maxCount)
+            self.delegate?.selectData(index: (self.current + self.maxCount + 1) % self.maxCount, isFromMiniPlayer: false)
+
             return.success
             
         }
     }
     
-    func setupNowPlaying(title: String, image: UIImage?) {
-        // Define Now Playing Info
-        var nowPlayingInfo = [String: Any]()
-        nowPlayingInfo[MPMediaItemPropertyTitle] = title
+    func setupNowPlaying() {
 
-        if let image = image {
-           
-            nowPlayingInfo[MPMediaItemPropertyArtwork] =
+        var nowPlayingInfo = [String : Any]()
+        
+        guard let song = PlaySongManager.sharedInstance.currentSong else { return }
+        
+        if let artworkURL = song.attributes?.artwork?.url, let width = song.attributes?.artwork?.width, let height = song.attributes?.artwork?.height {
+            
+            nowPlayingInfo[MPMediaItemPropertyTitle] = PlaySongManager.sharedInstance.currentSong?.attributes?.name
+            
+            let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+            
+            if let data = try? Data(contentsOf: URL(string: pictureURL)!) {
+                let image: UIImage = UIImage(data: data)!
                 
-            MPMediaItemArtwork(boundsSize: image.size) { _ in
-        
+                nowPlayingInfo[MPMediaItemPropertyArtwork] =
+                MPMediaItemArtwork(boundsSize: image.size) { size in
                     return image
-        
                 }
+            }
+            
         }
+
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.player.currentItem?.currentTime().seconds
+        
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = self.player.currentItem?.asset.duration.seconds
+        
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
 
         // Set the metadata
@@ -315,11 +413,15 @@ class PlaySongManager: NSObject {
         
         print("Play")
 
-        let musicURL = URL.init(fileURLWithPath: url)
-
+        guard let musicURL = URL(string: url) else { return }
+            
         playerItem = AVPlayerItem(url: musicURL)
-
+    
         player.replaceCurrentItem(with: playerItem)
+
+        let time = CMTime(seconds: self.currentTime, preferredTimescale: 1000)
+
+        player.seek(to: time)
         
         player.play()
 
@@ -327,12 +429,46 @@ class PlaySongManager: NSObject {
     
     
     func pauseMusic() {
+        
+        isBackground = true
 
         player.pause()
     }
     
-    deinit {
+    func backgroundMode() {
         
+        guard isBackground == false else { return }
+        
+        isBackground = true
+        
+        if self.current + 1 < self.maxCount {
+
+            pauseMusic()
+            
+            currentTime = 0
+
+            self.current += 1
+
+            guard let songs = songs, let url = songs[current].attributes?.previews?[0].url else {
+                return
+            }
+            
+            startPlayer()
+            
+        }
+        else {
+            
+            pauseMusic()
+            
+            self.current = maxCount
+        }
+        
+        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
+    }
+    
+    deinit {
+
         delegate = nil
         
         NotificationCenter.default.removeObserver(self)

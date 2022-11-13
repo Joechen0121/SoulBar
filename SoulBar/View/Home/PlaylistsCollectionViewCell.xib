@@ -23,11 +23,11 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7io-7l-nCx">
-                        <rect key="frame" x="20" y="240" width="42" height="20"/>
+                        <rect key="frame" x="0.0" y="240" width="240" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="mAa-74-1Kc"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -38,7 +38,8 @@
                 <constraint firstItem="Dpz-k1-eaH" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="3Sg-La-KCG"/>
                 <constraint firstItem="Dpz-k1-eaH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="6iA-ss-qzS"/>
                 <constraint firstItem="7io-7l-nCx" firstAttribute="top" secondItem="Dpz-k1-eaH" secondAttribute="bottom" constant="15" id="9AP-Py-trl"/>
-                <constraint firstItem="7io-7l-nCx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="Nf7-Bl-0hY"/>
+                <constraint firstItem="7io-7l-nCx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Nf7-Bl-0hY"/>
+                <constraint firstAttribute="trailing" secondItem="7io-7l-nCx" secondAttribute="trailing" constant="10" id="e7X-48-ckq"/>
                 <constraint firstAttribute="bottom" secondItem="7io-7l-nCx" secondAttribute="bottom" constant="8" id="x57-TY-g9W"/>
             </constraints>
             <size key="customSize" width="250" height="268"/>

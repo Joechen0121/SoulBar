@@ -11,6 +11,8 @@ import FirebaseFirestore
 
 class FirebaseHistoryManager {
     
+    static let sharedInstance = FirebaseHistoryManager()
+    
     func addHistorySearchData(text: String, completion: @escaping () -> Void) {
         
         let favorite = Firestore.firestore().collection("user").document("history").collection("search")
@@ -109,7 +111,7 @@ class FirebaseHistoryManager {
         completion()
     }
     
-    func fetchHistoryPlayData(completion: @escaping () -> Void) {
+    func fetchHistoryPlayData(completion: @escaping ([FirebaseHistoryPlayData]) -> Void) {
         
         var data = [FirebaseHistoryPlayData]()
         
@@ -126,9 +128,7 @@ class FirebaseHistoryManager {
                 data.append(dataPath)
                 
             }
-            print(data)
+            completion(data)
         }
-        
-        completion()
     }
 }

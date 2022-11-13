@@ -72,7 +72,24 @@ class SearchDetailsViewController: UIViewController {
         configureButton()
         
         configureTextField()
+        
+        self.navigationItem.title = "Search"
+        
+        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.navigationItem.largeTitleDisplayMode = .always
+        
     }
     
     func configureTextField() {
@@ -86,6 +103,8 @@ class SearchDetailsViewController: UIViewController {
         let searchImage = UIImage(systemName: "magnifyingglass")
 
         searchView.image = searchImage
+        
+        searchView.tintColor = .black
         
         searchView.contentMode = .scaleAspectFit
 
@@ -101,61 +120,84 @@ class SearchDetailsViewController: UIViewController {
         buttonStackView.layoutMargins = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
         buttonStackView.isLayoutMarginsRelativeArrangement = true
         
-        allButton.backgroundColor = .clear
+        allButton.backgroundColor = K.Colors.customRed
         allButton.setTitle("All", for: .normal)
+        allButton.setTitleColor(.white, for: .normal)
         allButton.cornerRadius = 15
         allButton.spinnerColor = .black
-        allButton.layer.borderColor = UIColor.black.cgColor
-        allButton.layer.borderWidth = 1
-        allButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
+        allButton.layer.borderColor = K.Colors.customRed.cgColor
+        allButton.layer.borderWidth = 2
     
-        artistButton.backgroundColor = .clear
+        artistButton.backgroundColor = .white
         artistButton.setTitle("Artist", for: .normal)
+        artistButton.setTitleColor(K.Colors.customRed, for: .normal)
         artistButton.cornerRadius = 15
         artistButton.spinnerColor = .black
-        artistButton.layer.borderColor = UIColor.black.cgColor
-        artistButton.layer.borderWidth = 1
+        artistButton.layer.borderColor = K.Colors.customRed.cgColor
+        artistButton.layer.borderWidth = 2
         
-        songButton.backgroundColor = .clear
+        songButton.backgroundColor = .white
         songButton.setTitle("Song", for: .normal)
+        songButton.setTitleColor(K.Colors.customRed, for: .normal)
         songButton.cornerRadius = 15
         songButton.spinnerColor = .black
-        songButton.layer.borderColor = UIColor.black.cgColor
-        songButton.layer.borderWidth = 1
+        songButton.layer.borderColor = K.Colors.customRed.cgColor
+        songButton.layer.borderWidth = 2
         
-        albumButton.backgroundColor = .clear
+        albumButton.backgroundColor = .white
         albumButton.setTitle("Album", for: .normal)
+        albumButton.setTitleColor(K.Colors.customRed, for: .normal)
         albumButton.cornerRadius = 15
         albumButton.spinnerColor = .black
-        albumButton.layer.borderColor = UIColor.black.cgColor
-        albumButton.layer.borderWidth = 1
+        albumButton.layer.borderColor = K.Colors.customRed.cgColor
+        albumButton.layer.borderWidth = 2
     }
     
     func changeButtonColor(buttonTag: Int) {
         
         if buttonTag == allType {
-            allButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
-            artistButton.backgroundColor = UIColor.clear
-            songButton.backgroundColor = UIColor.clear
-            albumButton.backgroundColor = UIColor.clear
+            
+            allButton.backgroundColor = K.Colors.customRed
+            allButton.setTitleColor(.white, for: .normal)
+            artistButton.setTitleColor(K.Colors.customRed, for: .normal)
+            artistButton.backgroundColor = .white
+            songButton.setTitleColor(K.Colors.customRed, for: .normal)
+            songButton.backgroundColor = .white
+            albumButton.setTitleColor(K.Colors.customRed, for: .normal)
+            albumButton.backgroundColor = .white
         }
         else if buttonTag == artistType {
-            allButton.backgroundColor = UIColor.clear
-            artistButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
-            songButton.backgroundColor = UIColor.clear
-            albumButton.backgroundColor = UIColor.clear
+
+            allButton.setTitleColor(K.Colors.customRed, for: .normal)
+            allButton.backgroundColor = .white
+            artistButton.backgroundColor = K.Colors.customRed
+            artistButton.setTitleColor(.white, for: .normal)
+            songButton.setTitleColor(K.Colors.customRed, for: .normal)
+            songButton.backgroundColor = .white
+            albumButton.setTitleColor(K.Colors.customRed, for: .normal)
+            albumButton.backgroundColor = .white
         }
         else if buttonTag == songType {
-            allButton.backgroundColor = UIColor.clear
-            artistButton.backgroundColor = UIColor.clear
-            songButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
-            albumButton.backgroundColor = UIColor.clear
+            
+            allButton.setTitleColor(K.Colors.customRed, for: .normal)
+            allButton.backgroundColor = .white
+            artistButton.setTitleColor(K.Colors.customRed, for: .normal)
+            artistButton.backgroundColor = .white
+            songButton.backgroundColor = K.Colors.customRed
+            songButton.setTitleColor(.white, for: .normal)
+            albumButton.setTitleColor(K.Colors.customRed, for: .normal)
+            albumButton.backgroundColor = .white
         }
         else if buttonTag == albumType {
-            allButton.backgroundColor = UIColor.clear
-            artistButton.backgroundColor = UIColor.clear
-            songButton.backgroundColor = UIColor.clear
-            albumButton.backgroundColor = UIColor(red: 210 / 255, green: 165 / 255, blue: 109 / 255, alpha: 1)
+            
+            allButton.setTitleColor(K.Colors.customRed, for: .normal)
+            allButton.backgroundColor = .white
+            artistButton.setTitleColor(K.Colors.customRed, for: .normal)
+            artistButton.backgroundColor = .white
+            songButton.setTitleColor(K.Colors.customRed, for: .normal)
+            songButton.backgroundColor = .white
+            albumButton.backgroundColor = K.Colors.customRed
+            albumButton.setTitleColor(.white, for: .normal)
         }
         
     }
@@ -242,6 +284,8 @@ class SearchDetailsViewController: UIViewController {
 
                 songlistVC.artistID = artists[indexPath.row].id
                 
+                songlistVC.artistInfo = artists[indexPath.row]
+                
                 songlistVC.artistURL = artists[indexPath.row].attributes?.url
                 
                 self.navigationController?.pushViewController(songlistVC, animated: true)
@@ -257,7 +301,10 @@ class SearchDetailsViewController: UIViewController {
                     
                 playSongVC.songs = response
                 
-                self.navigationController?.pushViewController(playSongVC, animated: true)
+                playSongVC.modalPresentationStyle = .fullScreen
+                
+                present(playSongVC, animated: true)
+                //self.navigationController?.pushViewController(playSongVC, animated: true)
             }
         }
         else if state == albumType {
@@ -269,6 +316,8 @@ class SearchDetailsViewController: UIViewController {
                 songlistVC.albumID = albums[indexPath.row].id
                 
                 songlistVC.albumURL = albums[indexPath.row].attributes?.url
+                
+                songlistVC.albumInfo = albums[indexPath.row]
 
                 self.navigationController?.pushViewController(songlistVC, animated: true)
             }
@@ -359,6 +408,8 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 }
                 
                 cell.configureCellArtistsData(data: self.artists, indexPath: indexPath)
+                
+                cell.allImage.layer.cornerRadius = UIScreen.main.bounds.height / 7 / 2
 
                 return cell
             }
@@ -370,6 +421,8 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 }
                 
                 cell.configureCellSongsData(data: self.songs, indexPath: indexPath)
+                
+                cell.allImage.layer.cornerRadius = 0
 
                 return cell
             }
@@ -381,6 +434,8 @@ extension SearchDetailsViewController: UITableViewDataSource {
                 }
                 
                 cell.configureCellAlbumsData(data: self.albums, indexPath: indexPath)
+                
+                cell.allImage.layer.cornerRadius = 0
 
                 return cell
             }

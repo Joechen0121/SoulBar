@@ -443,6 +443,7 @@ PODS:
   - IQKeyboardManagerSwift (6.5.9)
   - Kingfisher (7.3.2)
   - leveldb-library (1.22.1)
+  - lottie-ios (3.4.3)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -464,6 +465,7 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift (= 8.1.0-beta)
   - IQKeyboardManagerSwift
   - Kingfisher
+  - lottie-ios
   - Pulsator
   - SwiftLint
   - TransitionButton
@@ -490,6 +492,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - Kingfisher
     - leveldb-library
+    - lottie-ios
     - nanopb
     - Player
     - PromisesObjC
@@ -518,6 +521,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
+  lottie-ios: 9ae750cdc7820fecbd3c2f0cfc493038208fcdc4
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   Player: 968d8d07d923bcdd6f7e4091c9e306eb44a5f7a4
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
@@ -525,6 +529,6 @@ SPEC CHECKSUMS:
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: d0f19c78e76bcb691ce98959f3d19b4ac6355887
+PODFILE CHECKSUM: fbe1a0f09f44979693abb0110bd461b5380c2b01
 
 COCOAPODS: 1.11.3

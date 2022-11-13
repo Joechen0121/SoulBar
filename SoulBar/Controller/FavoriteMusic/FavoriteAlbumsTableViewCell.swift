@@ -11,12 +11,16 @@ class FavoriteAlbumsTableViewCell: UITableViewCell {
 
     static let identifier = String(describing: FavoriteAlbumsTableViewCell.self)
     
+    @IBOutlet weak var musicImageHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var musicImage: UIImageView!
+    
     @IBOutlet weak var musicName: UILabel!
-    @IBOutlet weak var musicType: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        musicImageHeight.constant = UIScreen.main.bounds.height / 7
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -19,6 +19,10 @@ class ChatViewController: UIViewController {
 
     @IBOutlet weak var messageTextField: UITextField!
     
+    @IBOutlet weak var infoHeightConstraint: NSLayoutConstraint!
+   
+    @IBOutlet weak var textFieldHeightConstraint: NSLayoutConstraint!
+   
     static let storyboardID = "ChatVC"
     
     var eventsFavorite: FirebaseEventsData?
@@ -39,6 +43,10 @@ class ChatViewController: UIViewController {
         chatTableView.separatorStyle = .none
         
         configureInformation()
+        
+        infoHeightConstraint.constant = UIScreen.main.bounds.height / 7
+        
+        textFieldHeightConstraint.constant = UIScreen.main.bounds.height / 10
         
         guard let eventsFavorite = eventsFavorite else {
             
@@ -71,22 +79,20 @@ class ChatViewController: UIViewController {
         }
         
         self.messages = []
-        print("------\(self.messages)")
+
         FirebaseChatroomManager.sharedInstance.fetchChatroomMessagesData(with: eventsFavorite.uid) { result in
             
             result.forEach { message in
-                print("------\(message)")
+
                 self.messages.append(message)
 
             }
-            print("=====\(self.messages)")
+    
             DispatchQueue.main.async {
                 
                 self.chatTableView.reloadData()
             }
         }
-        
-        print("mmmmmmmm\(self.messages)")
     }
     
     func addChatroomListener(chatroomID: String) {
@@ -118,7 +124,7 @@ class ChatViewController: UIViewController {
                 self.messages = []
                 
                 self.messages = data
-                print("=======\(self.messages)")
+
                 DispatchQueue.main.async {
 
                     self.chatTableView.reloadData()
@@ -195,7 +201,5 @@ extension ChatViewController: UITableViewDataSource {
 
             return cell
         }
-        
-        return UITableViewCell()
     }
 }

@@ -15,8 +15,16 @@ class SearchArtistsResultTableViewCell: UITableViewCell {
     
     @IBOutlet weak var artistLabel: UILabel!
     
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        widthConstraint.constant = UIScreen.main.bounds.height / 7
+        
+        self.artistImage.layer.masksToBounds = true
+        
+        self.artistImage.layer.cornerRadius = UIScreen.main.bounds.height / 7 / 2
         // Initialization code
     }
 

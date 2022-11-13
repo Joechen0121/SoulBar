@@ -8,6 +8,7 @@
 import UIKit
 import ShazamKit
 import Pulsator
+import Lottie
 
 class RecognizeViewController: UIViewController {
     
@@ -16,6 +17,12 @@ class RecognizeViewController: UIViewController {
     @IBOutlet weak var searchImage: UIImageView!
     
     @IBOutlet weak var searchStatusLabel: UILabel!
+    
+    @IBOutlet weak var micImage: UIImageView!
+    
+    @IBOutlet weak var noticeLabel: UILabel!
+    
+    @IBOutlet weak var processingView: AnimationView!
     
     var displayLink: CADisplayLink?
     
@@ -37,12 +44,22 @@ class RecognizeViewController: UIViewController {
     
     var isRecording = false
     
+    var isFound = false
+    
     var state = 1
+    
+    let gradientLayer = CAGradientLayer()
+    
+    var timer: Timer? {
+        
+        didSet {
+            
+            oldValue?.invalidate()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        PlaySongManager.sharedInstance.pauseMusic()
         
         stopButton.isHidden = true
         
@@ -52,7 +69,7 @@ class RecognizeViewController: UIViewController {
         
         pulsator.radius = 360
         
-        pulsator.backgroundColor = UIColor.lightGray.cgColor
+        pulsator.backgroundColor = K.Colors.customRed.cgColor
 
         pulsator.animationDuration = 5
 
@@ -62,20 +79,50 @@ class RecognizeViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(#function)
+        setupPulsatingLayer()
+        print(state)
+        animatePulsatingLayer()
+        
+        noticeLabel.isHidden = true
+        
+        isFound = false
+        
+        animateProcessingViewStop()
+        
+        initViewStatus()
+        
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        state = 1
-        
-        pulsator.stop()
-        
-        stopListening()
+        initViewStatus()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         pulsator.position = searchImage.layer.position
+    }
+    
+    func initViewStatus() {
+        
+        self.pulsator.stop()
+
+        self.state = 1
+
+        self.stopListening()
+        
+        self.noticeLabel.isHidden = true
+        
+        self.stopButton.isHidden = true
+        
+        self.micImage.isHidden = false
+        
+        self.searchStatusLabel.text = "Tap to Search"
     }
     
     func requestMicrophone() -> Bool {
@@ -86,26 +133,22 @@ class RecognizeViewController: UIViewController {
             
             print("Microphone permissions \(isGranted)")
             isPermissionDone = isGranted
+            
+            if !isPermissionDone {
+                
+                let alert = UIAlertController(title: "Error", message: "Please allow microphone usage from settings", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Open settings", style: .default) { _ in
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                })
+                
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+
+            }
 
         }
         
-        if isPermissionDone {
-            
-            return true
-            
-        }
-        else {
-            
-            let alert = UIAlertController(title: "Error", message: "Please allow microphone usage from settings", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Open settings", style: .default, handler: { action in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-            
-            return false
-        }
-        
+        return isPermissionDone
     }
     
     func stopListening() {
@@ -117,7 +160,7 @@ class RecognizeViewController: UIViewController {
     
     private func startListening() {
         
-        guard requestMicrophone() == true else { return }
+        //guard requestMicrophone() == true else { return }
 
         guard !audioEngine.isRunning else {
             
@@ -134,6 +177,22 @@ class RecognizeViewController: UIViewController {
         
         let audioSession = AVAudioSession.sharedInstance()
         
+        do {
+            
+            try audioSession.setCategory(.playAndRecord)
+            
+            // try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            try audioSession.setActive(true)
+            
+        } catch {
+            print("setting category or active state failed")
+            
+        }
+        
+        PlaySongManager.sharedInstance.pauseMusic()
+        
+        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
+        
         audioSession.requestRecordPermission { granted in
 
             guard granted else { return }
@@ -144,7 +203,7 @@ class RecognizeViewController: UIViewController {
 
             inputNode.removeTap(onBus: 0)
 
-            let recordingFormat = inputNode.outputFormat(forBus: 0)
+            let recordingFormat = inputNode.inputFormat(forBus: 0)
 
             inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
     
@@ -179,7 +238,11 @@ class RecognizeViewController: UIViewController {
         
         stopButton.isHidden = true
         
-        self.searchStatusLabel.text = "Tap to Start..."
+        noticeLabel.isHidden = true
+        
+        animateProcessingViewStop()
+        
+        self.searchStatusLabel.text = "Tap to Start"
         
         state = 1
         
@@ -193,15 +256,35 @@ class RecognizeViewController: UIViewController {
         
         pulsatingLayer.strokeColor = UIColor.lightGray.cgColor
         
-        pulsatingLayer.lineWidth = 10
+        pulsatingLayer.lineWidth = 1
         
-        pulsatingLayer.fillColor = UIColor.clear.cgColor
+        pulsatingLayer.fillColor = UIColor.lightGray.cgColor
         
         pulsatingLayer.lineCap = CAShapeLayerLineCap.round
         
         pulsatingLayer.position = view.center
         
-        view.layer.addSublayer(pulsatingLayer)
+        searchImage.layer.addSublayer(pulsatingLayer)
+    }
+    
+    func animateProcessingViewStart() {
+        
+        processingView.isHidden = false
+        
+        processingView.loopMode = .loop
+        
+        view.addSubview(processingView)
+        
+        processingView.play()
+        
+    }
+    
+    func animateProcessingViewStop() {
+        
+        processingView.stop()
+        
+        processingView.isHidden = true
+        
     }
     
     func setupTrackLayer() {
@@ -227,7 +310,7 @@ class RecognizeViewController: UIViewController {
         
         shapeLayer.path = circularPath.cgPath
         
-        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.strokeColor = K.Colors.customRed.cgColor
         
         shapeLayer.lineWidth = 15
         
@@ -248,9 +331,9 @@ class RecognizeViewController: UIViewController {
         
         let animation = CABasicAnimation(keyPath: "transform.scale")
         
-        animation.toValue = 1.7
+        animation.toValue = 1.2
         
-        animation.duration = 0.8
+        animation.duration = 1.5
         
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         
@@ -269,23 +352,43 @@ class RecognizeViewController: UIViewController {
         
         case 0:
             print("tap to start")
+            
+            animateProcessingViewStop()
+            
+            noticeLabel.isHidden = true
+            
+            micImage.isHidden = false
+            
+            searchStatusLabel.fadeTransition(0.4)
+            
             stopButton.isHidden = true
             
             stopListening()
             
             pulsator.stop()
             
-            self.searchStatusLabel.text = "Tap to Search..."
+            self.searchStatusLabel.text = "Tap to Search"
             
             state = 1
             
         case 1:
             print("processing")
+
+            animateProcessingViewStart()
+            
+            noticeLabel.isHidden = false
+            
+            micImage.isHidden = true
+            
             stopButton.isHidden = false
+            
+            searchImage.stopAnimating()
             
             pulsator.start()
             
-            self.searchStatusLabel.text = "Processing..."
+            searchStatusLabel.fadeTransition(0.4)
+            
+            self.searchStatusLabel.text = "Processing"
             
             startListening()
             
@@ -293,13 +396,49 @@ class RecognizeViewController: UIViewController {
             
             state = 2
             
+            self.timer = Timer.scheduledTimer(withTimeInterval: 12.0, repeats: false) { timer in
+
+                guard self.state == 2 else {
+                    
+                    return
+                }
+                
+                if self.isFound == false {
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.initViewStatus()
+                        
+                    }
+                    
+                    if let recErrVC = self.storyboard?.instantiateViewController(withIdentifier: RecognizeErrorViewController.storyboardID) as? RecognizeErrorViewController {
+                    
+                        recErrVC.modalPresentationStyle = .currentContext
+                        
+                        recErrVC.modalTransitionStyle = .crossDissolve
+                        
+                        self.present(recErrVC, animated: true)
+                    }
+                }
+                else { }
+            }
+            
         case 2:
             print("end searching")
+            
+            animateProcessingViewStop()
+            
             stopButton.isHidden = true
+            
+            processingView.isHidden = true
+            
+            noticeLabel.isHidden = true
             
             stopListening()
             
             pulsator.stop()
+            
+            searchStatusLabel.fadeTransition(0.4)
             
             self.searchStatusLabel.text = "End searching"
             
@@ -309,35 +448,6 @@ class RecognizeViewController: UIViewController {
             
             print("Unknown state")
         }
-    }
-    
-    @objc func handleStart() {
-
-        self.searchStatusLabel.text = "Start"
-
-    }
-    
-    @objc func handleSearch() {
-        
-        self.searchStatusLabel.text = "Searching"
-
-    }
-    
-    
-    @objc func handleEnd() {
-        
-        shapeLayer.removeFromSuperlayer()
-        
-        self.searchStatusLabel.text = "The End"
-        
-        setupShapeLayer()
-        
-    }
-    
-    @objc func handleProcessing() {
-     
-        self.searchStatusLabel.text = "Processing"
-        
     }
 }
 
@@ -358,7 +468,6 @@ extension RecognizeViewController: SHSessionDelegate {
                 
                 MusicManager.sharedInstance.searchSongs(term: title, limit: 25) { result in
                     
-                    
                     result.forEach { song in
                         
                         print(song.attributes?.artistName == item.artist)
@@ -370,19 +479,24 @@ extension RecognizeViewController: SHSessionDelegate {
                             DispatchQueue.main.async {
                                 print("Stop listening")
 
-                                self.pulsator.stop()
-
-                                self.state = 0
-
-                                self.stopListening()
+                                self.isFound = true
+                                
+                                self.initViewStatus()
 
                             }
                             
-                            if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-
-                                playSongVC.songs = songs
+                            guard let songID = song.id else { return }
+                            
+                            FirebaseHistoryManager.sharedInstance.addHistoryPlayData(with: songID) {
                                 
-                                self.present(playSongVC, animated: true)
+                                if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+                                    playSongVC.songs = songs
+                                    
+                                    playSongVC.modalPresentationStyle = .fullScreen
+                                    
+                                    self.present(playSongVC, animated: true)
+                                }
                             }
                         }
                     }

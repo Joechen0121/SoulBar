@@ -87,6 +87,35 @@ class MusicManager {
         }
     }
     
+    func fetchArtist(with artistID: String, completion: @escaping ([ArtistsSearchInfo]) -> Void) {
+
+        var headers = HTTPHeaders()
+
+        let artistURL = MusicManager.appleMusicArtistBaseURL + artistID
+
+        guard let developerToken = fetchDeveloperToken() else {
+
+            fatalError("Cannot fetch developer token")
+
+        }
+
+        headers = [
+
+            .authorization(bearerToken: developerToken)
+
+        ]
+
+        AF.request(artistURL, method: .get, headers: headers).responseDecodable(of: ArtistsSearch.self) { (response) in
+            if let data = response.value?.data {
+
+                completion(data)
+
+            }
+            
+            debugPrint(response)
+        }
+    }
+    
     func fetchArtistsAlbums(with artistID: String, completion: @escaping ([ArtistsSearchInfo]) -> Void) {
 
         var headers = HTTPHeaders()
@@ -151,7 +180,7 @@ class MusicManager {
 
             }
 
-            debugPrint(response)
+            // debugPrint(response)
         }
     }
     
@@ -477,7 +506,7 @@ class MusicManager {
 
             }
             
-            debugPrint(response)
+            // debugPrint(response)
         }
     }
     
