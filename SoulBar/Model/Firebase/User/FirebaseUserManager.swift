@@ -11,6 +11,8 @@ import FirebaseFirestore
 
 class FirebaseUserManager {
     
+    static let sharedInstance = FirebaseUserManager()
+    
     func addUserData(uuid: String, email: String, name: String) {
      
         let user = Firestore.firestore().collection("user")

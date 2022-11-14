@@ -54,23 +54,21 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             
         case let credentials as ASAuthorizationAppleIDCredential:
             
-            guard let token = credentials.identityToken,  let appleToken = String(data: token, encoding: .utf8) else { return }
+            guard let token = credentials.identityToken,  let appleToken = String(data: token, encoding: .utf8), let firstName = credentials.fullName?.givenName, let lastName = credentials.fullName?.familyName else { return }
            
             let id = credentials.user
 
             let fullName = credentials.fullName
             
-            let firstName = credentials.fullName?.givenName
-            
-            let lastNmae = credentials.fullName?.familyName
-            
             let email = credentials.email
+            
+            FirebaseUserManager.sharedInstance.addUserData(uuid: id, email: email!, name: lastName + firstName)
             
             print(id)
             print(appleToken)
             print(fullName)
             print(firstName)
-            print(lastNmae)
+            print(lastName)
             print(email)
             
         default:
