@@ -17,38 +17,26 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nSb-9X-Ie0">
-                        <rect key="frame" x="8" y="8" width="865" height="865"/>
+                        <rect key="frame" x="8" y="8" width="896" height="896"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="nSb-9X-Ie0" secondAttribute="height" id="bHT-Ir-oiY"/>
                             <constraint firstAttribute="width" constant="100" id="e88-oG-8b8"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMR-EU-eRO">
-                        <rect key="frame" x="893" y="853" width="65" height="20"/>
+                        <rect key="frame" x="924" y="853" width="34" height="20"/>
                         <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctg-rH-dIJ">
-                        <rect key="frame" x="948" y="429.5" width="20" height="22"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="20" id="ocl-Ym-VzA"/>
-                        </constraints>
-                        <color key="tintColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="heart.fill" catalog="system"/>
-                        <connections>
-                            <action selector="favoriteButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5Hn-9L-0k1"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcq-mE-DdD">
-                        <rect key="frame" x="893" y="45" width="35" height="18.5"/>
+                        <rect key="frame" x="924" y="45" width="32" height="18.5"/>
                         <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wQ-Mi-JZn">
-                        <rect key="frame" x="893" y="10" width="35" height="20"/>
+                        <rect key="frame" x="924" y="10" width="35" height="20"/>
                         <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -56,7 +44,6 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="nSb-9X-Ie0" secondAttribute="bottom" constant="8" id="60E-nQ-Awh"/>
-                    <constraint firstItem="ctg-rH-dIJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6VS-iv-azd"/>
                     <constraint firstAttribute="trailing" secondItem="bMR-EU-eRO" secondAttribute="trailing" constant="20" id="77V-QW-e89"/>
                     <constraint firstItem="nSb-9X-Ie0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="8QH-Tw-dac"/>
                     <constraint firstItem="wcq-mE-DdD" firstAttribute="leading" secondItem="nSb-9X-Ie0" secondAttribute="trailing" constant="20" id="BV6-qV-kQt"/>
@@ -64,12 +51,9 @@
                     <constraint firstItem="wcq-mE-DdD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4wQ-Mi-JZn" secondAttribute="bottom" constant="10" id="DIT-Os-FkU"/>
                     <constraint firstItem="4wQ-Mi-JZn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="TQl-K1-4VW"/>
                     <constraint firstItem="bMR-EU-eRO" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="nSb-9X-Ie0" secondAttribute="bottom" id="Ycx-T5-Zbk"/>
-                    <constraint firstAttribute="trailing" secondItem="ctg-rH-dIJ" secondAttribute="trailing" constant="10" id="ZAV-HV-CS8"/>
                     <constraint firstItem="nSb-9X-Ie0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="ZMr-So-UJZ"/>
                     <constraint firstItem="4wQ-Mi-JZn" firstAttribute="leading" secondItem="nSb-9X-Ie0" secondAttribute="trailing" constant="20" id="aJU-pK-r4L"/>
                     <constraint firstItem="bMR-EU-eRO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wcq-mE-DdD" secondAttribute="bottom" id="nes-sa-GI9"/>
-                    <constraint firstItem="ctg-rH-dIJ" firstAttribute="leading" secondItem="wcq-mE-DdD" secondAttribute="trailing" constant="20" id="xrc-WS-wMs"/>
-                    <constraint firstItem="ctg-rH-dIJ" firstAttribute="leading" secondItem="4wQ-Mi-JZn" secondAttribute="trailing" constant="20" id="yPH-Us-U58"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -83,7 +67,4 @@
             <point key="canvasLocation" x="608.69565217391312" y="354.57589285714283"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="heart.fill" catalog="system" width="128" height="109"/>
-    </resources>
 </document>

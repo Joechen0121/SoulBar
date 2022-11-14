@@ -21,10 +21,6 @@ class ProfileHistoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var time: UILabel!
     
-    @IBAction func favoriteButton(_ sender: UIButton) {
-        
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
