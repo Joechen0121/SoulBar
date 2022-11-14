@@ -133,6 +133,8 @@ class MiniPlayerViewController: UIViewController {
                         
                         PlaySongManager.sharedInstance.closePlayer()
                         
+                        PlaySongManager.sharedInstance.currentSong = nil
+                        
                         self.view.frame.origin.x += 100.0
                         
                         self.view.isHidden = true
@@ -156,6 +158,8 @@ class MiniPlayerViewController: UIViewController {
                     completion: { _ in
                         
                         PlaySongManager.sharedInstance.closePlayer()
+                        
+                        PlaySongManager.sharedInstance.currentSong = nil
                         
                         self.view.frame.origin.x -= 100.0
                         

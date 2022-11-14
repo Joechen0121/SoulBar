@@ -73,6 +73,8 @@ class FavoriteMusicDetailsViewController: UIViewController {
         
         configureLabel()
         
+        self.songCount.text = " \(self.songsTracks.count) songs "
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -369,6 +371,9 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
             cell.songName.text = songsTracks[indexPath.row].attributes?.name
             cell.artist.text = songsTracks[indexPath.row].attributes?.artistName
             
+            cell.delegate = self
+            cell.indexPath = indexPath
+            
             cell.songImage.kf.indicatorType = .activity
             
             if let artworkURL = songsTracks[indexPath.row].attributes?.artwork?.url, let width = songsTracks[indexPath.row].attributes?.artwork?.width, let height = songsTracks[indexPath.row].attributes?.artwork?.height {
@@ -521,6 +526,27 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
         default:
             
             print("Unknown state")
+        }
+    }
+}
+
+extension FavoriteMusicDetailsViewController: FavoriteMusicDetailsTableViewDelegate {
+    
+    func removeTableViewCell(at indexPath: IndexPath) {
+        
+        guard let songID = songsTracks[indexPath.row].id else { return }
+        
+        FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.songs, id: songID)
+        
+        self.songsTracks.remove(at: indexPath.row)
+        
+        musicDetailsTableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .fade)
+    
+        DispatchQueue.main.async {
+            
+            self.songCount.text = " \(self.songsTracks.count) songs "
+            
+            self.musicDetailsTableView.reloadData()
         }
     }
 }

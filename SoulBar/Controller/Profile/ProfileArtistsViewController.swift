@@ -79,6 +79,10 @@ extension ProfileArtistsViewController: UITableViewDataSource {
         
         cell.artistName.text = self.artistsInfo[indexPath.row].attributes?.name
         
+        cell.delegate = self
+
+        cell.indexPath = indexPath
+        
         cell.artistImage.kf.indicatorType = .activity
         
         if let artworkURL = artistsInfo[indexPath.row].attributes?.artwork?.url, let width = artistsInfo[indexPath.row].attributes?.artwork?.width, let height = artistsInfo[indexPath.row].attributes?.artwork?.height {
@@ -90,5 +94,24 @@ extension ProfileArtistsViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension ProfileArtistsViewController: ProfileArtistsTableViewDelegate {
+    
+    func removeTableViewCell(at indexPath: IndexPath) {
+        
+        guard let artistID = artistsInfo[indexPath.row].id else { return }
+        
+        FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.artists, id: artistID)
+        
+        self.artistsInfo.remove(at: indexPath.row)
+        
+        artistTableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .fade)
+        
+        DispatchQueue.main.async {
+            
+            self.artistTableView.reloadData()
+        }
     }
 }

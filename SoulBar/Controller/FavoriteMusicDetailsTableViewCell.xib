@@ -25,13 +25,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeY-88-1H3">
-                        <rect key="frame" x="1248.5" y="30" width="42.5" height="24"/>
+                        <rect key="frame" x="1248.5" y="10" width="42.5" height="24"/>
                         <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Vm-gr-nm5">
-                        <rect key="frame" x="1248.5" y="74" width="42.5" height="21"/>
+                        <rect key="frame" x="1248.5" y="54" width="42.5" height="21"/>
                         <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -51,7 +51,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="1Vm-gr-nm5" firstAttribute="leading" secondItem="JfZ-MR-Pwh" secondAttribute="trailing" constant="20" id="8mx-cB-ZCI"/>
-                    <constraint firstItem="aeY-88-1H3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="MyT-yr-e9O"/>
+                    <constraint firstItem="aeY-88-1H3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="MyT-yr-e9O"/>
                     <constraint firstItem="EzT-b1-ikh" firstAttribute="leading" secondItem="1Vm-gr-nm5" secondAttribute="trailing" constant="20" id="N8B-CY-PbA"/>
                     <constraint firstItem="1Vm-gr-nm5" firstAttribute="top" secondItem="aeY-88-1H3" secondAttribute="bottom" constant="20" id="Umx-JN-qJs"/>
                     <constraint firstItem="EzT-b1-ikh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Vsj-hN-wzX"/>
@@ -59,6 +59,7 @@
                     <constraint firstItem="EzT-b1-ikh" firstAttribute="leading" secondItem="aeY-88-1H3" secondAttribute="trailing" constant="20" id="eAb-VX-zee"/>
                     <constraint firstItem="JfZ-MR-Pwh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="hdE-jM-B6m"/>
                     <constraint firstItem="JfZ-MR-Pwh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="pVW-Iw-d5x"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="1Vm-gr-nm5" secondAttribute="bottom" constant="10" id="q43-3S-Su9"/>
                     <constraint firstItem="aeY-88-1H3" firstAttribute="leading" secondItem="JfZ-MR-Pwh" secondAttribute="trailing" constant="20" id="r5a-Ej-tbT"/>
                     <constraint firstAttribute="trailing" secondItem="EzT-b1-ikh" secondAttribute="trailing" constant="15" id="wla-XN-vPz"/>
                 </constraints>

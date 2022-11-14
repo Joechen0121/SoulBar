@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol FavoriteMusicDetailsTableViewDelegate {
+
+    func removeTableViewCell(at indexPath: IndexPath)
+    
+}
+
 class FavoriteMusicDetailsTableViewCell: UITableViewCell {
 
     static let identifier = String(describing: FavoriteMusicDetailsTableViewCell.self)
@@ -21,8 +27,16 @@ class FavoriteMusicDetailsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var favoriteButton: UIButton!
     
+    var delegate: FavoriteMusicDetailsTableViewDelegate?
+    
+    var indexPath: IndexPath?
+    
     @IBAction func removeFavorite(_ sender: UIButton) {
         print("1234")
+        
+        guard let indexPath = indexPath else { return }
+        
+        self.delegate?.removeTableViewCell(at: indexPath)
     }
     
     override func awakeFromNib() {

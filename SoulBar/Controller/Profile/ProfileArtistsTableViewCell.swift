@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol ProfileArtistsTableViewDelegate {
+
+    func removeTableViewCell(at indexPath: IndexPath)
+    
+}
+
 class ProfileArtistsTableViewCell: UITableViewCell {
     
     static let identifier = String(describing: ProfileArtistsTableViewCell.self)
@@ -17,8 +23,15 @@ class ProfileArtistsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var artistImageHeightConstraint: NSLayoutConstraint!
     
+    var indexPath: IndexPath?
+    
+    var delegate: ProfileArtistsTableViewDelegate?
+    
     @IBAction func favoriteButton(_ sender: UIButton) {
         
+        guard let indexPath = indexPath else { return }
+
+        delegate?.removeTableViewCell(at: indexPath)
     }
     
     override func awakeFromNib() {
