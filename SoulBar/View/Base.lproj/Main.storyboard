@@ -1914,6 +1914,21 @@
             </objects>
             <point key="canvasLocation" x="4280" y="1055"/>
         </scene>
+        <!--Apple Auth View Controller-->
+        <scene sceneID="sxU-ZG-Lm4">
+            <objects>
+                <viewController id="bZn-yg-IVY" customClass="AppleAuthViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1CN-AV-uAM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="VAG-bg-Q5j"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w6r-zk-f47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5723" y="192"/>
+        </scene>
         <!--Profile Artists View Controller-->
         <scene sceneID="gNv-gP-CBa">
             <objects>
