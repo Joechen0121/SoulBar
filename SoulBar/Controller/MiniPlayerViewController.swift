@@ -101,6 +101,81 @@ class MiniPlayerViewController: UIViewController {
         view.isUserInteractionEnabled = true
         
         self.playPauseButton.addTarget(self, action: #selector(playPauseMusic), for: .touchUpInside)
+        
+        let leftside = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        leftside.direction = .left
+        view.addGestureRecognizer(leftside)
+        
+        let rightside = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        rightside.direction = .right
+        view.addGestureRecognizer(rightside)
+    }
+    
+    @objc func swiped(gesture: UISwipeGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            switch swipeGesture.direction {
+                
+            case UISwipeGestureRecognizer.Direction.left:
+    
+                UIView.animate(
+                    withDuration: 0.5,
+                    delay: 0.0,
+                    options: .curveEaseInOut,
+                    animations: {
+                        
+                        self.view.frame.origin.x -= 100.0
+                        
+                        self.view.alpha = 0 },
+                    
+                    completion: { _ in
+                        
+                        PlaySongManager.sharedInstance.closePlayer()
+                        
+                        self.view.frame.origin.x += 100.0
+                        
+                        self.view.isHidden = true
+                        
+                        self.view.alpha = 1
+                        
+                    })
+                
+            case UISwipeGestureRecognizer.Direction.right:
+                
+                UIView.animate(
+                    withDuration: 0.5,
+                    delay: 0.0,
+                    options: .curveEaseInOut,
+                    animations: {
+                        
+                        self.view.frame.origin.x += 100.0
+                        
+                        self.view.alpha = 0 },
+                    
+                    completion: { _ in
+                        
+                        PlaySongManager.sharedInstance.closePlayer()
+                        
+                        self.view.frame.origin.x -= 100.0
+                        
+                        self.view.isHidden = true
+                        
+                        self.view.alpha = 1
+                        
+                    })
+
+            case UISwipeGestureRecognizer.Direction.up:
+                print("up")
+
+            case UISwipeGestureRecognizer.Direction.down:
+                print("down")
+                
+            default:
+                print("ERROR")
+                
+            }
+        }
     }
     
     @objc func playPauseMusic() {

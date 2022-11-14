@@ -123,6 +123,10 @@ extension ProfileHistoryViewController: UITableViewDataSource {
             fatalError("Cannot create history cell")
         }
         
+        guard !songsTracks.isEmpty else { return UITableViewCell() }
+        
+        guard !history.isEmpty else { return UITableViewCell() }
+        
         cell.songName.text = songsTracks[indexPath.row].attributes?.name
         cell.artist.text = songsTracks[indexPath.row].attributes?.artistName
         cell.time.text = DateFormatter.posixFormatter.timeIntervalToString(timeinterval: history[indexPath.row].list.time)

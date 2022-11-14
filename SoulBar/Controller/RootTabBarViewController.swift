@@ -59,6 +59,8 @@ class RootTabBarViewController: UITabBarController {
         
         miniPlayer.view.isHidden = false
         
+        miniPlayer.view.alpha = 1
+        
         updateMiniPlayerUI()
     }
     
