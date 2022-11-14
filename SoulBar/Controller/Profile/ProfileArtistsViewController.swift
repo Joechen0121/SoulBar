@@ -22,6 +22,8 @@ class ProfileArtistsViewController: UIViewController {
         super.viewDidLoad()
 
         artistTableView.dataSource = self
+        
+        artistTableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +97,26 @@ extension ProfileArtistsViewController: UITableViewDataSource {
         
         return cell
     }
+}
+
+extension ProfileArtistsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+
+            songlistVC.state = 3
+
+            songlistVC.artistID = artistsInfo[indexPath.row].id
+            
+            songlistVC.artistInfo = artistsInfo[indexPath.row]
+            
+            songlistVC.artistURL = artistsInfo[indexPath.row].attributes?.url
+            
+            self.navigationController?.pushViewController(songlistVC, animated: true)
+        }
+    }
+    
 }
 
 extension ProfileArtistsViewController: ProfileArtistsTableViewDelegate {
