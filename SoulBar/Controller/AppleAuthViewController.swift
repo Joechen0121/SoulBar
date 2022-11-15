@@ -119,7 +119,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
         
         switch error {
         case ASAuthorizationError.canceled:
-            let controller = UIAlertController(title: "使用者取消登入", message: "", preferredStyle: .alert)
+            let controller = UIAlertController(title: "User cancels login", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
 
@@ -129,7 +129,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             
         case ASAuthorizationError.failed:
            
-            let controller = UIAlertController(title: "授權請求失敗", message: "", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Authorization request failed", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
 
@@ -138,7 +138,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             present(controller, animated: true)
         case ASAuthorizationError.invalidResponse:
           
-            let controller = UIAlertController(title: "授權請求無回應", message: "", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Authorization request no response", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
 
@@ -147,7 +147,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             present(controller, animated: true)
         case ASAuthorizationError.notHandled:
           
-            let controller = UIAlertController(title: "授權請求未處理", message: "", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Authorization request not processed", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
 
@@ -156,7 +156,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             present(controller, animated: true)
         case ASAuthorizationError.unknown:
            
-            let controller = UIAlertController(title: "授權失敗，原因不知", message: "", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Authorization failed for unknown reason", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
 

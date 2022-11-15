@@ -20,7 +20,7 @@ class KeychainManager {
             
             guard let username = username else { return }
             
-            let _ = KeychainWrapper.standard.set(username, forKey: "name")
+            KeychainWrapper.standard.set(username, forKey: "name")
             
             return
     
@@ -45,7 +45,7 @@ class KeychainManager {
             
             guard let accessID = accessID else { return }
             
-            let _ = KeychainWrapper.standard.set(accessID, forKey: "id")
+            KeychainWrapper.standard.set(accessID, forKey: "id")
             
             return
     
