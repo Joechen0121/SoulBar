@@ -252,24 +252,13 @@
 				D8088B35290A27B30037555B /* Home */,
 				D8A1B96D290C22E5007F6775 /* Events */,
 				D86AD11B2913F3F9000208B6 /* Search */,
-				D8088B1829096C2E0037555B /* RecognizeViewController.swift */,
-				D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */,
-				D86AD11C2913F42C000208B6 /* FavoriteMusic */,
+				D8EA0F022923D1F700514F35 /* Recognize */,
+				D86AD11C2913F42C000208B6 /* Favorite */,
 				D88071C42920E9CF00554B18 /* Profile */,
 				D820B9222914C50E000C8F88 /* Chat */,
-				D8573385290FBCA20009D734 /* PlaySongViewController.swift */,
-				D8B528E929163105004C8D2A /* PlaySongManager.swift */,
-				D874B997291900260082F2D7 /* NewListPopUpViewController.swift */,
-				D874B99929190B720082F2D7 /* NewListDisplayViewController.swift */,
-				D874B99B29190E340082F2D7 /* NewListTableViewCell.swift */,
-				D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */,
+				D8EA0F032923D20500514F35 /* Auth */,
+				D8EA0F042923D21100514F35 /* SongPlayer */,
 				D8FABE472919F1450094A77F /* RootTabBarViewController.swift */,
-				D88071B5291F80BF00554B18 /* FavroiteMusicDetailsViewController.swift */,
-				D88071B7291F818800554B18 /* FavoriteMusicDetailsTableViewCell.swift */,
-				D88071B8291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib */,
-				D88071BB291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift */,
-				D88071BC291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib */,
-				D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -347,9 +336,7 @@
 			children = (
 				D820B9202914C4AF000C8F88 /* ChatViewController.swift */,
 				D820B9232914C552000C8F88 /* ChatMessageStrangerTableViewCell.swift */,
-				D820B9242914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib */,
 				D820B928291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift */,
-				D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -395,7 +382,7 @@
 				D8EA0EF7292276E500514F35 /* SoulBar.entitlements */,
 				D85EDB9C290966C1001583F6 /* AppDelegate.swift */,
 				D85EDB9E290966C1001583F6 /* SceneDelegate.swift */,
-				D8EA0EFC29233F5400514F35 /* KeychainManager.swift */,
+				D8EA0F012923D1C300514F35 /* Third Party Wrapper */,
 				D837B36C291DF93E008BE6D0 /* Extension */,
 				D837B365291DEE64008BE6D0 /* LottieAsset */,
 				D8088B1E29096CA30037555B /* Model */,
@@ -433,21 +420,21 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		D86AD11C2913F42C000208B6 /* FavoriteMusic */ = {
+		D86AD11C2913F42C000208B6 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
+				D8EA0F052923D23300514F35 /* New List */,
 				D8088B1A29096C400037555B /* FavoriteViewController.swift */,
 				D874B98F2917F52C0082F2D7 /* FavoriteAddNewListViewController.swift */,
 				D86AD12129141124000208B6 /* FavoriteAlbumsTableViewCell.swift */,
 				D86AD12529141139000208B6 /* FavoritePlaylistsTableViewCell.swift */,
 				D874B9932918EB7F0082F2D7 /* FavoriteListsTableViewCell.swift */,
-				D874B9942918EB7F0082F2D7 /* FavoriteListsTableViewCell.xib */,
-				D86AD12629141139000208B6 /* FavoritePlaylistsTableViewCell.xib */,
-				D86AD12229141124000208B6 /* FavoriteAlbumsTableViewCell.xib */,
+				D88071B5291F80BF00554B18 /* FavroiteMusicDetailsViewController.swift */,
+				D88071B7291F818800554B18 /* FavoriteMusicDetailsTableViewCell.swift */,
+				D88071BB291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.swift */,
 				D86AD11D2913F4D8000208B6 /* FavoriteMusicTableViewCell.swift */,
-				D86AD11E2913F4D8000208B6 /* FavoriteMusicTableViewCell.xib */,
 			);
-			path = FavoriteMusic;
+			path = Favorite;
 			sourceTree = "<group>";
 		};
 		D874B98E2917E6930082F2D7 /* Profile */ = {
@@ -522,8 +509,6 @@
 				D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */,
 				D88071C52920EA1400554B18 /* ProfileHistoryViewController.swift */,
 				D88071C72920EA3300554B18 /* ProfileHistoryTableViewCell.swift */,
-				D88071C82920EA3300554B18 /* ProfileHistoryTableViewCell.xib */,
-				D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */,
 				D88071CD2921213400554B18 /* ProfileArtistsViewController.swift */,
 				D88071CF292121A600554B18 /* ProfileArtistsTableViewCell.swift */,
 			);
@@ -546,6 +531,9 @@
 		D8A1B978290C463B007F6775 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D8EA0F002923D1A200514F35 /* Chat */,
+				D8EA0EFF2923D19300514F35 /* Profile */,
+				D8EA0EFE2923D16000514F35 /* Favorite */,
 				D8A1B979290C4642007F6775 /* Home */,
 				D86AD11A2913F3ED000208B6 /* Search */,
 				D85EDBA2290966C1001583F6 /* Main.storyboard */,
@@ -562,6 +550,82 @@
 				D8088B3D290AB2EF0037555B /* AlbumsTableViewCell.xib */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		D8EA0EFE2923D16000514F35 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				D874B9942918EB7F0082F2D7 /* FavoriteListsTableViewCell.xib */,
+				D86AD12629141139000208B6 /* FavoritePlaylistsTableViewCell.xib */,
+				D86AD12229141124000208B6 /* FavoriteAlbumsTableViewCell.xib */,
+				D86AD11E2913F4D8000208B6 /* FavoriteMusicTableViewCell.xib */,
+				D88071B8291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib */,
+				D88071BC291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		D8EA0EFF2923D19300514F35 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D88071C82920EA3300554B18 /* ProfileHistoryTableViewCell.xib */,
+				D874B9892917E4EA0082F2D7 /* ProfileTableViewCell.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		D8EA0F002923D1A200514F35 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				D820B9242914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib */,
+				D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		D8EA0F012923D1C300514F35 /* Third Party Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				D8EA0EFC29233F5400514F35 /* KeychainManager.swift */,
+			);
+			path = "Third Party Wrapper";
+			sourceTree = "<group>";
+		};
+		D8EA0F022923D1F700514F35 /* Recognize */ = {
+			isa = PBXGroup;
+			children = (
+				D8088B1829096C2E0037555B /* RecognizeViewController.swift */,
+				D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */,
+			);
+			path = Recognize;
+			sourceTree = "<group>";
+		};
+		D8EA0F032923D20500514F35 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		D8EA0F042923D21100514F35 /* SongPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				D8573385290FBCA20009D734 /* PlaySongViewController.swift */,
+				D8B528E929163105004C8D2A /* PlaySongManager.swift */,
+				D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */,
+			);
+			path = SongPlayer;
+			sourceTree = "<group>";
+		};
+		D8EA0F052923D23300514F35 /* New List */ = {
+			isa = PBXGroup;
+			children = (
+				D874B99929190B720082F2D7 /* NewListDisplayViewController.swift */,
+				D874B997291900260082F2D7 /* NewListPopUpViewController.swift */,
+				D874B99B29190E340082F2D7 /* NewListTableViewCell.swift */,
+			);
+			path = "New List";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
