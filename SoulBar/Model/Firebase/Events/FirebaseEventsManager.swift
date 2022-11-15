@@ -15,7 +15,7 @@ class FirebaseEventsManager {
     
     func removeEventsTypeData(with type: Int, uid: String) {
         
-        let event = Firestore.firestore().collection("user").document(KeychainManager.sharedInstance.id!).collection(String(type))
+        let event = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(String(type))
         
         let document = event.document(uid)
         
@@ -34,7 +34,7 @@ class FirebaseEventsManager {
     
     func addEventsTypeData(with type: Int, uid: String, webURL: String, eventName: String, eventTime: String, location: String, url: String, chatroom: String) {
         
-        let event = Firestore.firestore().collection("user").document(KeychainManager.sharedInstance.id!).collection(String(type))
+        let event = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(String(type))
         
         let document = event.document(uid)
         
@@ -80,7 +80,7 @@ class FirebaseEventsManager {
         
         var data = [FirebaseEventsData]()
         
-        let event = Firestore.firestore().collection("user").document(KeychainManager.sharedInstance.id!).collection(String(type))
+        let event = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(String(type))
         
         event.getDocuments { snapshot, error in
             

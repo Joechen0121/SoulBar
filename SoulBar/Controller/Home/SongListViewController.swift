@@ -295,7 +295,7 @@ class SongListViewController: UIViewController {
     @objc func addToFavorite() {
         
         if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
             authVC.modalPresentationStyle = .overCurrentContext
             self.present(authVC, animated: false)
             

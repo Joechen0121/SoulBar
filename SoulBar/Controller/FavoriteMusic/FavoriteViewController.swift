@@ -15,15 +15,9 @@ class FavoriteViewController: UIViewController {
     
     var favoriteSongs: [[SongsSearchInfo]] = []
     
-    var favoriteAlbums: [[SongsSearchInfo]] = []
-    
     var favoriteAlbumsInfo: [[SongsSearchInfo]] = []
     
-    var favoritePlaylist: [[SongsSearchInfo]] = []
-    
     var favoritePlaylistInfo: [[SongsSearchInfo]] = []
-    
-    var favoriteLists: [[SongsSearchInfo]] = []
     
     var favoriteListsInfo: [FirebaseFavoriteListData] = []
     
@@ -54,12 +48,6 @@ class FavoriteViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         favoriteSongs = []
-        
-        favoriteAlbums = []
-        
-        favoritePlaylist = []
-        
-        favoriteLists = []
         
         favoriteListsInfo = []
         
@@ -138,18 +126,14 @@ class FavoriteViewController: UIViewController {
     
     func setupFavoriteAlbums() {
         
-        if KeychainManager.sharedInstance.id == nil { return }
-        
-        self.favoriteAlbums = []
-        
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.albums) { result in
-            
+
             result.id.forEach { id in
                 
                 MusicManager.sharedInstance.fetchAlbumsCharts(with: id) { tracks in
                     
                     self.favoriteAlbumsInfo.append(tracks)
-                    print(self.favoriteAlbumsInfo)
+
                     DispatchQueue.main.async {
 
                         self.favoriteListTableView.reloadData()
@@ -161,10 +145,6 @@ class FavoriteViewController: UIViewController {
     }
     
     func setupFavoritePlaylists() {
-        
-        if KeychainManager.sharedInstance.id == nil { return }
-        
-        self.favoritePlaylist = []
         
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.playlists) { result in
             
@@ -186,20 +166,16 @@ class FavoriteViewController: UIViewController {
     
     func setupFavoriteLists() {
         
-        if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
-            authVC.modalPresentationStyle = .overCurrentContext
-            self.present(authVC, animated: false)
-            
-            return
-        }
-        
         self.favoriteListsInfo = []
         
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteListData { result in
             
             self.favoriteListsInfo = result
             
+            DispatchQueue.main.async {
+
+                self.favoriteListTableView.reloadData()
+            }
         }
     }
     
@@ -322,7 +298,7 @@ extension FavoriteViewController: UITableViewDataSource {
                 
                 FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: favoriteAlbumsInfo[indexPath.row][0].id!)
                 
-                self.favoriteAlbums.remove(at: indexPath.row)
+                self.favoriteAlbumsInfo.remove(at: indexPath.row)
                 
                 tableView.reloadData()
                 
@@ -330,7 +306,7 @@ extension FavoriteViewController: UITableViewDataSource {
                 
                 FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: favoritePlaylistInfo[indexPath.row][0].id!)
                 
-                self.favoritePlaylist.remove(at: indexPath.row)
+                self.favoritePlaylistInfo.remove(at: indexPath.row)
                 
                 tableView.reloadData()
                 

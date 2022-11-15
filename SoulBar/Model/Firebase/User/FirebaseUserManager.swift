@@ -15,7 +15,7 @@ class FirebaseUserManager {
     
     func addUserData(id: String, email: String, name: String, completion: @escaping () -> Void) {
         
-        let user = Firestore.firestore().collection("user")
+        let user = Firestore.firestore().collection(K.FStore.user)
         
         let document = user.document(id)
         
@@ -51,7 +51,7 @@ class FirebaseUserManager {
     
     func fetchUserData(completion: @escaping ([FirebaseUserData]) -> Void) {
         
-        let user = Firestore.firestore().collection("user")
+        let user = Firestore.firestore().collection(K.FStore.user)
         
         user.getDocuments { snapshot, error in
             
@@ -76,7 +76,7 @@ class FirebaseUserManager {
     
     func removeUserData(id: String) {
         
-        let user = Firestore.firestore().collection("user")
+        let user = Firestore.firestore().collection(K.FStore.user)
         
         let document = user.document(id)
         

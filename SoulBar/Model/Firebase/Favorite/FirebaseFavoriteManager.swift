@@ -13,10 +13,6 @@ class FirebaseFavoriteManager {
     
     static let sharedInstance = FirebaseFavoriteManager()
     
-    //let favoriteDB = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.Favorite.collectionName)
-    
-    //let listDB = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.List.collectionName)
-    
     func addFavoriteMusicData(with term: String, id: String) {
         
         let document = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.Favorite.collectionName).document(term)
@@ -27,7 +23,7 @@ class FirebaseFavoriteManager {
             
         ]
         
-        document.getDocument { documentResult, error in
+        document.getDocument { documentResult, _ in
             
             if let documentResult = documentResult, documentResult.exists {
                 
@@ -76,7 +72,7 @@ class FirebaseFavoriteManager {
     
     func removeFavoriteListData(with name: String) {
         
-        let favorite = Firestore.firestore().collection(K.FStore.user).document("music").collection("list")
+        let favorite = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.List.collectionName)
         
         let document = favorite.document(name)
         
