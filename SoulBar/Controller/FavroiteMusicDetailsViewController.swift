@@ -220,6 +220,14 @@ class FavoriteMusicDetailsViewController: UIViewController {
     
     func setupFavoriteLists() {
         
+        if KeychainManager.sharedInstance.id == nil {
+            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            authVC.modalPresentationStyle = .overCurrentContext
+            self.present(authVC, animated: false)
+            
+            return
+        }
+        
         guard let favoriteListsName = favoriteListsName else {
             return
         }
@@ -313,11 +321,6 @@ class FavoriteMusicDetailsViewController: UIViewController {
                 self.present(playSongVC, animated: true)
                 
             }
-            
-        default:
-            
-            print("Unknown state")
-            
         }
     }
 
@@ -346,10 +349,6 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
         case .FavLists:
             
             return listTracks.count
-            
-        default:
-            
-            return 0
         }
     }
     
@@ -457,10 +456,6 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
             }
             
             return cell
-            
-        default:
-            
-            return UITableViewCell()
         }
     }
 }
@@ -522,10 +517,6 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
                 self.present(playSongVC, animated: true)
                 
             }
-            
-        default:
-            
-            print("Unknown state")
         }
     }
 }

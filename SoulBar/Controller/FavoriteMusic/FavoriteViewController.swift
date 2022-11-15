@@ -138,6 +138,8 @@ class FavoriteViewController: UIViewController {
     
     func setupFavoriteAlbums() {
         
+        if KeychainManager.sharedInstance.id == nil { return }
+        
         self.favoriteAlbums = []
         
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.albums) { result in
@@ -160,6 +162,8 @@ class FavoriteViewController: UIViewController {
     
     func setupFavoritePlaylists() {
         
+        if KeychainManager.sharedInstance.id == nil { return }
+        
         self.favoritePlaylist = []
         
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.playlists) { result in
@@ -181,6 +185,14 @@ class FavoriteViewController: UIViewController {
     }
     
     func setupFavoriteLists() {
+        
+        if KeychainManager.sharedInstance.id == nil {
+            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            authVC.modalPresentationStyle = .overCurrentContext
+            self.present(authVC, animated: false)
+            
+            return
+        }
         
         self.favoriteListsInfo = []
         

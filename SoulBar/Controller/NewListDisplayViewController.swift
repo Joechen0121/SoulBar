@@ -57,6 +57,14 @@ class NewListDisplayViewController: UIViewController {
 
     func configureListData() {
         
+        if KeychainManager.sharedInstance.id == nil {
+            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            authVC.modalPresentationStyle = .overCurrentContext
+            self.present(authVC, animated: false)
+            
+            return
+        }
+        
         self.favoriteListsInfo = []
         
         self.isFavoriteInLists = []

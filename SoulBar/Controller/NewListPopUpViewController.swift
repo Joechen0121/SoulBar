@@ -59,6 +59,12 @@ class NewListPopUpViewController: UIViewController {
     }
     
     @IBAction func confirmButton(_ sender: UIButton) {
+        
+        if KeychainManager.sharedInstance.id == nil {
+            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            authVC.modalPresentationStyle = .overCurrentContext
+            self.present(authVC, animated: false)
+        }
     
         guard let text = newListTextField.text, !text.isEmpty else { return }
     

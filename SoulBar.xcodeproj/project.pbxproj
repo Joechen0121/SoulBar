@@ -104,6 +104,7 @@
 		D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */; };
 		D8B528EA29163105004C8D2A /* PlaySongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B528E929163105004C8D2A /* PlaySongManager.swift */; };
 		D8EA0EF62922728600514F35 /* AppleAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */; };
+		D8EA0EFD29233F5400514F35 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0EFC29233F5400514F35 /* KeychainManager.swift */; };
 		D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */; };
 		D8FABE482919F1450094A77F /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE472919F1450094A77F /* RootTabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -210,6 +211,7 @@
 		D8B528E929163105004C8D2A /* PlaySongManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySongManager.swift; sourceTree = "<group>"; };
 		D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthViewController.swift; sourceTree = "<group>"; };
 		D8EA0EF7292276E500514F35 /* SoulBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SoulBar.entitlements; sourceTree = "<group>"; };
+		D8EA0EFC29233F5400514F35 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		D8FABE472919F1450094A77F /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
 		DE5455BF34A43BE4803E4EB7 /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -393,6 +395,7 @@
 				D8EA0EF7292276E500514F35 /* SoulBar.entitlements */,
 				D85EDB9C290966C1001583F6 /* AppDelegate.swift */,
 				D85EDB9E290966C1001583F6 /* SceneDelegate.swift */,
+				D8EA0EFC29233F5400514F35 /* KeychainManager.swift */,
 				D837B36C291DF93E008BE6D0 /* Extension */,
 				D837B365291DEE64008BE6D0 /* LottieAsset */,
 				D8088B1E29096CA30037555B /* Model */,
@@ -737,6 +740,7 @@
 				D8A1B96A290C1B56007F6775 /* ArtistsSearch.swift in Sources */,
 				D8A1B970290C3419007F6775 /* PlaylistsTableViewCell.swift in Sources */,
 				D8573381290EA9150009D734 /* SearchAllResultTableViewCell.swift in Sources */,
+				D8EA0EFD29233F5400514F35 /* KeychainManager.swift in Sources */,
 				D8088B1729096C200037555B /* EventsViewController.swift in Sources */,
 				D8088B3B290A2A290037555B /* SongsCollectionViewCell.swift in Sources */,
 				D837B36E291DF94D008BE6D0 /* UIView+Ext.swift in Sources */,

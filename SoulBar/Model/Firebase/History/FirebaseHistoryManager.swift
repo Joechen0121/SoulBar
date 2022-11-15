@@ -15,7 +15,7 @@ class FirebaseHistoryManager {
     
     func addHistorySearchData(text: String, completion: @escaping () -> Void) {
         
-        let favorite = Firestore.firestore().collection("user").document("history").collection("search")
+        let favorite = Firestore.firestore().collection("user").document(KeychainManager.sharedInstance.id!).collection("search")
         
         let document = favorite.document()
         
@@ -54,7 +54,7 @@ class FirebaseHistoryManager {
         
         var data = [FirebaseHistorySearchData]()
         
-        let favorite = Firestore.firestore().collection("user").document("history").collection("search")
+        let favorite = Firestore.firestore().collection("user").document(KeychainManager.sharedInstance.id!).collection("search")
         
         favorite.getDocuments { snapshot, error in
             
@@ -76,7 +76,7 @@ class FirebaseHistoryManager {
     
     func addHistoryPlayData(with songID: String, completion: @escaping () -> Void) {
         
-        let favorite = Firestore.firestore().collection("user").document("history").collection("play")
+        let favorite = Firestore.firestore().collection("user").document(KeychainManager.sharedInstance.id!).collection("play")
         
         let document = favorite.document()
         
@@ -115,7 +115,7 @@ class FirebaseHistoryManager {
         
         var data = [FirebaseHistoryPlayData]()
         
-        let favorite = Firestore.firestore().collection("user").document("history").collection("play")
+        let favorite = Firestore.firestore().collection("user").document(KeychainManager.sharedInstance.id!).collection("play")
         
         favorite.getDocuments { snapshot, error in
             

@@ -452,6 +452,7 @@ PODS:
   - Player (0.13.0)
   - PromisesObjC (2.0.0)
   - Pulsator (0.6.0)
+  - SwiftKeychainWrapper (4.0.1)
   - SwiftLint (0.49.1)
   - TransitionButton (0.5.3)
 
@@ -467,6 +468,7 @@ DEPENDENCIES:
   - Kingfisher
   - lottie-ios
   - Pulsator
+  - SwiftKeychainWrapper
   - SwiftLint
   - TransitionButton
 
@@ -497,6 +499,7 @@ SPEC REPOS:
     - Player
     - PromisesObjC
     - Pulsator
+    - SwiftKeychainWrapper
     - SwiftLint
     - TransitionButton
 
@@ -526,9 +529,10 @@ SPEC CHECKSUMS:
   Player: 968d8d07d923bcdd6f7e4091c9e306eb44a5f7a4
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Pulsator: eb5a9f9be4bdcbd19903984c65deca6aabe50a17
+  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: fbe1a0f09f44979693abb0110bd461b5380c2b01
+PODFILE CHECKSUM: 5b750a05ccb70f7ca05964d1cf555c7c22b296a3
 
 COCOAPODS: 1.11.3

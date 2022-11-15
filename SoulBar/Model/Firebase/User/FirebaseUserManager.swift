@@ -13,22 +13,22 @@ class FirebaseUserManager {
     
     static let sharedInstance = FirebaseUserManager()
     
-    func addUserData(uuid: String, email: String, name: String) {
-     
+    func addUserData(id: String, email: String, name: String, completion: @escaping () -> Void) {
+        
         let user = Firestore.firestore().collection("user")
         
-        let document = user.document(uuid)
+        let document = user.document(id)
         
         let data: [String: Any] = [
             
-            "uuid": uuid,
+            "id": id,
             
             "email": email,
             
             "name": name
         ]
         
-        user.whereField("uuid", isEqualTo: uuid).getDocuments { snapshot, error in
+        user.whereField("id", isEqualTo: id).getDocuments { snapshot, error in
             
             guard let snapshot = snapshot else { return }
             
@@ -44,10 +44,12 @@ class FirebaseUserManager {
                 
                 document?.reference.updateData(data)
             }
+            
+            completion()
         }
     }
     
-    func fetchUserData(uuid: String) {
+    func fetchUserData(completion: @escaping ([FirebaseUserData]) -> Void) {
         
         let user = Firestore.firestore().collection("user")
         
@@ -55,22 +57,28 @@ class FirebaseUserManager {
             
             guard let snapshot = snapshot else { return }
             
+            var dataPath: [FirebaseUserData] = []
+            
             snapshot.documents.forEach { snapshot in
-                
+
                 guard let data = try? snapshot.data(as: FirebaseUserData.self) else { return }
+                
+                dataPath.append(data)
                 
                 print(data)
                 
             }
+            
+            completion(dataPath)
         }
         
     }
     
-    func removeUserData(uuid: String) {
+    func removeUserData(id: String) {
         
         let user = Firestore.firestore().collection("user")
         
-        let document = user.document(uuid)
+        let document = user.document(id)
         
         document.delete { err in
             if let err = err {

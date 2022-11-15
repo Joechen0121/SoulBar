@@ -29,6 +29,13 @@ class FavoriteAddNewListViewController: UIViewController {
      
         print("New list button tapped")
         
+        if KeychainManager.sharedInstance.id == nil {
+            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            authVC.modalPresentationStyle = .overCurrentContext
+            self.present(authVC, animated: false)
+            
+            return
+        }
         
         guard let text = newListTextField.text else { return }
         

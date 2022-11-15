@@ -194,6 +194,14 @@ class PlaySongViewController: UIViewController {
     
     @objc func addToList() {
         
+        if KeychainManager.sharedInstance.id == nil {
+            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            authVC.modalPresentationStyle = .overCurrentContext
+            self.present(authVC, animated: false)
+            
+            return
+        }
+        
         if let newListVC = self.storyboard?.instantiateViewController(withIdentifier: NewListDisplayViewController.storyboardID) as? NewListDisplayViewController {
             
             if let sheetPresentationController = newListVC.sheetPresentationController {
@@ -241,11 +249,15 @@ class PlaySongViewController: UIViewController {
     
     func configureButton(currentItemIndex: Int) {
         
+        if KeychainManager.sharedInstance.id == nil { return }
+        
         guard let songs = songs else {
             
             return
             
         }
+        
+        guard KeychainManager.sharedInstance.id != nil else { return }
 
         guard let songID = songs[currentItemIndex].id else { return }
 
@@ -282,6 +294,14 @@ class PlaySongViewController: UIViewController {
     }
     
     @objc func addToFavorite() {
+        
+        if KeychainManager.sharedInstance.id == nil {
+            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            authVC.modalPresentationStyle = .overCurrentContext
+            self.present(authVC, animated: false)
+            
+            return
+        }
         
         guard let songsID = songs?[self.currentItemIndex].id else {
             return

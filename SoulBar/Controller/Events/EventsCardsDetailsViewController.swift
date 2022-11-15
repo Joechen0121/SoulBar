@@ -55,6 +55,7 @@ class EventsCardsDetailsViewController: UIViewController {
                                                                  
     func configureButton() {
         
+        if KeychainManager.sharedInstance.id == nil { return }
         
         guard let events = events, let type = events.type else {
             return
@@ -97,6 +98,14 @@ class EventsCardsDetailsViewController: UIViewController {
     }
     
     @objc func addToFavorite() {
+        
+        if KeychainManager.sharedInstance.id == nil {
+            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            authVC.modalPresentationStyle = .overCurrentContext
+            self.present(authVC, animated: false)
+            
+            return
+        }
         
         guard let events = events, let type = events.type, let url = events.url else {
             return

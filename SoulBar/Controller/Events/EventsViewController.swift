@@ -71,6 +71,15 @@ class EventsViewController: UIViewController {
     }
     
     func configureEventsFavoriteData() {
+        
+        if KeychainManager.sharedInstance.id == nil {
+            
+            self.collectionHeight.constant = 0
+            
+            self.view.layoutIfNeeded()
+            
+            return
+        }
 
         FirebaseEventsManager.sharedInstance.fetchEventsTypeData(with: MusicEventsCategory.演唱會.rawValue) { result in
             
@@ -83,6 +92,7 @@ class EventsViewController: UIViewController {
                 let height = self.eventsFavoriteCollectionView.collectionViewLayout.collectionViewContentSize.height
             
                 self.collectionHeight.constant = 0
+                
                 self.view.layoutIfNeeded()
             }
             else {

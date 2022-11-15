@@ -14,7 +14,7 @@ protocol MiniPlayerDelegate {
 }
 
 class MiniPlayerViewController: UIViewController {
-
+    
     var delegate: MiniPlayerDelegate?
     
     var songName = UILabel()
@@ -25,13 +25,13 @@ class MiniPlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+        
         let backgroundEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
         backgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+        
         let container = UIView()
         container.frame = view.bounds
         container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -42,7 +42,7 @@ class MiniPlayerViewController: UIViewController {
         container.addSubview(backgroundImageView)
         
         view.insertSubview(container, at: 0)
-
+        
         songImage.image = UIImage(systemName: "music")
         
         songImage.contentMode = .scaleAspectFill
@@ -60,7 +60,7 @@ class MiniPlayerViewController: UIViewController {
             songImage.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 8),
             songImage.widthAnchor.constraint(equalToConstant: 48.0)
         ])
-
+        
         playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         
         playPauseButton.imageView?.tintColor = K.Colors.customRed
@@ -68,19 +68,19 @@ class MiniPlayerViewController: UIViewController {
         playPauseButton.tintColor = .black
         
         self.view.addSubview(playPauseButton)
-
+        
         playPauseButton.translatesAutoresizingMaskIntoConstraints = false
         
         songName.textAlignment = .left
-
+        
         songName.text = "Song Name"
         
         songName.font = UIFont(name: "Kohinoor Bangla Semibold", size: 15.0)
         
         self.view.addSubview(songName)
-
+        
         songName.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             playPauseButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             playPauseButton.widthAnchor.constraint(equalToConstant: 40),
@@ -88,7 +88,7 @@ class MiniPlayerViewController: UIViewController {
             playPauseButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             playPauseButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 8)
         ])
-
+        
         NSLayoutConstraint.activate([
             songName.leadingAnchor.constraint(equalTo: self.songImage.trailingAnchor, constant: 20),
             songName.trailingAnchor.constraint(equalTo: self.playPauseButton.leadingAnchor, constant: 5),
@@ -113,79 +113,77 @@ class MiniPlayerViewController: UIViewController {
     
     @objc func swiped(gesture: UISwipeGestureRecognizer) {
         
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+        switch gesture.direction {
             
-            switch swipeGesture.direction {
-                
-            case UISwipeGestureRecognizer.Direction.left:
-    
-                UIView.animate(
-                    withDuration: 0.5,
-                    delay: 0.0,
-                    options: .curveEaseInOut,
-                    animations: {
-                        
-                        self.view.frame.origin.x -= 100.0
-                        
-                        self.view.alpha = 0 },
+        case UISwipeGestureRecognizer.Direction.left:
+            
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0.0,
+                options: .curveEaseInOut,
+                animations: {
                     
-                    completion: { _ in
-                        
-                        PlaySongManager.sharedInstance.closePlayer()
-                        
-                        PlaySongManager.sharedInstance.currentSong = nil
-                        
-                        self.view.frame.origin.x += 100.0
-                        
-                        self.view.isHidden = true
-                        
-                        self.view.alpha = 1
-                        
-                    })
-                
-            case UISwipeGestureRecognizer.Direction.right:
-                
-                UIView.animate(
-                    withDuration: 0.5,
-                    delay: 0.0,
-                    options: .curveEaseInOut,
-                    animations: {
-                        
-                        self.view.frame.origin.x += 100.0
-                        
-                        self.view.alpha = 0 },
+                    self.view.frame.origin.x -= 100.0
                     
-                    completion: { _ in
-                        
-                        PlaySongManager.sharedInstance.closePlayer()
-                        
-                        PlaySongManager.sharedInstance.currentSong = nil
-                        
-                        self.view.frame.origin.x -= 100.0
-                        
-                        self.view.isHidden = true
-                        
-                        self.view.alpha = 1
-                        
-                    })
-
-            case UISwipeGestureRecognizer.Direction.up:
-                print("up")
-
-            case UISwipeGestureRecognizer.Direction.down:
-                print("down")
+                    self.view.alpha = 0 },
                 
-            default:
-                print("ERROR")
+                completion: { _ in
+                    
+                    PlaySongManager.sharedInstance.closePlayer()
+                    
+                    PlaySongManager.sharedInstance.currentSong = nil
+                    
+                    self.view.frame.origin.x += 100.0
+                    
+                    self.view.isHidden = true
+                    
+                    self.view.alpha = 1
+                    
+                })
+            
+        case UISwipeGestureRecognizer.Direction.right:
+            
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0.0,
+                options: .curveEaseInOut,
+                animations: {
+                    
+                    self.view.frame.origin.x += 100.0
+                    
+                    self.view.alpha = 0 },
                 
-            }
+                completion: { _ in
+                    
+                    PlaySongManager.sharedInstance.closePlayer()
+                    
+                    PlaySongManager.sharedInstance.currentSong = nil
+                    
+                    self.view.frame.origin.x -= 100.0
+                    
+                    self.view.isHidden = true
+                    
+                    self.view.alpha = 1
+                    
+                })
+            
+        case UISwipeGestureRecognizer.Direction.up:
+            print("up")
+            
+        case UISwipeGestureRecognizer.Direction.down:
+            print("down")
+            
+        default:
+            print("ERROR")
+            
         }
+        
     }
     
     @objc func playPauseMusic() {
-
+        
         if PlaySongManager.sharedInstance.player.timeControlStatus == .playing {
-
+            
             PlaySongManager.sharedInstance.pauseMusic()
             
             self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
@@ -195,7 +193,7 @@ class MiniPlayerViewController: UIViewController {
         else {
             
             guard let songs = PlaySongManager.sharedInstance.songs, !songs.isEmpty else { return }
-
+            
             guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current], let url = song.attributes?.previews?[0].url else {
                 
                 return
@@ -207,7 +205,7 @@ class MiniPlayerViewController: UIViewController {
             playPauseButton.imageView?.tintColor = K.Colors.customRed
         }
     }
-
+    
     @objc func tapDetected() {
         
         delegate?.presentPlaySongView()

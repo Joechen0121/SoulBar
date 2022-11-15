@@ -19,4 +19,5 @@ target 'SoulBar' do
   pod 'TransitionButton'
   pod 'IQKeyboardManagerSwift'
   pod 'lottie-ios'
+  pod 'SwiftKeychainWrapper'
 end

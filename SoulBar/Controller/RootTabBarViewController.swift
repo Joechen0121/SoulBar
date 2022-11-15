@@ -24,6 +24,8 @@ class RootTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.delegate = self
 
         miniPlayer.delegate = self
         
@@ -122,6 +124,30 @@ class RootTabBarViewController: UITabBarController {
     
     }
 }
+
+extension RootTabBarViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+        if let viewControllers = tabBarController.viewControllers {
+            if viewController == viewControllers[3] || viewController == viewControllers[4] {
+
+                if KeychainManager.sharedInstance.id == nil {
+                    
+                    if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                        
+                        authVC.modalPresentationStyle = .overCurrentContext
+                        self.present(authVC, animated: false)
+                        
+                        return false
+                        
+                    }
+                }
+            }
+        }
+        return true
+    }
+}
+
 
 extension RootTabBarViewController: MiniPlayerDelegate {
     

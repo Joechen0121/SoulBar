@@ -1191,74 +1191,56 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SouBar" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dav-BZ-NDV">
-                                        <rect key="frame" x="165" y="69" width="239" height="21"/>
-                                        <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="15"/>
+                                        <rect key="frame" x="155" y="62.5" width="249" height="25.5"/>
+                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SoulBar@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gai-EB-Fhm">
-                                        <rect key="frame" x="165" y="100" width="135" height="21"/>
-                                        <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="15"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nK8-75-Ewd">
+                                        <rect key="frame" x="353" y="60.5" width="51" height="29"/>
+                                        <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="12"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title=" LOGOUT "/>
+                                        <connections>
+                                            <action selector="logoutButton:" destination="e2c-J1-ieh" eventType="touchUpInside" id="aUq-iV-Q6t"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="nK8-75-Ewd" secondAttribute="trailing" constant="10" id="4dZ-c1-7zF"/>
+                                    <constraint firstItem="dav-BZ-NDV" firstAttribute="centerY" secondItem="sqL-hF-sQf" secondAttribute="centerY" id="5dg-ur-hO6"/>
                                     <constraint firstAttribute="height" constant="150" id="EZV-sO-rBQ"/>
-                                    <constraint firstItem="gai-EB-Fhm" firstAttribute="leading" secondItem="kLI-OM-fRP" secondAttribute="trailing" constant="30" id="GaU-NA-pav"/>
-                                    <constraint firstItem="gai-EB-Fhm" firstAttribute="firstBaseline" secondItem="kLI-OM-fRP" secondAttribute="firstBaseline" constant="5" id="QnH-oM-0T1"/>
                                     <constraint firstAttribute="trailing" secondItem="dav-BZ-NDV" secondAttribute="trailing" constant="10" id="WiW-bW-7Ze"/>
                                     <constraint firstItem="kLI-OM-fRP" firstAttribute="leading" secondItem="sqL-hF-sQf" secondAttribute="leading" constant="15" id="XdF-qm-oNk"/>
                                     <constraint firstAttribute="bottom" secondItem="kLI-OM-fRP" secondAttribute="bottom" constant="15" id="ZDM-bt-1zZ"/>
-                                    <constraint firstItem="dav-BZ-NDV" firstAttribute="leading" secondItem="kLI-OM-fRP" secondAttribute="trailing" constant="30" id="eG7-Tb-Umv"/>
-                                    <constraint firstItem="gai-EB-Fhm" firstAttribute="top" secondItem="dav-BZ-NDV" secondAttribute="bottom" constant="10" id="iau-KS-OhS"/>
+                                    <constraint firstItem="dav-BZ-NDV" firstAttribute="leading" secondItem="kLI-OM-fRP" secondAttribute="trailing" constant="20" id="eG7-Tb-Umv"/>
+                                    <constraint firstItem="nK8-75-Ewd" firstAttribute="centerY" secondItem="sqL-hF-sQf" secondAttribute="centerY" id="n98-yA-1vd"/>
                                     <constraint firstItem="kLI-OM-fRP" firstAttribute="top" secondItem="sqL-hF-sQf" secondAttribute="top" constant="15" id="xIJ-nr-914"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Oyx-Gh-h11">
-                                <rect key="frame" x="0.0" y="290" width="414" height="443"/>
+                                <rect key="frame" x="0.0" y="290" width="414" height="523"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0UB-nf-eme">
-                                <rect key="frame" x="0.0" y="733" width="414" height="80"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNL-15-kRf">
-                                        <rect key="frame" x="178" y="25.5" width="58" height="29"/>
-                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="12"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="  LOGOUT  "/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="aNL-15-kRf" firstAttribute="centerY" secondItem="0UB-nf-eme" secondAttribute="centerY" id="0lE-NX-Vb0"/>
-                                    <constraint firstAttribute="height" constant="80" id="De0-XS-4gI"/>
-                                    <constraint firstItem="aNL-15-kRf" firstAttribute="centerX" secondItem="0UB-nf-eme" secondAttribute="centerX" id="Hef-Xb-W3k"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bcF-lK-nZG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="0UB-nf-eme" firstAttribute="top" secondItem="Oyx-Gh-h11" secondAttribute="bottom" id="3hs-Yu-AV0"/>
                             <constraint firstItem="bcF-lK-nZG" firstAttribute="trailing" secondItem="Oyx-Gh-h11" secondAttribute="trailing" id="8WG-wK-SkO"/>
-                            <constraint firstItem="bcF-lK-nZG" firstAttribute="trailing" secondItem="0UB-nf-eme" secondAttribute="trailing" id="ASi-LJ-xuH"/>
                             <constraint firstItem="Oyx-Gh-h11" firstAttribute="top" secondItem="sqL-hF-sQf" secondAttribute="bottom" id="Bad-fP-bJ0"/>
+                            <constraint firstItem="bcF-lK-nZG" firstAttribute="bottom" secondItem="Oyx-Gh-h11" secondAttribute="bottom" id="Fbb-Ex-Syo"/>
                             <constraint firstItem="bcF-lK-nZG" firstAttribute="trailing" secondItem="sqL-hF-sQf" secondAttribute="trailing" id="Jzw-KI-tfB"/>
-                            <constraint firstItem="bcF-lK-nZG" firstAttribute="bottom" secondItem="0UB-nf-eme" secondAttribute="bottom" id="TDU-OM-Cdk"/>
                             <constraint firstItem="sqL-hF-sQf" firstAttribute="top" secondItem="bcF-lK-nZG" secondAttribute="top" id="V6c-pj-dxS"/>
-                            <constraint firstItem="0UB-nf-eme" firstAttribute="leading" secondItem="bcF-lK-nZG" secondAttribute="leading" id="WG9-er-klC"/>
                             <constraint firstItem="sqL-hF-sQf" firstAttribute="leading" secondItem="bcF-lK-nZG" secondAttribute="leading" id="iIk-kW-KMF"/>
                             <constraint firstItem="Oyx-Gh-h11" firstAttribute="leading" secondItem="bcF-lK-nZG" secondAttribute="leading" id="wRp-pO-ADO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="sUC-RH-3OW"/>
                     <connections>
-                        <outlet property="logoutButton" destination="aNL-15-kRf" id="TdY-GH-dpD"/>
-                        <outlet property="logoutViewHeightConstraint" destination="De0-XS-4gI" id="6xR-EH-rz3"/>
+                        <outlet property="logoutButton" destination="nK8-75-Ewd" id="pqo-W6-DAX"/>
                         <outlet property="prfileViewHeightConstraint" destination="EZV-sO-rBQ" id="f5c-7b-wvh"/>
+                        <outlet property="profileName" destination="dav-BZ-NDV" id="Qkc-Zj-scl"/>
                         <outlet property="profileTableView" destination="Oyx-Gh-h11" id="DEu-3N-YWf"/>
                     </connections>
                 </viewController>
@@ -1917,12 +1899,27 @@
         <!--Apple Auth View Controller-->
         <scene sceneID="sxU-ZG-Lm4">
             <objects>
-                <viewController id="bZn-yg-IVY" customClass="AppleAuthViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AppleAuthVC" id="bZn-yg-IVY" customClass="AppleAuthViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1CN-AV-uAM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZZ-Ne-9I6">
+                                <rect key="frame" x="359" y="54" width="45" height="31"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="xmark.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="dismissButton:" destination="bZn-yg-IVY" eventType="touchUpInside" id="iSA-SO-Aqy"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="VAG-bg-Q5j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fZZ-Ne-9I6" firstAttribute="top" secondItem="VAG-bg-Q5j" secondAttribute="top" constant="10" id="8RJ-A5-cyD"/>
+                            <constraint firstItem="VAG-bg-Q5j" firstAttribute="trailing" secondItem="fZZ-Ne-9I6" secondAttribute="trailing" constant="10" id="bi5-5l-yAc"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w6r-zk-f47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2061,6 +2058,7 @@
         <image name="volume.1.fill" catalog="system" width="128" height="108"/>
         <image name="volume.2.fill" catalog="system" width="128" height="90"/>
         <image name="xmark.circle" catalog="system" width="128" height="121"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
