@@ -24,7 +24,7 @@ class RootTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("=====", KeychainManager.sharedInstance.id)
         self.delegate = self
 
         miniPlayer.delegate = self

@@ -100,13 +100,10 @@ class ProfileViewController: UIViewController {
         switch logOut {
             
         case true:
-            
-            if let id = KeychainManager.sharedInstance.id, let name = KeychainManager.sharedInstance.name {
+
+            KeychainManager.sharedInstance.removeID()
                 
-                KeychainManager.sharedInstance.removeID()
-                
-                KeychainManager.sharedInstance.removeUsername()
-            }
+            KeychainManager.sharedInstance.removeUsername()
             
             goToRootOfTab(index: 0)
             

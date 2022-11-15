@@ -79,9 +79,8 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
                     FirebaseUserManager.sharedInstance.fetchUserData { users in
                        
                         users.forEach { user in
+                            
                             if user.id == id {
-                                
-                                print(id)
                                 
                                 KeychainManager.sharedInstance.name = user.name
                                 
@@ -98,9 +97,8 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
                 FirebaseUserManager.sharedInstance.fetchUserData { users in
                     
                     users.forEach { user in
+                        
                         if user.id == id {
-                            
-                            print(id)
                             
                             KeychainManager.sharedInstance.name = user.name
                             

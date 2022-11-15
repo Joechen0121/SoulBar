@@ -29,8 +29,6 @@ class ChatViewController: UIViewController {
     
     var messages = [ChatroomMessagesData]()
     
-    var testName = "test"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,7 +53,10 @@ class ChatViewController: UIViewController {
         
         //configureMessageData()
         
-        FirebaseChatroomManager.sharedInstance.addChatroomMembersData(chatroomID: eventsFavorite.uid, uuid: testName)
+        if let id = KeychainManager.sharedInstance.id {
+            
+            FirebaseChatroomManager.sharedInstance.addChatroomMembersData(chatroomID: eventsFavorite.uid, id: id)
+        }
 
         addChatroomListener(chatroomID: eventsFavorite.uid)
     }
@@ -147,11 +148,14 @@ class ChatViewController: UIViewController {
         
         guard let eventsFavorite = eventsFavorite else { return }
 
-        FirebaseChatroomManager.sharedInstance.addChatroomMessagesData(chatroomID: eventsFavorite.uid, messageID: UUID().uuidString, sender: self.testName, content: text, contentType: 0)
-
-        DispatchQueue.main.async {
+        if let id = KeychainManager.sharedInstance.id {
+         
+            FirebaseChatroomManager.sharedInstance.addChatroomMessagesData(chatroomID: eventsFavorite.uid, messageID: UUID().uuidString, sender: id, content: text, contentType: 0)
             
-            self.messageTextField.text = ""
+            DispatchQueue.main.async {
+                
+                self.messageTextField.text = ""
+            }
         }
         
     }
@@ -179,7 +183,9 @@ extension ChatViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if messages[indexPath.row].sender == testName {
+        guard let id = KeychainManager.sharedInstance.id else { return UITableViewCell() }
+        
+        if messages[indexPath.row].sender == id {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatMessageOwnerTableViewCell.identifier, for: indexPath) as? ChatMessageOwnerTableViewCell else {
                 
