@@ -2072,6 +2072,70 @@
             </objects>
             <point key="canvasLocation" x="4279.7101449275369" y="1794.6428571428571"/>
         </scene>
+        <!--Profile Events View Controller-->
+        <scene sceneID="ewu-aa-5pu">
+            <objects>
+                <viewController storyboardIdentifier="ProfileEventsVC" id="ocv-5C-D3g" customClass="ProfileEventsViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LIm-gx-iWQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="82U-bK-lNf">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wWk-Kr-bIr">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileEventCollectionViewCell" id="0wh-CG-Lqh" customClass="ProfileEventCollectionViewCell" customModule="SoulBar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VUB-Tt-g4S">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AGt-2W-X2t" customClass="CardHighlight" customModule="Cards">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="AGt-2W-X2t" secondAttribute="height" multiplier="1:1" id="dD5-7Q-gTT"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="AGt-2W-X2t" firstAttribute="leading" secondItem="VUB-Tt-g4S" secondAttribute="leading" id="2y7-fK-Sbp"/>
+                                                <constraint firstAttribute="trailing" secondItem="AGt-2W-X2t" secondAttribute="trailing" id="AGS-Lq-6uJ"/>
+                                                <constraint firstItem="AGt-2W-X2t" firstAttribute="top" secondItem="VUB-Tt-g4S" secondAttribute="top" id="XId-S0-Boz"/>
+                                                <constraint firstAttribute="bottom" secondItem="AGt-2W-X2t" secondAttribute="bottom" id="vtf-q0-xwt"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="eventCard" destination="AGt-2W-X2t" id="LfQ-aw-ItP"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="MRa-vf-d2z"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="82U-bK-lNf" firstAttribute="top" secondItem="MRa-vf-d2z" secondAttribute="top" id="BUZ-T2-1Qa"/>
+                            <constraint firstItem="82U-bK-lNf" firstAttribute="leading" secondItem="MRa-vf-d2z" secondAttribute="leading" id="UqU-zb-Bia"/>
+                            <constraint firstItem="MRa-vf-d2z" firstAttribute="trailing" secondItem="82U-bK-lNf" secondAttribute="trailing" id="owN-nO-0Bu"/>
+                            <constraint firstItem="MRa-vf-d2z" firstAttribute="bottom" secondItem="82U-bK-lNf" secondAttribute="bottom" id="uTA-5a-lV4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="eventCollectionView" destination="82U-bK-lNf" id="X4x-4X-Qgf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I7Q-jN-2tM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4279.7101449275369" y="2505.1339285714284"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="IaV-J2-tsA">

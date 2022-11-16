@@ -163,6 +163,10 @@ extension ProfileViewController: UITableViewDelegate {
         case .MyEvent:
             
             print("myevent")
+            if let eventVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileEventsViewController.storyboardID) as? ProfileEventsViewController {
+                
+                self.navigationController?.pushViewController(eventVC, animated: true)
+            }
             
         case .LikedArtists:
             

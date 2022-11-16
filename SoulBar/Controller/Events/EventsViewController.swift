@@ -22,8 +22,6 @@ class EventsViewController: UIViewController {
     
     var eventsFavorite: [FirebaseEventsData]?
     
-    var favoriteEvents = [FirebaseEventsData]()
-    
     var favoriteCount = 0
     
     @IBOutlet weak var collectionHeight: NSLayoutConstraint!

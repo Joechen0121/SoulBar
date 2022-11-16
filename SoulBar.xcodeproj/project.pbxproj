@@ -105,6 +105,8 @@
 		D8B528EA29163105004C8D2A /* PlaySongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B528E929163105004C8D2A /* PlaySongManager.swift */; };
 		D8EA0EF62922728600514F35 /* AppleAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */; };
 		D8EA0EFD29233F5400514F35 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0EFC29233F5400514F35 /* KeychainManager.swift */; };
+		D8EA0F072924BA0F00514F35 /* ProfileEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F062924BA0F00514F35 /* ProfileEventsViewController.swift */; };
+		D8EA0F092924BAEB00514F35 /* ProfileEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F082924BAEB00514F35 /* ProfileEventCollectionViewCell.swift */; };
 		D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */; };
 		D8FABE482919F1450094A77F /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE472919F1450094A77F /* RootTabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -212,6 +214,8 @@
 		D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthViewController.swift; sourceTree = "<group>"; };
 		D8EA0EF7292276E500514F35 /* SoulBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SoulBar.entitlements; sourceTree = "<group>"; };
 		D8EA0EFC29233F5400514F35 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		D8EA0F062924BA0F00514F35 /* ProfileEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEventsViewController.swift; sourceTree = "<group>"; };
+		D8EA0F082924BAEB00514F35 /* ProfileEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		D8FABE472919F1450094A77F /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
 		DE5455BF34A43BE4803E4EB7 /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,6 +270,7 @@
 		D8088B1E29096CA30037555B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D88550B02910E3570083D050 /* MapManager.swift */,
 				D88071BF2920C38300554B18 /* Favorite */,
 				D8088B2129096D8C0037555B /* Events */,
 				D874C8872912462000075AE9 /* Firebase */,
@@ -509,7 +514,9 @@
 				D874B9882917E4EA0082F2D7 /* ProfileTableViewCell.swift */,
 				D88071C52920EA1400554B18 /* ProfileHistoryViewController.swift */,
 				D88071C72920EA3300554B18 /* ProfileHistoryTableViewCell.swift */,
+				D8EA0F062924BA0F00514F35 /* ProfileEventsViewController.swift */,
 				D88071CD2921213400554B18 /* ProfileArtistsViewController.swift */,
+				D8EA0F082924BAEB00514F35 /* ProfileEventCollectionViewCell.swift */,
 				D88071CF292121A600554B18 /* ProfileArtistsTableViewCell.swift */,
 			);
 			path = Profile;
@@ -520,7 +527,6 @@
 			children = (
 				D8088B1629096C200037555B /* EventsViewController.swift */,
 				D86AD11229135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift */,
-				D88550B02910E3570083D050 /* MapManager.swift */,
 				D88550AE2910CA710083D050 /* EventsCardsDetailsViewController.swift */,
 				D86AD11829138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift */,
 				D8A1B96B290C228E007F6775 /* EventsTableViewCell.swift */,
@@ -792,6 +798,7 @@
 				D8088B3129096FAF0037555B /* PlaylistsSearch.swift in Sources */,
 				D874B99C29190E340082F2D7 /* NewListTableViewCell.swift in Sources */,
 				D8088B2729096F550037555B /* AlbumsCharts.swift in Sources */,
+				D8EA0F092924BAEB00514F35 /* ProfileEventCollectionViewCell.swift in Sources */,
 				D874C88B2912466300075AE9 /* FirebaseFavoriteManager.swift in Sources */,
 				D8573386290FBCA20009D734 /* PlaySongViewController.swift in Sources */,
 				D82369AC290BDA2100AE41AB /* SearchDetailsViewController.swift in Sources */,
@@ -855,6 +862,7 @@
 				D8088B1529096C0C0037555B /* HomeViewController.swift in Sources */,
 				D8088B39290A28E00037555B /* HomeTableViewCell.swift in Sources */,
 				D88071B6291F80BF00554B18 /* FavroiteMusicDetailsViewController.swift in Sources */,
+				D8EA0F072924BA0F00514F35 /* ProfileEventsViewController.swift in Sources */,
 				D874C8952912546100075AE9 /* FirebaseEventsManager.swift in Sources */,
 				D8088B2529096F400037555B /* SongsCharts.swift in Sources */,
 			);
