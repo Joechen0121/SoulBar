@@ -9,6 +9,7 @@ import UIKit
 import ShazamKit
 import Pulsator
 import Lottie
+import SwiftUI
 
 class RecognizeViewController: UIViewController {
     
@@ -463,41 +464,32 @@ extension RecognizeViewController: SHSessionDelegate {
             print(item.title ?? "title")
             print(item.artist ?? "artist")
             print(item.artworkURL?.absoluteURL ?? "Artwork url")
+            print(item.appleMusicID)
             
-            if let title = item.title {
+            if let musicID = item.appleMusicID {
                 
-                MusicManager.sharedInstance.searchSongs(term: title, limit: 25) { result in
+                MusicManager.sharedInstance.fetchSong(with: musicID) { result in
                     
-                    result.forEach { song in
+                    songs = result
+                    
+                    DispatchQueue.main.async {
+                        print("Stop listening")
                         
-                        print(song.attributes?.artistName == item.artist)
+                        self.isFound = true
                         
-                        if song.attributes?.artistName == item.artist {
-
-                            songs.append(song)
+                        self.initViewStatus()
+                        
+                    }
+                    
+                    FirebaseHistoryManager.sharedInstance.addHistoryPlayData(with: musicID) {
+                        
+                        if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                             
-                            DispatchQueue.main.async {
-                                print("Stop listening")
-
-                                self.isFound = true
-                                
-                                self.initViewStatus()
-
-                            }
+                            playSongVC.songs = songs
                             
-                            guard let songID = song.id else { return }
+                            playSongVC.modalPresentationStyle = .fullScreen
                             
-                            FirebaseHistoryManager.sharedInstance.addHistoryPlayData(with: songID) {
-                                
-                                if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-
-                                    playSongVC.songs = songs
-                                    
-                                    playSongVC.modalPresentationStyle = .fullScreen
-                                    
-                                    self.present(playSongVC, animated: true)
-                                }
-                            }
+                            self.present(playSongVC, animated: true)
                         }
                     }
                 }
