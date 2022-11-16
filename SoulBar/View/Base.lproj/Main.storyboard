@@ -1905,26 +1905,90 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZZ-Ne-9I6">
-                                <rect key="frame" x="359" y="54" width="45" height="31"/>
+                                <rect key="frame" x="10" y="54" width="44" height="31"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="xmark.circle.fill" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.down" catalog="system"/>
                                 <connections>
                                     <action selector="dismissButton:" destination="bZn-yg-IVY" eventType="touchUpInside" id="iSA-SO-Aqy"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="yp0-RS-PIi">
+                                <rect key="frame" x="40" y="84" width="334" height="167"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="yp0-RS-PIi" secondAttribute="height" multiplier="2" id="y6b-tp-GSz"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SoulBar" translatesAutoresizingMaskIntoConstraints="NO" id="c0P-yf-lJq">
+                                <rect key="frame" x="60" y="251" width="294" height="147"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="c0P-yf-lJq" secondAttribute="height" multiplier="2" id="8qK-Ss-KWd"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EA3-Mn-F2Q">
+                                <rect key="frame" x="0.0" y="398" width="414" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Vcc-Yr-V0U"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOG IN TO HAVE ADDITIONAL EXPERIENCE !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ylh-AV-33p">
+                                <rect key="frame" x="0.0" y="506" width="414" height="21"/>
+                                <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="15"/>
+                                <color key="textColor" red="0.27843137254901962" green="0.28235294117647058" blue="0.28627450980392155" alpha="0.89803921568627454" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUX-7B-PeD" customClass="ASAuthorizationAppleIDButton">
+                                <rect key="frame" x="50" y="557" width="314" height="34"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r3a-pb-g8Q">
+                                <rect key="frame" x="50" y="606" width="314" height="31"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="13"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Not Now"/>
+                                <connections>
+                                    <action selector="dismissButton:" destination="bZn-yg-IVY" eventType="touchUpInside" id="Uq9-YK-JUS"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VAG-bg-Q5j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="wUX-7B-PeD" firstAttribute="top" secondItem="Ylh-AV-33p" secondAttribute="bottom" constant="30" id="1x5-iR-gW2"/>
+                            <constraint firstItem="c0P-yf-lJq" firstAttribute="top" secondItem="yp0-RS-PIi" secondAttribute="bottom" id="2y9-Mi-Ywm"/>
+                            <constraint firstItem="VAG-bg-Q5j" firstAttribute="trailing" secondItem="r3a-pb-g8Q" secondAttribute="trailing" constant="50" id="3fK-JF-WvE"/>
+                            <constraint firstItem="Ylh-AV-33p" firstAttribute="leading" secondItem="VAG-bg-Q5j" secondAttribute="leading" id="66S-JR-gMs"/>
+                            <constraint firstItem="fZZ-Ne-9I6" firstAttribute="leading" secondItem="VAG-bg-Q5j" secondAttribute="leading" constant="10" id="7bu-OG-3yz"/>
                             <constraint firstItem="fZZ-Ne-9I6" firstAttribute="top" secondItem="VAG-bg-Q5j" secondAttribute="top" constant="10" id="8RJ-A5-cyD"/>
-                            <constraint firstItem="VAG-bg-Q5j" firstAttribute="trailing" secondItem="fZZ-Ne-9I6" secondAttribute="trailing" constant="10" id="bi5-5l-yAc"/>
+                            <constraint firstItem="r3a-pb-g8Q" firstAttribute="leading" secondItem="VAG-bg-Q5j" secondAttribute="leading" constant="50" id="K28-d9-mIc"/>
+                            <constraint firstItem="yp0-RS-PIi" firstAttribute="centerX" secondItem="1CN-AV-uAM" secondAttribute="centerX" id="MBT-6a-XYE"/>
+                            <constraint firstItem="VAG-bg-Q5j" firstAttribute="trailing" secondItem="Ylh-AV-33p" secondAttribute="trailing" id="Nxj-X8-WR5"/>
+                            <constraint firstItem="Ylh-AV-33p" firstAttribute="top" secondItem="EA3-Mn-F2Q" secondAttribute="bottom" constant="8" id="O4y-cJ-rfe"/>
+                            <constraint firstItem="wUX-7B-PeD" firstAttribute="centerX" secondItem="1CN-AV-uAM" secondAttribute="centerX" id="WPS-vo-J3Y"/>
+                            <constraint firstItem="EA3-Mn-F2Q" firstAttribute="centerY" secondItem="1CN-AV-uAM" secondAttribute="centerY" id="aw5-Kw-EKl"/>
+                            <constraint firstItem="c0P-yf-lJq" firstAttribute="centerX" secondItem="1CN-AV-uAM" secondAttribute="centerX" id="cYh-71-0LF"/>
+                            <constraint firstAttribute="trailing" secondItem="yp0-RS-PIi" secondAttribute="trailing" constant="40" id="cmL-ab-KcW"/>
+                            <constraint firstAttribute="trailing" secondItem="EA3-Mn-F2Q" secondAttribute="trailing" id="dfv-Sa-pzk"/>
+                            <constraint firstItem="EA3-Mn-F2Q" firstAttribute="top" secondItem="c0P-yf-lJq" secondAttribute="bottom" id="fNT-ML-fJ5"/>
+                            <constraint firstItem="VAG-bg-Q5j" firstAttribute="trailing" secondItem="wUX-7B-PeD" secondAttribute="trailing" constant="50" id="fcH-Hh-iWe"/>
+                            <constraint firstItem="r3a-pb-g8Q" firstAttribute="top" secondItem="wUX-7B-PeD" secondAttribute="bottom" constant="15" id="hdi-TV-3wA"/>
+                            <constraint firstItem="wUX-7B-PeD" firstAttribute="leading" secondItem="VAG-bg-Q5j" secondAttribute="leading" constant="50" id="oo1-Vr-r15"/>
+                            <constraint firstItem="yp0-RS-PIi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VAG-bg-Q5j" secondAttribute="top" constant="40" id="t4s-pq-lXZ"/>
+                            <constraint firstItem="yp0-RS-PIi" firstAttribute="leading" secondItem="1CN-AV-uAM" secondAttribute="leading" constant="40" id="w9J-DA-m6W"/>
+                            <constraint firstItem="EA3-Mn-F2Q" firstAttribute="centerX" secondItem="1CN-AV-uAM" secondAttribute="centerX" id="xNo-SL-3UN"/>
+                            <constraint firstItem="EA3-Mn-F2Q" firstAttribute="leading" secondItem="1CN-AV-uAM" secondAttribute="leading" id="yBl-5c-xby"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="notNowButton" destination="r3a-pb-g8Q" id="hnb-1l-qFL"/>
+                        <outlet property="signInButton" destination="wUX-7B-PeD" id="inE-aJ-60R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w6r-zk-f47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5723" y="192"/>
+            <point key="canvasLocation" x="5721.739130434783" y="191.51785714285714"/>
         </scene>
         <!--Profile Artists View Controller-->
         <scene sceneID="gNv-gP-CBa">
@@ -2024,6 +2088,7 @@
         </designable>
     </designables>
     <resources>
+        <image name="SoulBar" width="1776" height="996"/>
         <image name="character.book.closed.fill" catalog="system" width="115" height="128"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="clear" catalog="system" width="128" height="114"/>
@@ -2052,13 +2117,14 @@
         <image name="plus" width="3072" height="3072"/>
         <image name="previous" width="1024" height="1024"/>
         <image name="recognize" width="2048" height="2048"/>
+        <image name="search" width="3072" height="3072"/>
         <image name="searchLogo" width="2048" height="2048"/>
         <image name="shared" width="2048" height="2048"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="volume.1.fill" catalog="system" width="128" height="108"/>
         <image name="volume.2.fill" catalog="system" width="128" height="90"/>
+        <image name="welcome" width="3552" height="1992"/>
         <image name="xmark.circle" catalog="system" width="128" height="121"/>
-        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -14,20 +14,52 @@ class AppleAuthViewController: UIViewController {
     
     static let storyboardID = "AppleAuthVC"
     
-    private let signInButton = ASAuthorizationAppleIDButton()
-
+   // private let signInButton = ASAuthorizationAppleIDButton()
+    @IBOutlet weak var notNowButton: UIButton!
+    
+    @IBOutlet weak var signInButton: ASAuthorizationAppleIDButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(signInButton)
+        //view.addSubview(signInButton)
+        
+        let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
+        backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let backgroundEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+        backgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let container = UIView()
+        container.frame = view.bounds
+        container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        backgroundImageView.frame = container.bounds
+        backgroundEffectView.frame = container.bounds
+        
+        container.addSubview(backgroundImageView)
+        container.addSubview(backgroundEffectView)
+        
+        view.insertSubview(container, at: 0)
+        
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
+        
+        signInButton.layer.cornerRadius = signInButton.frame.height / 2.5
+        
+        signInButton.layer.masksToBounds = true
+        
+        signInButton.layer.borderWidth = 1
+        
+        signInButton.layer.borderColor = UIColor.black.cgColor
+        
+        notNowButton.layer.cornerRadius = signInButton.frame.height / 2.5
 
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        signInButton.center = view.center
+        //signInButton.center = view.center
     }
     
     @objc func didTapSignIn() {
@@ -75,19 +107,10 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             if let email = email, let firstName = firstName, let lastName = lastName {
                 
                 FirebaseUserManager.sharedInstance.addUserData(id: id, email: email, name: lastName + firstName) {
+                                
+                    KeychainManager.sharedInstance.name = lastName + firstName
                     
-                    FirebaseUserManager.sharedInstance.fetchUserData { users in
-                       
-                        users.forEach { user in
-                            
-                            if user.id == id {
-                                
-                                KeychainManager.sharedInstance.name = user.name
-                                
-                                KeychainManager.sharedInstance.id = id
-                            }
-                        }
-                    }
+                    KeychainManager.sharedInstance.id = id
                 }
             }
             else {
@@ -101,8 +124,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
                         if user.id == id {
                             
                             KeychainManager.sharedInstance.name = user.name
-                            
-                            KeychainManager.sharedInstance.id = id
+    
                         }
                     }
                 }
