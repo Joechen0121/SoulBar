@@ -481,7 +481,22 @@ extension RecognizeViewController: SHSessionDelegate {
                         
                     }
                     
-                    FirebaseHistoryManager.sharedInstance.addHistoryPlayData(with: musicID) {
+                    if let id = KeychainManager.sharedInstance.id {
+                        
+                        FirebaseHistoryManager.sharedInstance.addHistoryPlayData(with: musicID) {
+                            
+                            if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+                                
+                                playSongVC.songs = songs
+                                
+                                playSongVC.modalPresentationStyle = .fullScreen
+                                
+                                self.present(playSongVC, animated: true)
+                            }
+                        }
+                        
+                    }
+                    else {
                         
                         if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                             
