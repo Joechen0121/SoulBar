@@ -138,7 +138,7 @@ class PlaySongManager: NSObject {
                 self.position = PlayerPosition(duration: Int(duration), current: Int(CMTimeGetSeconds(currentTime)))
                 
                 self.currentTime = CMTimeGetSeconds(self.player.currentTime())
-                print("-----\(self.currentTime)")
+                
                 self.delegate?.didUpdatePosition(self.player, self.position)
             }
         }
@@ -319,30 +319,49 @@ class PlaySongManager: NSObject {
         let commandCenter = MPRemoteCommandCenter.shared()
 
         // Add handler for Play Command
-        commandCenter.playCommand.addTarget { [unowned self] _ in
+        commandCenter.playCommand.addTarget { [weak self] _ in
+            
+            guard let self = self else { return .commandFailed }
+            
             if self.player.rate == 0.0 {
+                
                 self.player.play()
+                
+                self.setupNowPlaying()
+                
                 return .success
             }
             return .commandFailed
         }
 
         // Add handler for Pause Command
-        commandCenter.pauseCommand.addTarget { [unowned self] _ in
+        commandCenter.pauseCommand.addTarget { [weak self] _ in
+            
+            guard let self = self else { return .commandFailed }
+            
             if self.player.rate == 1.0 {
+                
+                let time = CMTimeGetSeconds(self.player.currentTime())
+                
+                self.currentTime = time
+                
                 self.player.pause()
+                
                 return .success
             }
             return .commandFailed
         }
         
         commandCenter.changePlaybackPositionCommand.addTarget { [weak self] event in
-            
+    
             guard let self = self else { return .commandFailed }
             
             if let event = event as? MPChangePlaybackPositionCommandEvent {
+                
                 let percent = Float(event.positionTime) / Float(self.position.duration)
+                
                 print("change playback", percent)
+                
                 self.seekTo(Double(percent))
             }
             
@@ -350,26 +369,49 @@ class PlaySongManager: NSObject {
         }
         
         commandCenter.previousTrackCommand.addTarget { [weak self] _ in
-        
-            guard let self = self, self.previousBackCount == 0 else { return .commandFailed }
             
-            self.previousBackCount += 1
-            print((self.current + self.maxCount - 1) % self.maxCount)
-            self.closePlayer()
-            self.delegate?.selectData(index: (self.current + self.maxCount - 1) % self.maxCount, isFromMiniPlayer: false)
-        
+            guard let self = self else { return .commandFailed }
+            
+            if self.delegate != nil {
+                
+                guard self.previousBackCount == 0 else { return .commandFailed }
+                
+                self.previousBackCount += 1
+    
+                self.closePlayer()
+                
+                self.delegate!.selectData(index: (self.current + self.maxCount - 1) % self.maxCount, isFromMiniPlayer: false)
+
+            }
+            else {
+                
+                NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerPrevious"), object: nil)
+                
+            }
+            
             return.success
             
         }
         
-        commandCenter.nextTrackCommand.addTarget { [weak self] event in
-        
-            guard let self = self, self.nextBackCount == 0 else { return .commandFailed }
+        commandCenter.nextTrackCommand.addTarget { [weak self] _ in
             
-            self.nextBackCount += 1
-            self.closePlayer()
-            print((self.current + self.maxCount + 1) % self.maxCount)
-            self.delegate?.selectData(index: (self.current + self.maxCount + 1) % self.maxCount, isFromMiniPlayer: false)
+            guard let self = self else { return .commandFailed }
+            
+            if self.delegate != nil {
+                
+                guard self.nextBackCount == 0 else { return .commandFailed }
+                
+                self.nextBackCount += 1
+                
+                self.closePlayer()
+                
+                self.delegate!.selectData(index: (self.current + self.maxCount + 1) % self.maxCount, isFromMiniPlayer: false)
+            }
+            else {
+             
+                NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerNext"), object: nil)
+            }
+            
 
             return.success
             
@@ -419,6 +461,8 @@ class PlaySongManager: NSObject {
     
         player.replaceCurrentItem(with: playerItem)
 
+        self.delegate?.didUpdatePosition(self.player, self.position)
+        
         let time = CMTime(seconds: self.currentTime, preferredTimescale: 1000)
 
         player.seek(to: time)
@@ -437,8 +481,10 @@ class PlaySongManager: NSObject {
     
     func backgroundMode() {
         
-        guard isBackground == false else { return }
+        print(#function)
         
+        guard isBackground == false else { return }
+
         isBackground = true
         
         if self.current + 1 < self.maxCount {

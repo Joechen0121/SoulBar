@@ -109,6 +109,48 @@ class MiniPlayerViewController: UIViewController {
         let rightside = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
         rightside.direction = .right
         view.addGestureRecognizer(rightside)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didUpdateMiniPlayerNext),
+            name: Notification.Name(rawValue: "didUpdateMiniPlayerNext"),
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didUpdateMiniPlayerPrevious),
+            name: Notification.Name(rawValue: "didUpdateMiniPlayerPrevious"),
+            object: nil
+        )
+    }
+    
+    @objc func didUpdateMiniPlayerNext() {
+    
+        PlaySongManager.sharedInstance.closePlayer()
+        
+        guard let songs = PlaySongManager.sharedInstance.songs else { return }
+
+        PlaySongManager.sharedInstance.current = (PlaySongManager.sharedInstance.current + PlaySongManager.sharedInstance.maxCount + 1) % PlaySongManager.sharedInstance.maxCount
+        
+        if let songURL = songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url {
+            
+            PlaySongManager.sharedInstance.setupPlayer(with: URL(string: songURL)!)
+        }
+    }
+    
+    @objc func didUpdateMiniPlayerPrevious() {
+        
+        PlaySongManager.sharedInstance.closePlayer()
+        
+        guard let songs = PlaySongManager.sharedInstance.songs else { return }
+
+        PlaySongManager.sharedInstance.current = (PlaySongManager.sharedInstance.current + PlaySongManager.sharedInstance.maxCount - 1) % PlaySongManager.sharedInstance.maxCount
+        
+        if let songURL = songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url {
+            
+            PlaySongManager.sharedInstance.setupPlayer(with: URL(string: songURL)!)
+        }
     }
     
     @objc func swiped(gesture: UISwipeGestureRecognizer) {
@@ -183,6 +225,8 @@ class MiniPlayerViewController: UIViewController {
     @objc func playPauseMusic() {
         
         if PlaySongManager.sharedInstance.player.timeControlStatus == .playing {
+            
+            // PlaySongManager.sharedInstance.isBackground = true
             
             PlaySongManager.sharedInstance.pauseMusic()
             

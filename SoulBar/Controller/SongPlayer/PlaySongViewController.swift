@@ -124,6 +124,7 @@ class PlaySongViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(#function)
         
         guard let songs = songs, !songs.isEmpty else {
             return
