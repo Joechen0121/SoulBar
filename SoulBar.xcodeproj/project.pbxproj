@@ -107,6 +107,9 @@
 		D8EA0EFD29233F5400514F35 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0EFC29233F5400514F35 /* KeychainManager.swift */; };
 		D8EA0F072924BA0F00514F35 /* ProfileEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F062924BA0F00514F35 /* ProfileEventsViewController.swift */; };
 		D8EA0F092924BAEB00514F35 /* ProfileEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F082924BAEB00514F35 /* ProfileEventCollectionViewCell.swift */; };
+		D8EA0F0C29267B2A00514F35 /* YoutubeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F0B29267B2A00514F35 /* YoutubeData.swift */; };
+		D8EA0F0E29267B3700514F35 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */; };
+		D8EA0F11292682A200514F35 /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */; };
 		D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */; };
 		D8FABE482919F1450094A77F /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE472919F1450094A77F /* RootTabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -216,6 +219,9 @@
 		D8EA0EFC29233F5400514F35 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D8EA0F062924BA0F00514F35 /* ProfileEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEventsViewController.swift; sourceTree = "<group>"; };
 		D8EA0F082924BAEB00514F35 /* ProfileEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEventCollectionViewCell.swift; sourceTree = "<group>"; };
+		D8EA0F0B29267B2A00514F35 /* YoutubeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeData.swift; sourceTree = "<group>"; };
+		D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeManager.swift; sourceTree = "<group>"; };
+		D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
 		D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		D8FABE472919F1450094A77F /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
 		DE5455BF34A43BE4803E4EB7 /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -263,6 +269,7 @@
 				D8EA0F032923D20500514F35 /* Auth */,
 				D8EA0F042923D21100514F35 /* SongPlayer */,
 				D8FABE472919F1450094A77F /* RootTabBarViewController.swift */,
+				D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -271,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				D88550B02910E3570083D050 /* MapManager.swift */,
+				D8EA0F0F29267B3C00514F35 /* Youtube */,
 				D88071BF2920C38300554B18 /* Favorite */,
 				D8088B2129096D8C0037555B /* Events */,
 				D874C8872912462000075AE9 /* Firebase */,
@@ -634,6 +642,15 @@
 			path = "New List";
 			sourceTree = "<group>";
 		};
+		D8EA0F0F29267B3C00514F35 /* Youtube */ = {
+			isa = PBXGroup;
+			children = (
+				D8EA0F0B29267B2A00514F35 /* YoutubeData.swift */,
+				D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */,
+			);
+			path = Youtube;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -819,6 +836,7 @@
 				D88071C62920EA1400554B18 /* ProfileHistoryViewController.swift in Sources */,
 				D8573372290E561B0009D734 /* SearchArtistsResultTableViewCell.swift in Sources */,
 				D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */,
+				D8EA0F11292682A200514F35 /* PlayVideoViewController.swift in Sources */,
 				D820B92A291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift in Sources */,
 				D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */,
 				D874B98D2917E6890082F2D7 /* ProfileData.swift in Sources */,
@@ -845,6 +863,7 @@
 				D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */,
 				D8088B342909700B0037555B /* MusicManager.swift in Sources */,
 				D8088B1D29096C4D0037555B /* ProfileViewController.swift in Sources */,
+				D8EA0F0C29267B2A00514F35 /* YoutubeData.swift in Sources */,
 				D874C8A32912835400075AE9 /* Constants.swift in Sources */,
 				D8088B1B29096C400037555B /* FavoriteViewController.swift in Sources */,
 				D88071CC2920F4A400554B18 /* DateFormatter+Ext.swift in Sources */,
@@ -857,6 +876,7 @@
 				D874B9952918EB7F0082F2D7 /* FavoriteListsTableViewCell.swift in Sources */,
 				D8088B44290AC1840037555B /* AlbumsCollectionViewCell.swift in Sources */,
 				D88071D0292121A600554B18 /* ProfileArtistsTableViewCell.swift in Sources */,
+				D8EA0F0E29267B3700514F35 /* YoutubeManager.swift in Sources */,
 				D874C88E291247D300075AE9 /* FirebaseHistoryData.swift in Sources */,
 				D874C8982912565000075AE9 /* FirebaseUserData.swift in Sources */,
 				D8088B1529096C0C0037555B /* HomeViewController.swift in Sources */,

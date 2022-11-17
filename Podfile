@@ -20,4 +20,5 @@ target 'SoulBar' do
   pod 'IQKeyboardManagerSwift'
   pod 'lottie-ios'
   pod 'SwiftKeychainWrapper'
+  pod 'YoutubeKit'
 end

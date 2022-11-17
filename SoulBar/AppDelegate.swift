@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import FirebaseCore
 import IQKeyboardManagerSwift
+import YoutubeKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)]
 
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)]
+        
+        YoutubeKit.shared.setAPIKey("AIzaSyClrbLXP8jCneoelOAcq2VACJa0mTwbJLY")
         
         return true
     }

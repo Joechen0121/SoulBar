@@ -206,6 +206,21 @@
             </objects>
             <point key="canvasLocation" x="-3723.188405797102" y="902.67857142857133"/>
         </scene>
+        <!--Play Video View Controller-->
+        <scene sceneID="fjw-UC-wBU">
+            <objects>
+                <viewController storyboardIdentifier="PlayVideoVC" id="AiV-AG-HHn" customClass="PlayVideoViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aBg-xj-meP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="s7G-oJ-fts"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yve-MC-3yc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2608" y="886"/>
+        </scene>
         <!--Play Song View Controller-->
         <scene sceneID="N7R-ni-7Hc">
             <objects>
@@ -222,7 +237,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOs-t9-AYb">
-                                <rect key="frame" x="50" y="125" width="254" height="24"/>
+                                <rect key="frame" x="50" y="125" width="224" height="24"/>
                                 <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -341,6 +356,22 @@
                                     <constraint firstAttribute="width" constant="25" id="xPK-Uf-mLP"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8V0-3q-f1l">
+                                <rect key="frame" x="279" y="125" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8V0-3q-f1l" secondAttribute="height" id="iDD-lL-u02"/>
+                                    <constraint firstAttribute="width" constant="25" id="yb2-uf-5Q8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="15"/>
+                                <color key="tintColor" red="0.96470588235294119" green="0.40392156862745099" blue="0.32549019607843138" alpha="0.89803921568627454" colorSpace="calibratedRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="play.tv.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="playVideoButton:" destination="OZp-VT-HEW" eventType="touchUpInside" id="yJV-Dg-oOV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SWd-9f-aW9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -359,6 +390,7 @@
                             <constraint firstItem="6b2-8C-z3M" firstAttribute="leading" secondItem="jjE-Fm-x9a" secondAttribute="trailing" id="Nri-L0-hQ6"/>
                             <constraint firstItem="de1-nA-muO" firstAttribute="firstBaseline" secondItem="El3-oq-RS8" secondAttribute="firstBaseline" constant="10" id="QAP-qh-RBg"/>
                             <constraint firstItem="jJ9-Xh-386" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="50" id="RJ1-wo-FG6"/>
+                            <constraint firstItem="8V0-3q-f1l" firstAttribute="leading" secondItem="NOs-t9-AYb" secondAttribute="trailing" constant="5" id="SKb-MR-jO0"/>
                             <constraint firstItem="SWd-9f-aW9" firstAttribute="trailing" secondItem="ULc-Ir-5Kz" secondAttribute="trailing" constant="60" id="WMY-io-sq7"/>
                             <constraint firstItem="ULc-Ir-5Kz" firstAttribute="leading" secondItem="EVd-5z-6KA" secondAttribute="trailing" id="ZZJ-DD-yB6"/>
                             <constraint firstItem="ULc-Ir-5Kz" firstAttribute="centerY" secondItem="EVd-5z-6KA" secondAttribute="centerY" id="bJT-qc-bRk"/>
@@ -375,12 +407,13 @@
                             <constraint firstItem="GAi-WE-ZmD" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="10" id="gd2-gr-o9d"/>
                             <constraint firstItem="yZx-u3-ePa" firstAttribute="leading" secondItem="BNK-HQ-Ozz" secondAttribute="trailing" constant="20" id="h9f-qn-Q7M"/>
                             <constraint firstItem="SWd-9f-aW9" firstAttribute="trailing" secondItem="jJ9-Xh-386" secondAttribute="trailing" constant="50" id="iQl-QN-zTM"/>
-                            <constraint firstItem="BNK-HQ-Ozz" firstAttribute="leading" secondItem="NOs-t9-AYb" secondAttribute="trailing" constant="20" id="jZf-h2-sWH"/>
                             <constraint firstItem="jjE-Fm-x9a" firstAttribute="centerX" secondItem="wRL-6y-UEf" secondAttribute="centerX" id="lBx-K8-E30"/>
                             <constraint firstItem="5Xf-zR-lSw" firstAttribute="top" secondItem="SWd-9f-aW9" secondAttribute="top" id="m17-81-Ngn"/>
                             <constraint firstItem="NOs-t9-AYb" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="50" id="n7i-cj-gQv"/>
                             <constraint firstItem="NOs-t9-AYb" firstAttribute="top" secondItem="El3-oq-RS8" secondAttribute="bottom" constant="25" id="n8s-Ny-bS9"/>
                             <constraint firstItem="gqK-bz-NWN" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="60" id="oSR-9n-yA1"/>
+                            <constraint firstItem="BNK-HQ-Ozz" firstAttribute="leading" secondItem="8V0-3q-f1l" secondAttribute="trailing" constant="20" id="rUS-6J-H4l"/>
+                            <constraint firstItem="BNK-HQ-Ozz" firstAttribute="centerY" secondItem="8V0-3q-f1l" secondAttribute="centerY" id="udh-ao-gr5"/>
                             <constraint firstItem="jjE-Fm-x9a" firstAttribute="centerY" secondItem="LZV-R6-AnW" secondAttribute="centerY" id="urd-fW-pzb"/>
                             <constraint firstItem="5Xf-zR-lSw" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" id="z9b-HG-KDN"/>
                             <constraint firstItem="jJ9-Xh-386" firstAttribute="top" secondItem="bE7-IC-Xc6" secondAttribute="bottom" constant="40" id="zh7-e2-Uc2"/>
@@ -2178,6 +2211,7 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="play.fill" width="2048" height="2048"/>
         <image name="play.fill.bk" width="2048" height="2048"/>
+        <image name="play.tv.fill" catalog="system" width="128" height="97"/>
         <image name="plus" width="3072" height="3072"/>
         <image name="previous" width="1024" height="1024"/>
         <image name="recognize" width="2048" height="2048"/>

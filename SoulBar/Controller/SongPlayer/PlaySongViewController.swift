@@ -176,6 +176,20 @@ class PlaySongViewController: UIViewController {
         PlaySongManager.sharedInstance.removeTimeObserve()
     }
     
+    @IBAction func playVideoButton(_ sender: UIButton) {
+        
+        if let videoVC = self.storyboard?.instantiateViewController(withIdentifier: PlayVideoViewController.storyboardID) as? PlayVideoViewController {
+            
+            if let sheetPresentationController = videoVC.sheetPresentationController {
+                sheetPresentationController.detents = [.large()]
+                
+                sheetPresentationController.prefersGrabberVisible = true
+    
+                present(videoVC, animated: true)
+            }
+        }
+    }
+    
     @IBAction func songSlider(_ sender: UISlider) {
         
         PlaySongManager.sharedInstance.seekTo(Double(sender.value))
