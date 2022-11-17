@@ -80,6 +80,8 @@ class PlaySongManager: NSObject {
     var currentTime: Double = 0
     
     var isBackground = false
+    
+    var isBackgroundPausePlay = false
 
     func setupPlayer(with url: URL) {
         
@@ -217,7 +219,11 @@ class PlaySongManager: NSObject {
                 }
                 else {
                     
-                    backgroundMode()
+                    if isBackgroundPausePlay == false {
+                        
+                        backgroundMode()
+                    }
+                    
                 }
                 
             } else {
@@ -341,6 +347,11 @@ class PlaySongManager: NSObject {
             
             if self.player.rate == 1.0 {
                 
+                if self.delegate == nil {
+                    
+                    self.isBackgroundPausePlay = true
+                }
+                
                 let time = CMTimeGetSeconds(self.player.currentTime())
                 
                 self.currentTime = time
@@ -348,6 +359,7 @@ class PlaySongManager: NSObject {
                 self.player.pause()
                 
                 return .success
+
             }
             return .commandFailed
         }
