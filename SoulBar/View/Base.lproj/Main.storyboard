@@ -442,6 +442,21 @@
             </objects>
             <point key="canvasLocation" x="-2623.1884057971015" y="174.77678571428569"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="21e-9r-xL8">
+            <objects>
+                <viewController id="3uQ-SA-gkL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NgU-av-v7r">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="cX4-uP-LWl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qq3-7G-147" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2562" y="-646"/>
+        </scene>
         <!--Search Details View Controller-->
         <scene sceneID="rSy-0y-Dbm">
             <objects>
@@ -451,7 +466,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Artists, Songs, Albums" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BbH-5z-G8b">
-                                <rect key="frame" x="20" y="52" width="374" height="40"/>
+                                <rect key="frame" x="20" y="52" width="339" height="40"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="rgm-S0-wnD"/>
@@ -516,6 +531,16 @@
                                 <rect key="frame" x="0.0" y="150" width="414" height="712"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wgf-oc-SJs">
+                                <rect key="frame" x="364" y="52" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wgf-oc-SJs" secondAttribute="height" id="Qsa-w4-VzO"/>
+                                    <constraint firstAttribute="width" constant="40" id="oZB-fp-Ny9"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="mic.fill" catalog="system"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hUU-FS-TaT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -526,10 +551,12 @@
                             <constraint firstItem="hUU-FS-TaT" firstAttribute="bottom" secondItem="qZ5-bA-YLn" secondAttribute="bottom" id="2zD-oX-Yf3"/>
                             <constraint firstItem="qZ5-bA-YLn" firstAttribute="leading" secondItem="hUU-FS-TaT" secondAttribute="leading" id="B3E-kf-E79"/>
                             <constraint firstItem="hUU-FS-TaT" firstAttribute="trailing" secondItem="A0C-C5-dJ9" secondAttribute="trailing" id="DzO-7Y-xMD"/>
-                            <constraint firstItem="hUU-FS-TaT" firstAttribute="trailing" secondItem="BbH-5z-G8b" secondAttribute="trailing" constant="20" id="MhD-ap-IUE"/>
+                            <constraint firstItem="wgf-oc-SJs" firstAttribute="centerY" secondItem="BbH-5z-G8b" secondAttribute="centerY" id="Erg-Vu-J71"/>
                             <constraint firstItem="BbH-5z-G8b" firstAttribute="leading" secondItem="hUU-FS-TaT" secondAttribute="leading" constant="20" id="PSj-Dh-gOL"/>
                             <constraint firstItem="A0C-C5-dJ9" firstAttribute="top" secondItem="BbH-5z-G8b" secondAttribute="bottom" constant="8" id="jPf-hK-eC6"/>
                             <constraint firstItem="BbH-5z-G8b" firstAttribute="top" secondItem="hUU-FS-TaT" secondAttribute="top" constant="8" id="jcY-BI-dU0"/>
+                            <constraint firstAttribute="trailing" secondItem="wgf-oc-SJs" secondAttribute="trailing" constant="10" id="l0m-TR-r4b"/>
+                            <constraint firstItem="wgf-oc-SJs" firstAttribute="leading" secondItem="BbH-5z-G8b" secondAttribute="trailing" constant="5" id="ppv-R7-e9j"/>
                         </constraints>
                     </view>
                     <connections>
@@ -540,6 +567,7 @@
                         <outlet property="searchDetailsTableView" destination="qZ5-bA-YLn" id="dwS-a3-PZn"/>
                         <outlet property="searchTextField" destination="BbH-5z-G8b" id="ofa-Yq-Rqr"/>
                         <outlet property="songButton" destination="zgq-h7-C7u" id="sYY-aS-vxH"/>
+                        <outlet property="voiceRecogniztion" destination="wgf-oc-SJs" id="ggk-3r-JXR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xq5-bA-iru" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
