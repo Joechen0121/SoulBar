@@ -13,6 +13,8 @@ class ProfileEventsViewController: UIViewController {
     
     @IBOutlet weak var eventCollectionView: UICollectionView!
     
+    var activityIndicatorView = UIActivityIndicatorView()
+    
     var eventsFavorite = [FirebaseEventsData]()
     
     var favoriteCount = 0
@@ -32,6 +34,18 @@ class ProfileEventsViewController: UIViewController {
         
         self.navigationItem.largeTitleDisplayMode = .never
         
+        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        
+        activityIndicatorView.tintColor = .black
+        
+        activityIndicatorView.center = self.view.center
+        
+        self.view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.startAnimating()
+        
+        activityIndicatorView.isHidden = false
+        
         configureEventsFavoriteData()
         
     }
@@ -49,11 +63,11 @@ class ProfileEventsViewController: UIViewController {
         let columnCount: Double = 2
         
         let flowlayout = UICollectionViewFlowLayout()
-    
+        
         let width = floor((UIScreen.main.bounds.width - itemSpace * (columnCount - 1)) / columnCount)
         
         flowlayout.itemSize = CGSize(width: width, height: width)
-
+    
         flowlayout.estimatedItemSize = .zero
         
         flowlayout.minimumInteritemSpacing = itemSpace
@@ -73,6 +87,8 @@ class ProfileEventsViewController: UIViewController {
             DispatchQueue.main.async {
                 
                 self.eventCollectionView.reloadData()
+                
+                self.activityIndicatorView.isHidden = true
             }
         }
     }

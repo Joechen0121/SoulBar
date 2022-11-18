@@ -12,6 +12,8 @@ class ProfileArtistsViewController: UIViewController {
 
     static let storyboardID = "ProfileArtistsVC"
     
+    var activityIndicatorView = UIActivityIndicatorView()
+    
     var artistsID: FirebaseFavoriteData?
     
     var artistsInfo: [ArtistsSearchInfo] = []
@@ -33,24 +35,62 @@ class ProfileArtistsViewController: UIViewController {
         
         self.navigationItem.title = "Liked Artists"
         
-        FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
+        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        
+        activityIndicatorView.tintColor = .black
+        
+        activityIndicatorView.center = self.view.center
+        
+        self.view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.startAnimating()
+        
+        activityIndicatorView.isHidden = false
+        
+        loadDataWithGroup()
 
-            self.artistsID = result
+    }
+    
+    func loadDataWithGroup() {
+        
+        let group = DispatchGroup()
+        
+        let queue = DispatchQueue.global()
+        
+        queue.async(group: group) {
             
-            guard let artistsID = self.artistsID else { return }
-            
-            artistsID.id.forEach { id in
+            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
+
+                self.artistsID = result
                 
-                MusicManager.sharedInstance.fetchArtist(with: id) { artist in
+                guard let artistsID = self.artistsID else { return }
+                
+                artistsID.id.forEach { id in
+    
+                    group.enter()
                     
-                    self.artistsInfo.append(artist[0])
+                    MusicManager.sharedInstance.fetchArtist(with: id) { artist in
+                        
+                        self.artistsInfo.append(artist[0])
+                     
+                        group.leave()
+                    }
+                    
+                }
+                
+                group.notify(queue: .main) {
+                    
+                    print("Complete")
                     
                     DispatchQueue.main.async {
                         
                         self.artistTableView.reloadData()
+                        
+                        self.activityIndicatorView.stopAnimating()
+                        
+                        self.activityIndicatorView.isHidden = true
                     }
                 }
-                
             }
         }
     }
