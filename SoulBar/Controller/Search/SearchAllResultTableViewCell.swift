@@ -29,6 +29,15 @@ class SearchAllResultTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        allImage.image = nil
+        
+        singerName.text = ""
+        
+    }
+    
     func configureCellArtistsData(data: [ArtistsSearchInfo], indexPath: IndexPath) {
 
         guard !data.isEmpty else { return }

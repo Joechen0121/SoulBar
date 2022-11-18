@@ -225,7 +225,7 @@ class SongListViewController: UIViewController {
                 
                 self.artistAlbums = result
                 
-                guard let data = result[0].relationships?.albums.data else { return }
+                guard let data = result[0].relationships?.albums?.data else { return }
                 
                 self.artistAlbumsData = data
                 
