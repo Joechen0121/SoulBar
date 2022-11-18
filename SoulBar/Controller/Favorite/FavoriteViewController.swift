@@ -225,6 +225,8 @@ extension FavoriteViewController: UITableViewDataSource {
             
         case .FavAlbums:
             
+            guard !self.favoriteAlbumsInfo.isEmpty else { return UIView() }
+        
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
             let label = UILabel()
@@ -240,6 +242,8 @@ extension FavoriteViewController: UITableViewDataSource {
             
         case .FavPlaylists:
             
+            guard !self.favoritePlaylistInfo.isEmpty else { return UIView() }
+            
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
             let label = UILabel()
@@ -254,6 +258,8 @@ extension FavoriteViewController: UITableViewDataSource {
             return headerView
             
         case .FavLists:
+            
+            guard !self.favoriteListsInfo.isEmpty else { return UIView() }
             
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
