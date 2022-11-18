@@ -434,7 +434,24 @@ class PlaySongManager: NSObject {
 
         var nowPlayingInfo = [String : Any]()
         
-        guard let song = PlaySongManager.sharedInstance.currentSong else { return }
+        guard let song = PlaySongManager.sharedInstance.currentSong else {
+            
+            nowPlayingInfo[MPMediaItemPropertyArtwork] = nil
+            
+            nowPlayingInfo[MPMediaItemPropertyTitle] = nil
+            
+            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = 0
+            
+            nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = 0
+            
+            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0
+
+            // Set the metadata
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+            
+            return
+            
+        }
         
         if let artworkURL = song.attributes?.artwork?.url, let width = song.attributes?.artwork?.width, let height = song.attributes?.artwork?.height {
             
