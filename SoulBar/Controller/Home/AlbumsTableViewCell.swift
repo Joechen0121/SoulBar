@@ -18,11 +18,13 @@ class AlbumsTableViewCell: UITableViewCell {
 
     static let identifier = String(describing: AlbumsTableViewCell.self)
     
-    var albums: [AlbumsCharts]?
+    var albums = [AlbumsChartsInfo]()
     
     var albumsNext: String?
     
     var delegate: AlbumsDelegate?
+    
+    var isLoading = false
     
     @IBOutlet weak var albumsCollectionView: UICollectionView!
     
@@ -47,14 +49,18 @@ class AlbumsTableViewCell: UITableViewCell {
         
         MusicManager.sharedInstance.fetchAlbumsCharts { result in
             
-            self.albums = result
+            guard let data = result[0].data else { return }
             
-            self.albums!.forEach { album in
+            self.albums = data
+            
+            if let next = result[0].next {
                 
-                self.albumsNext = album.next
-
-                self.loadDataWithGroup()
-
+                self.albumsNext = next
+            }
+            else {
+                
+                self.albumsNext = nil
+                
             }
             
             DispatchQueue.main.async {
@@ -66,34 +72,35 @@ class AlbumsTableViewCell: UITableViewCell {
     
     }
     
-    func loadDataWithGroup() {
+    func loadMoreData() {
         
         let semaphore = DispatchSemaphore(value: 1)
         
         let queue = DispatchQueue.global()
         
         queue.async {
-
-            while !self.albumsNext!.isEmpty {
+            
+            if let next = self.albumsNext {
+                
+                guard !self.albums.isEmpty else { return }
 
                 semaphore.wait()
                 
-                MusicManager.sharedInstance.fetchAlbumsCharts(inNext: self.albumsNext!) { result in
+                MusicManager.sharedInstance.fetchAlbumsCharts(inNext: next) { result in
 
-                    self.albums! += result
+                    guard let data = result[0].data else { return }
+                    
+                    self.albums += data
                     
                     self.albumsNext = result[0].next
-                    
-                    if self.albumsNext == nil {
-                        
-                        return
-                    }
                     
                     semaphore.signal()
                     
                     DispatchQueue.main.async {
                         
                         self.albumsCollectionView.reloadData()
+                        
+                        self.isLoading = false
                     }
                 }
             }
@@ -111,9 +118,17 @@ class AlbumsTableViewCell: UITableViewCell {
 
 extension AlbumsTableViewCell: UICollectionViewDataSource {
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if indexPath.row == albums.count - 1 && !self.isLoading {
+
+            self.loadMoreData()
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return albums?.count ?? 0
+        return albums.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -122,16 +137,10 @@ extension AlbumsTableViewCell: UICollectionViewDataSource {
             
             fatalError("Cannot create collection view")
         }
-        
-        guard let albums = self.albums else {
-            
-            return UICollectionViewCell()
-            
-        }
-        
+
         cell.albumImage.kf.indicatorType = .activity
         
-        if let name = albums[0].data?[indexPath.row].attributes?.name, let artworkURL = albums[0].data?[indexPath.row].attributes?.artwork?.url, let width = albums[0].data?[indexPath.row].attributes?.artwork?.width, let height = albums[0].data?[indexPath.row].attributes?.artwork?.height {
+        if let name = albums[indexPath.row].attributes?.name, let artworkURL = albums[indexPath.row].attributes?.artwork?.url, let width = albums[indexPath.row].attributes?.artwork?.width, let height = albums[indexPath.row].attributes?.artwork?.height {
             
             cell.albumName.text = name
             
@@ -149,10 +158,8 @@ extension AlbumsTableViewCell: UICollectionViewDataSource {
 extension AlbumsTableViewCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        guard self.albums != nil else { return }
         
-        let albums = self.albums![0].data![indexPath.row]
+        let albums = self.albums[indexPath.row]
         
         delegate?.didSelectAlbumsItem(albums: albums, indexPath: indexPath)
 

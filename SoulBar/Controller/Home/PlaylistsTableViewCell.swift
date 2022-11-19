@@ -20,11 +20,13 @@ class PlaylistsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var playlistsCollectionView: UICollectionView!
     
-    var playlists: [PlaylistsCharts]?
+    var playlists = [PlaylistsChartsInfo]()
     
     var playlistsNext: String?
     
     var delegate: PlaylistsDelegate?
+    
+    var isLoading = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,14 +49,18 @@ class PlaylistsTableViewCell: UITableViewCell {
         
         MusicManager.sharedInstance.fetchPlaylistsCharts { result in
             
-            self.playlists = result
+            guard let data = result[0].data else { return }
             
-            self.playlists!.forEach { playlist in
-
-                self.playlistsNext = playlist.next
-
-                self.loadDataWithGroup()
-
+            self.playlists = data
+            
+            if let next = result[0].next {
+                
+                self.playlistsNext = next
+            }
+            else {
+                
+                self.playlistsNext = nil
+                
             }
             
             DispatchQueue.main.async {
@@ -71,7 +77,7 @@ class PlaylistsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func loadDataWithGroup() {
+    func loadMoreData() {
         
         let semaphore = DispatchSemaphore(value: 1)
         
@@ -79,41 +85,47 @@ class PlaylistsTableViewCell: UITableViewCell {
         
         queue.async {
 
-            while !self.playlistsNext!.isEmpty {
+            if let next = self.playlistsNext {
+                
+                guard !self.playlists.isEmpty else { return }
 
                 semaphore.wait()
+                
+                MusicManager.sharedInstance.fetchPlaylistsCharts(inNext: next) { result in
 
-                MusicManager.sharedInstance.fetchPlaylistsCharts(inNext: self.playlistsNext!) { result in
-
-                    self.playlists! += result
+                    guard let data = result[0].data else { return }
                     
-                    guard let playlistsNext = result[0].next else {
-
-                        return
-                    }
+                    self.playlists += data
                     
-                    self.playlistsNext = playlistsNext
-
+                    self.playlistsNext = result[0].next
+                    
                     semaphore.signal()
                     
                     DispatchQueue.main.async {
-
+                        
                         self.playlistsCollectionView.reloadData()
+                        
+                        self.isLoading = false
                     }
-
                 }
             }
         }
-
     }
-    
 }
 
 extension PlaylistsTableViewCell: UICollectionViewDataSource {
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if indexPath.row == playlists.count - 1 && !self.isLoading {
+
+            self.loadMoreData()
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return playlists?.count ?? 0
+        return playlists.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -123,19 +135,7 @@ extension PlaylistsTableViewCell: UICollectionViewDataSource {
             fatalError("Cannot create collection view")
         }
         
-        guard let playlists = self.playlists else {
-            
-            return UICollectionViewCell()
-            
-        }
-        
         cell.playlistImage.kf.indicatorType = .activity
-        
-        guard let playlists = playlists[0].data else {
-            
-            return UICollectionViewCell()
-            
-        }
             
         if let name = playlists[indexPath.row].attributes?.name, let artworkURL = playlists[indexPath.row].attributes?.artwork?.url, let width = playlists[indexPath.row].attributes?.artwork?.width, let height = playlists[indexPath.row].attributes?.artwork?.height {
             
@@ -155,10 +155,10 @@ extension PlaylistsTableViewCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if let playlists = self.playlists?[0].data {
-            
-            delegate?.didSelectPlaylistsItem(playlists: playlists[indexPath.row], indexPath: indexPath)
-        }
+        let playlist = self.playlists[indexPath.row]
+        
+        delegate?.didSelectPlaylistsItem(playlists: playlist, indexPath: indexPath)
+        
     }
     
 }
