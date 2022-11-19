@@ -166,6 +166,7 @@ class PlaySongManager: NSObject {
             if player.timeControlStatus == .paused {
     
                 self.player.removeTimeObserver(observer)
+                
                 self.timeObserver = nil
             }
         }
@@ -335,6 +336,8 @@ class PlaySongManager: NSObject {
                 
                 self.setupNowPlaying()
                 
+                NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
+                
                 return .success
             }
             return .commandFailed
@@ -357,6 +360,8 @@ class PlaySongManager: NSObject {
                 self.currentTime = time
                 
                 self.player.pause()
+                
+                NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
                 
                 return .success
 

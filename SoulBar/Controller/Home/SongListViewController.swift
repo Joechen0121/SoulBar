@@ -584,7 +584,6 @@ class SongListViewController: UIViewController {
             playSongVC.modalPresentationStyle = .fullScreen
             
             present(playSongVC, animated: true)
-            //self.navigationController?.pushViewController(playSongVC, animated: true)
         }
     }
     

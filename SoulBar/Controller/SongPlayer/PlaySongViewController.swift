@@ -34,28 +34,6 @@ class PlaySongViewController: UIViewController {
     @IBOutlet weak var songImageWidthConstraint:
     NSLayoutConstraint!
     
-    var songs: [SongsSearchInfo]?
-    
-    var currentItemIndex: Int = 0
-    
-    var previousItemIndex: Int = 0
-    
-    var nextItemIndex: Int = 0
-    
-    var playerLooper: AVPlayerLooper?
-    
-    var isMusicPlaying = false
-    
-    var currentTime: Double = 0
-    
-    var isFavorite = false
-    
-    var status: PlayState = .pause
-    
-    var rule: PlayRule = .loop
-    
-    var sliderTrackLayer = CAGradientLayer()
-    
     @IBOutlet weak var songImageHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var songImageTopConstraint: NSLayoutConstraint!
@@ -69,6 +47,26 @@ class PlaySongViewController: UIViewController {
     @IBOutlet weak var volumeSilder: UISlider!
     
     @IBOutlet weak var sharedView: UIImageView!
+    
+    var songs: [SongsSearchInfo]?
+    
+    var currentItemIndex: Int = 0
+    
+    var previousItemIndex: Int = 0
+    
+    var nextItemIndex: Int = 0
+    
+    var playerLooper: AVPlayerLooper?
+    
+    var currentTime: Double = 0
+    
+    var isFavorite = false
+    
+    var status: PlayState = .pause
+    
+    var rule: PlayRule = .loop
+    
+    var sliderTrackLayer = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +122,6 @@ class PlaySongViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(#function)
         
         guard let songs = songs, !songs.isEmpty else {
             return
@@ -173,10 +170,14 @@ class PlaySongViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        PlaySongManager.sharedInstance.removeTimeObserve()
+        //PlaySongManager.sharedInstance.removeTimeObserve()
     }
     
     @IBAction func playVideoButton(_ sender: UIButton) {
+        
+        PlaySongManager.sharedInstance.pauseMusic()
+        
+        playPauseImage.image = UIImage(named: "play.fill")
         
         if let videoVC = self.storyboard?.instantiateViewController(withIdentifier: PlayVideoViewController.storyboardID) as? PlayVideoViewController {
             

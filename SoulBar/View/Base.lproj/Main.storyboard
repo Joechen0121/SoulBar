@@ -1316,7 +1316,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qNE-kc-EQd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="7BV-cO-yBW" kind="relationship" relationship="viewControllers" id="QqM-uT-6O3"/>
@@ -1334,9 +1333,7 @@
         <scene sceneID="zD1-23-Xht">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7BV-cO-yBW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="homekit" catalog="system" id="RH9-1X-6Wf">
-                        <color key="badgeColor" systemColor="systemBackgroundColor"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" image="tab0" id="RH9-1X-6Wf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1aF-gM-u9A">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1358,7 +1355,7 @@
         <scene sceneID="BO9-GS-3zB">
             <objects>
                 <navigationController id="Ywh-au-ijP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="character.book.closed.fill" catalog="system" id="T0P-zZ-jvv">
+                    <tabBarItem key="tabBarItem" title="" image="tab1" id="T0P-zZ-jvv">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="D23-zM-kjT">
@@ -1380,7 +1377,7 @@
         <scene sceneID="gVj-Ns-Nhi">
             <objects>
                 <navigationController id="JVS-8p-Iyg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" id="S9s-c8-oAi"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab2" selectedImage="tab2" id="S9s-c8-oAi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MjS-h6-AKt">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1397,7 +1394,7 @@
         <scene sceneID="goJ-bZ-M7d">
             <objects>
                 <navigationController id="NTe-YY-dLc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="music.quarternote.3" catalog="system" id="4I5-56-51n"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab3" id="4I5-56-51n"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Drm-0T-eyS">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1414,7 +1411,7 @@
         <scene sceneID="fi4-jj-pDX">
             <objects>
                 <navigationController id="ySv-bt-pVp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="person.fill" catalog="system" id="uTi-Tu-GJq"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab4" id="uTi-Tu-GJq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="6XQ-GW-ZHm">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2214,29 +2211,24 @@
     </designables>
     <resources>
         <image name="SoulBar" width="1776" height="996"/>
-        <image name="character.book.closed.fill" catalog="system" width="115" height="128"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="clear" catalog="system" width="128" height="114"/>
         <image name="heart" width="3072" height="3072"/>
         <image name="heart.circle" catalog="system" width="128" height="121"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
-        <image name="homekit" catalog="system" width="128" height="106"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="link.circle" catalog="system" width="128" height="121"/>
         <image name="location" catalog="system" width="128" height="118"/>
         <image name="loveLogo" width="1024" height="1024"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="mic.fill" catalog="system" width="108" height="128"/>
         <image name="music" width="128" height="128"/>
         <image name="music.house" catalog="system" width="128" height="106"/>
         <image name="music.note.list" catalog="system" width="128" height="115"/>
-        <image name="music.quarternote.3" catalog="system" width="128" height="103"/>
         <image name="next" width="1024" height="1024"/>
         <image name="notify" width="1024" height="1024"/>
         <image name="paperplane" catalog="system" width="128" height="118"/>
         <image name="person.2.circle" catalog="system" width="128" height="121"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
-        <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="play.fill" width="2048" height="2048"/>
         <image name="play.fill.bk" width="2048" height="2048"/>
         <image name="play.tv.fill" catalog="system" width="128" height="97"/>
@@ -2247,6 +2239,11 @@
         <image name="searchLogo" width="2048" height="2048"/>
         <image name="shared" width="2048" height="2048"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
+        <image name="tab0" width="30" height="30"/>
+        <image name="tab1" width="30" height="30"/>
+        <image name="tab2" width="48" height="48"/>
+        <image name="tab3" width="30" height="30"/>
+        <image name="tab4" width="30" height="30"/>
         <image name="volume.1.fill" catalog="system" width="128" height="108"/>
         <image name="volume.2.fill" catalog="system" width="128" height="90"/>
         <image name="welcome" width="3552" height="1992"/>

@@ -60,6 +60,8 @@ class SearchDetailsViewController: UIViewController {
     
     var artists = [ArtistsSearchInfo]()
     
+    var isRecognizing = false
+    
     @IBOutlet weak var buttonStackView: UIStackView!
     
     var buttonTag = 0
@@ -85,16 +87,11 @@ class SearchDetailsViewController: UIViewController {
         
         let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
         
-        longGesture.minimumPressDuration = 1
+        longGesture.minimumPressDuration = 0.5
         
         voiceRecogniztion.addTarget(self, action: #selector(shortPressed), for: .touchUpInside)
-        //let shortGesture = UITapGestureRecognizer(target: self, action: #selector(shortPressed))
-        
-        //shortGesture.numberOfTapsRequired = 1
         
         voiceRecogniztion.addGestureRecognizer(longGesture)
-        
-        //voiceRecogniztion.addGestureRecognizer(shortGesture)
         
         voiceRecogniztion.isUserInteractionEnabled = true
         
@@ -139,6 +136,8 @@ class SearchDetailsViewController: UIViewController {
             voiceRecogniztion.tintColor = .red
             
             startRecording()
+            
+            isRecognizing = true
         }
         else if sender.state == UILongPressGestureRecognizer.State.ended {
             
@@ -149,6 +148,10 @@ class SearchDetailsViewController: UIViewController {
             audioEngine.stop()
             
             recognitionRequest?.endAudio()
+            
+            guard let text = searchTextField.text else { return }
+            
+            fetchMusicData(buttonTag: buttonTag, text: text)
         }
     }
     

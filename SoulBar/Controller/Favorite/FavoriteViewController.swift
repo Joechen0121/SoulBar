@@ -21,6 +21,8 @@ class FavoriteViewController: UIViewController {
     
     var favoriteListsInfo: [FirebaseFavoriteListData] = []
     
+    var activityIndicatorView = UIActivityIndicatorView()
+    
     private let imageView = UIImageView(image: UIImage(systemName: "plus"))
     
     override func viewDidLoad() {
@@ -54,7 +56,7 @@ class FavoriteViewController: UIViewController {
         favoritePlaylistInfo = []
         
         favoriteAlbumsInfo = []
-        
+    
         showImage(false)
     }
     
@@ -76,7 +78,8 @@ class FavoriteViewController: UIViewController {
             imageView.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -K.ImageRightMargin),
             imageView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -K.ImageBottomMarginForLargeState),
             imageView.heightAnchor.constraint(equalToConstant: K.ImageSizeForLargeState),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)])
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+        ])
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addListButton))
         
@@ -118,10 +121,80 @@ class FavoriteViewController: UIViewController {
         super.viewWillAppear(animated)
 
         showImage(true)
+        
+        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        
+        activityIndicatorView.tintColor = .black
+        
+        activityIndicatorView.center = self.view.center
+        
+        self.view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.startAnimating()
+        
+        activityIndicatorView.isHidden = false
+        
+        loadWithGroup()
 
-        setupFavoriteAlbums()
-        setupFavoritePlaylists()
-        setupFavoriteLists()
+    }
+    
+    func loadWithGroup() {
+        
+        let group = DispatchGroup()
+        
+        let queue = DispatchQueue.global()
+        
+        queue.async(group: group) {
+            
+            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.albums) { result in
+
+                result.id.forEach { id in
+                    
+                    group.enter()
+                    
+                    MusicManager.sharedInstance.fetchAlbumsCharts(with: id) { tracks in
+                        
+                        self.favoriteAlbumsInfo.append(tracks)
+                        
+                        group.leave()
+                    }
+                }
+                
+                FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.playlists) { result in
+                    
+                    result.id.forEach { id in
+                        
+                        group.enter()
+                        
+                        MusicManager.sharedInstance.fetchPlaylistsCharts(with: id) { playlist in
+                            
+                            self.favoritePlaylistInfo.append(playlist)
+                            
+                            group.leave()
+                        }
+                    }
+                    
+                    FirebaseFavoriteManager.sharedInstance.fetchFavoriteListData { result in
+                        
+                        self.favoriteListsInfo = result
+                        
+                        group.notify(queue: .main) {
+                            
+                            print("Complete")
+                            
+                            DispatchQueue.main.async {
+                                
+                                self.favoriteListTableView.reloadData()
+                                
+                                self.activityIndicatorView.stopAnimating()
+                                
+                                self.activityIndicatorView.isHidden = true
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func setupFavoriteAlbums() {
@@ -205,7 +278,6 @@ extension FavoriteViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        
         switch FavoriteType(rawValue: section) {
         
         case .FavSongs:
@@ -225,7 +297,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
         case .FavAlbums:
             
-            guard !self.favoriteAlbumsInfo.isEmpty else { return UIView() }
+            // guard !self.favoriteAlbumsInfo.isEmpty else { return nil }
         
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
@@ -242,7 +314,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
         case .FavPlaylists:
             
-            guard !self.favoritePlaylistInfo.isEmpty else { return UIView() }
+            // guard !self.favoritePlaylistInfo.isEmpty else { return nil }
             
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
@@ -259,7 +331,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
         case .FavLists:
             
-            guard !self.favoriteListsInfo.isEmpty else { return UIView() }
+            // guard !self.favoriteListsInfo.isEmpty else { return nil }
             
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
             
@@ -276,7 +348,7 @@ extension FavoriteViewController: UITableViewDataSource {
             
         default:
             
-            return UIView()
+            return nil
             
         }
         
@@ -334,7 +406,7 @@ extension FavoriteViewController: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
+    
         return 4
     }
     

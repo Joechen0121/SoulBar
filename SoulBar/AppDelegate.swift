@@ -23,6 +23,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        UITabBar.appearance().barTintColor = K.Colors.customRed
+        
+        UITabBar.appearance().isTranslucent = true
+        
+        if #available(iOS 15.0, *) {
+            
+            let appearance = UITabBarAppearance()
+            
+            appearance.configureWithOpaqueBackground()
+            
+            appearance.backgroundColor = K.Colors.customRed
+            
+            UITabBar.appearance().standardAppearance = appearance
+            
+            UITabBar.appearance().scrollEdgeAppearance = UITabBar.appearance().standardAppearance
+        }
+        
         UINavigationBar.appearance().barTintColor = UIColor.white
 
         UINavigationBar.appearance().tintColor = UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)
