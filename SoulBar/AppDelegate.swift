@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import FirebaseCore
 import IQKeyboardManagerSwift
+import YoutubeKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        UITabBar.appearance().barTintColor = K.Colors.customRed
+        
+        UITabBar.appearance().isTranslucent = true
+        
+        if #available(iOS 15.0, *) {
+            
+            let appearance = UITabBarAppearance()
+            
+            appearance.configureWithOpaqueBackground()
+            
+            appearance.backgroundColor = K.Colors.customRed
+            
+            UITabBar.appearance().standardAppearance = appearance
+            
+            UITabBar.appearance().scrollEdgeAppearance = UITabBar.appearance().standardAppearance
+        }
+        
         UINavigationBar.appearance().barTintColor = UIColor.white
 
         UINavigationBar.appearance().tintColor = UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)
@@ -29,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)]
 
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 246 / 255.0, green: 83 / 255.0, blue: 103 / 255.0, alpha: 1.0)]
+        
+        YoutubeKit.shared.setAPIKey("AIzaSyClrbLXP8jCneoelOAcq2VACJa0mTwbJLY")
         
         return true
     }
@@ -46,6 +66,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
 
 }

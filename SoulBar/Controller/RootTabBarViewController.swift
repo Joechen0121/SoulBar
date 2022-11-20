@@ -10,13 +10,13 @@ import AVFoundation
 
 class RootTabBarViewController: UITabBarController {
     
-    var miniPlayer: MiniPlayerViewController = {
+    lazy var miniPlayer: MiniPlayerViewController = {
         let vc = MiniPlayerViewController()
         vc.view.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
     
-    var containerView: UIView = {
+    lazy var containerView: UIView = {
         let uiView = UIView()
         uiView.translatesAutoresizingMaskIntoConstraints = false
         return uiView
@@ -24,6 +24,8 @@ class RootTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.delegate = self
 
         miniPlayer.delegate = self
         
@@ -34,6 +36,7 @@ class RootTabBarViewController: UITabBarController {
         if PlaySongManager.sharedInstance.player.status == AVPlayer.Status.readyToPlay {
             
             miniPlayer.view.isHidden = false
+        
         }
         else {
             
@@ -58,6 +61,8 @@ class RootTabBarViewController: UITabBarController {
     @objc func updateMiniPlayerView() {
         
         miniPlayer.view.isHidden = false
+        
+        miniPlayer.view.alpha = 1
         
         updateMiniPlayerUI()
     }
@@ -120,6 +125,30 @@ class RootTabBarViewController: UITabBarController {
     
     }
 }
+
+extension RootTabBarViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+        if let viewControllers = tabBarController.viewControllers {
+            if viewController == viewControllers[3] || viewController == viewControllers[4] {
+
+                if KeychainManager.sharedInstance.id == nil {
+                    
+                    if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                        
+                        authVC.modalPresentationStyle = .overCurrentContext
+                        self.present(authVC, animated: false)
+                        
+                        return false
+                        
+                    }
+                }
+            }
+        }
+        return true
+    }
+}
+
 
 extension RootTabBarViewController: MiniPlayerDelegate {
     

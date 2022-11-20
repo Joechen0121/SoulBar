@@ -11,22 +11,24 @@ import FirebaseFirestore
 
 class FirebaseUserManager {
     
-    func addUserData(uuid: String, email: String, name: String) {
-     
-        let user = Firestore.firestore().collection("user")
+    static let sharedInstance = FirebaseUserManager()
+    
+    func addUserData(id: String, email: String, name: String, completion: @escaping () -> Void) {
         
-        let document = user.document(uuid)
+        let user = Firestore.firestore().collection(K.FStore.user)
+        
+        let document = user.document(id)
         
         let data: [String: Any] = [
             
-            "uuid": uuid,
+            "id": id,
             
             "email": email,
             
             "name": name
         ]
         
-        user.whereField("uuid", isEqualTo: uuid).getDocuments { snapshot, error in
+        user.whereField("id", isEqualTo: id).getDocuments { snapshot, error in
             
             guard let snapshot = snapshot else { return }
             
@@ -42,33 +44,41 @@ class FirebaseUserManager {
                 
                 document?.reference.updateData(data)
             }
+            
+            completion()
         }
     }
     
-    func fetchUserData(uuid: String) {
+    func fetchUserData(completion: @escaping ([FirebaseUserData]) -> Void) {
         
-        let user = Firestore.firestore().collection("user")
+        let user = Firestore.firestore().collection(K.FStore.user)
         
         user.getDocuments { snapshot, error in
             
             guard let snapshot = snapshot else { return }
             
+            var dataPath: [FirebaseUserData] = []
+            
             snapshot.documents.forEach { snapshot in
-                
+
                 guard let data = try? snapshot.data(as: FirebaseUserData.self) else { return }
+                
+                dataPath.append(data)
                 
                 print(data)
                 
             }
+            
+            completion(dataPath)
         }
         
     }
     
-    func removeUserData(uuid: String) {
+    func removeUserData(id: String) {
         
-        let user = Firestore.firestore().collection("user")
+        let user = Firestore.firestore().collection(K.FStore.user)
         
-        let document = user.document(uuid)
+        let document = user.document(id)
         
         document.delete { err in
             if let err = err {

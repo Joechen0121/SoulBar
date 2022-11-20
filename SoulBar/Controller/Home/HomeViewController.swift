@@ -16,6 +16,8 @@ class HomeViewController: UIViewController {
         case hotAlbums
         
         case hotPlaylist
+        
+        case recommend
     }
     
     @IBOutlet weak var homeTableView: UITableView!
@@ -29,7 +31,6 @@ class HomeViewController: UIViewController {
         
         homeTableView.delegate = self
         
-        homeTableView.rowHeight = UITableView.automaticDimension
         homeTableView.rowHeight = UIScreen.main.bounds.height / 3.5
         
         homeTableView.separatorStyle = .none
@@ -37,6 +38,8 @@ class HomeViewController: UIViewController {
         homeTableView.register(UINib.init(nibName: AlbumsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: AlbumsTableViewCell.identifier)
         
         homeTableView.register(UINib.init(nibName: PlaylistsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: PlaylistsTableViewCell.identifier)
+        
+        homeTableView.register(UINib.init(nibName: RecommendTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: RecommendTableViewCell.identifier)
         
         //configureNavigationButton()
         
@@ -143,7 +146,7 @@ extension HomeViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -182,6 +185,18 @@ extension HomeViewController: UITableViewDataSource {
                 fatalError("Cannot create table view cell")
 
             }
+            cell.delegate = self
+            
+            return cell
+            
+        case .recommend:
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecommendTableViewCell.identifier, for: indexPath) as? RecommendTableViewCell else {
+                
+                fatalError("Cannot create table view cell")
+
+            }
+            
             cell.delegate = self
             
             return cell
@@ -226,6 +241,24 @@ extension HomeViewController: SongsDelegate {
     }
 }
 
+extension HomeViewController: RecommendDelegate {
+    
+    func didSelectRecommendItem(songs: SongsChartsInfo, indexPath: IndexPath) {
+        
+        if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
+
+            MusicManager.sharedInstance.fetchSong(with: songs.id) { result in
+                
+                playSongVC.songs = result
+                
+                playSongVC.modalPresentationStyle = .fullScreen
+                
+                self.present(playSongVC, animated: true)
+            }
+        }
+    }
+}
+
 
 extension HomeViewController: AlbumsDelegate {
     
@@ -252,7 +285,7 @@ extension HomeViewController: UITableViewDelegate {
             label.text = "Hot Songs"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .white
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
@@ -265,7 +298,7 @@ extension HomeViewController: UITableViewDelegate {
             label.text = "Hot Albums"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .white
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
@@ -278,20 +311,46 @@ extension HomeViewController: UITableViewDelegate {
             label.text = "Hot Playlists"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .white
+            headerView.backgroundColor = .systemBackground
+            
+            headerView.addSubview(label)
+            
+            return headerView
+            
+        case 3:
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+            
+            let label = UILabel()
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.text = "Recommend For You"
+            label.font = UIFont.boldSystemFont(ofSize: 20)
+            label.textColor = .black
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
             return headerView
         default:
-            
-            return UIView()
+
+            return nil
  
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UIScreen.main.bounds.height / 15
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.section == 3 {
+
+            return UIScreen.main.bounds.height / 2
+        }
+        else {
+
+            return UIScreen.main.bounds.height / 3.5
+        }
     }
 }
 

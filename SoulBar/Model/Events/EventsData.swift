@@ -58,15 +58,15 @@ struct MusicEvents: Codable {
 
 struct ShowInfo: Codable {
     
-    let time: String
+    let time: String?
     
-    let location: String
+    let location: String?
     
-    let locationName: String
+    let locationName: String?
     
-    let onSales: String
+    let onSales: String?
     
-    let price: String
+    let price: String?
     
     let latitude: String?
     

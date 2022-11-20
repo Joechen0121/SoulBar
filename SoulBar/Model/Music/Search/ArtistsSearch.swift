@@ -68,7 +68,7 @@ struct ArtistsSearchAttributes: Codable {
 
 struct ArtistsRelationships: Codable {
     
-    let albums: ArtistsAlbums
+    let albums: ArtistsAlbums?
     
 }
 
@@ -78,7 +78,7 @@ struct ArtistsAlbums: Codable {
     
     let next: String?
     
-    let data: [ArtistsAlbumsData]
+    let data: [ArtistsAlbumsData]?
     
 }
 

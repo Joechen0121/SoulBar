@@ -22,12 +22,12 @@ class ProfileViewController: UIViewController {
         case Blacklists
         
     }
-
+    
+    @IBOutlet weak var profileName: UILabel!
+    
     @IBOutlet weak var profileTableView: UITableView!
     
     @IBOutlet weak var prfileViewHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var logoutViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var logoutButton: UIButton!
     
@@ -44,15 +44,84 @@ class ProfileViewController: UIViewController {
         
         profileTableView.rowHeight = UIScreen.main.bounds.height / 10
         
-        logoutViewHeightConstraint.constant = UIScreen.main.bounds.height / 15
-        
         logoutButton.layer.masksToBounds = true
         
         logoutButton.layer.cornerRadius = logoutButton.frame.height / 2
         
         logoutButton.backgroundColor = K.Colors.customRed
-    }
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if KeychainManager.sharedInstance.id == nil {
+            
+            if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                self.present(authVC, animated: false)
+            }
+        }
+        
+        if let name = KeychainManager.sharedInstance.name {
+            
+            DispatchQueue.main.async {
+                
+                self.profileName.text = name
+            }
+            
+        }
+    }
+    
+    @IBAction func logoutButton(_ sender: UIButton) {
+        
+        print("logout")
+        
+        let title = "Sign Out?"
+        let message = "Are You Sure To Do That?"
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Log Out", style: .default, handler: { _ in
+            self.confirmLogOut(logOut: true)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
+            self.confirmLogOut(logOut: false)
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+
+    }
+    
+    func confirmLogOut(logOut: Bool) {
+        
+        switch logOut {
+            
+        case true:
+
+            KeychainManager.sharedInstance.removeID()
+                
+            KeychainManager.sharedInstance.removeUsername()
+            
+            goToRootOfTab(index: 0)
+            
+        case false:
+            print("Nothing Happened for now")
+        }
+    }
+    
+    func goToRootOfTab(index: Int) {
+        
+        self.navigationController?.popToRootViewController(animated: true)
+        
+        if let tab = self.tabBarController {
+            
+            tab.selectedIndex = index
+        }
+    }
+    
 }
 
 extension ProfileViewController: UITableViewDataSource {
@@ -94,6 +163,10 @@ extension ProfileViewController: UITableViewDelegate {
         case .MyEvent:
             
             print("myevent")
+            if let eventVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileEventsViewController.storyboardID) as? ProfileEventsViewController {
+                
+                self.navigationController?.pushViewController(eventVC, animated: true)
+            }
             
         case .LikedArtists:
             

@@ -225,7 +225,7 @@ class SongListViewController: UIViewController {
                 
                 self.artistAlbums = result
                 
-                guard let data = result[0].relationships?.albums.data else { return }
+                guard let data = result[0].relationships?.albums?.data else { return }
                 
                 self.artistAlbumsData = data
                 
@@ -285,7 +285,6 @@ class SongListViewController: UIViewController {
                 
                 print("Unknown state for configuring song data")
             }
-            print(playSongVC.songs)
             
             playSongVC.modalPresentationStyle = .fullScreen
             
@@ -294,6 +293,14 @@ class SongListViewController: UIViewController {
     }
     
     @objc func addToFavorite() {
+        
+        if KeychainManager.sharedInstance.id == nil {
+            let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
+            authVC.modalPresentationStyle = .overCurrentContext
+            self.present(authVC, animated: false)
+            
+            return
+        }
         
         if isFavorite {
             
@@ -414,6 +421,8 @@ class SongListViewController: UIViewController {
     }
     
     func configureButton() {
+        
+        if KeychainManager.sharedInstance.id == nil { return }
         
         switch state {
             
@@ -575,7 +584,6 @@ class SongListViewController: UIViewController {
             playSongVC.modalPresentationStyle = .fullScreen
             
             present(playSongVC, animated: true)
-            //self.navigationController?.pushViewController(playSongVC, animated: true)
         }
     }
     

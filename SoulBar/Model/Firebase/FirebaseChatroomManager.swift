@@ -65,13 +65,13 @@ class FirebaseChatroomManager {
         }
     }
     
-    func addChatroomMembersData(chatroomID: String, uuid: String) {
+    func addChatroomMembersData(chatroomID: String, id: String) {
         
         let document = chatroomDB.document(chatroomID).collection("members").document()
 
         let data: [String: Any] = [
 
-            "members": uuid
+            "members": id
 
         ]
 

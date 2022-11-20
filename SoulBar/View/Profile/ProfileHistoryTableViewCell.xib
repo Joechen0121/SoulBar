@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="879" id="KGk-i7-Jjw" customClass="ProfileHistoryTableViewCell" customModule="SoulBar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="978" height="879"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="978" height="879"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nSb-9X-Ie0">
+                        <rect key="frame" x="8" y="8" width="896" height="896"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="nSb-9X-Ie0" secondAttribute="height" id="bHT-Ir-oiY"/>
+                            <constraint firstAttribute="width" constant="100" id="e88-oG-8b8"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMR-EU-eRO">
+                        <rect key="frame" x="924" y="853" width="34" height="20"/>
+                        <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcq-mE-DdD">
+                        <rect key="frame" x="924" y="40" width="32" height="18.5"/>
+                        <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wQ-Mi-JZn">
+                        <rect key="frame" x="924" y="10" width="44" height="20"/>
+                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="nSb-9X-Ie0" secondAttribute="bottom" constant="8" id="60E-nQ-Awh"/>
+                    <constraint firstAttribute="trailing" secondItem="bMR-EU-eRO" secondAttribute="trailing" constant="20" id="77V-QW-e89"/>
+                    <constraint firstItem="nSb-9X-Ie0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="8QH-Tw-dac"/>
+                    <constraint firstItem="wcq-mE-DdD" firstAttribute="leading" secondItem="nSb-9X-Ie0" secondAttribute="trailing" constant="20" id="BV6-qV-kQt"/>
+                    <constraint firstItem="bMR-EU-eRO" firstAttribute="leading" secondItem="nSb-9X-Ie0" secondAttribute="trailing" constant="20" id="Bld-E9-kxq"/>
+                    <constraint firstItem="wcq-mE-DdD" firstAttribute="top" secondItem="4wQ-Mi-JZn" secondAttribute="bottom" constant="10" id="DIT-Os-FkU"/>
+                    <constraint firstItem="4wQ-Mi-JZn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="TQl-K1-4VW"/>
+                    <constraint firstAttribute="trailing" secondItem="4wQ-Mi-JZn" secondAttribute="trailing" constant="10" id="ViG-2A-Ott"/>
+                    <constraint firstItem="bMR-EU-eRO" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="nSb-9X-Ie0" secondAttribute="bottom" id="Ycx-T5-Zbk"/>
+                    <constraint firstItem="nSb-9X-Ie0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="ZMr-So-UJZ"/>
+                    <constraint firstItem="4wQ-Mi-JZn" firstAttribute="leading" secondItem="nSb-9X-Ie0" secondAttribute="trailing" constant="20" id="aJU-pK-r4L"/>
+                    <constraint firstItem="bMR-EU-eRO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wcq-mE-DdD" secondAttribute="bottom" id="nes-sa-GI9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="artist" destination="wcq-mE-DdD" id="tgX-Nt-U5b"/>
+                <outlet property="imageWidthConstraint" destination="e88-oG-8b8" id="jMf-BR-wUm"/>
+                <outlet property="songImage" destination="nSb-9X-Ie0" id="gts-7s-P8C"/>
+                <outlet property="songName" destination="4wQ-Mi-JZn" id="hcX-vI-qTr"/>
+                <outlet property="time" destination="bMR-EU-eRO" id="nBP-12-wa3"/>
+            </connections>
+            <point key="canvasLocation" x="608.69565217391312" y="354.57589285714283"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -7,6 +7,7 @@
 
 import UIKit
 import TransitionButton
+import Speech
 
 class SearchDetailsViewController: UIViewController {
     
@@ -32,7 +33,7 @@ class SearchDetailsViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     
     @IBOutlet weak var searchDetailsTableView: UITableView!
-
+    
     @IBOutlet weak var allButton: TransitionButton!
     
     @IBOutlet weak var artistButton: TransitionButton!
@@ -40,6 +41,17 @@ class SearchDetailsViewController: UIViewController {
     @IBOutlet weak var songButton: TransitionButton!
     
     @IBOutlet weak var albumButton: TransitionButton!
+    
+    @IBOutlet weak var voiceRecogniztion: UIButton!
+    
+    private var speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))!
+    
+    private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+    
+    private var recognitionTask: SFSpeechRecognitionTask?
+    
+    private let audioEngine = AVAudioEngine()
+    
     static let storyboardID = "SearchDetailsVC"
     
     var songs = [SongsSearchInfo]()
@@ -48,18 +60,22 @@ class SearchDetailsViewController: UIViewController {
     
     var artists = [ArtistsSearchInfo]()
     
+    var isRecognizing = false
+    
     @IBOutlet weak var buttonStackView: UIStackView!
     
     var buttonTag = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         searchDetailsTableView.dataSource = self
         
         searchDetailsTableView.delegate = self
         
         searchTextField.delegate = self
+        
+        speechRecognizer.delegate = self
         
         searchDetailsTableView.register(UINib.init(nibName: SearchAllResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchAllResultTableViewCell.identifier)
         
@@ -69,6 +85,16 @@ class SearchDetailsViewController: UIViewController {
         
         searchDetailsTableView.register(UINib.init(nibName: SearchAlbumsResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchAlbumsResultTableViewCell.identifier)
         
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        
+        longGesture.minimumPressDuration = 0.5
+        
+        voiceRecogniztion.addTarget(self, action: #selector(shortPressed), for: .touchUpInside)
+        
+        voiceRecogniztion.addGestureRecognizer(longGesture)
+        
+        voiceRecogniztion.isUserInteractionEnabled = true
+        
         configureButton()
         
         configureTextField()
@@ -76,7 +102,131 @@ class SearchDetailsViewController: UIViewController {
         self.navigationItem.title = "Search"
         
         navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
+        
+    }
+    
+    @objc func shortPressed(sender: UIButton) {
+        
+        let alertController = UIAlertController(title: "Voice Recognition", message: "Choose Language", preferredStyle: .alert)
+        
+        let enAction = UIAlertAction(title: "English", style: .default) { _ in
+    
+            self.speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))!
+        }
+        
+        alertController.addAction(enAction)
+        
+        let twAction = UIAlertAction(title: "Chinese", style: .default) { _ in
+        
+            self.speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "zh-TW"))!
+        }
+        
+        alertController.addAction(twAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    @objc func longPressed(sender: UILongPressGestureRecognizer) {
+        
+        if sender.state == UILongPressGestureRecognizer.State.began {
+            
+            print("began")
+            
+            voiceRecogniztion.tintColor = .red
+            
+            startRecording()
+            
+            isRecognizing = true
+        }
+        else if sender.state == UILongPressGestureRecognizer.State.ended {
+            
+            print("end")
+            
+            voiceRecogniztion.tintColor = .black
+            
+            audioEngine.stop()
+            
+            recognitionRequest?.endAudio()
+            
+            guard let text = searchTextField.text else { return }
+            
+            fetchMusicData(buttonTag: buttonTag, text: text)
+        }
+    }
+    
+    func startRecording() {
+        
+        if recognitionTask != nil {
+            
+            recognitionTask?.cancel()
+            
+            recognitionTask = nil
+        }
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try audioSession.setCategory(AVAudioSession.Category.record)
+            
+            try audioSession.setMode(AVAudioSession.Mode.measurement)
+            
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("audioSession properties weren't set because of an error.")
+        }
+        
+        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        
+        let inputNode = audioEngine.inputNode
+        guard let recognitionRequest = recognitionRequest else {
+            fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
+        }
+        
+        recognitionRequest.shouldReportPartialResults = true
+        
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
+            
+            var isFinal = false
+            
+            if result != nil {
+                
+                self.searchTextField.text = result?.bestTranscription.formattedString
+                
+                isFinal = (result?.isFinal)!
+            }
+            
+            if error != nil || isFinal {
+                
+                self.audioEngine.stop()
+                
+                inputNode.removeTap(onBus: 0)
+                
+                self.recognitionRequest = nil
+                
+                self.recognitionTask = nil
+                
+            }
+        })
+        
+        inputNode.removeTap(onBus: 0)
+        
+        let recordingFormat = inputNode.outputFormat(forBus: 0)
+        
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
+            self.recognitionRequest?.append(buffer)
+        }
+        
+        audioEngine.prepare()
+        
+        do {
+            
+            try audioEngine.start()
+            
+        } catch {
+            print("audioEngine couldn't start because of an error.")
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,23 +245,23 @@ class SearchDetailsViewController: UIViewController {
     func configureTextField() {
         
         searchTextField.clearButtonMode = .always
-
+        
         searchTextField.leftViewMode = .always
-
+        
         let searchView = UIImageView(frame: CGRect(x: 10, y: 0, width: 24, height: 24))
         
         let searchImage = UIImage(systemName: "magnifyingglass")
-
+        
         searchView.image = searchImage
         
         searchView.tintColor = .black
         
         searchView.contentMode = .scaleAspectFit
-
+        
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 24))
         
         view.addSubview(searchView)
-
+        
         searchTextField.leftView = view
     }
     
@@ -127,7 +277,7 @@ class SearchDetailsViewController: UIViewController {
         allButton.spinnerColor = .black
         allButton.layer.borderColor = K.Colors.customRed.cgColor
         allButton.layer.borderWidth = 2
-    
+        
         artistButton.backgroundColor = .white
         artistButton.setTitle("Artist", for: .normal)
         artistButton.setTitleColor(K.Colors.customRed, for: .normal)
@@ -167,7 +317,7 @@ class SearchDetailsViewController: UIViewController {
             albumButton.backgroundColor = .white
         }
         else if buttonTag == artistType {
-
+            
             allButton.setTitleColor(K.Colors.customRed, for: .normal)
             allButton.backgroundColor = .white
             artistButton.backgroundColor = K.Colors.customRed
@@ -203,13 +353,13 @@ class SearchDetailsViewController: UIViewController {
     }
     
     @IBAction func searchButton(_ sender: UIButton) {
-
+        
         self.buttonTag = sender.tag
         
         changeButtonColor(buttonTag: sender.tag)
         
         guard let text = searchTextField?.text else {
-
+            
             if buttonTag == allType {
                 
                 allButton.startAnimation()
@@ -238,7 +388,7 @@ class SearchDetailsViewController: UIViewController {
                 }
             }
             else if buttonTag == albumType {
-             
+                
                 albumButton.startAnimation()
                 
                 DispatchQueue.main.async {
@@ -249,7 +399,7 @@ class SearchDetailsViewController: UIViewController {
             
             return
         }
-
+        
         fetchMusicData(buttonTag: buttonTag, text: text)
     }
     
@@ -264,7 +414,7 @@ class SearchDetailsViewController: UIViewController {
                 configureSelectedData(state: artistType, indexPath: indexPath)
                 
             case 1:
-            
+                
                 configureSelectedData(state: songType, indexPath: indexPath)
                 
             case 2:
@@ -279,9 +429,9 @@ class SearchDetailsViewController: UIViewController {
         }
         else if state == artistType {
             if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
-
+                
                 songlistVC.state = 3
-
+                
                 songlistVC.artistID = artists[indexPath.row].id
                 
                 songlistVC.artistInfo = artists[indexPath.row]
@@ -292,13 +442,13 @@ class SearchDetailsViewController: UIViewController {
             }
         }
         else if state == songType {
-
+            
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
                 var response = [SongsSearchInfo]()
                 
                 response.append(songs[indexPath.row])
-                    
+                
                 playSongVC.songs = response
                 
                 playSongVC.modalPresentationStyle = .fullScreen
@@ -308,9 +458,9 @@ class SearchDetailsViewController: UIViewController {
             }
         }
         else if state == albumType {
-
+            
             if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
-
+                
                 songlistVC.state = 2
                 
                 songlistVC.albumID = albums[indexPath.row].id
@@ -318,7 +468,7 @@ class SearchDetailsViewController: UIViewController {
                 songlistVC.albumURL = albums[indexPath.row].attributes?.url
                 
                 songlistVC.albumInfo = albums[indexPath.row]
-
+                
                 self.navigationController?.pushViewController(songlistVC, animated: true)
             }
         }
@@ -403,95 +553,95 @@ extension SearchDetailsViewController: UITableViewDataSource {
             if indexPath.section == 0 {
                 
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAllResultTableViewCell.identifier, for: indexPath) as? SearchAllResultTableViewCell else {
-
+                    
                     fatalError("Cannot create search details cell")
                 }
                 
                 cell.configureCellArtistsData(data: self.artists, indexPath: indexPath)
                 
                 cell.allImage.layer.cornerRadius = UIScreen.main.bounds.height / 7 / 2
-
+                
                 return cell
             }
             else if indexPath.section == 1 {
                 
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAllResultTableViewCell.identifier, for: indexPath) as? SearchAllResultTableViewCell else {
-
+                    
                     fatalError("Cannot create search details cell")
                 }
                 
                 cell.configureCellSongsData(data: self.songs, indexPath: indexPath)
                 
                 cell.allImage.layer.cornerRadius = 0
-
+                
                 return cell
             }
             else if indexPath.section == 2 {
                 
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAllResultTableViewCell.identifier, for: indexPath) as? SearchAllResultTableViewCell else {
-
+                    
                     fatalError("Cannot create search details cell")
                 }
                 
                 cell.configureCellAlbumsData(data: self.albums, indexPath: indexPath)
                 
                 cell.allImage.layer.cornerRadius = 0
-
+                
                 return cell
             }
-
+            
         }
-    
+        
         else if buttonTag == artistType {
-
+            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchArtistsResultTableViewCell.identifier, for: indexPath) as? SearchArtistsResultTableViewCell else {
-
+                
                 fatalError("Cannot create search details cell")
             }
             
             guard !self.artists.isEmpty else {
-
+                
                 return UITableViewCell()
-
+                
             }
             
             cell.configureCellData(data: self.artists, indexPath: indexPath)
-
+            
             return cell
             
         }
         else if buttonTag == songType {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchSongsResultTableViewCell.identifier, for: indexPath) as? SearchSongsResultTableViewCell else {
-
+                
                 fatalError("Cannot create search details cell")
             }
             
             guard !self.songs.isEmpty else {
-
+                
                 return UITableViewCell()
-
+                
             }
             
             cell.configureCellData(data: self.songs, indexPath: indexPath)
-
+            
             return cell
         }
         else if buttonTag == albumType {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAlbumsResultTableViewCell.identifier, for: indexPath) as? SearchAlbumsResultTableViewCell else {
-
+                
                 fatalError("Cannot create search details cell")
             }
             
             guard !self.albums.isEmpty else {
-
+                
                 return UITableViewCell()
-
+                
             }
             
             cell.configureCellData(data: self.albums, indexPath: indexPath)
-
+            
             return cell
         }
         
@@ -510,7 +660,7 @@ extension SearchDetailsViewController: UITextFieldDelegate {
             return
             
         }
-
+        
         fetchMusicData(buttonTag: buttonTag, text: text)
     }
     
@@ -527,7 +677,7 @@ extension SearchDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         configureSelectedData(state: buttonTag, indexPath: indexPath)
-
+        
     }
 }
 
@@ -542,16 +692,16 @@ extension SearchDetailsViewController {
             fetchAllTypes(text: text)
         }
         else if buttonTag == artistType {
-    
+            
             fetchArtists(text: text)
         }
         
         else if buttonTag == songType {
-
+            
             fetchSongs(text: text)
         }
         else if buttonTag == albumType {
-    
+            
             fetchAlbums(text: text)
         }
     }
@@ -575,7 +725,7 @@ extension SearchDetailsViewController {
                     self.albums = []
                     
                     self.albums = albums
-
+                    
                     DispatchQueue.main.async {
                         
                         self.searchDetailsTableView.reloadData()
@@ -630,6 +780,24 @@ extension SearchDetailsViewController {
                 
                 self.searchDetailsTableView.reloadData()
             }
+        }
+    }
+}
+
+extension SearchDetailsViewController: SFSpeechRecognizerDelegate {
+    
+    func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
+        print(available)
+        if available {
+            
+            voiceRecogniztion.tintColor = .red
+            
+        }
+        else {
+            
+            audioEngine.stop()
+            
+            voiceRecogniztion.tintColor = .black
         }
     }
 }

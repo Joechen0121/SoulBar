@@ -12,7 +12,7 @@ import Kingfisher
 class ProfileHistoryViewController: UIViewController {
     
     static let storyboardID = "ProfileHistoryVC"
-
+    
     @IBOutlet weak var songCount: UILabel!
     
     @IBOutlet weak var playImage: UIImageView!
@@ -23,15 +23,17 @@ class ProfileHistoryViewController: UIViewController {
     
     @IBOutlet weak var playButtonWidth: NSLayoutConstraint!
     
+    var activityIndicatorView = UIActivityIndicatorView()
+    
     var history: [FirebaseHistoryPlayData] = []
     
     var songsTracks: [SongsSearchInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         historyTableView.dataSource = self
-
+        
         historyTableView.delegate = self
         
         historyTableView.register(UINib.init(nibName: ProfileHistoryTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileHistoryTableViewCell.identifier)
@@ -52,38 +54,20 @@ class ProfileHistoryViewController: UIViewController {
         
         self.navigationItem.largeTitleDisplayMode = .never
         
-        FirebaseHistoryManager.sharedInstance.fetchHistoryPlayData { result in
-            
-            self.history = result
-            
-            self.history.sort(by: {$0.list.time > $1.list.time})
-            
-            let semaphore = DispatchSemaphore(value: 1)
-            
-            let queue = DispatchQueue.global()
-            
-            self.history.forEach { lists in
-                
-                queue.async {
-                    
-                    semaphore.wait()
-                
-                    MusicManager.sharedInstance.fetchSong(with: lists.list.songID) { result in
+        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        
+        activityIndicatorView.tintColor = .black
+        
+        activityIndicatorView.center = self.view.center
+        
+        self.view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.startAnimating()
+        
+        activityIndicatorView.isHidden = false
+        
+        loadDataWithGroup()
 
-                        self.songsTracks.append(result[0])
-
-                        DispatchQueue.main.async {
-
-                            self.songCount.text = " \(self.songsTracks.count) songs "
-
-                            self.historyTableView.reloadData()
-                        }
-
-                        semaphore.signal()
-                    }
-                }
-            }
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -96,10 +80,67 @@ class ProfileHistoryViewController: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .always
     }
     
+    func loadDataWithGroup() {
+        
+        let group = DispatchGroup()
+        
+        let queue = DispatchQueue.global()
+        
+        queue.async(group: group) {
+            
+            FirebaseHistoryManager.sharedInstance.fetchHistoryPlayData { result in
+                
+                self.history = result
+                
+                self.history.sort(by: {$0.list.time > $1.list.time})
+                
+                let semaphore = DispatchSemaphore(value: 1)
+                
+                let queue = DispatchQueue.global()
+                
+                self.history.forEach { lists in
+                    
+                    group.enter()
+                    
+                    queue.async {
+                        
+                        semaphore.wait()
+                        
+                        MusicManager.sharedInstance.fetchSong(with: lists.list.songID) { result in
+                            
+                            self.songsTracks.append(result[0])
+                            
+                            semaphore.signal()
+                            
+                            group.leave()
+                        }
+                    }
+                }
+                
+                group.notify(queue: .main) {
+                    
+                    print("Complete")
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.songCount.text = " \(self.songsTracks.count) songs "
+                        
+                        self.historyTableView.reloadData()
+                        
+                        self.activityIndicatorView.stopAnimating()
+                        
+                        self.activityIndicatorView.isHidden = true
+                    }
+                }
+            }
+        }
+    }
+    
+    
     @objc func play() {
         
         if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-
+            
             playSongVC.songs = songsTracks
             
             playSongVC.modalPresentationStyle = .fullScreen
@@ -107,7 +148,7 @@ class ProfileHistoryViewController: UIViewController {
             self.present(playSongVC, animated: true)
         }
     }
-
+    
 }
 
 extension ProfileHistoryViewController: UITableViewDataSource {
@@ -122,6 +163,10 @@ extension ProfileHistoryViewController: UITableViewDataSource {
             
             fatalError("Cannot create history cell")
         }
+        
+        guard !songsTracks.isEmpty else { return UITableViewCell() }
+        
+        guard !history.isEmpty else { return UITableViewCell() }
         
         cell.songName.text = songsTracks[indexPath.row].attributes?.name
         cell.artist.text = songsTracks[indexPath.row].attributes?.artistName
@@ -143,7 +188,7 @@ extension ProfileHistoryViewController: UITableViewDataSource {
 }
 
 extension ProfileHistoryViewController: UITableViewDelegate {
- 
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {

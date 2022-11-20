@@ -12,6 +12,8 @@ class ProfileArtistsViewController: UIViewController {
 
     static let storyboardID = "ProfileArtistsVC"
     
+    var activityIndicatorView = UIActivityIndicatorView()
+    
     var artistsID: FirebaseFavoriteData?
     
     var artistsInfo: [ArtistsSearchInfo] = []
@@ -22,6 +24,8 @@ class ProfileArtistsViewController: UIViewController {
         super.viewDidLoad()
 
         artistTableView.dataSource = self
+        
+        artistTableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,24 +35,62 @@ class ProfileArtistsViewController: UIViewController {
         
         self.navigationItem.title = "Liked Artists"
         
-        FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
+        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        
+        activityIndicatorView.tintColor = .black
+        
+        activityIndicatorView.center = self.view.center
+        
+        self.view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.startAnimating()
+        
+        activityIndicatorView.isHidden = false
+        
+        loadDataWithGroup()
 
-            self.artistsID = result
+    }
+    
+    func loadDataWithGroup() {
+        
+        let group = DispatchGroup()
+        
+        let queue = DispatchQueue.global()
+        
+        queue.async(group: group) {
             
-            guard let artistsID = self.artistsID else { return }
-            
-            artistsID.id.forEach { id in
+            FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
+
+                self.artistsID = result
                 
-                MusicManager.sharedInstance.fetchArtist(with: id) { artist in
+                guard let artistsID = self.artistsID else { return }
+                
+                artistsID.id.forEach { id in
+    
+                    group.enter()
                     
-                    self.artistsInfo.append(artist[0])
+                    MusicManager.sharedInstance.fetchArtist(with: id) { artist in
+                        
+                        self.artistsInfo.append(artist[0])
+                     
+                        group.leave()
+                    }
+                    
+                }
+                
+                group.notify(queue: .main) {
+                    
+                    print("Complete")
                     
                     DispatchQueue.main.async {
                         
                         self.artistTableView.reloadData()
+                        
+                        self.activityIndicatorView.stopAnimating()
+                        
+                        self.activityIndicatorView.isHidden = true
                     }
                 }
-                
             }
         }
     }
@@ -79,6 +121,10 @@ extension ProfileArtistsViewController: UITableViewDataSource {
         
         cell.artistName.text = self.artistsInfo[indexPath.row].attributes?.name
         
+        cell.delegate = self
+
+        cell.indexPath = indexPath
+        
         cell.artistImage.kf.indicatorType = .activity
         
         if let artworkURL = artistsInfo[indexPath.row].attributes?.artwork?.url, let width = artistsInfo[indexPath.row].attributes?.artwork?.width, let height = artistsInfo[indexPath.row].attributes?.artwork?.height {
@@ -90,5 +136,44 @@ extension ProfileArtistsViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension ProfileArtistsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+
+            songlistVC.state = 3
+
+            songlistVC.artistID = artistsInfo[indexPath.row].id
+            
+            songlistVC.artistInfo = artistsInfo[indexPath.row]
+            
+            songlistVC.artistURL = artistsInfo[indexPath.row].attributes?.url
+            
+            self.navigationController?.pushViewController(songlistVC, animated: true)
+        }
+    }
+    
+}
+
+extension ProfileArtistsViewController: ProfileArtistsTableViewDelegate {
+    
+    func removeTableViewCell(at indexPath: IndexPath) {
+        
+        guard let artistID = artistsInfo[indexPath.row].id else { return }
+        
+        FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.artists, id: artistID)
+        
+        self.artistsInfo.remove(at: indexPath.row)
+        
+        artistTableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .fade)
+        
+        DispatchQueue.main.async {
+            
+            self.artistTableView.reloadData()
+        }
     }
 }

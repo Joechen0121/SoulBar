@@ -32,6 +32,17 @@ class SearchAlbumsResultTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        albumImage.image = nil
+        
+        albumName.text = ""
+        
+        singerName.text = "''"
+        
+    }
+    
     func configureCellData(data: [AlbumsSearchInfo], indexPath: IndexPath) {
 
         guard !data.isEmpty else { return }
