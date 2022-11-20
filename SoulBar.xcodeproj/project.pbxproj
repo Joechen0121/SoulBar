@@ -107,6 +107,7 @@
 		D8E098A92928D351005971C6 /* RecommendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8E098A72928D351005971C6 /* RecommendCollectionViewCell.xib */; };
 		D8E098AC292A0150005971C6 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E098AA292A0150005971C6 /* RecommendTableViewCell.swift */; };
 		D8E098AD292A0150005971C6 /* RecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8E098AB292A0150005971C6 /* RecommendTableViewCell.xib */; };
+		D8E098AF292A245B005971C6 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E098AE292A245B005971C6 /* LaunchScreenViewController.swift */; };
 		D8EA0EF62922728600514F35 /* AppleAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */; };
 		D8EA0EFD29233F5400514F35 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0EFC29233F5400514F35 /* KeychainManager.swift */; };
 		D8EA0F072924BA0F00514F35 /* ProfileEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F062924BA0F00514F35 /* ProfileEventsViewController.swift */; };
@@ -222,6 +223,7 @@
 		D8E098A72928D351005971C6 /* RecommendCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecommendCollectionViewCell.xib; sourceTree = "<group>"; };
 		D8E098AA292A0150005971C6 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
 		D8E098AB292A0150005971C6 /* RecommendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecommendTableViewCell.xib; sourceTree = "<group>"; };
+		D8E098AE292A245B005971C6 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthViewController.swift; sourceTree = "<group>"; };
 		D8EA0EF7292276E500514F35 /* SoulBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SoulBar.entitlements; sourceTree = "<group>"; };
 		D8EA0EFC29233F5400514F35 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				D8EA0F042923D21100514F35 /* SongPlayer */,
 				D8FABE472919F1450094A77F /* RootTabBarViewController.swift */,
 				D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */,
+				D8E098AE292A245B005971C6 /* LaunchScreenViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -852,6 +855,7 @@
 				D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */,
 				D8EA0F11292682A200514F35 /* PlayVideoViewController.swift in Sources */,
 				D820B92A291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift in Sources */,
+				D8E098AF292A245B005971C6 /* LaunchScreenViewController.swift in Sources */,
 				D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */,
 				D874B98D2917E6890082F2D7 /* ProfileData.swift in Sources */,
 				D837B364291D6532008BE6D0 /* RecognizeErrorViewController.swift in Sources */,

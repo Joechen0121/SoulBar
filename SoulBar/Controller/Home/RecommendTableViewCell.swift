@@ -77,7 +77,7 @@ class RecommendTableViewCell: UITableViewCell {
         
         let width = floor((UIScreen.main.bounds.width - itemSpace * (columnCount - 1)) / columnCount)
         
-        flowlayout.itemSize = CGSize(width: width, height: width)
+        flowlayout.itemSize = CGSize(width: width, height: width + 50)
     
         flowlayout.estimatedItemSize = .zero
         
