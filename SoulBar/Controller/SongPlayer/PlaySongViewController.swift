@@ -515,6 +515,8 @@ extension PlaySongViewController: PlaySongDelegate {
             
         case .PlayerReadyToPlayNotification:
             
+            configureCurrentSong()
+            
             NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
             
         case .PlayerDidToPlayNotification:
