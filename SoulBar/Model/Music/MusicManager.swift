@@ -326,6 +326,68 @@ class MusicManager {
         }
     }
     
+    func fetchSongsCharts(inNext next: String, completion: @escaping ([SongsCharts]) -> Void) {
+        
+        var headers = HTTPHeaders()
+        
+        let nextURL = MusicManager.appleMusicBaseURL + next
+        
+        guard let developerToken = fetchDeveloperToken() else {
+            
+            fatalError("Cannot fetch developer token")
+            
+        }
+        
+        headers = [
+            
+            .authorization(bearerToken: developerToken)
+            
+        ]
+        
+        AF.request(nextURL, method: .get, headers: headers).responseDecodable(of: SongsChartsResponseObject.self) { (response) in
+            if let data = response.value?.results?.songs {
+
+                completion(data)
+
+            }
+            // debugPrint(response)
+        }
+    }
+    
+    func fetchSongsChartsNext(completion: @escaping ([SongsCharts]) -> Void) {
+        
+        var headers = HTTPHeaders()
+        
+        let nextURL = MusicManager.appleMusicChartsBaseURL
+        
+        guard let developerToken = fetchDeveloperToken() else {
+            
+            fatalError("Cannot fetch developer token")
+            
+        }
+        
+        headers = [
+            
+            .authorization(bearerToken: developerToken)
+            
+        ]
+        
+        let param = [
+
+            "types": "songs"
+            
+        ]
+        
+        AF.request(nextURL, method: .get, parameters: param, headers: headers).responseDecodable(of: SongsChartsResponseObject.self) { (response) in
+            if let data = response.value?.results?.songs {
+
+                completion(data)
+
+            }
+            // debugPrint(response)
+        }
+    }
+    
     func fetchAlbumsCharts(with id: String, completion: @escaping ([SongsSearchInfo]) -> Void) {
         
         var headers = HTTPHeaders()

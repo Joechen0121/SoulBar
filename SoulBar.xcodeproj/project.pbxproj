@@ -103,6 +103,10 @@
 		D8A1B97C290C46C6007F6775 /* SongListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1B97B290C46C6007F6775 /* SongListViewController.swift */; };
 		D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */; };
 		D8B528EA29163105004C8D2A /* PlaySongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B528E929163105004C8D2A /* PlaySongManager.swift */; };
+		D8E098A82928D351005971C6 /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E098A62928D351005971C6 /* RecommendCollectionViewCell.swift */; };
+		D8E098A92928D351005971C6 /* RecommendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8E098A72928D351005971C6 /* RecommendCollectionViewCell.xib */; };
+		D8E098AC292A0150005971C6 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E098AA292A0150005971C6 /* RecommendTableViewCell.swift */; };
+		D8E098AD292A0150005971C6 /* RecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8E098AB292A0150005971C6 /* RecommendTableViewCell.xib */; };
 		D8EA0EF62922728600514F35 /* AppleAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */; };
 		D8EA0EFD29233F5400514F35 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0EFC29233F5400514F35 /* KeychainManager.swift */; };
 		D8EA0F072924BA0F00514F35 /* ProfileEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F062924BA0F00514F35 /* ProfileEventsViewController.swift */; };
@@ -214,6 +218,10 @@
 		D8A1B97B290C46C6007F6775 /* SongListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListViewController.swift; sourceTree = "<group>"; };
 		D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListTableViewCell.swift; sourceTree = "<group>"; };
 		D8B528E929163105004C8D2A /* PlaySongManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySongManager.swift; sourceTree = "<group>"; };
+		D8E098A62928D351005971C6 /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
+		D8E098A72928D351005971C6 /* RecommendCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecommendCollectionViewCell.xib; sourceTree = "<group>"; };
+		D8E098AA292A0150005971C6 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
+		D8E098AB292A0150005971C6 /* RecommendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecommendTableViewCell.xib; sourceTree = "<group>"; };
 		D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthViewController.swift; sourceTree = "<group>"; };
 		D8EA0EF7292276E500514F35 /* SoulBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SoulBar.entitlements; sourceTree = "<group>"; };
 		D8EA0EFC29233F5400514F35 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -337,7 +345,11 @@
 				D8A1B96E290C3419007F6775 /* PlaylistsTableViewCell.swift */,
 				D8A1B974290C35D3007F6775 /* PlaylistsCollectionViewCell.swift */,
 				D8088B3C290AB2EF0037555B /* AlbumsTableViewCell.swift */,
+				D8E098A62928D351005971C6 /* RecommendCollectionViewCell.swift */,
+				D8E098A72928D351005971C6 /* RecommendCollectionViewCell.xib */,
 				D8088B42290AC1840037555B /* AlbumsCollectionViewCell.swift */,
+				D8E098AA292A0150005971C6 /* RecommendTableViewCell.swift */,
+				D8E098AB292A0150005971C6 /* RecommendTableViewCell.xib */,
 				D8A1B97B290C46C6007F6775 /* SongListViewController.swift */,
 				D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */,
 			);
@@ -713,6 +725,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8573382290EA9150009D734 /* SearchAllResultTableViewCell.xib in Resources */,
+				D8E098A92928D351005971C6 /* RecommendCollectionViewCell.xib in Resources */,
 				D88071CA2920EA3300554B18 /* ProfileHistoryTableViewCell.xib in Resources */,
 				D88071BA291F818800554B18 /* FavoriteMusicDetailsTableViewCell.xib in Resources */,
 				D820B92B291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib in Resources */,
@@ -723,6 +736,7 @@
 				D837B36B291DF7C2008BE6D0 /* processing.json in Resources */,
 				D86AD1202913F4D8000208B6 /* FavoriteMusicTableViewCell.xib in Resources */,
 				D820B92C2915720B000C8F88 /* Assets.xcassets in Resources */,
+				D8E098AD292A0150005971C6 /* RecommendTableViewCell.xib in Resources */,
 				D820B9262914C552000C8F88 /* ChatMessageStrangerTableViewCell.xib in Resources */,
 				D874B9962918EB7F0082F2D7 /* FavoriteListsTableViewCell.xib in Resources */,
 				D85EDBA4290966C1001583F6 /* Main.storyboard in Resources */,
@@ -843,6 +857,7 @@
 				D837B364291D6532008BE6D0 /* RecognizeErrorViewController.swift in Sources */,
 				D874C89A2912566800075AE9 /* FirebaseUserManager.swift in Sources */,
 				D88071B9291F818800554B18 /* FavoriteMusicDetailsTableViewCell.swift in Sources */,
+				D8E098A82928D351005971C6 /* RecommendCollectionViewCell.swift in Sources */,
 				D8088B3E290AB2EF0037555B /* AlbumsTableViewCell.swift in Sources */,
 				D874B998291900260082F2D7 /* NewListPopUpViewController.swift in Sources */,
 				D8088B2329096F1E0037555B /* EventsData.swift in Sources */,
@@ -859,6 +874,7 @@
 				D8EA0EF62922728600514F35 /* AppleAuthViewController.swift in Sources */,
 				D8088B2929096F610037555B /* PlaylistsCharts.swift in Sources */,
 				D8088B2D29096F8D0037555B /* SongsSearch.swift in Sources */,
+				D8E098AC292A0150005971C6 /* RecommendTableViewCell.swift in Sources */,
 				D86AD11429135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift in Sources */,
 				D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */,
 				D8088B342909700B0037555B /* MusicManager.swift in Sources */,

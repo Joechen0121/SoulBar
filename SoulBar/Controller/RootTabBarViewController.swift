@@ -10,13 +10,13 @@ import AVFoundation
 
 class RootTabBarViewController: UITabBarController {
     
-    var miniPlayer: MiniPlayerViewController = {
+    lazy var miniPlayer: MiniPlayerViewController = {
         let vc = MiniPlayerViewController()
         vc.view.translatesAutoresizingMaskIntoConstraints = false
         return vc
     }()
     
-    var containerView: UIView = {
+    lazy var containerView: UIView = {
         let uiView = UIView()
         uiView.translatesAutoresizingMaskIntoConstraints = false
         return uiView
@@ -36,6 +36,7 @@ class RootTabBarViewController: UITabBarController {
         if PlaySongManager.sharedInstance.player.status == AVPlayer.Status.readyToPlay {
             
             miniPlayer.view.isHidden = false
+        
         }
         else {
             
