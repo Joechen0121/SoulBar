@@ -1333,7 +1333,7 @@
         <scene sceneID="zD1-23-Xht">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7BV-cO-yBW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="tab0" id="RH9-1X-6Wf"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab0" selectedImage="tab0_click" id="RH9-1X-6Wf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1aF-gM-u9A">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1355,7 +1355,7 @@
         <scene sceneID="BO9-GS-3zB">
             <objects>
                 <navigationController id="Ywh-au-ijP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="tab1" id="T0P-zZ-jvv">
+                    <tabBarItem key="tabBarItem" title="" image="tab1" selectedImage="tab1_click" id="T0P-zZ-jvv">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="D23-zM-kjT">
@@ -1377,7 +1377,7 @@
         <scene sceneID="gVj-Ns-Nhi">
             <objects>
                 <navigationController id="JVS-8p-Iyg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="tab2" selectedImage="tab2" id="S9s-c8-oAi"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab2_click" selectedImage="tab2" id="S9s-c8-oAi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MjS-h6-AKt">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1394,7 +1394,7 @@
         <scene sceneID="goJ-bZ-M7d">
             <objects>
                 <navigationController id="NTe-YY-dLc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="tab3" id="4I5-56-51n"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab3" selectedImage="tab3_click" id="4I5-56-51n"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Drm-0T-eyS">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1411,7 +1411,7 @@
         <scene sceneID="fi4-jj-pDX">
             <objects>
                 <navigationController id="ySv-bt-pVp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="tab4" id="uTi-Tu-GJq"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab4" selectedImage="tab4_click" id="uTi-Tu-GJq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="6XQ-GW-ZHm">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2240,10 +2240,15 @@
         <image name="shared" width="2048" height="2048"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="tab0" width="30" height="30"/>
+        <image name="tab0_click" width="27" height="35"/>
         <image name="tab1" width="30" height="30"/>
-        <image name="tab2" width="48" height="48"/>
+        <image name="tab1_click" width="25" height="34"/>
+        <image name="tab2" width="45" height="45"/>
+        <image name="tab2_click" width="45" height="45"/>
         <image name="tab3" width="30" height="30"/>
+        <image name="tab3_click" width="30" height="31"/>
         <image name="tab4" width="30" height="30"/>
+        <image name="tab4_click" width="29" height="35"/>
         <image name="volume.1.fill" catalog="system" width="128" height="108"/>
         <image name="volume.2.fill" catalog="system" width="128" height="90"/>
         <image name="welcome" width="3552" height="1992"/>
