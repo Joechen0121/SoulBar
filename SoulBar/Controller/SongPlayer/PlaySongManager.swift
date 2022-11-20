@@ -87,6 +87,8 @@ class PlaySongManager: NSObject {
         
         print(#function)
         
+        try? AVAudioSession.sharedInstance().setCategory(.playback)
+        
         let asset = AVURLAsset(url: url)
         
         let item = AVPlayerItem(asset: asset)
