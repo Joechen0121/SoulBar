@@ -102,7 +102,7 @@ class SearchDetailsViewController: UIViewController {
         self.navigationItem.title = "Search"
         
         navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
+
     }
     
     @objc func shortPressed(sender: UIButton) {
@@ -233,6 +233,32 @@ class SearchDetailsViewController: UIViewController {
         super.viewWillAppear(true)
         
         self.navigationItem.largeTitleDisplayMode = .never
+        
+        SFSpeechRecognizer.requestAuthorization { (authStatus) in
+            
+            var isButtonEnabled = false
+            
+            switch authStatus {
+                
+            case .authorized:
+                isButtonEnabled = true
+                
+            case .denied:
+                isButtonEnabled = false
+                print("User denied access to speech recognition")
+                
+            case .restricted:
+                isButtonEnabled = false
+                print("Speech recognition restricted on this device")
+                
+            case .notDetermined:
+                isButtonEnabled = false
+                print("Speech recognition not yet authorized")
+            }
+            OperationQueue.main.addOperation() {
+                self.voiceRecogniztion.isEnabled = isButtonEnabled
+            }
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
