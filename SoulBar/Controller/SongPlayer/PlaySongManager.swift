@@ -480,7 +480,7 @@ class PlaySongManager: NSObject {
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.player.currentItem?.currentTime().seconds
         
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = self.player.currentItem?.asset.duration.seconds
-        
+
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
 
         // Set the metadata
@@ -497,7 +497,7 @@ class PlaySongManager: NSObject {
     
         player.replaceCurrentItem(with: playerItem)
 
-        self.delegate?.didUpdatePosition(self.player, self.position)
+        // self.delegate?.didUpdatePosition(self.player, self.position)
         
         let time = CMTime(seconds: self.currentTime, preferredTimescale: 1000)
 
