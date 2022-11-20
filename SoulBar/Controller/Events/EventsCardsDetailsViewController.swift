@@ -107,7 +107,7 @@ class EventsCardsDetailsViewController: UIViewController {
             return
         }
         
-        guard let events = events, let type = events.type, let url = events.url else {
+        guard let events = events, let type = events.type, let url = events.url, let location = events.showInfo[0].location else {
             return
         }
         
@@ -124,7 +124,7 @@ class EventsCardsDetailsViewController: UIViewController {
         }
         else {
             
-            FirebaseEventsManager.sharedInstance.addEventsTypeData(with: type, uid: events.UID, webURL: events.webSales, eventName: events.title, eventTime: events.startDate, location: events.showInfo[0].location, url: url, chatroom: events.UID)
+            FirebaseEventsManager.sharedInstance.addEventsTypeData(with: type, uid: events.UID, webURL: events.webSales, eventName: events.title, eventTime: events.startDate, location: location, url: url, chatroom: events.UID)
                 
             self.favoriteImage.image = UIImage(systemName: "heart.circle.fill")
             
@@ -171,9 +171,19 @@ class EventsCardsDetailsViewController: UIViewController {
             return
         }
         
+        print(events.showInfo.count)
+        
+        guard !events.showInfo.isEmpty, events.showInfo[0].location != nil else {
+            
+            locationLabel.text = "None"
+            
+            return
+            
+        }
+        
         locationLabel.text = events.showInfo[0].location
         
-        MapManager.sharedInstance.coordinates(forAddress: events.showInfo[0].location) { result in
+        MapManager.sharedInstance.coordinates(forAddress: events.showInfo[0].location!) { result in
             
             guard let result = result else { return }
             
