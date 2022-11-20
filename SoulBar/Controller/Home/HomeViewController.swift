@@ -31,8 +31,6 @@ class HomeViewController: UIViewController {
         
         homeTableView.delegate = self
         
-        //homeTableView.rowHeight = UITableView.automaticDimension
-        
         homeTableView.rowHeight = UIScreen.main.bounds.height / 3.5
         
         homeTableView.separatorStyle = .none
@@ -287,7 +285,7 @@ extension HomeViewController: UITableViewDelegate {
             label.text = "Hot Songs"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .clear
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
@@ -300,7 +298,7 @@ extension HomeViewController: UITableViewDelegate {
             label.text = "Hot Albums"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .clear
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
@@ -313,7 +311,7 @@ extension HomeViewController: UITableViewDelegate {
             label.text = "Hot Playlists"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .clear
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
@@ -327,7 +325,7 @@ extension HomeViewController: UITableViewDelegate {
             label.text = "Recommend For You"
             label.font = UIFont.boldSystemFont(ofSize: 20)
             label.textColor = .black
-            headerView.backgroundColor = .clear
+            headerView.backgroundColor = .systemBackground
             
             headerView.addSubview(label)
             
