@@ -10,8 +10,13 @@ import ShazamKit
 import Pulsator
 import Lottie
 import SwiftUI
+import Intents
+import OSLog
+import IntentsUI
 
 class RecognizeViewController: UIViewController {
+    
+    static let storyboardID = "RecognizeVC"
     
     @IBOutlet weak var stopButton: UIButton!
     
@@ -49,6 +54,23 @@ class RecognizeViewController: UIViewController {
     
     var state = 1
     
+    static let recognizeActivityType = "com.SoulBar.recognize"
+    
+    let recognizePageActivity: NSUserActivity = {
+        
+        let userActivity = NSUserActivity(activityType: recognizeActivityType)
+        
+        userActivity.title = "SoulBar Recognize"
+        
+        userActivity.suggestedInvocationPhrase = "SoulBar 辨識"
+        
+        userActivity.isEligibleForSearch = true
+        
+        userActivity.isEligibleForPrediction = true
+        
+        return userActivity
+    }()
+    
     let gradientLayer = CAGradientLayer()
     
     var timer: Timer? {
@@ -59,6 +81,16 @@ class RecognizeViewController: UIViewController {
         }
     }
     
+    @IBAction func addToSiri(_ sender: UIButton) {
+        
+        guard let userActivity = self.userActivity else { return }
+        let shortcut = INShortcut(userActivity: userActivity)
+        let viewController = INUIAddVoiceShortcutViewController(shortcut: shortcut)
+        viewController.modalPresentationStyle = .formSheet
+        viewController.delegate = self
+        present(viewController, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,25 +98,20 @@ class RecognizeViewController: UIViewController {
         
         session.delegate = self
         
-        pulsator.numPulse = 5
-        
-        pulsator.radius = 360
-        
-        pulsator.backgroundColor = K.Colors.customRed.cgColor
-
-        pulsator.animationDuration = 5
-
-        view.layer.insertSublayer(pulsator, below: searchImage.layer)
+        configurePulse()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleUpdate)))
         
+        userActivity = recognizePageActivity
+        
+        userActivity?.becomeCurrent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(#function)
+
         setupPulsatingLayer()
-        print(state)
+        
         animatePulsatingLayer()
         
         noticeLabel.isHidden = true
@@ -107,6 +134,19 @@ class RecognizeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         pulsator.position = searchImage.layer.position
+    }
+    
+    func configurePulse() {
+        
+        pulsator.numPulse = 5
+        
+        pulsator.radius = 360
+        
+        pulsator.backgroundColor = K.Colors.customRed.cgColor
+
+        pulsator.animationDuration = 5
+
+        view.layer.insertSublayer(pulsator, below: searchImage.layer)
     }
     
     func initViewStatus() {
@@ -518,5 +558,16 @@ extension RecognizeViewController: SHSessionDelegate {
             
             print(error)
         }
+    }
+}
+
+extension RecognizeViewController: INUIAddVoiceShortcutViewControllerDelegate {
+    
+    func addVoiceShortcutViewController(_ controller: INUIAddVoiceShortcutViewController, didFinishWith voiceShortcut: INVoiceShortcut?, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+
+    func addVoiceShortcutViewControllerDidCancel(_ controller: INUIAddVoiceShortcutViewController) {
+        controller.dismiss(animated: true)
     }
 }
