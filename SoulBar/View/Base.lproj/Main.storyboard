@@ -336,7 +336,7 @@
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shared" translatesAutoresizingMaskIntoConstraints="NO" id="de1-nA-muO">
-                                <rect key="frame" x="374" y="10" width="20" height="20"/>
+                                <rect key="frame" x="374" y="49.5" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="CER-6B-zhM"/>
                                     <constraint firstAttribute="width" secondItem="de1-nA-muO" secondAttribute="height" id="gxR-sU-FF5"/>
@@ -356,7 +356,7 @@
                                     <constraint firstAttribute="width" constant="25" id="xPK-Uf-mLP"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8V0-3q-f1l">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8V0-3q-f1l">
                                 <rect key="frame" x="279" y="125" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="8V0-3q-f1l" secondAttribute="height" id="iDD-lL-u02"/>
@@ -383,12 +383,12 @@
                             <constraint firstItem="BNK-HQ-Ozz" firstAttribute="top" secondItem="El3-oq-RS8" secondAttribute="bottom" constant="25" id="4fa-Tt-1Ng"/>
                             <constraint firstItem="jjE-Fm-x9a" firstAttribute="top" secondItem="EVd-5z-6KA" secondAttribute="bottom" constant="20" id="7Zp-u0-UQK"/>
                             <constraint firstItem="BNK-HQ-Ozz" firstAttribute="centerY" secondItem="yZx-u3-ePa" secondAttribute="centerY" id="7nt-6C-Ujf"/>
+                            <constraint firstItem="de1-nA-muO" firstAttribute="centerY" secondItem="5Xf-zR-lSw" secondAttribute="centerY" id="AXD-XG-Fu2"/>
                             <constraint firstItem="LZV-R6-AnW" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="60" id="DHu-mB-xcj"/>
                             <constraint firstItem="SWd-9f-aW9" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="jjE-Fm-x9a" secondAttribute="bottom" id="EcU-6B-n9S"/>
                             <constraint firstItem="jjE-Fm-x9a" firstAttribute="leading" secondItem="LZV-R6-AnW" secondAttribute="trailing" id="LOQ-tO-rfI"/>
                             <constraint firstItem="EVd-5z-6KA" firstAttribute="leading" secondItem="gqK-bz-NWN" secondAttribute="trailing" id="NJi-lO-MPT"/>
                             <constraint firstItem="6b2-8C-z3M" firstAttribute="leading" secondItem="jjE-Fm-x9a" secondAttribute="trailing" id="Nri-L0-hQ6"/>
-                            <constraint firstItem="de1-nA-muO" firstAttribute="firstBaseline" secondItem="El3-oq-RS8" secondAttribute="firstBaseline" constant="10" id="QAP-qh-RBg"/>
                             <constraint firstItem="jJ9-Xh-386" firstAttribute="leading" secondItem="SWd-9f-aW9" secondAttribute="leading" constant="50" id="RJ1-wo-FG6"/>
                             <constraint firstItem="8V0-3q-f1l" firstAttribute="leading" secondItem="NOs-t9-AYb" secondAttribute="trailing" constant="5" id="SKb-MR-jO0"/>
                             <constraint firstItem="SWd-9f-aW9" firstAttribute="trailing" secondItem="ULc-Ir-5Kz" secondAttribute="trailing" constant="60" id="WMY-io-sq7"/>
@@ -427,6 +427,7 @@
                         <outlet property="musicSlider" destination="jJ9-Xh-386" id="Iuj-uJ-ssZ"/>
                         <outlet property="nextImage" destination="ULc-Ir-5Kz" id="1DF-ze-pai"/>
                         <outlet property="playPauseImage" destination="EVd-5z-6KA" id="jL1-fJ-BVd"/>
+                        <outlet property="playVideoButton" destination="8V0-3q-f1l" id="ojC-XM-8ys"/>
                         <outlet property="previousImage" destination="gqK-bz-NWN" id="QS6-yd-qkO"/>
                         <outlet property="sharedView" destination="de1-nA-muO" id="pHq-I6-VVO"/>
                         <outlet property="singerLabel" destination="bE7-IC-Xc6" id="Pyn-Ne-TV6"/>
