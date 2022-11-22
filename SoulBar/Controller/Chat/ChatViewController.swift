@@ -44,6 +44,8 @@ class ChatViewController: UIViewController {
         
         chatTableView.showsHorizontalScrollIndicator = false
         
+        messageTextField.delegate = self
+        
         configureInformation()
         
         infoHeightConstraint.constant = UIScreen.main.bounds.height / 7
@@ -148,7 +150,7 @@ class ChatViewController: UIViewController {
     
     @IBAction func sendMessages(_ sender: UIButton) {
         
-        guard let text = messageTextField.text else { return }
+        guard messageTextField.text != "", let text = messageTextField.text else { return }
         
         guard let eventsFavorite = eventsFavorite else { return }
 
@@ -211,5 +213,16 @@ extension ChatViewController: UITableViewDataSource {
 
             return cell
         }
+    }
+}
+
+extension ChatViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        if range.location == 0 && string == " " {
+            return false
+        }
+        return true
     }
 }
