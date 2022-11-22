@@ -31,11 +31,17 @@ class PlaylistsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.selectionStyle = .none
+        
         playlistsCollectionView.register(UINib.init(nibName: PlaylistsCollectionViewCell.identifier, bundle: .main), forCellWithReuseIdentifier: PlaylistsCollectionViewCell.identifier)
         
         playlistsCollectionView.dataSource = self
         
         playlistsCollectionView.delegate = self
+        
+        playlistsCollectionView.showsVerticalScrollIndicator = false
+        
+        playlistsCollectionView.showsHorizontalScrollIndicator = false
         
         let flowlayout = UICollectionViewFlowLayout()
         

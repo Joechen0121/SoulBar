@@ -27,9 +27,15 @@ class SongsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.selectionStyle = .none
+        
         songsCollectionView.dataSource = self
         
         songsCollectionView.delegate = self
+        
+        songsCollectionView.showsVerticalScrollIndicator = false
+        
+        songsCollectionView.showsHorizontalScrollIndicator = false
         
         let flowlayout = UICollectionViewFlowLayout()
         

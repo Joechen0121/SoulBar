@@ -28,6 +28,10 @@ class NewListDisplayViewController: UIViewController {
         
         newListTableView.delegate = self
         
+        newListTableView.showsVerticalScrollIndicator = false
+        
+        newListTableView.showsHorizontalScrollIndicator = false
+        
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 

@@ -73,6 +73,10 @@ class SearchDetailsViewController: UIViewController {
         
         searchDetailsTableView.delegate = self
         
+        searchDetailsTableView.showsVerticalScrollIndicator = false
+        
+        searchDetailsTableView.showsHorizontalScrollIndicator = false
+        
         searchTextField.delegate = self
         
         speechRecognizer.delegate = self

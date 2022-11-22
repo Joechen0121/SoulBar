@@ -32,6 +32,10 @@ class FavoriteViewController: UIViewController {
         
         favoriteListTableView.delegate = self
         
+        favoriteListTableView.showsVerticalScrollIndicator = false
+        
+        favoriteListTableView.showsHorizontalScrollIndicator = false
+        
         favoriteListTableView.register(UINib.init(nibName: FavoriteMusicTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicTableViewCell.identifier)
         
         favoriteListTableView.register(UINib.init(nibName: FavoriteAlbumsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteAlbumsTableViewCell.identifier)

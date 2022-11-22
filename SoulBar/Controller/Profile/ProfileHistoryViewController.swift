@@ -36,6 +36,10 @@ class ProfileHistoryViewController: UIViewController {
         
         historyTableView.delegate = self
         
+        historyTableView.showsVerticalScrollIndicator = false
+        
+        historyTableView.showsHorizontalScrollIndicator = false
+        
         historyTableView.register(UINib.init(nibName: ProfileHistoryTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileHistoryTableViewCell.identifier)
         
         viewHeightConstraint.constant = UIScreen.main.bounds.height / 5

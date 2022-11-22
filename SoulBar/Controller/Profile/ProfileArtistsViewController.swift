@@ -26,6 +26,10 @@ class ProfileArtistsViewController: UIViewController {
         artistTableView.dataSource = self
         
         artistTableView.delegate = self
+        
+        artistTableView.showsVerticalScrollIndicator = false
+        
+        artistTableView.showsHorizontalScrollIndicator = false
     }
     
     override func viewWillAppear(_ animated: Bool) {

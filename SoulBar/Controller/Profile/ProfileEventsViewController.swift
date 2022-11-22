@@ -24,6 +24,10 @@ class ProfileEventsViewController: UIViewController {
 
         eventCollectionView.dataSource = self
         
+        eventCollectionView.showsVerticalScrollIndicator = false
+        
+        eventCollectionView.showsHorizontalScrollIndicator = false
+        
         configureCellSize()
         
         self.navigationItem.title = "My Events"

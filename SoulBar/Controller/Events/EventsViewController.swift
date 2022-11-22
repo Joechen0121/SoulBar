@@ -31,7 +31,15 @@ class EventsViewController: UIViewController {
         
         eventsTableView.dataSource = self
         
+        eventsTableView.showsVerticalScrollIndicator = false
+        
+        eventsTableView.showsHorizontalScrollIndicator = false
+        
         eventsFavoriteCollectionView.dataSource = self
+        
+        eventsFavoriteCollectionView.showsVerticalScrollIndicator = false
+        
+        eventsFavoriteCollectionView.showsHorizontalScrollIndicator = false
         
         configureCollectionLayout()
 

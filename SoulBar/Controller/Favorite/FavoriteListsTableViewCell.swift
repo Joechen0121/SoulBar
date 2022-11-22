@@ -19,6 +19,8 @@ class FavoriteListsTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         listImageWidth.constant = UIScreen.main.bounds.height / 7
+        
+        self.selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

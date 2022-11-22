@@ -42,6 +42,8 @@ class ProfileArtistsTableViewCell: UITableViewCell {
         artistImage.layer.masksToBounds = true
 
         artistImage.layer.cornerRadius = artistImageHeightConstraint.constant / 2
+        
+        self.selectionStyle = .none
  
     }
 

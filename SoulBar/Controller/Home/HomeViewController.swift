@@ -35,6 +35,10 @@ class HomeViewController: UIViewController {
         
         homeTableView.separatorStyle = .none
         
+        homeTableView.showsVerticalScrollIndicator = false
+        
+        homeTableView.showsHorizontalScrollIndicator = false
+        
         homeTableView.register(UINib.init(nibName: AlbumsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: AlbumsTableViewCell.identifier)
         
         homeTableView.register(UINib.init(nibName: PlaylistsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: PlaylistsTableViewCell.identifier)

@@ -37,6 +37,10 @@ class ProfileViewController: UIViewController {
         profileTableView.dataSource = self
         
         profileTableView.delegate = self
+        
+        profileTableView.showsVerticalScrollIndicator = false
+        
+        profileTableView.showsHorizontalScrollIndicator = false
     
         profileTableView.register(UINib.init(nibName: ProfileTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileTableViewCell.identifier)
         

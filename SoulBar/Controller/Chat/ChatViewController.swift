@@ -40,6 +40,10 @@ class ChatViewController: UIViewController {
         
         chatTableView.separatorStyle = .none
         
+        chatTableView.showsVerticalScrollIndicator = false
+        
+        chatTableView.showsHorizontalScrollIndicator = false
+        
         configureInformation()
         
         infoHeightConstraint.constant = UIScreen.main.bounds.height / 7

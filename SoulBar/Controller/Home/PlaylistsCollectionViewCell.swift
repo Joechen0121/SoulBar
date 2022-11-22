@@ -17,6 +17,7 @@ class PlaylistsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+
     }
 
 }
