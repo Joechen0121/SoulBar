@@ -81,10 +81,10 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logoutButton(_ sender: UIButton) {
         
-        print("logout")
+        let title = "Sign out?"
         
-        let title = "Sign Out?"
         let message = "Are You Sure To Do That?"
+        
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alertController.addAction(UIAlertAction(title: "Log Out", style: .default, handler: { _ in
@@ -166,7 +166,6 @@ extension ProfileViewController: UITableViewDelegate {
             
         case .MyEvent:
             
-            print("myevent")
             if let eventVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileEventsViewController.storyboardID) as? ProfileEventsViewController {
                 
                 self.navigationController?.pushViewController(eventVC, animated: true)
@@ -174,15 +173,12 @@ extension ProfileViewController: UITableViewDelegate {
             
         case .LikedArtists:
             
-            print("liked artist")
             if let artistVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileArtistsViewController.storyboardID) as? ProfileArtistsViewController {
         
                 self.navigationController?.pushViewController(artistVC, animated: true)
             }
             
         case .RecogHistory:
-            
-            print("recog")
             
             if let historyVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileHistoryViewController.storyboardID) as? ProfileHistoryViewController {
                 

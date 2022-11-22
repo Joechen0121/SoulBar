@@ -107,7 +107,7 @@ class FirebaseChatroomManager {
                 data.append(dataPath)
                 
             }
-            print(data)
+
             completion(data)
         }
     }

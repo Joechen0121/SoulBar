@@ -182,7 +182,7 @@ class PlaySongViewController: UIViewController {
                     guard error == nil else { return }
                     
                     let value = self.remoteConfig.configValue(forKey: "isYoutubeAPITriggered").boolValue
-                    print("==========", value)
+    
                     DispatchQueue.main.async {
                         
                         self.playVideoButton.isHidden = !value

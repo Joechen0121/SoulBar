@@ -510,8 +510,6 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
             
         case .FavLists:
             
-            print("lists!!!!!")
-            
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
                 playSongVC.songs = [listTracks[indexPath.row]]

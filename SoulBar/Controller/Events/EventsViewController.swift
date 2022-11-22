@@ -49,7 +49,6 @@ class EventsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         eventsManager.getMusicEventsInformation(category: MusicEventsCategory.演唱會) { result in
-            print(result)
             
             self.events = result
             
