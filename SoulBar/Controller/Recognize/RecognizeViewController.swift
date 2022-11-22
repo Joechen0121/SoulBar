@@ -108,12 +108,6 @@ class RecognizeViewController: UIViewController {
         
         userActivity?.becomeCurrent()
         
-//        siriButton.layer.cornerRadius = 10
-//
-//        siriButton.layer.borderWidth = 1
-//
-//        siriButton.layer.borderColor = UIColor.orange.cgColor
-        
         siriButton.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
