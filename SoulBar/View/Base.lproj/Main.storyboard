@@ -1166,11 +1166,11 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="processing"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ww4-la-RuJ">
-                                <rect key="frame" x="167.5" y="108" width="79" height="36"/>
-                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="17"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ww4-la-RuJ">
+                                <rect key="frame" x="162.5" y="538" width="89" height="24"/>
+                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="13"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Add to siri">
+                                <state key="normal" title=" Add to siri" image="siri">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -1185,8 +1185,8 @@
                             <constraint firstItem="Trq-0l-oFD" firstAttribute="leading" secondItem="pQo-UN-0M2" secondAttribute="trailing" constant="4" id="7lX-HP-OIQ"/>
                             <constraint firstItem="8ic-Qn-z2G" firstAttribute="top" secondItem="Trq-0l-oFD" secondAttribute="bottom" constant="50" id="7tk-yg-6mO"/>
                             <constraint firstItem="Trq-0l-oFD" firstAttribute="centerY" secondItem="pQo-UN-0M2" secondAttribute="centerY" id="Bio-v5-CdY"/>
+                            <constraint firstItem="ww4-la-RuJ" firstAttribute="top" secondItem="8ic-Qn-z2G" secondAttribute="bottom" constant="40" id="DLS-v5-vyB"/>
                             <constraint firstItem="4df-OA-cFN" firstAttribute="trailing" secondItem="1bY-KH-i36" secondAttribute="trailing" constant="40" id="GDB-Us-CAl"/>
-                            <constraint firstItem="ww4-la-RuJ" firstAttribute="top" secondItem="4df-OA-cFN" secondAttribute="top" constant="20" id="GkU-Li-4lZ"/>
                             <constraint firstItem="4df-OA-cFN" firstAttribute="trailing" secondItem="bpZ-p5-giL" secondAttribute="trailing" constant="20" id="Mjn-pm-IBx"/>
                             <constraint firstItem="8ic-Qn-z2G" firstAttribute="centerY" secondItem="4Sp-gK-Tcw" secondAttribute="centerY" id="O9V-aL-2SA"/>
                             <constraint firstItem="ww4-la-RuJ" firstAttribute="centerX" secondItem="4Sp-gK-Tcw" secondAttribute="centerX" id="dOb-D9-hue"/>
@@ -1209,6 +1209,7 @@
                         <outlet property="processingView" destination="K14-VJ-qzJ" id="NVp-SX-Hlo"/>
                         <outlet property="searchImage" destination="8ic-Qn-z2G" id="M2j-gW-mKf"/>
                         <outlet property="searchStatusLabel" destination="Trq-0l-oFD" id="rqG-DW-31c"/>
+                        <outlet property="siriButton" destination="ww4-la-RuJ" id="Kdj-vj-evO"/>
                         <outlet property="stopButton" destination="bpZ-p5-giL" id="NiO-54-oLs"/>
                     </connections>
                 </viewController>
@@ -2252,6 +2253,7 @@
         <image name="search" width="3072" height="3072"/>
         <image name="searchLogo" width="2048" height="2048"/>
         <image name="shared" width="2048" height="2048"/>
+        <image name="siri" width="24" height="24"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="tab0" width="30" height="30"/>
         <image name="tab0_click" width="27" height="35"/>

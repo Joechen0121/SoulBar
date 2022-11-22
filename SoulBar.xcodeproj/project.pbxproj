@@ -1057,11 +1057,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SoulBar/Info.plist;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires the access to Microphone to record the music.";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Control recogniztion with voice";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recogniztion will be used to determine which words you speak into the device's microphone";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1088,11 +1091,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SoulBar/Info.plist;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires the access to Microphone to record the music.";
+				INFOPLIST_KEY_NSSiriUsageDescription = "Control recogniztion with voice";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recogniztion will be used to determine which words you speak into the device's microphone";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

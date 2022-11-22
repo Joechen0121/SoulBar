@@ -81,6 +81,8 @@ class RecognizeViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var siriButton: UIButton!
+    
     @IBAction func addToSiri(_ sender: UIButton) {
         
         guard let userActivity = self.userActivity else { return }
@@ -105,6 +107,14 @@ class RecognizeViewController: UIViewController {
         userActivity = recognizePageActivity
         
         userActivity?.becomeCurrent()
+        
+//        siriButton.layer.cornerRadius = 10
+//
+//        siriButton.layer.borderWidth = 1
+//
+//        siriButton.layer.borderColor = UIColor.orange.cgColor
+        
+        siriButton.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -152,6 +162,8 @@ class RecognizeViewController: UIViewController {
     func initViewStatus() {
         
         self.pulsator.stop()
+        
+        self.siriButton.isHidden = false
 
         self.state = 1
 
@@ -273,19 +285,9 @@ class RecognizeViewController: UIViewController {
     
     @IBAction func stopButton(_ sender: UIButton) {
         
-        stopListening()
-        
-        pulsator.stop()
-        
-        stopButton.isHidden = true
-        
-        noticeLabel.isHidden = true
+        initViewStatus()
         
         animateProcessingViewStop()
-        
-        self.searchStatusLabel.text = "Tap to Start"
-        
-        state = 1
         
     }
     
@@ -396,6 +398,8 @@ class RecognizeViewController: UIViewController {
             
             animateProcessingViewStop()
             
+            siriButton.isHidden = false
+            
             noticeLabel.isHidden = true
             
             micImage.isHidden = false
@@ -416,6 +420,8 @@ class RecognizeViewController: UIViewController {
             print("processing")
 
             animateProcessingViewStart()
+            
+            siriButton.isHidden = true
             
             noticeLabel.isHidden = false
             
@@ -469,6 +475,8 @@ class RecognizeViewController: UIViewController {
             
             animateProcessingViewStop()
             
+            siriButton.isHidden = true
+            
             stopButton.isHidden = true
             
             processingView.isHidden = true
@@ -501,11 +509,7 @@ extension RecognizeViewController: SHSessionDelegate {
         let items = match.mediaItems
         
         items.forEach { item in
-            print(item.title ?? "title")
-            print(item.artist ?? "artist")
-            print(item.artworkURL?.absoluteURL ?? "Artwork url")
-            print(item.appleMusicID)
-            
+
             if let musicID = item.appleMusicID {
                 
                 MusicManager.sharedInstance.fetchSong(with: musicID) { result in

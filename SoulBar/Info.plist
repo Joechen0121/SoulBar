@@ -4,10 +4,6 @@
 <dict>
 	<key>NSUserActivityTypes</key>
 	<string>com.SoulBar.recognize</string>
-	<key>NSSiriUsageDescription</key>
-	<string>Control recogniztion with voice</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Speech recogniztion will be used to determine which words you speak into the device&apos;s microphone</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
