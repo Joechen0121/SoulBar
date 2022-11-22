@@ -210,6 +210,10 @@ extension ChatViewController: UITableViewDataSource {
             }
             
             cell.messageLabel.text = messages[indexPath.row].content
+            
+            cell.delegate = self
+            
+            cell.indexPath = indexPath
 
             return cell
         }
@@ -225,4 +229,19 @@ extension ChatViewController: UITextFieldDelegate {
         }
         return true
     }
+}
+
+extension ChatViewController: ChatMessageStrangerTableViewCellDelegate {
+    
+    func presentReportMessage(at indexPath: IndexPath) {
+        
+        let alert = UIAlertController(title: "Attension", message: "Do you want to report this user ?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Report", style: .default))
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+
+        self.present(alert, animated: true)
+    }
+    
 }
