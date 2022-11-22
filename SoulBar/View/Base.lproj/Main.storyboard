@@ -1392,7 +1392,7 @@
         <scene sceneID="gVj-Ns-Nhi">
             <objects>
                 <navigationController id="JVS-8p-Iyg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="tab2_click" selectedImage="tab2" id="S9s-c8-oAi"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab2" selectedImage="tab2_click" id="S9s-c8-oAi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MjS-h6-AKt">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2256,15 +2256,15 @@
         <image name="siri" width="24" height="24"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="tab0" width="30" height="30"/>
-        <image name="tab0_click" width="27" height="35"/>
+        <image name="tab0_click" width="35" height="35"/>
         <image name="tab1" width="30" height="30"/>
-        <image name="tab1_click" width="25" height="34"/>
+        <image name="tab1_click" width="35" height="35"/>
         <image name="tab2" width="45" height="45"/>
         <image name="tab2_click" width="45" height="45"/>
         <image name="tab3" width="30" height="30"/>
-        <image name="tab3_click" width="30" height="31"/>
+        <image name="tab3_click" width="35" height="35"/>
         <image name="tab4" width="30" height="30"/>
-        <image name="tab4_click" width="29" height="35"/>
+        <image name="tab4_click" width="35" height="35"/>
         <image name="volume.1.fill" catalog="system" width="128" height="108"/>
         <image name="volume.2.fill" catalog="system" width="128" height="90"/>
         <image name="welcome" width="3552" height="1992"/>
