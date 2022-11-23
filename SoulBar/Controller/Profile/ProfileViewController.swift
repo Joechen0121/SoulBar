@@ -48,7 +48,7 @@ class ProfileViewController: UIViewController {
         
         prfileViewHeightConstraint.constant = UIScreen.main.bounds.height / 7
         
-        profileTableView.rowHeight = UIScreen.main.bounds.height / 10
+        profileTableView.rowHeight = UIScreen.main.bounds.height / 15
         
         logoutButton.layer.masksToBounds = true
         
