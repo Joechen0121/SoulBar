@@ -51,6 +51,9 @@
 		D85EDB9F290966C1001583F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85EDB9E290966C1001583F6 /* SceneDelegate.swift */; };
 		D85EDBA4290966C1001583F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA2290966C1001583F6 /* Main.storyboard */; };
 		D85EDBA9290966C3001583F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA7290966C3001583F6 /* LaunchScreen.storyboard */; };
+		D869EEA5292E010B006BB828 /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = D869EEA4292E010B006BB828 /* SwiftJWT */; };
+		D869EEA7292E021E006BB828 /* AuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D869EEA6292E021E006BB828 /* AuthData.swift */; };
+		D869EEAA292E0314006BB828 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D869EEA9292E0314006BB828 /* AuthManager.swift */; };
 		D86AD11429135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86AD11229135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift */; };
 		D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86AD11829138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift */; };
 		D86AD11F2913F4D8000208B6 /* FavoriteMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86AD11D2913F4D8000208B6 /* FavoriteMusicTableViewCell.swift */; };
@@ -167,6 +170,8 @@
 		D85EDBA5290966C3001583F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D85EDBA8290966C3001583F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D85EDBAA290966C3001583F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D869EEA6292E021E006BB828 /* AuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthData.swift; sourceTree = "<group>"; };
+		D869EEA9292E0314006BB828 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D86AD11229135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		D86AD11829138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFavoriteCardsDetailsViewController.swift; sourceTree = "<group>"; };
 		D86AD11D2913F4D8000208B6 /* FavoriteMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMusicTableViewCell.swift; sourceTree = "<group>"; };
@@ -242,6 +247,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D869EEA5292E010B006BB828 /* SwiftJWT in Frameworks */,
 				AC8A6C994DB98DC90EB1C4AF /* Pods_SoulBar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,6 +301,7 @@
 				D874C8872912462000075AE9 /* Firebase */,
 				D874B98E2917E6930082F2D7 /* Profile */,
 				D8088B2A29096F680037555B /* Music */,
+				D869EEA8292E0305006BB828 /* Auth */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -423,6 +430,15 @@
 				D85EDBAA290966C3001583F6 /* Info.plist */,
 			);
 			path = SoulBar;
+			sourceTree = "<group>";
+		};
+		D869EEA8292E0305006BB828 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D869EEA6292E021E006BB828 /* AuthData.swift */,
+				D869EEA9292E0314006BB828 /* AuthManager.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		D86AD11A2913F3ED000208B6 /* Search */ = {
@@ -685,6 +701,9 @@
 			dependencies = (
 			);
 			name = SoulBar;
+			packageProductDependencies = (
+				D869EEA4292E010B006BB828 /* SwiftJWT */,
+			);
 			productName = SoulBar;
 			productReference = D85EDB99290966C1001583F6 /* SoulBar.app */;
 			productType = "com.apple.product-type.application";
@@ -713,6 +732,9 @@
 				Base,
 			);
 			mainGroup = D85EDB90290966C1001583F6;
+			packageReferences = (
+				D869EEA3292E010B006BB828 /* XCRemoteSwiftPackageReference "Swift-JWT" */,
+			);
 			productRefGroup = D85EDB9A290966C1001583F6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -842,6 +864,7 @@
 				D8A1B96C290C228E007F6775 /* EventsTableViewCell.swift in Sources */,
 				D85EDB9D290966C1001583F6 /* AppDelegate.swift in Sources */,
 				D8FABE482919F1450094A77F /* RootTabBarViewController.swift in Sources */,
+				D869EEAA292E0314006BB828 /* AuthManager.swift in Sources */,
 				D8A1B96A290C1B56007F6775 /* ArtistsSearch.swift in Sources */,
 				D8A1B970290C3419007F6775 /* PlaylistsTableViewCell.swift in Sources */,
 				D8573381290EA9150009D734 /* SearchAllResultTableViewCell.swift in Sources */,
@@ -903,6 +926,7 @@
 				D8088B39290A28E00037555B /* HomeTableViewCell.swift in Sources */,
 				D88071B6291F80BF00554B18 /* FavroiteMusicDetailsViewController.swift in Sources */,
 				D8EA0F072924BA0F00514F35 /* ProfileEventsViewController.swift in Sources */,
+				D869EEA7292E021E006BB828 /* AuthData.swift in Sources */,
 				D874C8952912546100075AE9 /* FirebaseEventsManager.swift in Sources */,
 				D8088B2529096F400037555B /* SongsCharts.swift in Sources */,
 			);
@@ -1134,6 +1158,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D869EEA3292E010B006BB828 /* XCRemoteSwiftPackageReference "Swift-JWT" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-JWT.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D869EEA4292E010B006BB828 /* SwiftJWT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D869EEA3292E010B006BB828 /* XCRemoteSwiftPackageReference "Swift-JWT" */;
+			productName = SwiftJWT;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D85EDB91290966C1001583F6 /* Project object */;
 }

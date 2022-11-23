@@ -31,6 +31,8 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var logoutButton: UIButton!
     
+    var activityIndicatorView = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,6 +79,16 @@ class ProfileViewController: UIViewController {
             }
             
         }
+        
+        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        
+        activityIndicatorView.tintColor = .black
+        
+        activityIndicatorView.center = self.view.center
+        
+        self.view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.isHidden = true
     }
     
     @IBAction func logoutButton(_ sender: UIButton) {
@@ -110,6 +122,65 @@ class ProfileViewController: UIViewController {
             KeychainManager.sharedInstance.removeUsername()
             
             goToRootOfTab(index: 0)
+            
+        case false:
+            print("Nothing Happened for now")
+        }
+    }
+    
+    @IBAction func deleteAccount(_ sender: UIButton) {
+     
+        let title = "Delete Account"
+        
+        let message = "Are You Sure To Do That?"
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in
+            self.confirmDelete(delete: true)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
+            self.confirmDelete(delete: false)
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func confirmDelete(delete: Bool) {
+        
+        switch delete {
+            
+        case true:
+            
+            guard let clientSecret = KeychainManager.sharedInstance.clientSecret,
+                  let refreshToken = KeychainManager.sharedInstance.refreshToken else { return }
+            
+            self.activityIndicatorView.startAnimating()
+            
+            self.activityIndicatorView.isHidden = false
+            
+            AuthManager.sharedInstance.revokeToken(
+                clientID: AuthManager.sharedInstance.clientID,
+                clientSecret: clientSecret,
+                refreshToken: refreshToken) {
+                    
+                    KeychainManager.sharedInstance.removeRefreshToken()
+                    
+                    KeychainManager.sharedInstance.removeClientSecret()
+                    
+                    FirebaseUserManager.sharedInstance.removeUserData(id: KeychainManager.sharedInstance.id!)
+
+                    KeychainManager.sharedInstance.removeID()
+                        
+                    KeychainManager.sharedInstance.removeUsername()
+                    
+                    self.goToRootOfTab(index: 0)
+                    
+                    self.activityIndicatorView.stopAnimating()
+                    
+                    self.activityIndicatorView.isHidden = true
+            }
             
         case false:
             print("Nothing Happened for now")

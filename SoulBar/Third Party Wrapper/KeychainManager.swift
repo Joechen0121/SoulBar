@@ -64,6 +64,67 @@ class KeychainManager {
         }
     }
     
+    var refreshToken: String? {
+        
+        set(token) {
+            
+            guard let token = token else { return }
+            
+            KeychainWrapper.standard.set(token, forKey: "refreshToken")
+            
+            return
+    
+        }
+        
+        get {
+            
+            if let token = KeychainWrapper.standard.string(forKey: "refreshToken") {
+                
+                return token
+            }
+            else {
+                
+                return nil
+            }
+        }
+    }
+    
+    var clientSecret: String? {
+        
+        set(secret) {
+            
+            guard let secret = secret else { return }
+            
+            KeychainWrapper.standard.set(secret, forKey: "clientSecret")
+            
+            return
+    
+        }
+        
+        get {
+            
+            if let secret = KeychainWrapper.standard.string(forKey: "clientSecret") {
+                
+                return secret
+            }
+            else {
+                
+                return nil
+            }
+        }
+    }
+    
+    func removeClientSecret() {
+        
+        let _: Bool = KeychainWrapper.standard.removeObject(forKey: "clientSecret")
+    }
+    
+    
+    func removeRefreshToken() {
+        
+        let _: Bool = KeychainWrapper.standard.removeObject(forKey: "refreshToken")
+    }
+    
     func removeID() {
         
         let _: Bool = KeychainWrapper.standard.removeObject(forKey: "id")
