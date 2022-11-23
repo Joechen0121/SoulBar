@@ -235,7 +235,7 @@ extension ChatViewController: ChatMessageStrangerTableViewCellDelegate {
     
     func presentReportMessage(at indexPath: IndexPath) {
         
-        let alert = UIAlertController(title: "Attension", message: "Do you want to report this user ?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Attention", message: "Do you want to report this user ?", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Report", style: .default))
         

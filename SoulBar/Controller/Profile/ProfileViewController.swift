@@ -30,8 +30,6 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var prfileViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var logoutButton: UIButton!
-    
     var activityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
@@ -47,16 +45,12 @@ class ProfileViewController: UIViewController {
     
         profileTableView.register(UINib.init(nibName: ProfileTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileTableViewCell.identifier)
         
-        prfileViewHeightConstraint.constant = UIScreen.main.bounds.height / 7
+        prfileViewHeightConstraint.constant = UIScreen.main.bounds.height / 8
         
-        profileTableView.rowHeight = UIScreen.main.bounds.height / 12
+        profileTableView.rowHeight = 50
         
-        logoutButton.layer.masksToBounds = true
-        
-        logoutButton.layer.cornerRadius = logoutButton.frame.height / 2
-        
-        logoutButton.backgroundColor = K.Colors.customRed
-
+        // profileTableView.rowHeight = UIScreen.main.bounds.height / 12
+ 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,22 +88,22 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logoutButton(_ sender: UIButton) {
         
-        let title = "Sign out?"
+        let alert = UIAlertController(title: "Attention", message: "SoulBar User Setting ", preferredStyle: .actionSheet)
         
-        let message = "Are You Sure To Do That?"
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "Log Out", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { _ in
+            
             self.confirmLogOut(logOut: true)
         }))
         
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
-            self.confirmLogOut(logOut: false)
+        alert.addAction(UIAlertAction(title: "Delete Account", style: .default, handler: { _ in
+            
+            self.confirmDelete(delete: true)
+            
         }))
-        
-        self.present(alertController, animated: true, completion: nil)
+    
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
 
+        self.present(alert, animated: true)
     }
     
     func confirmLogOut(logOut: Bool) {
