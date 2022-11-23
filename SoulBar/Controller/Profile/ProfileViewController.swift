@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftJWT
 
 class ProfileViewController: UIViewController {
     
@@ -153,33 +154,47 @@ class ProfileViewController: UIViewController {
             
         case true:
             
-            guard let clientSecret = KeychainManager.sharedInstance.clientSecret,
-                  let refreshToken = KeychainManager.sharedInstance.refreshToken else { return }
+            guard let refreshToken = KeychainManager.sharedInstance.refreshToken else { return }
             
             self.activityIndicatorView.startAnimating()
             
             self.activityIndicatorView.isHidden = false
             
-            AuthManager.sharedInstance.revokeToken(
-                clientID: AuthManager.sharedInstance.clientID,
-                clientSecret: clientSecret,
-                refreshToken: refreshToken) {
-                    
-                    KeychainManager.sharedInstance.removeRefreshToken()
-                    
-                    KeychainManager.sharedInstance.removeClientSecret()
-                    
-                    FirebaseUserManager.sharedInstance.removeUserData(id: KeychainManager.sharedInstance.id!)
-
-                    KeychainManager.sharedInstance.removeID()
+            let header = Header(kid: AuthManager.sharedInstance.teamID)
+            
+            let claims = AuthClaims(iss: AuthManager.sharedInstance.appleID, iat: Date(), exp: Date(timeIntervalSinceNow: 3600), aud: AuthManager.sharedInstance.aud, sub: AuthManager.sharedInstance.clientID)
+            
+            var jwt = JWT(header: header, claims: claims)
+            
+            let jwtSigner = JWTSigner.es256(privateKey: Data(AuthManager.sharedInstance.p8.utf8))
+            
+            do {
+                
+                let signedJWT = try jwt.sign(using: jwtSigner)
+                
+                AuthManager.sharedInstance.revokeToken(
+                    clientID: AuthManager.sharedInstance.clientID,
+                    clientSecret: signedJWT,
+                    refreshToken: refreshToken) {
                         
-                    KeychainManager.sharedInstance.removeUsername()
-                    
-                    self.goToRootOfTab(index: 0)
-                    
-                    self.activityIndicatorView.stopAnimating()
-                    
-                    self.activityIndicatorView.isHidden = true
+                        KeychainManager.sharedInstance.removeRefreshToken()
+                        
+                        FirebaseUserManager.sharedInstance.removeUserData(id: KeychainManager.sharedInstance.id!)
+
+                        KeychainManager.sharedInstance.removeID()
+                            
+                        KeychainManager.sharedInstance.removeUsername()
+                        
+                        self.goToRootOfTab(index: 0)
+                        
+                        self.activityIndicatorView.stopAnimating()
+                        
+                        self.activityIndicatorView.isHidden = true
+                }
+                
+            } catch {
+                
+                print(error)
             }
             
         case false:

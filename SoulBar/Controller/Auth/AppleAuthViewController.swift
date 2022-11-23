@@ -139,8 +139,6 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
                         guard let refreshToken = result.refreshToken else { return }
                         
                         KeychainManager.sharedInstance.refreshToken = refreshToken
-                        
-                        KeychainManager.sharedInstance.clientSecret = signedJWT
                     }
                 
             } catch {
