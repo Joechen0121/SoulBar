@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController {
         
         case RecogHistory
         
-        case Blacklists
+        case Privacy
         
     }
     
@@ -265,9 +265,12 @@ extension ProfileViewController: UITableViewDelegate {
                 self.navigationController?.pushViewController(historyVC, animated: true)
             }
             
-        case .Blacklists:
+        case .Privacy:
             
-            print("blacklist")
+            if let privacyVC = self.storyboard?.instantiateViewController(withIdentifier: PrivacyViewController.storyboardID) as? PrivacyViewController {
+                
+                self.present(privacyVC, animated: true)
+            }
             
         default:
             

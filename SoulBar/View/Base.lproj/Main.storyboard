@@ -1971,6 +1971,41 @@
             </objects>
             <point key="canvasLocation" x="4280" y="1055"/>
         </scene>
+        <!--Privacy View Controller-->
+        <scene sceneID="AHx-eX-uXM">
+            <objects>
+                <viewController storyboardIdentifier="PrivacyVC" id="ZQn-aT-jWz" customClass="PrivacyViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="scf-tE-o3X">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsG-N8-Vah">
+                                <rect key="frame" x="0.0" y="44" width="414" height="798"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Bro-4e-jpA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="NsG-N8-Vah" firstAttribute="leading" secondItem="Bro-4e-jpA" secondAttribute="leading" id="5KU-VV-3uN"/>
+                            <constraint firstItem="Bro-4e-jpA" firstAttribute="trailing" secondItem="NsG-N8-Vah" secondAttribute="trailing" id="C4v-RJ-YBD"/>
+                            <constraint firstItem="NsG-N8-Vah" firstAttribute="top" secondItem="Bro-4e-jpA" secondAttribute="top" id="kQ9-p4-WRd"/>
+                            <constraint firstItem="Bro-4e-jpA" firstAttribute="bottom" secondItem="NsG-N8-Vah" secondAttribute="bottom" id="w1W-6O-m8n"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="tif-v1-Yc5"/>
+                    <connections>
+                        <outlet property="privacyWebView" destination="NsG-N8-Vah" id="sGm-J9-BxW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5EG-ON-BjQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5721.739130434783" y="1041.9642857142858"/>
+        </scene>
         <!--Apple Auth View Controller-->
         <scene sceneID="sxU-ZG-Lm4">
             <objects>
@@ -2027,6 +2062,17 @@
                                     <action selector="dismissButton:" destination="bZn-yg-IVY" eventType="touchUpInside" id="Uq9-YK-JUS"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DyM-13-8JY">
+                                <rect key="frame" x="160.5" y="821" width="93" height="31"/>
+                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="13"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Privacy &amp; Policy">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ZQn-aT-jWz" kind="show" id="BzG-xF-Edc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VAG-bg-Q5j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2039,6 +2085,7 @@
                             <constraint firstItem="fZZ-Ne-9I6" firstAttribute="top" secondItem="VAG-bg-Q5j" secondAttribute="top" constant="10" id="8RJ-A5-cyD"/>
                             <constraint firstItem="r3a-pb-g8Q" firstAttribute="leading" secondItem="VAG-bg-Q5j" secondAttribute="leading" constant="50" id="K28-d9-mIc"/>
                             <constraint firstItem="yp0-RS-PIi" firstAttribute="centerX" secondItem="1CN-AV-uAM" secondAttribute="centerX" id="MBT-6a-XYE"/>
+                            <constraint firstItem="VAG-bg-Q5j" firstAttribute="bottom" secondItem="DyM-13-8JY" secondAttribute="bottom" constant="10" id="Mj9-tn-tlJ"/>
                             <constraint firstItem="VAG-bg-Q5j" firstAttribute="trailing" secondItem="Ylh-AV-33p" secondAttribute="trailing" id="Nxj-X8-WR5"/>
                             <constraint firstItem="Ylh-AV-33p" firstAttribute="top" secondItem="EA3-Mn-F2Q" secondAttribute="bottom" constant="8" id="O4y-cJ-rfe"/>
                             <constraint firstItem="wUX-7B-PeD" firstAttribute="centerX" secondItem="1CN-AV-uAM" secondAttribute="centerX" id="WPS-vo-J3Y"/>
@@ -2050,6 +2097,7 @@
                             <constraint firstItem="VAG-bg-Q5j" firstAttribute="trailing" secondItem="wUX-7B-PeD" secondAttribute="trailing" constant="50" id="fcH-Hh-iWe"/>
                             <constraint firstItem="r3a-pb-g8Q" firstAttribute="top" secondItem="wUX-7B-PeD" secondAttribute="bottom" constant="15" id="hdi-TV-3wA"/>
                             <constraint firstItem="wUX-7B-PeD" firstAttribute="leading" secondItem="VAG-bg-Q5j" secondAttribute="leading" constant="50" id="oo1-Vr-r15"/>
+                            <constraint firstItem="DyM-13-8JY" firstAttribute="centerX" secondItem="1CN-AV-uAM" secondAttribute="centerX" id="qRU-FD-cpc"/>
                             <constraint firstItem="yp0-RS-PIi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VAG-bg-Q5j" secondAttribute="top" constant="40" id="t4s-pq-lXZ"/>
                             <constraint firstItem="yp0-RS-PIi" firstAttribute="leading" secondItem="1CN-AV-uAM" secondAttribute="leading" constant="40" id="w9J-DA-m6W"/>
                             <constraint firstItem="EA3-Mn-F2Q" firstAttribute="centerX" secondItem="1CN-AV-uAM" secondAttribute="centerX" id="xNo-SL-3UN"/>

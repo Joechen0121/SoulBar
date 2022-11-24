@@ -118,6 +118,7 @@
 		D8EA0F0C29267B2A00514F35 /* YoutubeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F0B29267B2A00514F35 /* YoutubeData.swift */; };
 		D8EA0F0E29267B3700514F35 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */; };
 		D8EA0F11292682A200514F35 /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */; };
+		D8F0E29F292EFCC400BCDFAF /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */; };
 		D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */; };
 		D8FABE482919F1450094A77F /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE472919F1450094A77F /* RootTabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -237,6 +238,7 @@
 		D8EA0F0B29267B2A00514F35 /* YoutubeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeData.swift; sourceTree = "<group>"; };
 		D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeManager.swift; sourceTree = "<group>"; };
 		D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
+		D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		D8FABE472919F1450094A77F /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
 		DE5455BF34A43BE4803E4EB7 /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,6 +287,7 @@
 				D8EA0F032923D20500514F35 /* Auth */,
 				D8EA0F042923D21100514F35 /* SongPlayer */,
 				D8FABE472919F1450094A77F /* RootTabBarViewController.swift */,
+				D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */,
 				D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */,
 				D8E098AE292A245B005971C6 /* LaunchScreenViewController.swift */,
 			);
@@ -878,6 +881,7 @@
 				D86AD11929138E8A000208B6 /* EventsFavoriteCardsDetailsViewController.swift in Sources */,
 				D8EA0F11292682A200514F35 /* PlayVideoViewController.swift in Sources */,
 				D820B92A291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift in Sources */,
+				D8F0E29F292EFCC400BCDFAF /* PrivacyViewController.swift in Sources */,
 				D8E098AF292A245B005971C6 /* LaunchScreenViewController.swift in Sources */,
 				D8A1B97E290C475F007F6775 /* SongListTableViewCell.swift in Sources */,
 				D874B98D2917E6890082F2D7 /* ProfileData.swift in Sources */,
