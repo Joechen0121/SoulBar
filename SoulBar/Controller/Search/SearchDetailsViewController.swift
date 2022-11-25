@@ -960,19 +960,12 @@ extension SearchDetailsViewController {
                     
                     let alert = UIAlertController(title: "Not Found", message: "Please take a picture again", preferredStyle: .alert)
                     let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    
-                    let imgViewTitle = UIImageView(frame: CGRect(x: 10, y: 10, width: UIScreen.main.bounds.width / 3 * 2, height: UIScreen.main.bounds.height / 3 * 2))
-                    
-                    imgViewTitle.image = image
-                    
-                    alert.view.addSubview(imgViewTitle)
-                    
+             
                     alert.addAction(cancel)
                     
                     self.present(alert, animated: true, completion: nil)
                 }
             }
         }
-        
     }
 }
