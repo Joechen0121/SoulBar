@@ -10,6 +10,7 @@ import AVFoundation
 import FirebaseCore
 import IQKeyboardManagerSwift
 import YoutubeKit
+import AWSCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         configureNavigationBar()
+        
+        configureAWSRekognition()
         
         YoutubeKit.shared.setAPIKey("AIzaSyClrbLXP8jCneoelOAcq2VACJa0mTwbJLY")
         
@@ -42,6 +45,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    func configureAWSRekognition() {
+        
+        let credentialsProvider = AWSCognitoCredentialsProvider(
+            regionType: .APNortheast1,
+            identityPoolId: "ap-northeast-1:4bf7e082-0918-44db-9f32-731a55c53ebf")
+        
+        let configuration = AWSServiceConfiguration(
+            region: .APNortheast1,
+            credentialsProvider: credentialsProvider)
+        
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
     }
 
     func configureNavigationBar() {

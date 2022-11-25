@@ -228,6 +228,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             controller.addAction(action)
             
             present(controller, animated: true)
+            
         default:
             break
         }

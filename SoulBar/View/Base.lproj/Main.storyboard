@@ -467,7 +467,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Artists, Songs, Albums" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BbH-5z-G8b">
-                                <rect key="frame" x="20" y="52" width="339" height="40"/>
+                                <rect key="frame" x="20" y="52" width="299" height="40"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="rgm-S0-wnD"/>
@@ -542,6 +542,21 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="mic.fill" catalog="system"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bum-IN-tyQ">
+                                <rect key="frame" x="324" y="52" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="qoS-Ec-SLC"/>
+                                    <constraint firstAttribute="width" secondItem="bum-IN-tyQ" secondAttribute="height" id="sXM-oV-VHk"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="person.fill.viewfinder" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="celebrityRecognize:" destination="Vcj-t8-z7R" eventType="touchUpInside" id="byn-Cc-4PD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hUU-FS-TaT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -554,10 +569,12 @@
                             <constraint firstItem="hUU-FS-TaT" firstAttribute="trailing" secondItem="A0C-C5-dJ9" secondAttribute="trailing" id="DzO-7Y-xMD"/>
                             <constraint firstItem="wgf-oc-SJs" firstAttribute="centerY" secondItem="BbH-5z-G8b" secondAttribute="centerY" id="Erg-Vu-J71"/>
                             <constraint firstItem="BbH-5z-G8b" firstAttribute="leading" secondItem="hUU-FS-TaT" secondAttribute="leading" constant="20" id="PSj-Dh-gOL"/>
+                            <constraint firstItem="wgf-oc-SJs" firstAttribute="leading" secondItem="bum-IN-tyQ" secondAttribute="trailing" id="cVk-lG-0Mu"/>
                             <constraint firstItem="A0C-C5-dJ9" firstAttribute="top" secondItem="BbH-5z-G8b" secondAttribute="bottom" constant="8" id="jPf-hK-eC6"/>
                             <constraint firstItem="BbH-5z-G8b" firstAttribute="top" secondItem="hUU-FS-TaT" secondAttribute="top" constant="8" id="jcY-BI-dU0"/>
                             <constraint firstAttribute="trailing" secondItem="wgf-oc-SJs" secondAttribute="trailing" constant="10" id="l0m-TR-r4b"/>
-                            <constraint firstItem="wgf-oc-SJs" firstAttribute="leading" secondItem="BbH-5z-G8b" secondAttribute="trailing" constant="5" id="ppv-R7-e9j"/>
+                            <constraint firstItem="bum-IN-tyQ" firstAttribute="leading" secondItem="BbH-5z-G8b" secondAttribute="trailing" constant="5" id="nqu-8A-VbE"/>
+                            <constraint firstItem="wgf-oc-SJs" firstAttribute="centerY" secondItem="bum-IN-tyQ" secondAttribute="centerY" id="u3H-tz-bCm"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2295,6 +2312,7 @@
         <image name="paperplane" catalog="system" width="128" height="118"/>
         <image name="person.2.circle" catalog="system" width="128" height="121"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
+        <image name="person.fill.viewfinder" catalog="system" width="128" height="115"/>
         <image name="play.fill" width="2048" height="2048"/>
         <image name="play.fill.bk" width="2048" height="2048"/>
         <image name="play.tv.fill" catalog="system" width="128" height="97"/>

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AC8A6C994DB98DC90EB1C4AF /* Pods_SoulBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5455BF34A43BE4803E4EB7 /* Pods_SoulBar.framework */; };
+		25D49004EE8567D4050AB32F /* Pods_SoulBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47AA5E4B7A4C9F78DB385CF8 /* Pods_SoulBar.framework */; };
 		D8088B1529096C0C0037555B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8088B1429096C0C0037555B /* HomeViewController.swift */; };
 		D8088B1729096C200037555B /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8088B1629096C200037555B /* EventsViewController.swift */; };
 		D8088B1929096C2E0037555B /* RecognizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8088B1829096C2E0037555B /* RecognizeViewController.swift */; };
@@ -51,6 +51,8 @@
 		D85EDB9F290966C1001583F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85EDB9E290966C1001583F6 /* SceneDelegate.swift */; };
 		D85EDBA4290966C1001583F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA2290966C1001583F6 /* Main.storyboard */; };
 		D85EDBA9290966C3001583F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA7290966C3001583F6 /* LaunchScreen.storyboard */; };
+		D8686DD52930B8A5004F2EBE /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8686DD42930B8A5004F2EBE /* UIImage+Ext.swift */; };
+		D8686DD72930B8C8004F2EBE /* UIAlert+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8686DD62930B8C8004F2EBE /* UIAlert+Ext.swift */; };
 		D869EEA5292E010B006BB828 /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = D869EEA4292E010B006BB828 /* SwiftJWT */; };
 		D869EEA7292E021E006BB828 /* AuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D869EEA6292E021E006BB828 /* AuthData.swift */; };
 		D869EEAA292E0314006BB828 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D869EEA9292E0314006BB828 /* AuthManager.swift */; };
@@ -124,8 +126,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		01A7E30BCD6B314AA43F0538 /* Pods-SoulBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoulBar.release.xcconfig"; path = "Target Support Files/Pods-SoulBar/Pods-SoulBar.release.xcconfig"; sourceTree = "<group>"; };
-		4587ABBC543670DEE01333C5 /* Pods-SoulBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoulBar.debug.xcconfig"; path = "Target Support Files/Pods-SoulBar/Pods-SoulBar.debug.xcconfig"; sourceTree = "<group>"; };
+		239FFEA0278D4092D9189106 /* Pods-SoulBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoulBar.release.xcconfig"; path = "Target Support Files/Pods-SoulBar/Pods-SoulBar.release.xcconfig"; sourceTree = "<group>"; };
+		47AA5E4B7A4C9F78DB385CF8 /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D07CECEF01D3B05BA3D215E /* Pods-SoulBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoulBar.debug.xcconfig"; path = "Target Support Files/Pods-SoulBar/Pods-SoulBar.debug.xcconfig"; sourceTree = "<group>"; };
 		D8088B1429096C0C0037555B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D8088B1629096C200037555B /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		D8088B1829096C2E0037555B /* RecognizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 		D85EDBA5290966C3001583F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D85EDBA8290966C3001583F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D85EDBAA290966C3001583F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8686DD42930B8A5004F2EBE /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		D8686DD62930B8C8004F2EBE /* UIAlert+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlert+Ext.swift"; sourceTree = "<group>"; };
 		D869EEA6292E021E006BB828 /* AuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthData.swift; sourceTree = "<group>"; };
 		D869EEA9292E0314006BB828 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D86AD11229135F9F000208B6 /* EventsFavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -241,7 +246,6 @@
 		D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		D8FABE472919F1450094A77F /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
-		DE5455BF34A43BE4803E4EB7 /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,7 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D869EEA5292E010B006BB828 /* SwiftJWT in Frameworks */,
-				AC8A6C994DB98DC90EB1C4AF /* Pods_SoulBar.framework in Frameworks */,
+				25D49004EE8567D4050AB32F /* Pods_SoulBar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,16 +264,16 @@
 		15F0BC1F2D2670309AFA9106 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4587ABBC543670DEE01333C5 /* Pods-SoulBar.debug.xcconfig */,
-				01A7E30BCD6B314AA43F0538 /* Pods-SoulBar.release.xcconfig */,
+				5D07CECEF01D3B05BA3D215E /* Pods-SoulBar.debug.xcconfig */,
+				239FFEA0278D4092D9189106 /* Pods-SoulBar.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		60C38CBDD785EDC3E72FE4D5 /* Frameworks */ = {
+		C0BEAB34428FDA08538D0F56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DE5455BF34A43BE4803E4EB7 /* Pods_SoulBar.framework */,
+				47AA5E4B7A4C9F78DB385CF8 /* Pods_SoulBar.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -391,6 +395,8 @@
 			isa = PBXGroup;
 			children = (
 				D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */,
+				D8686DD42930B8A5004F2EBE /* UIImage+Ext.swift */,
+				D8686DD62930B8C8004F2EBE /* UIAlert+Ext.swift */,
 				D88071CB2920F4A400554B18 /* DateFormatter+Ext.swift */,
 			);
 			path = Extension;
@@ -402,7 +408,7 @@
 				D85EDB9B290966C1001583F6 /* SoulBar */,
 				D85EDB9A290966C1001583F6 /* Products */,
 				15F0BC1F2D2670309AFA9106 /* Pods */,
-				60C38CBDD785EDC3E72FE4D5 /* Frameworks */,
+				C0BEAB34428FDA08538D0F56 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -692,12 +698,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D85EDBAD290966C3001583F6 /* Build configuration list for PBXNativeTarget "SoulBar" */;
 			buildPhases = (
-				85AB555FB60A8CC8007FBDFD /* [CP] Check Pods Manifest.lock */,
+				B88EC0AF32C37D9D1B5FD0C2 /* [CP] Check Pods Manifest.lock */,
 				D85EDB95290966C1001583F6 /* Sources */,
 				D85EDB96290966C1001583F6 /* Frameworks */,
 				D85EDB97290966C1001583F6 /* Resources */,
-				7CD034F893D2FAA8E131C6FF /* [CP] Embed Pods Frameworks */,
 				D8573384290F77470009D734 /* ShellScript */,
+				70528FAA02B2FE5C675C1D7E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -783,7 +789,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7CD034F893D2FAA8E131C6FF /* [CP] Embed Pods Frameworks */ = {
+		70528FAA02B2FE5C675C1D7E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -800,7 +806,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SoulBar/Pods-SoulBar-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		85AB555FB60A8CC8007FBDFD /* [CP] Check Pods Manifest.lock */ = {
+		B88EC0AF32C37D9D1B5FD0C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -901,6 +907,7 @@
 				D8A1B976290C35D3007F6775 /* PlaylistsCollectionViewCell.swift in Sources */,
 				D874C890291247DF00075AE9 /* FirebaseHistoryManager.swift in Sources */,
 				D874C89F29125BD700075AE9 /* FirebaseChatroomData.swift in Sources */,
+				D8686DD72930B8C8004F2EBE /* UIAlert+Ext.swift in Sources */,
 				D857337C290EA4CC0009D734 /* SearchAlbumsResultTableViewCell.swift in Sources */,
 				D8EA0EF62922728600514F35 /* AppleAuthViewController.swift in Sources */,
 				D8088B2929096F610037555B /* PlaylistsCharts.swift in Sources */,
@@ -911,6 +918,7 @@
 				D8088B342909700B0037555B /* MusicManager.swift in Sources */,
 				D8088B1D29096C4D0037555B /* ProfileViewController.swift in Sources */,
 				D8EA0F0C29267B2A00514F35 /* YoutubeData.swift in Sources */,
+				D8686DD52930B8A5004F2EBE /* UIImage+Ext.swift in Sources */,
 				D874C8A32912835400075AE9 /* Constants.swift in Sources */,
 				D8088B1B29096C400037555B /* FavoriteViewController.swift in Sources */,
 				D88071CC2920F4A400554B18 /* DateFormatter+Ext.swift in Sources */,
@@ -1074,7 +1082,7 @@
 		};
 		D85EDBAE290966C3001583F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4587ABBC543670DEE01333C5 /* Pods-SoulBar.debug.xcconfig */;
+			baseConfigurationReference = 5D07CECEF01D3B05BA3D215E /* Pods-SoulBar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1108,7 +1116,7 @@
 		};
 		D85EDBAF290966C3001583F6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01A7E30BCD6B314AA43F0538 /* Pods-SoulBar.release.xcconfig */;
+			baseConfigurationReference = 239FFEA0278D4092D9189106 /* Pods-SoulBar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

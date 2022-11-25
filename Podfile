@@ -22,4 +22,5 @@ target 'SoulBar' do
   pod 'lottie-ios'
   pod 'SwiftKeychainWrapper'
   pod 'YoutubeKit'
+  pod 'AWSRekognition'
 end

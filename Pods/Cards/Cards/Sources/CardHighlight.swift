@@ -129,7 +129,7 @@ import UIKit
         titleLbl.textColor = textColor
         titleLbl.font = UIFont.systemFont(ofSize: titleSize, weight: .heavy)
         titleLbl.adjustsFontSizeToFitWidth = true
-        titleLbl.lineHeight(1.70)
+        titleLbl.lineHeight(0.70)
         titleLbl.minimumScaleFactor = 0.1
         titleLbl.lineBreakMode = .byTruncatingTail
         titleLbl.numberOfLines = 3

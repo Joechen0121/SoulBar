@@ -339,6 +339,9 @@ PODS:
     - abseil/base/config
     - abseil/meta/type_traits
   - Alamofire (5.6.2)
+  - AWSCore (2.28.5)
+  - AWSRekognition (2.28.5):
+    - AWSCore (= 2.28.5)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -474,6 +477,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - AWSRekognition
   - Cards
   - Firebase/Auth
   - Firebase/Database
@@ -494,6 +498,8 @@ SPEC REPOS:
   trunk:
     - abseil
     - Alamofire
+    - AWSCore
+    - AWSRekognition
     - BoringSSL-GRPC
     - Cards
     - Firebase
@@ -528,6 +534,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
+  AWSCore: 4bad3f0eb17393b4926a9491e32b835991c56382
+  AWSRekognition: aa0b988fc9cf5c88625b73ee35191cf092259fd9
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Cards: 45ae6bd0eca7b5e8016d3b6cb30b60b04753f68f
   Firebase: 7e8fe528c161b9271d365217a74c16aaf834578e
@@ -559,6 +567,6 @@ SPEC CHECKSUMS:
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
   YoutubeKit: 5cb09f2a58fc21c9cd7c7d8e694745e65e5e48da
 
-PODFILE CHECKSUM: bf53f533fc9e48f24316feb4b536f1432990b7f5
+PODFILE CHECKSUM: d21d78eb0f69945afb040b75a4464cc7bc48fd22
 
 COCOAPODS: 1.11.3

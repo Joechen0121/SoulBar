@@ -24,7 +24,8 @@ class AuthManager {
     
     let revokeURL = "https://appleid.apple.com/auth/revoke"
     
-    let p8 = """
+    let p8 =
+     """
      -----BEGIN PRIVATE KEY-----
      MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgVPguQLxOwPSLlkdR
      xAT/ECTuSJQQgypdJKIz75ngm56gCgYIKoZIzj0DAQehRANCAATirMwrTAhEasVR

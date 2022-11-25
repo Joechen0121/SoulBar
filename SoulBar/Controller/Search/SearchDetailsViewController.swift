@@ -8,8 +8,9 @@
 import UIKit
 import TransitionButton
 import Speech
+import AWSRekognition
 
-class SearchDetailsViewController: UIViewController {
+class SearchDetailsViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     enum SearchType: Int {
         
@@ -44,6 +45,8 @@ class SearchDetailsViewController: UIViewController {
     
     @IBOutlet weak var voiceRecogniztion: UIButton!
     
+    @IBOutlet weak var buttonStackView: UIStackView!
+    
     private var speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))!
     
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -54,6 +57,8 @@ class SearchDetailsViewController: UIViewController {
     
     static let storyboardID = "SearchDetailsVC"
     
+    var activityIndicatorView = UIActivityIndicatorView()
+    
     var songs = [SongsSearchInfo]()
     
     var albums = [AlbumsSearchInfo]()
@@ -62,9 +67,9 @@ class SearchDetailsViewController: UIViewController {
     
     var isRecognizing = false
     
-    @IBOutlet weak var buttonStackView: UIStackView!
-    
     var buttonTag = 0
+    
+    var rekognitionObject: AWSRekognition?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +112,21 @@ class SearchDetailsViewController: UIViewController {
         
         navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
+    }
+    
+    @IBAction func celebrityRecognize(_ sender: UIButton) {
+     
+        print("celebrity button")
+        
+        let pickerController = UIImagePickerController()
+        
+        pickerController.delegate = self
+        
+        pickerController.sourceType = .camera
+        
+        pickerController.cameraCaptureMode = .photo
+        
+        present(pickerController, animated: true)
     }
     
     @objc func shortPressed(sender: UIButton) {
@@ -829,5 +849,130 @@ extension SearchDetailsViewController: SFSpeechRecognizerDelegate {
             
             voiceRecogniztion.tintColor = .black
         }
+    }
+}
+
+extension SearchDetailsViewController: UIPickerViewDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        dismiss(animated: true)
+        
+        activityIndicatorView.center = self.view.center
+        
+        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        
+        activityIndicatorView.tintColor = .black
+        
+        activityIndicatorView.center = self.view.center
+        
+        self.view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.startAnimating()
+        
+        self.activityIndicatorView.isHidden = false
+        
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            fatalError("couldn't load image from Photos")
+        }
+        
+        let celebImage: Data = image.jpegData(compressionQuality: 0.2)!
+        
+        sendImageToRekognition(celebImageData: celebImage, image: image)
+    }
+}
+
+
+//MARK: - rekognition method
+extension SearchDetailsViewController {
+    
+    func sendImageToRekognition(celebImageData: Data, image: UIImage) {
+        
+        rekognitionObject = AWSRekognition.default()
+        
+        let celebImageAWS = AWSRekognitionImage()
+        
+        celebImageAWS?.bytes = celebImageData
+        
+        let celebRequest = AWSRekognitionRecognizeCelebritiesRequest()
+        
+        celebRequest?.image = celebImageAWS
+        
+        rekognitionObject?.recognizeCelebrities(celebRequest!) { (result, error) in
+            
+            if error != nil {
+                print(error)
+                return
+            }
+            
+            guard let result = result, let celebrityFaces = result.celebrityFaces else { return }
+            
+            if !celebrityFaces.isEmpty {
+                
+                for celebFace in celebrityFaces {
+                    
+                    guard let matchNumber = celebFace.matchConfidence else {
+                        return
+                    }
+
+                    if matchNumber.intValue > 50 {
+                        
+                        DispatchQueue.main.async {
+                            
+                            self.activityIndicatorView.stopAnimating()
+                            
+                            self.activityIndicatorView.isHidden = true
+                            
+                            let alert = UIAlertController(title: celebFace.name, message: "", preferredStyle: .alert)
+                            
+                            alert.addImage(image: image)
+                           
+                            let search = UIAlertAction(title: "Search", style: .default, handler: { _ in
+                                
+                                self.searchTextField.text = celebFace.name
+                                
+                                guard let text = self.searchTextField.text else { return }
+                                
+                                self.fetchMusicData(buttonTag: self.buttonTag, text: text)
+                    
+                            })
+                            
+                            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                            
+                            alert.addAction(search)
+                            
+                            alert.addAction(cancel)
+                            
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+            else {
+    
+                print("No faces in this pic")
+                
+                DispatchQueue.main.async {
+                    
+                    self.activityIndicatorView.stopAnimating()
+                    
+                    self.activityIndicatorView.isHidden = true
+                    
+                    let alert = UIAlertController(title: "Not Found", message: "Please take a picture again", preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    
+                    let imgViewTitle = UIImageView(frame: CGRect(x: 10, y: 10, width: UIScreen.main.bounds.width / 3 * 2, height: UIScreen.main.bounds.height / 3 * 2))
+                    
+                    imgViewTitle.image = image
+                    
+                    alert.view.addSubview(imgViewTitle)
+                    
+                    alert.addAction(cancel)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+        
     }
 }
