@@ -17,6 +17,7 @@ target 'SoulBar' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'FirebaseRemoteConfig'
+  pod 'FirebaseCrashlytics'
   pod 'TransitionButton'
   pod 'IQKeyboardManagerSwift'
   pod 'lottie-ios'

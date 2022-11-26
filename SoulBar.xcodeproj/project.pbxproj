@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		25D49004EE8567D4050AB32F /* Pods_SoulBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47AA5E4B7A4C9F78DB385CF8 /* Pods_SoulBar.framework */; };
+		D6007183383E3DC002792CB6 /* Pods_SoulBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCB3F3D6B45D0F8942D88A7E /* Pods_SoulBar.framework */; };
 		D8088B1529096C0C0037555B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8088B1429096C0C0037555B /* HomeViewController.swift */; };
 		D8088B1729096C200037555B /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8088B1629096C200037555B /* EventsViewController.swift */; };
 		D8088B1929096C2E0037555B /* RecognizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8088B1829096C2E0037555B /* RecognizeViewController.swift */; };
@@ -126,9 +126,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		239FFEA0278D4092D9189106 /* Pods-SoulBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoulBar.release.xcconfig"; path = "Target Support Files/Pods-SoulBar/Pods-SoulBar.release.xcconfig"; sourceTree = "<group>"; };
-		47AA5E4B7A4C9F78DB385CF8 /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D07CECEF01D3B05BA3D215E /* Pods-SoulBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoulBar.debug.xcconfig"; path = "Target Support Files/Pods-SoulBar/Pods-SoulBar.debug.xcconfig"; sourceTree = "<group>"; };
+		BCB3F3D6B45D0F8942D88A7E /* Pods_SoulBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoulBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0E6094484ECAF31F0E016CF /* Pods-SoulBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoulBar.release.xcconfig"; path = "Target Support Files/Pods-SoulBar/Pods-SoulBar.release.xcconfig"; sourceTree = "<group>"; };
+		C4433B255174EF6B0215E299 /* Pods-SoulBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoulBar.debug.xcconfig"; path = "Target Support Files/Pods-SoulBar/Pods-SoulBar.debug.xcconfig"; sourceTree = "<group>"; };
 		D8088B1429096C0C0037555B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D8088B1629096C200037555B /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		D8088B1829096C2E0037555B /* RecognizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeViewController.swift; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D869EEA5292E010B006BB828 /* SwiftJWT in Frameworks */,
-				25D49004EE8567D4050AB32F /* Pods_SoulBar.framework in Frameworks */,
+				D6007183383E3DC002792CB6 /* Pods_SoulBar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,18 +264,10 @@
 		15F0BC1F2D2670309AFA9106 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5D07CECEF01D3B05BA3D215E /* Pods-SoulBar.debug.xcconfig */,
-				239FFEA0278D4092D9189106 /* Pods-SoulBar.release.xcconfig */,
+				C4433B255174EF6B0215E299 /* Pods-SoulBar.debug.xcconfig */,
+				C0E6094484ECAF31F0E016CF /* Pods-SoulBar.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		C0BEAB34428FDA08538D0F56 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				47AA5E4B7A4C9F78DB385CF8 /* Pods_SoulBar.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D8088B1329096BEE0037555B /* Controller */ = {
@@ -408,7 +400,7 @@
 				D85EDB9B290966C1001583F6 /* SoulBar */,
 				D85EDB9A290966C1001583F6 /* Products */,
 				15F0BC1F2D2670309AFA9106 /* Pods */,
-				C0BEAB34428FDA08538D0F56 /* Frameworks */,
+				ED402BEA305D140F30846F05 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -691,6 +683,14 @@
 			path = Youtube;
 			sourceTree = "<group>";
 		};
+		ED402BEA305D140F30846F05 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BCB3F3D6B45D0F8942D88A7E /* Pods_SoulBar.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -698,12 +698,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D85EDBAD290966C3001583F6 /* Build configuration list for PBXNativeTarget "SoulBar" */;
 			buildPhases = (
-				B88EC0AF32C37D9D1B5FD0C2 /* [CP] Check Pods Manifest.lock */,
+				BB7605715A522671E42415A5 /* [CP] Check Pods Manifest.lock */,
 				D85EDB95290966C1001583F6 /* Sources */,
 				D85EDB96290966C1001583F6 /* Frameworks */,
 				D85EDB97290966C1001583F6 /* Resources */,
 				D8573384290F77470009D734 /* ShellScript */,
-				70528FAA02B2FE5C675C1D7E /* [CP] Embed Pods Frameworks */,
+				1AE131273F5B89C0D39E38C4 /* [CP] Embed Pods Frameworks */,
+				D87E3B2A29320868008B79D9 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -789,7 +790,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		70528FAA02B2FE5C675C1D7E /* [CP] Embed Pods Frameworks */ = {
+		1AE131273F5B89C0D39E38C4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -806,7 +807,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SoulBar/Pods-SoulBar-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B88EC0AF32C37D9D1B5FD0C2 /* [CP] Check Pods Manifest.lock */ = {
+		BB7605715A522671E42415A5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -844,6 +845,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		D87E3B2A29320868008B79D9 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1082,13 +1103,14 @@
 		};
 		D85EDBAE290966C3001583F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5D07CECEF01D3B05BA3D215E /* Pods-SoulBar.debug.xcconfig */;
+			baseConfigurationReference = C4433B255174EF6B0215E299 /* Pods-SoulBar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SoulBar/SoulBar.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3HBD942P6N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SoulBar/Info.plist;
@@ -1116,7 +1138,7 @@
 		};
 		D85EDBAF290966C3001583F6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 239FFEA0278D4092D9189106 /* Pods-SoulBar.release.xcconfig */;
+			baseConfigurationReference = C0E6094484ECAF31F0E016CF /* Pods-SoulBar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

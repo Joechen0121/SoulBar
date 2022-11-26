@@ -50,7 +50,6 @@ class HomeViewController: UIViewController {
         setupUI()
 
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
   
