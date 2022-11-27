@@ -141,8 +141,9 @@ extension EventsViewController: UITableViewDataSource {
             fatalError("Cannot create event cells")
         }
         
-        cell.cardsView.backgroundColor = UIColor(red: 0, green: 94/255, blue: 112/255, alpha: 1)
-        cell.cardsView.icon = UIImage(systemName: "music.quarternote.3")
+        cell.cardsView.backgroundColor = UIColor(red: 0, green: 94 / 255, blue: 112 / 255, alpha: 1)
+        // cell.cardsView.icon = UIImage(systemName: "music.quarternote.3")
+        cell.cardsView.icon = UIImage(named: "44")
         cell.cardsView.titleSize = 17
         cell.cardsView.title = events[indexPath.row].title
         cell.cardsView.itemTitle = events[indexPath.row].startDate
@@ -179,11 +180,8 @@ extension EventsViewController: UICollectionViewDataSource {
         
         guard let eventsFavorite = eventsFavorite else { return UICollectionViewCell() }
         
-        cell.favoriteCards.backgroundColor = UIColor(red: 249/255, green: 68/255, blue: 73/255, alpha: 1)
-
-        let image = UIImage(systemName: "heart")
-        let heartImage = image?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        cell.favoriteCards.icon = heartImage
+        cell.favoriteCards.backgroundColor = K.Colors.customRed
+        cell.favoriteCards.icon = UIImage(named: "43")
         cell.favoriteCards.icon?.withTintColor(.gray)
         cell.favoriteCards.titleSize = 17
         cell.favoriteCards.title = eventsFavorite[indexPath.row].eventName

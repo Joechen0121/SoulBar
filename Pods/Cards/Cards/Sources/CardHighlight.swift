@@ -129,7 +129,7 @@ import UIKit
         titleLbl.textColor = textColor
         titleLbl.font = UIFont.systemFont(ofSize: titleSize, weight: .heavy)
         titleLbl.adjustsFontSizeToFitWidth = true
-        titleLbl.lineHeight(0.70)
+        titleLbl.lineHeight(1.70)
         titleLbl.minimumScaleFactor = 0.1
         titleLbl.lineBreakMode = .byTruncatingTail
         titleLbl.numberOfLines = 3
@@ -156,7 +156,7 @@ import UIKit
         actionBtn.layer.backgroundColor = lightColor.cgColor
         actionBtn.clipsToBounds = true
         if self.buttonText != nil {
-            let btnTitle = NSAttributedString(string: buttonText!.uppercased(), attributes: [ NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .black), NSAttributedString.Key.foregroundColor : self.tintColor ?? UIColor.black])
+            let btnTitle = NSAttributedString(string: buttonText!.uppercased(), attributes: [ NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .black), NSAttributedString.Key.foregroundColor : UIColor.gray ?? UIColor.black])
             actionBtn.setAttributedTitle(btnTitle, for: .normal)
             btnWidth = CGFloat((buttonText!.count + 2) * 10)
         }
