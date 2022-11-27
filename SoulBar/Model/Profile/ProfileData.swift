@@ -23,6 +23,6 @@ class ProfileData {
         Profile(profileName: "My Events", profileImage: "event"),
         Profile(profileName: "Liked Artists", profileImage: "likedArtist"),
         Profile(profileName: "Recognize History", profileImage: "history"),
-        Profile(profileName: "Blacklist", profileImage: "blacklist")
+        Profile(profileName: "Privacy", profileImage: "privacy")
     ]
 }

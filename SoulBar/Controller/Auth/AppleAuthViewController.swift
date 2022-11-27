@@ -9,27 +9,40 @@ import UIKit
 import AuthenticationServices
 import CryptoKit
 import SwiftKeychainWrapper
+import SwiftJWT
+
+struct AuthClaims: Claims {
+    
+    let iss: String
+    
+    let iat: Date
+    
+    let exp: Date
+    
+    let aud: String
+    
+    let sub: String
+}
 
 class AppleAuthViewController: UIViewController {
     
     static let storyboardID = "AppleAuthVC"
     
-   // private let signInButton = ASAuthorizationAppleIDButton()
     @IBOutlet weak var notNowButton: UIButton!
     
     @IBOutlet weak var signInButton: ASAuthorizationAppleIDButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         //view.addSubview(signInButton)
         
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+        
         let backgroundEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
         backgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+        
         let container = UIView()
         container.frame = view.bounds
         container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -53,7 +66,7 @@ class AppleAuthViewController: UIViewController {
         signInButton.layer.borderColor = UIColor.black.cgColor
         
         notNowButton.layer.cornerRadius = signInButton.frame.height / 2.5
-
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -79,7 +92,7 @@ class AppleAuthViewController: UIViewController {
         controller.performRequests()
         
     }
-
+    
     @IBAction func dismissButton(_ sender: UIButton) {
         
         dismiss(animated: true)
@@ -97,17 +110,47 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             guard let token = credentials.identityToken, let _ = String(data: token, encoding: .utf8) else { return }
             
             let firstName = credentials.fullName?.givenName
-           
+            
             let id = credentials.user
-
+            
             let lastName = credentials.fullName?.familyName
             
             let email = credentials.email
             
+            let header = Header(kid: AuthManager.sharedInstance.teamID)
+            
+            let claims = AuthClaims(iss: AuthManager.sharedInstance.appleID, iat: Date(), exp: Date(timeIntervalSinceNow: 3600), aud: AuthManager.sharedInstance.aud, sub: AuthManager.sharedInstance.clientID)
+            
+            var jwt = JWT(header: header, claims: claims)
+            
+            let jwtSigner = JWTSigner.es256(privateKey: Data(AuthManager.sharedInstance.p8.utf8))
+            
+            do {
+                
+                guard let authCode = String(data: credentials.authorizationCode!, encoding: .utf8) else { return }
+                
+                let signedJWT = try jwt.sign(using: jwtSigner)
+                
+                AuthManager.sharedInstance.fetchTokenInfo(
+                    clientID: AuthManager.sharedInstance.clientID,
+                    clientSecret: signedJWT,
+                    authCode: authCode) { result in
+                        
+                        guard let refreshToken = result.refreshToken else { return }
+                        
+                        KeychainManager.sharedInstance.refreshToken = refreshToken
+                    }
+                
+            } catch {
+                
+                print(error)
+            }
+            
+            
             if let email = email, let firstName = firstName, let lastName = lastName {
                 
                 FirebaseUserManager.sharedInstance.addUserData(id: id, email: email, name: lastName + firstName) {
-                                
+                    
                     KeychainManager.sharedInstance.name = lastName + firstName
                     
                     KeychainManager.sharedInstance.id = id
@@ -124,12 +167,12 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
                         if user.id == id {
                             
                             KeychainManager.sharedInstance.name = user.name
-    
+                            
                         }
                     }
                 }
             }
-
+            
             dismiss(animated: true)
             
         default:
@@ -144,47 +187,48 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             let controller = UIAlertController(title: "User cancels login", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
-
+            
             controller.addAction(action)
             
             present(controller, animated: true)
             
         case ASAuthorizationError.failed:
-           
+            
             let controller = UIAlertController(title: "Authorization request failed", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
-
+            
             controller.addAction(action)
             
             present(controller, animated: true)
         case ASAuthorizationError.invalidResponse:
-          
+            
             let controller = UIAlertController(title: "Authorization request no response", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
-
+            
             controller.addAction(action)
             
             present(controller, animated: true)
         case ASAuthorizationError.notHandled:
-          
+            
             let controller = UIAlertController(title: "Authorization request not processed", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
-
+            
             controller.addAction(action)
             
             present(controller, animated: true)
         case ASAuthorizationError.unknown:
-           
+            
             let controller = UIAlertController(title: "Authorization failed for unknown reason", message: "", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "OK", style: .default)
-
+            
             controller.addAction(action)
             
             present(controller, animated: true)
+            
         default:
             break
         }

@@ -23,7 +23,8 @@ class SearchAlbumsResultTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         widthConstraint.constant = UIScreen.main.bounds.height / 7
-        // Initialization code
+        
+        self.selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

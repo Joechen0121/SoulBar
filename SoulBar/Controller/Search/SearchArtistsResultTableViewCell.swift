@@ -25,7 +25,8 @@ class SearchArtistsResultTableViewCell: UITableViewCell {
         self.artistImage.layer.masksToBounds = true
         
         self.artistImage.layer.cornerRadius = UIScreen.main.bounds.height / 7 / 2
-        // Initialization code
+        
+        self.selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

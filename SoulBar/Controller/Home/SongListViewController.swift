@@ -87,6 +87,10 @@ class SongListViewController: UIViewController {
         
         songListTableView.delegate = self
         
+        songListTableView.showsVerticalScrollIndicator = false
+        
+        songListTableView.showsHorizontalScrollIndicator = false
+        
         imageWidthConstraint.constant = UIScreen.main.bounds.height / 3
         
         let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))

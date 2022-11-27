@@ -30,9 +30,15 @@ class RecommendTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.selectionStyle = .none
+        
         recommendCollectionView.dataSource = self
         
         recommendCollectionView.delegate = self
+        
+        recommendCollectionView.showsVerticalScrollIndicator = false
+        
+        recommendCollectionView.showsHorizontalScrollIndicator = false
         
         recommendCollectionView.register(UINib.init(nibName: RecommendCollectionViewCell.identifier, bundle: .main), forCellWithReuseIdentifier: RecommendCollectionViewCell.identifier)
         

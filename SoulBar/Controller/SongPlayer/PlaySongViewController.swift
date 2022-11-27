@@ -10,6 +10,7 @@ import Kingfisher
 import AVFoundation
 import AVFAudio
 import SwiftUI
+import FirebaseRemoteConfig
 
 class PlaySongViewController: UIViewController {
 
@@ -48,6 +49,10 @@ class PlaySongViewController: UIViewController {
     
     @IBOutlet weak var sharedView: UIImageView!
     
+    @IBOutlet weak var playVideoButton: UIButton!
+    
+    private let remoteConfig = RemoteConfig.remoteConfig()
+    
     var songs: [SongsSearchInfo]?
     
     var currentItemIndex: Int = 0
@@ -71,53 +76,15 @@ class PlaySongViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
-        backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-        let container = UIView()
-        container.frame = view.bounds
-        container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        configureBlurBackground()
         
-        backgroundImageView.frame = container.bounds
+        configureRemoteConfig()
         
-        backgroundImageView.alpha = 0.5
-        
-        container.addSubview(backgroundImageView)
-        
-        view.insertSubview(container, at: 0)
-
         PlaySongManager.sharedInstance.setupRemoteTransportControls()
         
-        songImageWidthConstraint.constant = UIScreen.main.bounds.height / 1.5
+        setupConstraint()
 
-        songImageHeightConstraint.constant = UIScreen.main.bounds.height / 3
-
-        songImageTopConstraint.constant = UIScreen.main.bounds.height / 20
-
-        let previousTap = UITapGestureRecognizer(target: self, action: #selector(previousButton(_:)))
-        previousImage.isUserInteractionEnabled = true
-        previousImage.addGestureRecognizer(previousTap)
-        
-        let playPauseTap = UITapGestureRecognizer(target: self, action: #selector(playPauseButton(_:)))
-        playPauseImage.isUserInteractionEnabled = true
-        playPauseImage.addGestureRecognizer(playPauseTap)
-        
-        let nextTap = UITapGestureRecognizer(target: self, action: #selector(nextButton(_:)))
-        nextImage.isUserInteractionEnabled = true
-        nextImage.addGestureRecognizer(nextTap)
-        
-        let addToListTap = UITapGestureRecognizer(target: self, action: #selector(addToList))
-        addToListView.isUserInteractionEnabled = true
-        addToListView.addGestureRecognizer(addToListTap)
-        
-        let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
-        favoriteView.isUserInteractionEnabled = true
-        favoriteView.addGestureRecognizer(favoriteTap)
-        
-        let sharedTap = UITapGestureRecognizer(target: self, action: #selector(shared))
-        sharedView.isUserInteractionEnabled = true
-        sharedView.addGestureRecognizer(sharedTap)
-        
+        configureTapGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -167,10 +134,94 @@ class PlaySongViewController: UIViewController {
 
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    func configureBlurBackground() {
         
-        //PlaySongManager.sharedInstance.removeTimeObserve()
+        let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
+        
+        backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let container = UIView()
+        
+        container.frame = view.bounds
+        
+        container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        backgroundImageView.frame = container.bounds
+        
+        backgroundImageView.alpha = 0.5
+        
+        container.addSubview(backgroundImageView)
+        
+        view.insertSubview(container, at: 0)
+
+    }
+    
+    func setupConstraint() {
+        
+        songImageWidthConstraint.constant = UIScreen.main.bounds.height / 1.5
+
+        songImageHeightConstraint.constant = UIScreen.main.bounds.height / 3
+
+        songImageTopConstraint.constant = UIScreen.main.bounds.height / 20
+    }
+    
+    func configureRemoteConfig() {
+        
+        let settings = RemoteConfigSettings()
+        
+        settings.minimumFetchInterval = 0
+        
+        remoteConfig.configSettings = settings
+        
+        remoteConfig.fetch { (status, error) -> Void in
+            
+            if status == .success {
+        
+                self.remoteConfig.activate { _, error in
+                    
+                    guard error == nil else { return }
+                    
+                    let value = self.remoteConfig.configValue(forKey: "isYoutubeAPITriggered").boolValue
+    
+                    DispatchQueue.main.async {
+                        
+                        self.playVideoButton.isHidden = !value
+                    }
+                }
+            }
+            else {
+                print("Config not fetched")
+                
+                print("Error: \(error?.localizedDescription ?? "No error available.")")
+            }
+        }
+    }
+    
+    func configureTapGesture() {
+        
+        let previousTap = UITapGestureRecognizer(target: self, action: #selector(previousButton(_:)))
+        previousImage.isUserInteractionEnabled = true
+        previousImage.addGestureRecognizer(previousTap)
+        
+        let playPauseTap = UITapGestureRecognizer(target: self, action: #selector(playPauseButton(_:)))
+        playPauseImage.isUserInteractionEnabled = true
+        playPauseImage.addGestureRecognizer(playPauseTap)
+        
+        let nextTap = UITapGestureRecognizer(target: self, action: #selector(nextButton(_:)))
+        nextImage.isUserInteractionEnabled = true
+        nextImage.addGestureRecognizer(nextTap)
+        
+        let addToListTap = UITapGestureRecognizer(target: self, action: #selector(addToList))
+        addToListView.isUserInteractionEnabled = true
+        addToListView.addGestureRecognizer(addToListTap)
+        
+        let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
+        favoriteView.isUserInteractionEnabled = true
+        favoriteView.addGestureRecognizer(favoriteTap)
+        
+        let sharedTap = UITapGestureRecognizer(target: self, action: #selector(shared))
+        sharedView.isUserInteractionEnabled = true
+        sharedView.addGestureRecognizer(sharedTap)
     }
     
     @IBAction func playVideoButton(_ sender: UIButton) {

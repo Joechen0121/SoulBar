@@ -24,6 +24,10 @@ class ProfileEventsViewController: UIViewController {
 
         eventCollectionView.dataSource = self
         
+        eventCollectionView.showsVerticalScrollIndicator = false
+        
+        eventCollectionView.showsHorizontalScrollIndicator = false
+        
         configureCellSize()
         
         self.navigationItem.title = "My Events"
@@ -110,11 +114,8 @@ extension ProfileEventsViewController: UICollectionViewDataSource {
             fatalError("Cannot create event cells")
         }
         
-        cell.eventCard.backgroundColor = UIColor(red: 249/255, green: 68/255, blue: 73/255, alpha: 1)
-        
-        let image = UIImage(systemName: "heart")
-        let heartImage = image?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        cell.eventCard.icon = heartImage
+        cell.eventCard.backgroundColor = K.Colors.customRed
+        cell.eventCard.icon = UIImage(named: "43")
         cell.eventCard.titleSize = 17
         cell.eventCard.title = eventsFavorite[indexPath.row].eventName
         cell.eventCard.itemTitle = eventsFavorite[indexPath.row].eventTime

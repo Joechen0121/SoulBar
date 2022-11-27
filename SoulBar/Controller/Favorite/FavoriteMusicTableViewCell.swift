@@ -21,6 +21,8 @@ class FavoriteMusicTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         musicImageHeight.constant = UIScreen.main.bounds.height / 7
+        
+        self.selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -156,7 +156,7 @@ import UIKit
         actionBtn.layer.backgroundColor = lightColor.cgColor
         actionBtn.clipsToBounds = true
         if self.buttonText != nil {
-            let btnTitle = NSAttributedString(string: buttonText!.uppercased(), attributes: [ NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .black), NSAttributedString.Key.foregroundColor : self.tintColor ?? UIColor.black])
+            let btnTitle = NSAttributedString(string: buttonText!.uppercased(), attributes: [ NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .black), NSAttributedString.Key.foregroundColor : UIColor.gray ?? UIColor.black])
             actionBtn.setAttributedTitle(btnTitle, for: .normal)
             btnWidth = CGFloat((buttonText!.count + 2) * 10)
         }

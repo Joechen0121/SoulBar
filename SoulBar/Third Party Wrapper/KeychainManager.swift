@@ -64,6 +64,36 @@ class KeychainManager {
         }
     }
     
+    var refreshToken: String? {
+        
+        set(token) {
+            
+            guard let token = token else { return }
+            
+            KeychainWrapper.standard.set(token, forKey: "refreshToken")
+            
+            return
+    
+        }
+        
+        get {
+            
+            if let token = KeychainWrapper.standard.string(forKey: "refreshToken") {
+                
+                return token
+            }
+            else {
+                
+                return nil
+            }
+        }
+    }
+    
+    func removeRefreshToken() {
+        
+        let _: Bool = KeychainWrapper.standard.removeObject(forKey: "refreshToken")
+    }
+    
     func removeID() {
         
         let _: Bool = KeychainWrapper.standard.removeObject(forKey: "id")

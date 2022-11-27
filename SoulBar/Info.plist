@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Speech recogniztion will be used to determine which words you speak into the device&apos;s microphone</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera use for take pictures and recognizing the picture</string>
+	<key>NSUserActivityTypes</key>
+	<string>com.SoulBar.recognize</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

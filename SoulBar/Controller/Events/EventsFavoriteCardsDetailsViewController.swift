@@ -82,7 +82,6 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
         }
     }
     @objc func gotToChatroom() {
-        print("Got to chatroom")
         
         if let chatVC = self.storyboard?.instantiateViewController(withIdentifier: ChatViewController.storyboardID) as? ChatViewController {
             
@@ -90,7 +89,6 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
             
             present(chatVC, animated: true)
             
-            //self.navigationController?.pushViewController(chatVC, animated: true)
         }
     }
     

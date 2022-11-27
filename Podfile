@@ -16,9 +16,12 @@ target 'SoulBar' do
   pod 'FirebaseFirestoreSwift' , '8.1.0-beta'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'FirebaseRemoteConfig'
+  pod 'FirebaseCrashlytics'
   pod 'TransitionButton'
   pod 'IQKeyboardManagerSwift'
   pod 'lottie-ios'
   pod 'SwiftKeychainWrapper'
   pod 'YoutubeKit'
+  pod 'AWSRekognition'
 end

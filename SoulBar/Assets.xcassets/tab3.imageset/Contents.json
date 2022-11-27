@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "soulbar logo(1024 × 1024 像素)-43.png",
+      "filename" : "tab3.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "tab3@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "tab3@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -65,7 +65,7 @@ class EventsManager {
                 completion(events)
 
             }
-             debugPrint(response)
+            // debugPrint(response)
         }
     }
 }

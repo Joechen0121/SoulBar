@@ -59,6 +59,10 @@ class FavoriteMusicDetailsViewController: UIViewController {
         
         musicDetailsTableView.delegate = self
         
+        musicDetailsTableView.showsVerticalScrollIndicator = false
+        
+        musicDetailsTableView.showsHorizontalScrollIndicator = false
+        
         musicDetailsTableView.register(UINib.init(nibName: FavoriteMusicDetailsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicDetailsTableViewCell.identifier)
         
         musicDetailsTableView.register(UINib.init(nibName: FavoriteMusicDetailsNoHeartTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicDetailsNoHeartTableViewCell.identifier)
@@ -505,8 +509,6 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
             }
             
         case .FavLists:
-            
-            print("lists!!!!!")
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 

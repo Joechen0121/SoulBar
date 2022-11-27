@@ -32,6 +32,10 @@ class FavoriteViewController: UIViewController {
         
         favoriteListTableView.delegate = self
         
+        favoriteListTableView.showsVerticalScrollIndicator = false
+        
+        favoriteListTableView.showsHorizontalScrollIndicator = false
+        
         favoriteListTableView.register(UINib.init(nibName: FavoriteMusicTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicTableViewCell.identifier)
         
         favoriteListTableView.register(UINib.init(nibName: FavoriteAlbumsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteAlbumsTableViewCell.identifier)
@@ -122,20 +126,25 @@ class FavoriteViewController: UIViewController {
 
         showImage(true)
         
-        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+//        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+//
+//        activityIndicatorView.tintColor = .black
+//
+//        activityIndicatorView.center = self.view.center
+//
+//        self.view.addSubview(activityIndicatorView)
+//
+//        activityIndicatorView.startAnimating()
+//
+//        activityIndicatorView.isHidden = false
         
-        activityIndicatorView.tintColor = .black
+        // loadWithGroup()
         
-        activityIndicatorView.center = self.view.center
-        
-        self.view.addSubview(activityIndicatorView)
-        
-        activityIndicatorView.startAnimating()
-        
-        activityIndicatorView.isHidden = false
-        
-        loadWithGroup()
+        setupFavoriteAlbums()
 
+        setupFavoritePlaylists()
+        
+        setupFavoriteLists()
     }
     
     func loadWithGroup() {
@@ -143,7 +152,7 @@ class FavoriteViewController: UIViewController {
         let group = DispatchGroup()
         
         let queue = DispatchQueue.global()
-        
+       
         queue.async(group: group) {
             
             FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.albums) { result in

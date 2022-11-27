@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftJWT
 
 class ProfileViewController: UIViewController {
     
@@ -19,7 +20,7 @@ class ProfileViewController: UIViewController {
         
         case RecogHistory
         
-        case Blacklists
+        case Privacy
         
     }
     
@@ -29,7 +30,7 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var prfileViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var logoutButton: UIButton!
+    var activityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,19 +38,19 @@ class ProfileViewController: UIViewController {
         profileTableView.dataSource = self
         
         profileTableView.delegate = self
+        
+        profileTableView.showsVerticalScrollIndicator = false
+        
+        profileTableView.showsHorizontalScrollIndicator = false
     
         profileTableView.register(UINib.init(nibName: ProfileTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileTableViewCell.identifier)
         
-        prfileViewHeightConstraint.constant = UIScreen.main.bounds.height / 7
+        prfileViewHeightConstraint.constant = UIScreen.main.bounds.height / 8
         
-        profileTableView.rowHeight = UIScreen.main.bounds.height / 10
+        profileTableView.rowHeight = 50
         
-        logoutButton.layer.masksToBounds = true
-        
-        logoutButton.layer.cornerRadius = logoutButton.frame.height / 2
-        
-        logoutButton.backgroundColor = K.Colors.customRed
-
+        // profileTableView.rowHeight = UIScreen.main.bounds.height / 12
+ 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,26 +74,36 @@ class ProfileViewController: UIViewController {
             }
             
         }
+        
+        activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        
+        activityIndicatorView.tintColor = .black
+        
+        activityIndicatorView.center = self.view.center
+        
+        self.view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.isHidden = true
     }
     
     @IBAction func logoutButton(_ sender: UIButton) {
         
-        print("logout")
+        let alert = UIAlertController(title: "Attention", message: "SoulBar User Setting ", preferredStyle: .actionSheet)
         
-        let title = "Sign Out?"
-        let message = "Are You Sure To Do That?"
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "Log Out", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { _ in
+            
             self.confirmLogOut(logOut: true)
         }))
         
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
-            self.confirmLogOut(logOut: false)
+        alert.addAction(UIAlertAction(title: "Delete Account", style: .default, handler: { _ in
+            
+            self.confirmDelete(delete: true)
+            
         }))
-        
-        self.present(alertController, animated: true, completion: nil)
+    
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
 
+        self.present(alert, animated: true)
     }
     
     func confirmLogOut(logOut: Bool) {
@@ -106,6 +117,79 @@ class ProfileViewController: UIViewController {
             KeychainManager.sharedInstance.removeUsername()
             
             goToRootOfTab(index: 0)
+            
+        case false:
+            print("Nothing Happened for now")
+        }
+    }
+    
+    @IBAction func deleteAccount(_ sender: UIButton) {
+     
+        let title = "Delete Account"
+        
+        let message = "Are You Sure To Do That?"
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in
+            self.confirmDelete(delete: true)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
+            self.confirmDelete(delete: false)
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func confirmDelete(delete: Bool) {
+        
+        switch delete {
+            
+        case true:
+            
+            guard let refreshToken = KeychainManager.sharedInstance.refreshToken else { return }
+            
+            self.activityIndicatorView.startAnimating()
+            
+            self.activityIndicatorView.isHidden = false
+            
+            let header = Header(kid: AuthManager.sharedInstance.teamID)
+            
+            let claims = AuthClaims(iss: AuthManager.sharedInstance.appleID, iat: Date(), exp: Date(timeIntervalSinceNow: 3600), aud: AuthManager.sharedInstance.aud, sub: AuthManager.sharedInstance.clientID)
+            
+            var jwt = JWT(header: header, claims: claims)
+            
+            let jwtSigner = JWTSigner.es256(privateKey: Data(AuthManager.sharedInstance.p8.utf8))
+            
+            do {
+                
+                let signedJWT = try jwt.sign(using: jwtSigner)
+                
+                AuthManager.sharedInstance.revokeToken(
+                    clientID: AuthManager.sharedInstance.clientID,
+                    clientSecret: signedJWT,
+                    refreshToken: refreshToken) {
+                        
+                        KeychainManager.sharedInstance.removeRefreshToken()
+                        
+                        FirebaseUserManager.sharedInstance.removeUserData(id: KeychainManager.sharedInstance.id!)
+
+                        KeychainManager.sharedInstance.removeID()
+                            
+                        KeychainManager.sharedInstance.removeUsername()
+                        
+                        self.goToRootOfTab(index: 0)
+                        
+                        self.activityIndicatorView.stopAnimating()
+                        
+                        self.activityIndicatorView.isHidden = true
+                }
+                
+            } catch {
+                
+                print(error)
+            }
             
         case false:
             print("Nothing Happened for now")
@@ -162,7 +246,6 @@ extension ProfileViewController: UITableViewDelegate {
             
         case .MyEvent:
             
-            print("myevent")
             if let eventVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileEventsViewController.storyboardID) as? ProfileEventsViewController {
                 
                 self.navigationController?.pushViewController(eventVC, animated: true)
@@ -170,7 +253,6 @@ extension ProfileViewController: UITableViewDelegate {
             
         case .LikedArtists:
             
-            print("liked artist")
             if let artistVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileArtistsViewController.storyboardID) as? ProfileArtistsViewController {
         
                 self.navigationController?.pushViewController(artistVC, animated: true)
@@ -178,16 +260,17 @@ extension ProfileViewController: UITableViewDelegate {
             
         case .RecogHistory:
             
-            print("recog")
-            
             if let historyVC = self.storyboard?.instantiateViewController(withIdentifier: ProfileHistoryViewController.storyboardID) as? ProfileHistoryViewController {
                 
                 self.navigationController?.pushViewController(historyVC, animated: true)
             }
             
-        case .Blacklists:
+        case .Privacy:
             
-            print("blacklist")
+            if let privacyVC = self.storyboard?.instantiateViewController(withIdentifier: PrivacyViewController.storyboardID) as? PrivacyViewController {
+                
+                self.present(privacyVC, animated: true)
+            }
             
         default:
             

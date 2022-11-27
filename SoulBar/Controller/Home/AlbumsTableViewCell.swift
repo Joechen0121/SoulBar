@@ -31,11 +31,17 @@ class AlbumsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.selectionStyle = .none
+        
         albumsCollectionView.register(UINib.init(nibName: AlbumsCollectionViewCell.identifier, bundle: .main), forCellWithReuseIdentifier: AlbumsCollectionViewCell.identifier)
         
         albumsCollectionView.dataSource = self
         
         albumsCollectionView.delegate = self
+        
+        albumsCollectionView.showsVerticalScrollIndicator = false
+        
+        albumsCollectionView.showsHorizontalScrollIndicator = false
         
         let flowlayout = UICollectionViewFlowLayout()
         

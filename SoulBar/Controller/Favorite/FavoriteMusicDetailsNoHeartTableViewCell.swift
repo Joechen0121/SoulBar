@@ -23,6 +23,8 @@ class FavoriteMusicDetailsNoHeartTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         songImageWidth.constant = UIScreen.main.bounds.height / 10
+        
+        self.selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

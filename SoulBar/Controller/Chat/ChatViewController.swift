@@ -40,6 +40,12 @@ class ChatViewController: UIViewController {
         
         chatTableView.separatorStyle = .none
         
+        chatTableView.showsVerticalScrollIndicator = false
+        
+        chatTableView.showsHorizontalScrollIndicator = false
+        
+        messageTextField.delegate = self
+        
         configureInformation()
         
         infoHeightConstraint.constant = UIScreen.main.bounds.height / 7
@@ -144,7 +150,7 @@ class ChatViewController: UIViewController {
     
     @IBAction func sendMessages(_ sender: UIButton) {
         
-        guard let text = messageTextField.text else { return }
+        guard messageTextField.text != "", let text = messageTextField.text else { return }
         
         guard let eventsFavorite = eventsFavorite else { return }
 
@@ -204,8 +210,38 @@ extension ChatViewController: UITableViewDataSource {
             }
             
             cell.messageLabel.text = messages[indexPath.row].content
+            
+            cell.delegate = self
+            
+            cell.indexPath = indexPath
 
             return cell
         }
     }
+}
+
+extension ChatViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        if range.location == 0 && string == " " {
+            return false
+        }
+        return true
+    }
+}
+
+extension ChatViewController: ChatMessageStrangerTableViewCellDelegate {
+    
+    func presentReportMessage(at indexPath: IndexPath) {
+        
+        let alert = UIAlertController(title: "Attention", message: "Do you want to report this user ?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Report", style: .default))
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+
+        self.present(alert, animated: true)
+    }
+    
 }
