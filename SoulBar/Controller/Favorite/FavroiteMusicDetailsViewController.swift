@@ -75,6 +75,8 @@ class FavoriteMusicDetailsViewController: UIViewController {
         
         playPuaseButtonWidth.constant = imageLogo.frame.height / 5
         
+        viewHeight.constant = UIScreen.main.bounds.height / 5
+        
         configureLabel()
         
         self.songCount.text = " \(self.songsTracks.count) songs "
