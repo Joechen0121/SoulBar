@@ -99,19 +99,16 @@ class PlaySongManager: NSObject {
 
         item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
 
-        DispatchQueue.main.async {
-            
-            self.player.replaceCurrentItem(with: item)
-            
-            self.player.addObserver(self, forKeyPath: #keyPath(AVPlayer.timeControlStatus), options: [.new], context: nil)
-            
-            self.addTimeObserve()
-            
-            self.player.allowsExternalPlayback = true
-            
-            self.player.usesExternalPlaybackWhileExternalScreenIsActive = true
-            
-        }
+        self.player.replaceCurrentItem(with: item)
+        
+        self.player.addObserver(self, forKeyPath: #keyPath(AVPlayer.timeControlStatus), options: [.new], context: nil)
+        
+        self.addTimeObserve()
+        
+        self.player.allowsExternalPlayback = true
+        
+        self.player.usesExternalPlaybackWhileExternalScreenIsActive = true
+        
     }
     
     func addTimeObserve() {

@@ -477,7 +477,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
         case .FavSongs:
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-                
+    
                 playSongVC.songs = [songsTracks[indexPath.row]]
                 
                 playSongVC.modalPresentationStyle = .fullScreen
