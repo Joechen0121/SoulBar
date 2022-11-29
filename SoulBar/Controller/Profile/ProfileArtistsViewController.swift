@@ -60,15 +60,30 @@ class ProfileArtistsViewController: UIViewController {
         let group = DispatchGroup()
         
         let queue = DispatchQueue.global()
-        
+
         queue.async(group: group) {
             
             FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
 
+                guard result.id[0] != "" else {
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.artistTableView.reloadData()
+                        
+                        self.activityIndicatorView.stopAnimating()
+                        
+                        self.activityIndicatorView.isHidden = true
+                    }
+                    
+                    return
+                    
+                }
+                
                 self.artistsID = result
-                
+
                 guard let artistsID = self.artistsID else { return }
-                
+            
                 artistsID.id.forEach { id in
     
                     group.enter()
