@@ -127,7 +127,7 @@ class ProfileHistoryViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         
-                        self.songCount.text = " \(self.songsTracks.count) songs "
+                        self.songCount.text = "\(self.songsTracks.count) songs"
                         
                         self.historyTableView.reloadData()
                         
