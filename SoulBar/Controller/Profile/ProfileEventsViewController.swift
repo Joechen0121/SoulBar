@@ -68,7 +68,9 @@ class ProfileEventsViewController: UIViewController {
         
         let flowlayout = UICollectionViewFlowLayout()
         
-        let width = floor((UIScreen.main.bounds.width - itemSpace * (columnCount - 1)) / columnCount)
+        flowlayout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        
+        let width = floor((UIScreen.main.bounds.width - itemSpace * (columnCount - 1)) / columnCount - 15)
         
         flowlayout.itemSize = CGSize(width: width, height: width)
     
