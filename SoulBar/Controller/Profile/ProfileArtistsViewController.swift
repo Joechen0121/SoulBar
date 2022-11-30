@@ -82,7 +82,7 @@ class ProfileArtistsViewController: UIViewController {
             
             FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
 
-                guard !result.id.isEmpty else {
+                guard !result.id.isEmpty && result.id[0] != "" else {
                     
                     self.configureNoResult()
                     
