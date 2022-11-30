@@ -55,6 +55,23 @@ class ProfileArtistsViewController: UIViewController {
 
     }
     
+    func configureNoResult() {
+        
+        let label = UILabel(frame: CGRect(x: 0, y: self.view.center.y, width: 290, height: 70))
+        
+        label.center = self.view.center
+        
+        label.textAlignment = .center
+        
+        label.textColor = .darkGray
+        
+        label.font = UIFont.systemFont(ofSize: 17)
+        
+        label.text = "No Favorite Artists"
+
+        self.view.addSubview(label)
+    }
+    
     func loadDataWithGroup() {
         
         let group = DispatchGroup()
@@ -65,7 +82,9 @@ class ProfileArtistsViewController: UIViewController {
             
             FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
 
-                guard result.id[0] != "" else {
+                guard !result.id.isEmpty else {
+                    
+                    self.configureNoResult()
                     
                     DispatchQueue.main.async {
                         

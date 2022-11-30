@@ -57,7 +57,7 @@ class FirebaseFavoriteManager {
                 
             }
             
-            completion(FirebaseFavoriteData(id: [""]))
+            // completion(FirebaseFavoriteData(id: [""]))
 
         }
     }
