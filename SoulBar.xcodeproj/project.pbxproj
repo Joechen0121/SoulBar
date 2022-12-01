@@ -40,6 +40,7 @@
 		D834AF5D2938486300994693 /* ACRCloud-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = D834AF552938414700994693 /* ACRCloud-Bridging-Header.h */; };
 		D834AF5F2938515700994693 /* HummingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834AF5E2938515700994693 /* HummingTableViewCell.swift */; };
 		D834AF612938563100994693 /* HummingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834AF602938563100994693 /* HummingData.swift */; };
+		D834AF632938989200994693 /* RecognizeFaceResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */; };
 		D837B364291D6532008BE6D0 /* RecognizeErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */; };
 		D837B36B291DF7C2008BE6D0 /* processing.json in Resources */ = {isa = PBXBuildFile; fileRef = D837B36A291DF7C2008BE6D0 /* processing.json */; };
 		D837B36E291DF94D008BE6D0 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */; };
@@ -165,6 +166,7 @@
 		D834AF562938416C00994693 /* HummingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingViewController.swift; sourceTree = "<group>"; };
 		D834AF5E2938515700994693 /* HummingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingTableViewCell.swift; sourceTree = "<group>"; };
 		D834AF602938563100994693 /* HummingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingData.swift; sourceTree = "<group>"; };
+		D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeFaceResultViewController.swift; sourceTree = "<group>"; };
 		D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeErrorViewController.swift; sourceTree = "<group>"; };
 		D837B36A291DF7C2008BE6D0 /* processing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = processing.json; sourceTree = "<group>"; };
 		D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */,
 				D8E098AE292A245B005971C6 /* LaunchScreenViewController.swift */,
 				D834AF5E2938515700994693 /* HummingTableViewCell.swift */,
+				D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -948,6 +951,7 @@
 				D874C89F29125BD700075AE9 /* FirebaseChatroomData.swift in Sources */,
 				D8686DD72930B8C8004F2EBE /* UIAlert+Ext.swift in Sources */,
 				D834AF5F2938515700994693 /* HummingTableViewCell.swift in Sources */,
+				D834AF632938989200994693 /* RecognizeFaceResultViewController.swift in Sources */,
 				D857337C290EA4CC0009D734 /* SearchAlbumsResultTableViewCell.swift in Sources */,
 				D8EA0EF62922728600514F35 /* AppleAuthViewController.swift in Sources */,
 				D8088B2929096F610037555B /* PlaylistsCharts.swift in Sources */,

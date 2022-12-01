@@ -923,27 +923,20 @@ extension SearchDetailsViewController {
                             
                             self.activityIndicatorView.isHidden = true
                             
-                            let alert = UIAlertController(title: celebFace.name, message: "", preferredStyle: .alert)
-                            
-                            alert.addImage(image: image)
-                           
-                            let search = UIAlertAction(title: "Search", style: .default, handler: { _ in
+                            if let resultVC = self.storyboard?.instantiateViewController(withIdentifier: RecognizeFaceResultViewController.storyboardID) as? RecognizeFaceResultViewController {
+
+                                resultVC.isSuccess = true
                                 
-                                self.searchTextField.text = celebFace.name
+                                resultVC.image = image
                                 
-                                guard let text = self.searchTextField.text else { return }
+                                resultVC.celeFaceName = celebFace.name
                                 
-                                self.fetchMusicData(buttonTag: self.buttonTag, text: text)
-                    
-                            })
-                            
-                            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                            
-                            alert.addAction(search)
-                            
-                            alert.addAction(cancel)
-                            
-                            self.present(alert, animated: true, completion: nil)
+                                resultVC.delegate = self
+                                
+                                resultVC.modalPresentationStyle = .overFullScreen
+                                
+                                self.present(resultVC, animated: true)
+                            }
                         }
                     }
                 }
@@ -958,14 +951,29 @@ extension SearchDetailsViewController {
                     
                     self.activityIndicatorView.isHidden = true
                     
-                    let alert = UIAlertController(title: "Not Found", message: "Please take a picture again", preferredStyle: .alert)
-                    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-             
-                    alert.addAction(cancel)
-                    
-                    self.present(alert, animated: true, completion: nil)
+                    if let resultVC = self.storyboard?.instantiateViewController(withIdentifier: RecognizeFaceResultViewController.storyboardID) as? RecognizeFaceResultViewController {
+
+                        resultVC.isSuccess = false
+                        
+                        resultVC.image = image
+                        
+                        resultVC.modalPresentationStyle = .overFullScreen
+                        
+                        self.present(resultVC, animated: true)
+                    }
                 }
             }
         }
     }
+}
+
+extension SearchDetailsViewController: RecognizeFaceResultDelegate {
+    
+    func updateSearchInofrmation(searchName: String) {
+        
+        self.searchTextField.text = searchName
+        
+        self.fetchMusicData(buttonTag: self.buttonTag, text: searchName)
+    }
+    
 }
