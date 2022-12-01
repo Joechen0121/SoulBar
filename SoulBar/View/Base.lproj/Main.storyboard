@@ -11,20 +11,107 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Humming View Controller-->
         <scene sceneID="p2f-Hx-Gtj">
             <objects>
-                <viewController id="Tpz-1g-0MD" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HummingVC" id="Tpz-1g-0MD" customClass="HummingViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LrS-Br-1BK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhv-oc-gUS">
+                                <rect key="frame" x="0.0" y="48" width="414" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NX0-gK-L1q">
+                                        <rect key="frame" x="142.5" y="11" width="129" height="38"/>
+                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="18"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Start Humming">
+                                            <color key="titleColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="startStopRecording:" destination="Tpz-1g-0MD" eventType="touchUpInside" id="n0X-EN-ccX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="NX0-gK-L1q" firstAttribute="centerX" secondItem="mhv-oc-gUS" secondAttribute="centerX" id="6Xv-3y-kt4"/>
+                                    <constraint firstAttribute="height" constant="60" id="RVg-ce-vMe"/>
+                                    <constraint firstItem="NX0-gK-L1q" firstAttribute="centerY" secondItem="mhv-oc-gUS" secondAttribute="centerY" id="tjA-pp-XBh"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YLt-QV-sOB">
+                                <rect key="frame" x="0.0" y="108" width="414" height="754"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HummingTableViewCell" id="Rnr-TH-vFf" customClass="HummingTableViewCell" customModule="SoulBar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="414" height="70.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rnr-TH-vFf" id="ZWc-TD-jp3">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="B5H-UU-Erh">
+                                                    <rect key="frame" x="10" y="10.5" width="20" height="18.5"/>
+                                                    <color key="tintColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="1tD-57-RYl"/>
+                                                        <constraint firstAttribute="width" secondItem="B5H-UU-Erh" secondAttribute="height" id="dpa-UV-b4H"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOa-A7-fsp">
+                                                    <rect key="frame" x="40" y="10" width="364" height="24"/>
+                                                    <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRj-6j-qJd">
+                                                    <rect key="frame" x="40" y="44" width="364" height="21.5"/>
+                                                    <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="dRj-6j-qJd" secondAttribute="bottom" constant="5" id="1Ce-D1-aZp"/>
+                                                <constraint firstItem="HOa-A7-fsp" firstAttribute="leading" secondItem="B5H-UU-Erh" secondAttribute="trailing" constant="10" id="AKY-UH-SLi"/>
+                                                <constraint firstItem="B5H-UU-Erh" firstAttribute="leading" secondItem="ZWc-TD-jp3" secondAttribute="leading" constant="10" id="Hbm-D3-Vjs"/>
+                                                <constraint firstItem="dRj-6j-qJd" firstAttribute="top" secondItem="HOa-A7-fsp" secondAttribute="bottom" constant="10" id="JWR-wl-nFw"/>
+                                                <constraint firstAttribute="trailing" secondItem="dRj-6j-qJd" secondAttribute="trailing" constant="10" id="KWm-g8-gtY"/>
+                                                <constraint firstItem="B5H-UU-Erh" firstAttribute="top" secondItem="ZWc-TD-jp3" secondAttribute="top" constant="10" id="OX1-IH-ooj"/>
+                                                <constraint firstAttribute="trailing" secondItem="HOa-A7-fsp" secondAttribute="trailing" constant="10" id="UZw-g7-CBj"/>
+                                                <constraint firstItem="HOa-A7-fsp" firstAttribute="top" secondItem="ZWc-TD-jp3" secondAttribute="top" constant="10" id="fMS-Z6-np0"/>
+                                                <constraint firstItem="dRj-6j-qJd" firstAttribute="leading" secondItem="B5H-UU-Erh" secondAttribute="trailing" constant="10" id="idg-TU-ezv"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="artists" destination="dRj-6j-qJd" id="Knc-w0-6l7"/>
+                                            <outlet property="songName" destination="HOa-A7-fsp" id="cf9-nm-NX0"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="BEO-9x-pf2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BEO-9x-pf2" firstAttribute="trailing" secondItem="YLt-QV-sOB" secondAttribute="trailing" id="13a-vz-fpv"/>
+                            <constraint firstItem="mhv-oc-gUS" firstAttribute="leading" secondItem="BEO-9x-pf2" secondAttribute="leading" id="CYI-Fl-MYI"/>
+                            <constraint firstItem="mhv-oc-gUS" firstAttribute="top" secondItem="BEO-9x-pf2" secondAttribute="top" id="DgF-uD-65d"/>
+                            <constraint firstItem="YLt-QV-sOB" firstAttribute="top" secondItem="mhv-oc-gUS" secondAttribute="bottom" id="LC4-o9-RsP"/>
+                            <constraint firstItem="BEO-9x-pf2" firstAttribute="bottom" secondItem="YLt-QV-sOB" secondAttribute="bottom" id="QWa-4O-oHo"/>
+                            <constraint firstItem="YLt-QV-sOB" firstAttribute="leading" secondItem="BEO-9x-pf2" secondAttribute="leading" id="bem-Fg-rd1"/>
+                            <constraint firstItem="BEO-9x-pf2" firstAttribute="trailing" secondItem="mhv-oc-gUS" secondAttribute="trailing" id="lc6-Zu-Dhc"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="hummingTableView" destination="YLt-QV-sOB" id="8sH-bD-Bwf"/>
+                        <outlet property="startStopButton" destination="NX0-gK-L1q" id="yPT-UN-01L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4OU-72-dAT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4714" y="153"/>
+            <point key="canvasLocation" x="-4714.4927536231889" y="152.67857142857142"/>
         </scene>
         <!--New List Pop Up View Controller-->
         <scene sceneID="omz-od-FoM">
@@ -2318,6 +2405,7 @@
         <image name="link.circle" catalog="system" width="128" height="123"/>
         <image name="location" catalog="system" width="128" height="121"/>
         <image name="loveLogo" width="1024" height="1024"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="mic.fill" catalog="system" width="110" height="128"/>
         <image name="music" width="128" height="128"/>
         <image name="music.house" catalog="system" width="128" height="104"/>

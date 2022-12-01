@@ -543,6 +543,7 @@ class PlaySongManager: NSObject {
         }
         
         NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
+        
         NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
     }
     

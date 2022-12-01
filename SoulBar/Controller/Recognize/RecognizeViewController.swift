@@ -140,6 +140,22 @@ class RecognizeViewController: UIViewController {
         pulsator.position = searchImage.layer.position
     }
     
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        
+        if motion == .motionShake {
+            print("Shake Gesture Detected")
+            
+            if let hummingtVC = self.storyboard?.instantiateViewController(withIdentifier: HummingViewController.storyboardID) as? HummingViewController {
+                
+                self.navigationController?.pushViewController(hummingtVC, animated: true)
+            }
+        }
+    }
+    
     func configurePulse() {
         
         pulsator.numPulse = 5
