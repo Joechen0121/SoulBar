@@ -41,6 +41,8 @@
 		D834AF5F2938515700994693 /* HummingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834AF5E2938515700994693 /* HummingTableViewCell.swift */; };
 		D834AF612938563100994693 /* HummingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834AF602938563100994693 /* HummingData.swift */; };
 		D834AF632938989200994693 /* RecognizeFaceResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */; };
+		D834AF662939A78F00994693 /* music.json in Resources */ = {isa = PBXBuildFile; fileRef = D834AF642939A78E00994693 /* music.json */; };
+		D834AF672939A78F00994693 /* recording.json in Resources */ = {isa = PBXBuildFile; fileRef = D834AF652939A78E00994693 /* recording.json */; };
 		D837B364291D6532008BE6D0 /* RecognizeErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */; };
 		D837B36B291DF7C2008BE6D0 /* processing.json in Resources */ = {isa = PBXBuildFile; fileRef = D837B36A291DF7C2008BE6D0 /* processing.json */; };
 		D837B36E291DF94D008BE6D0 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */; };
@@ -167,6 +169,8 @@
 		D834AF5E2938515700994693 /* HummingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingTableViewCell.swift; sourceTree = "<group>"; };
 		D834AF602938563100994693 /* HummingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingData.swift; sourceTree = "<group>"; };
 		D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeFaceResultViewController.swift; sourceTree = "<group>"; };
+		D834AF642939A78E00994693 /* music.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = music.json; sourceTree = "<group>"; };
+		D834AF652939A78E00994693 /* recording.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = recording.json; sourceTree = "<group>"; };
 		D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeErrorViewController.swift; sourceTree = "<group>"; };
 		D837B36A291DF7C2008BE6D0 /* processing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = processing.json; sourceTree = "<group>"; };
 		D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -395,6 +399,8 @@
 		D837B365291DEE64008BE6D0 /* LottieAsset */ = {
 			isa = PBXGroup;
 			children = (
+				D834AF642939A78E00994693 /* music.json */,
+				D834AF652939A78E00994693 /* recording.json */,
 				D837B36A291DF7C2008BE6D0 /* processing.json */,
 			);
 			path = LottieAsset;
@@ -797,9 +803,11 @@
 				D857337D290EA4CC0009D734 /* SearchAlbumsResultTableViewCell.xib in Resources */,
 				D8A1B977290C35D3007F6775 /* PlaylistsCollectionViewCell.xib in Resources */,
 				D8A1B971290C3419007F6775 /* PlaylistsTableViewCell.xib in Resources */,
+				D834AF662939A78F00994693 /* music.json in Resources */,
 				D8088B45290AC1840037555B /* AlbumsCollectionViewCell.xib in Resources */,
 				D8088B3F290AB2EF0037555B /* AlbumsTableViewCell.xib in Resources */,
 				D8573373290E561B0009D734 /* SearchArtistsResultTableViewCell.xib in Resources */,
+				D834AF672939A78F00994693 /* recording.json in Resources */,
 				D86AD12429141124000208B6 /* FavoriteAlbumsTableViewCell.xib in Resources */,
 				D88071BE291F9BB800554B18 /* FavoriteMusicDetailsNoHeartTableViewCell.xib in Resources */,
 				D86AD12829141139000208B6 /* FavoritePlaylistsTableViewCell.xib in Resources */,

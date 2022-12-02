@@ -131,28 +131,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhv-oc-gUS">
-                                <rect key="frame" x="0.0" y="48" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NX0-gK-L1q">
-                                        <rect key="frame" x="142.5" y="11" width="129" height="38"/>
-                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="18"/>
+                                        <rect key="frame" x="212" y="23.5" width="50" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="Kw4-9I-LEa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Start Humming">
-                                            <color key="titleColor" red="0.96470588235294119" green="0.32549019607843138" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Start">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="startStopRecording:" destination="Tpz-1g-0MD" eventType="touchUpInside" id="n0X-EN-ccX"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p8n-2E-5rB">
+                                        <rect key="frame" x="142" y="5" width="70" height="70"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="p8n-2E-5rB" secondAttribute="height" id="rvw-6K-JJm"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="NX0-gK-L1q" firstAttribute="centerX" secondItem="mhv-oc-gUS" secondAttribute="centerX" id="6Xv-3y-kt4"/>
-                                    <constraint firstAttribute="height" constant="60" id="RVg-ce-vMe"/>
+                                    <constraint firstItem="NX0-gK-L1q" firstAttribute="centerX" secondItem="mhv-oc-gUS" secondAttribute="centerX" constant="30" id="6Xv-3y-kt4"/>
+                                    <constraint firstItem="p8n-2E-5rB" firstAttribute="top" secondItem="mhv-oc-gUS" secondAttribute="top" constant="5" id="6m1-1m-Fun"/>
+                                    <constraint firstItem="NX0-gK-L1q" firstAttribute="centerY" secondItem="mhv-oc-gUS" secondAttribute="centerY" id="Bs2-M9-Npg"/>
+                                    <constraint firstItem="p8n-2E-5rB" firstAttribute="centerY" secondItem="mhv-oc-gUS" secondAttribute="centerY" id="IHQ-wN-MYb"/>
+                                    <constraint firstAttribute="height" constant="80" id="RVg-ce-vMe"/>
+                                    <constraint firstAttribute="bottom" secondItem="p8n-2E-5rB" secondAttribute="bottom" constant="5" id="iQc-CR-Fqf"/>
                                     <constraint firstItem="NX0-gK-L1q" firstAttribute="centerY" secondItem="mhv-oc-gUS" secondAttribute="centerY" id="tjA-pp-XBh"/>
+                                    <constraint firstItem="NX0-gK-L1q" firstAttribute="leading" secondItem="p8n-2E-5rB" secondAttribute="trailing" id="uDU-yh-PyL"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YLt-QV-sOB">
-                                <rect key="frame" x="0.0" y="108" width="414" height="754"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="734"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HummingTableViewCell" id="Rnr-TH-vFf" customClass="HummingTableViewCell" customModule="SoulBar" customModuleProvider="target">
@@ -218,6 +233,7 @@
                     <connections>
                         <outlet property="hummingTableView" destination="YLt-QV-sOB" id="8sH-bD-Bwf"/>
                         <outlet property="startStopButton" destination="NX0-gK-L1q" id="yPT-UN-01L"/>
+                        <outlet property="voiceView" destination="p8n-2E-5rB" id="QtC-7n-CG8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4OU-72-dAT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
