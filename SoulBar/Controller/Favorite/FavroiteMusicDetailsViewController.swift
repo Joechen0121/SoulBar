@@ -77,9 +77,9 @@ class FavoriteMusicDetailsViewController: UIViewController {
         
         viewHeight.constant = UIScreen.main.bounds.height / 5
         
-        configureLabel()
+        //configureLabel()
         
-        self.songCount.text = " \(self.songsTracks.count) songs "
+        self.songCount.text = "\(self.songsTracks.count) songs"
         
     }
     
@@ -172,7 +172,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         
-                        self.songCount.text = " \(self.songsTracks.count) songs "
+                        self.songCount.text = "\(self.songsTracks.count) songs"
 
                         self.musicDetailsTableView.reloadData()
                     }
@@ -477,7 +477,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDelegate {
         case .FavSongs:
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
-                
+        
                 playSongVC.songs = [songsTracks[indexPath.row]]
                 
                 playSongVC.modalPresentationStyle = .fullScreen
@@ -539,7 +539,7 @@ extension FavoriteMusicDetailsViewController: FavoriteMusicDetailsTableViewDeleg
     
         DispatchQueue.main.async {
             
-            self.songCount.text = " \(self.songsTracks.count) songs "
+            self.songCount.text = "\(self.songsTracks.count) songs"
             
             self.musicDetailsTableView.reloadData()
         }

@@ -458,6 +458,10 @@ class PlaySongViewController: UIViewController {
     @objc func previousButton(_ sender: UIButton) {
         
         guard let songs = songs else { return }
+        
+        musicSlider.value = 0.0
+        
+        minTimeLabel.text = String(format: "%02d:%02d", 0, 0)
 
         PlaySongManager.sharedInstance.closePlayer()
         
@@ -473,6 +477,11 @@ class PlaySongViewController: UIViewController {
     @objc func nextButton(_ sender: UIButton) {
         
         guard let songs = songs else { return }
+        
+        minTimeLabel.text = String(format: "%02d:%02d", 0, 0)
+        
+        musicSlider.value = 0.0
+
 
         PlaySongManager.sharedInstance.closePlayer()
 
@@ -533,7 +542,7 @@ class PlaySongViewController: UIViewController {
                 
             }
             else {
-                print("setup player")
+
                 PlaySongManager.sharedInstance.setupPlayer(with: songURL)
             }
             

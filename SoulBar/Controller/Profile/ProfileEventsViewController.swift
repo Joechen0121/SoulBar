@@ -68,7 +68,9 @@ class ProfileEventsViewController: UIViewController {
         
         let flowlayout = UICollectionViewFlowLayout()
         
-        let width = floor((UIScreen.main.bounds.width - itemSpace * (columnCount - 1)) / columnCount)
+        flowlayout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        
+        let width = floor((UIScreen.main.bounds.width - itemSpace * (columnCount - 1)) / columnCount - 15)
         
         flowlayout.itemSize = CGSize(width: width, height: width)
     
@@ -82,11 +84,34 @@ class ProfileEventsViewController: UIViewController {
         
     }
     
+    func configureNoResult() {
+        
+        let label = UILabel(frame: CGRect(x: 0, y: self.view.center.y, width: 290, height: 70))
+        
+        label.center = self.view.center
+        
+        label.textAlignment = .center
+        
+        label.textColor = .darkGray
+        
+        label.font = UIFont.systemFont(ofSize: 17)
+        
+        label.text = "No Favorite Events"
+
+        self.view.addSubview(label)
+    }
+    
     func configureEventsFavoriteData() {
 
         FirebaseEventsManager.sharedInstance.fetchEventsTypeData(with: MusicEventsCategory.演唱會.rawValue) { result in
             
             self.eventsFavorite = result
+            
+            if self.eventsFavorite.isEmpty {
+                
+                self.configureNoResult()
+                
+            }
             
             DispatchQueue.main.async {
                 

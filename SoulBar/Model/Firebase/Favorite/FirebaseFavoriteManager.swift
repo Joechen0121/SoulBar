@@ -56,6 +56,9 @@ class FirebaseFavoriteManager {
                 }
                 
             }
+            
+            completion(FirebaseFavoriteData(id: [""]))
+
         }
     }
     
