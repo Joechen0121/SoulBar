@@ -278,10 +278,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HummingTableViewCell" id="Uiw-zC-6VU" customClass="HummingTableViewCell" customModule="SoulBar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="70.5"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="66.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uiw-zC-6VU" id="SsB-t1-Olc">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="66.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="39V-jh-Sfw">
@@ -293,19 +293,20 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5b5-EY-JvN">
-                                                    <rect key="frame" x="40" y="10" width="364" height="24"/>
+                                                    <rect key="frame" x="40" y="10" width="364" height="20"/>
                                                     <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdg-G6-9mF">
-                                                    <rect key="frame" x="40" y="44" width="364" height="21.5"/>
+                                                    <rect key="frame" x="40" y="40" width="364" height="21.5"/>
                                                     <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="5b5-EY-JvN" firstAttribute="height" secondItem="39V-jh-Sfw" secondAttribute="height" id="1Mx-bp-WVb"/>
                                                 <constraint firstAttribute="trailing" secondItem="5b5-EY-JvN" secondAttribute="trailing" constant="10" id="IwG-Ja-88v"/>
                                                 <constraint firstItem="Jdg-G6-9mF" firstAttribute="leading" secondItem="39V-jh-Sfw" secondAttribute="trailing" constant="10" id="M4B-au-wNB"/>
                                                 <constraint firstItem="5b5-EY-JvN" firstAttribute="leading" secondItem="39V-jh-Sfw" secondAttribute="trailing" constant="10" id="X6F-Io-Hcv"/>
