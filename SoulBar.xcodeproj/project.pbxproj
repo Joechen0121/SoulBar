@@ -43,6 +43,7 @@
 		D834AF632938989200994693 /* RecognizeFaceResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */; };
 		D834AF662939A78F00994693 /* music.json in Resources */ = {isa = PBXBuildFile; fileRef = D834AF642939A78E00994693 /* music.json */; };
 		D834AF672939A78F00994693 /* recording.json in Resources */ = {isa = PBXBuildFile; fileRef = D834AF652939A78E00994693 /* recording.json */; };
+		D834AF692939D32600994693 /* HummingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834AF682939D32600994693 /* HummingDetailViewController.swift */; };
 		D837B364291D6532008BE6D0 /* RecognizeErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */; };
 		D837B36B291DF7C2008BE6D0 /* processing.json in Resources */ = {isa = PBXBuildFile; fileRef = D837B36A291DF7C2008BE6D0 /* processing.json */; };
 		D837B36E291DF94D008BE6D0 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */; };
@@ -171,6 +172,7 @@
 		D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeFaceResultViewController.swift; sourceTree = "<group>"; };
 		D834AF642939A78E00994693 /* music.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = music.json; sourceTree = "<group>"; };
 		D834AF652939A78E00994693 /* recording.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = recording.json; sourceTree = "<group>"; };
+		D834AF682939D32600994693 /* HummingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingDetailViewController.swift; sourceTree = "<group>"; };
 		D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeErrorViewController.swift; sourceTree = "<group>"; };
 		D837B36A291DF7C2008BE6D0 /* processing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = processing.json; sourceTree = "<group>"; };
 		D837B36D291DF94D008BE6D0 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				D8FABE472919F1450094A77F /* RootTabBarViewController.swift */,
 				D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */,
 				D834AF562938416C00994693 /* HummingViewController.swift */,
+				D834AF682939D32600994693 /* HummingDetailViewController.swift */,
 				D834AF602938563100994693 /* HummingData.swift */,
 				D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */,
 				D8E098AE292A245B005971C6 /* LaunchScreenViewController.swift */,
@@ -969,6 +972,7 @@
 				D834AF592938428E00994693 /* HummingViewController.swift in Sources */,
 				D88550AF2910CA710083D050 /* EventsCardsDetailsViewController.swift in Sources */,
 				D8088B342909700B0037555B /* MusicManager.swift in Sources */,
+				D834AF692939D32600994693 /* HummingDetailViewController.swift in Sources */,
 				D8088B1D29096C4D0037555B /* ProfileViewController.swift in Sources */,
 				D8EA0F0C29267B2A00514F35 /* YoutubeData.swift in Sources */,
 				D8686DD52930B8A5004F2EBE /* UIImage+Ext.swift in Sources */,

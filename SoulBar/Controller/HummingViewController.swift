@@ -7,22 +7,23 @@
 
 import UIKit
 import Lottie
+import Pulsator
 
 class HummingViewController: UIViewController {
     
     static let storyboardID = "HummingVC"
     
-    @IBOutlet weak var startStopButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
     
-    @IBOutlet weak var hummingTableView: UITableView!
+    @IBOutlet weak var hummingView: UIImageView!
     
-    @IBOutlet weak var voiceView: UIView!
+    @IBOutlet weak var noticeLabel: UILabel!
     
-    private var voiceAnimation: AnimationView?
-    
-    private var musicAnimation: AnimationView?
+    let pulsator = Pulsator()
     
     var hummingSongs = [Humming]()
+    
+    var pulsatingLayer: CAShapeLayer!
     
     var isStart = false
     
@@ -31,17 +32,21 @@ class HummingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        hummingTableView.dataSource = self
-        
         self.title = "Recognize Humming"
         
-        configureButton()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(startStopRecording)))
         
-        configureAnimation()
-        
-        startMusicAnimation()
+        configurePulse()
         
         configureACRCloud()
+        
+        self.stopButton.isHidden = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        pulsator.position = hummingView.layer.position
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,53 +60,41 @@ class HummingViewController: UIViewController {
         self.client?.stopRecordRec()
     }
     
-    func configureAnimation() {
+    func noResultAlert() {
         
-        voiceAnimation = .init(name: "recording")
-         
-        voiceAnimation?.frame = voiceView.bounds
-        
-        voiceAnimation?.contentMode = .scaleAspectFit
-        
-        voiceAnimation?.loopMode = .loop
-        
-        voiceAnimation?.animationSpeed = 0.5
-        
-        voiceView.addSubview(voiceAnimation!)
-        
-        voiceAnimation!.play()
-    }
-    
-    func startMusicAnimation() {
-        
-        musicAnimation = .init(name: "music")
-        print("------", view.bounds)
+        let alertController = UIAlertController(
+            title: "",
+            message: "Not Found. Please try again.",
+            preferredStyle: .alert)
 
-        musicAnimation?.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        //musicAnimation?.center = view.center
-        
-        musicAnimation?.contentMode = .scaleAspectFit
-        
-        musicAnimation?.loopMode = .loop
-        
-        musicAnimation?.animationSpeed = 0.5
-        
-        view.addSubview(musicAnimation!)
-        
-        musicAnimation!.play()
-        
-        musicAnimation?.isUserInteractionEnabled = false
-        
-        musicAnimation?.isHidden = true
+        let okAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: nil)
+        alertController.addAction(okAction)
+
+        self.present(
+          alertController,
+          animated: true,
+          completion: nil)
     }
     
-    func configureButton() {
+    @IBAction func stopButton(_ sender: UIButton) {
         
-        startStopButton.layer.borderColor = K.Colors.customRed.cgColor
+        initHummingStatus()
+    }
+    
+    func configurePulse() {
         
-        startStopButton.layer.borderWidth = 1.5
+        pulsator.numPulse = 5
         
-        startStopButton.layer.cornerRadius = startStopButton.bounds.height / 2
+        pulsator.radius = 360
+        
+        pulsator.backgroundColor = K.Colors.customRed.cgColor
+
+        pulsator.animationDuration = 5
+
+        view.layer.insertSublayer(pulsator, below: hummingView.layer)
     }
     
     func configureACRCloud() {
@@ -125,26 +118,14 @@ class HummingViewController: UIViewController {
         
     }
     
-    @IBAction func startStopRecording(_ sender: UIButton) {
+    @objc func startStopRecording() {
 
-        // Prepare for stopping
         if isStart {
             
-            musicAnimation?.isHidden = true
-
-            self.client?.stopRecordRec()
-            
-            self.isStart = false
-            
-            DispatchQueue.main.async {
-                
-                self.startStopButton.setTitle("Start", for: .normal)
-            }
+            initHummingStatus()
         }
-        
-        // Prepare for starting
         else {
-            print("Prepare for starting")
+            
             if PlaySongManager.sharedInstance.player.timeControlStatus != .paused {
                 
                 PlaySongManager.sharedInstance.pauseMusic()
@@ -153,16 +134,34 @@ class HummingViewController: UIViewController {
                 
             }
             
-            musicAnimation?.isHidden = false
+            self.stopButton.isHidden = false
             
             self.client?.startRecordRec()
             
             self.isStart = true
             
+            pulsator.start()
+            
             DispatchQueue.main.async {
                 
-                self.startStopButton.setTitle("Stop", for: .normal)
+                self.noticeLabel.text = "Recording your voice..."
             }
+        }
+    }
+    
+    func initHummingStatus() {
+        
+        self.stopButton.isHidden = true
+        
+        self.pulsator.stop()
+        
+        self.client?.stopRecordRec()
+        
+        self.isStart = false
+        
+        DispatchQueue.main.async {
+            
+            self.noticeLabel.text = "Tap to Start humming"
         }
         
     }
@@ -173,16 +172,9 @@ class HummingViewController: UIViewController {
             
             guard let result = result.data(using: .utf8) else {
                 
-                musicAnimation?.isHidden = true
+                self.initHummingStatus()
                 
-                self.client?.stopRecordRec()
-                
-                self.isStart = false
-                
-                DispatchQueue.main.async {
-                    
-                    self.startStopButton.setTitle("Start", for: .normal)
-                }
+                self.noResultAlert()
                 
                 return
                 
@@ -199,65 +191,23 @@ class HummingViewController: UIViewController {
             
             print(error)
             
-            musicAnimation?.isHidden = true
+            initHummingStatus()
             
-            self.client?.stopRecordRec()
-            
-            self.isStart = false
-            
-            DispatchQueue.main.async {
-                
-                self.startStopButton.setTitle("Start", for: .normal)
-            }
+            self.noResultAlert()
             
             return
         }
         
+        initHummingStatus()
+        
         DispatchQueue.main.async {
             
-            self.startStopButton.setTitle("Start", for: .normal)
-    
-            self.hummingTableView.reloadData()
-            
-            self.musicAnimation?.isHidden = true
-            
-            self.client?.stopRecordRec()
-            
-            self.isStart = false
-        }
-    }
-}
+            if let hummingDetailVC = self.storyboard?.instantiateViewController(withIdentifier: HummingDetailViewController.storyboardID) as? HummingDetailViewController {
 
-extension HummingViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return hummingSongs.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HummingTableViewCell.identifier, for: indexPath) as? HummingTableViewCell else {
-            
-            fatalError("Cannot create humming cells")
-        }
-        
-        cell.songName.text = hummingSongs[indexPath.row].title
-        
-        var artists: String = ""
-        
-        hummingSongs[indexPath.row].artists?.forEach { artist in
-            
-            if let name = artist.name {
+                hummingDetailVC.hummingSongs = self.hummingSongs
                 
-                artists += name
-                
-                artists += " "
+                self.present(hummingDetailVC, animated: true)
             }
         }
-        
-        cell.artists.text = artists
-        
-        return cell
     }
 }
