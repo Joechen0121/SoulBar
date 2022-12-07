@@ -117,6 +117,7 @@ class AppleAuthViewController: UIViewController {
                     guard let refreshToken = result.refreshToken else { return }
                     
                     KeychainManager.sharedInstance.refreshToken = refreshToken
+                    
                 }
             
         } catch {
@@ -135,7 +136,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
         case let credentials as ASAuthorizationAppleIDCredential:
             
             guard let token = credentials.identityToken, String(data: token, encoding: .utf8) != nil else { return }
-
+            
             let id = credentials.user
             
             storeAuthToken(credentials: credentials)

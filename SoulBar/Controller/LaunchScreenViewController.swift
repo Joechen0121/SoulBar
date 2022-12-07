@@ -12,6 +12,12 @@ class LaunchScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureConstraints()
+        
+    }
+    
+    private func configureConstraints() {
+        
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
@@ -29,7 +35,6 @@ class LaunchScreenViewController: UIViewController {
         container.addSubview(backgroundEffectView)
         
         view.insertSubview(container, at: 0)
-        
     }
 
 }

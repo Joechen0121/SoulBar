@@ -40,8 +40,6 @@ class PlayVideoViewController: UIViewController {
                 
                 self.view = self.player
                 
-                // self.player.delegate = self
-                
                 self.player.autoplay = true
                 
                 self.player.loadPlayer()

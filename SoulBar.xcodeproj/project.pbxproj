@@ -303,15 +303,10 @@
 				D820B9222914C50E000C8F88 /* Chat */,
 				D8EA0F032923D20500514F35 /* Auth */,
 				D8EA0F042923D21100514F35 /* SongPlayer */,
+				D8F7387D2940D30500E5DEFB /* Humming */,
+				D8F738802940D37D00E5DEFB /* Video */,
 				D8FABE472919F1450094A77F /* RootTabBarViewController.swift */,
-				D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */,
-				D834AF562938416C00994693 /* HummingViewController.swift */,
-				D834AF682939D32600994693 /* HummingDetailViewController.swift */,
-				D834AF602938563100994693 /* HummingData.swift */,
-				D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */,
 				D8E098AE292A245B005971C6 /* LaunchScreenViewController.swift */,
-				D834AF5E2938515700994693 /* HummingTableViewCell.swift */,
-				D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -319,12 +314,13 @@
 		D8088B1E29096CA30037555B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D88550B02910E3570083D050 /* MapManager.swift */,
+				D8F7387F2940D36B00E5DEFB /* Map */,
 				D8EA0F0F29267B3C00514F35 /* Youtube */,
 				D88071BF2920C38300554B18 /* Favorite */,
 				D8088B2129096D8C0037555B /* Events */,
 				D874C8872912462000075AE9 /* Firebase */,
 				D874B98E2917E6930082F2D7 /* Profile */,
+				D8F7387E2940D34B00E5DEFB /* Humming */,
 				D8088B2A29096F680037555B /* Music */,
 				D869EEA8292E0305006BB828 /* Auth */,
 			);
@@ -673,6 +669,7 @@
 			children = (
 				D8088B1829096C2E0037555B /* RecognizeViewController.swift */,
 				D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */,
+				D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */,
 			);
 			path = Recognize;
 			sourceTree = "<group>";
@@ -681,6 +678,7 @@
 			isa = PBXGroup;
 			children = (
 				D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */,
+				D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -712,6 +710,40 @@
 				D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */,
 			);
 			path = Youtube;
+			sourceTree = "<group>";
+		};
+		D8F7387D2940D30500E5DEFB /* Humming */ = {
+			isa = PBXGroup;
+			children = (
+				D834AF562938416C00994693 /* HummingViewController.swift */,
+				D834AF682939D32600994693 /* HummingDetailViewController.swift */,
+				D834AF5E2938515700994693 /* HummingTableViewCell.swift */,
+			);
+			path = Humming;
+			sourceTree = "<group>";
+		};
+		D8F7387E2940D34B00E5DEFB /* Humming */ = {
+			isa = PBXGroup;
+			children = (
+				D834AF602938563100994693 /* HummingData.swift */,
+			);
+			path = Humming;
+			sourceTree = "<group>";
+		};
+		D8F7387F2940D36B00E5DEFB /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				D88550B02910E3570083D050 /* MapManager.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		D8F738802940D37D00E5DEFB /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */,
+			);
+			path = Video;
 			sourceTree = "<group>";
 		};
 		ED402BEA305D140F30846F05 /* Frameworks */ = {

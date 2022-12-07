@@ -56,21 +56,11 @@ class PlaySongViewController: UIViewController {
     
     var currentItemIndex: Int = 0
     
-    var previousItemIndex: Int = 0
-    
-    var nextItemIndex: Int = 0
-    
-    var playerLooper: AVPlayerLooper?
-    
-    var currentTime: Double = 0
-    
     var isFavorite = false
     
     var status: PlayState = .pause
     
     var rule: PlayRule = .loop
-    
-    var sliderTrackLayer = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,7 +123,7 @@ class PlaySongViewController: UIViewController {
 
     }
     
-    func configureBlurBackground() {
+    private func configureBlurBackground() {
         
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         
@@ -155,7 +145,7 @@ class PlaySongViewController: UIViewController {
 
     }
     
-    func setupConstraint() {
+    private func setupConstraint() {
         
         songImageWidthConstraint.constant = UIScreen.main.bounds.height / 1.5
 
@@ -164,7 +154,7 @@ class PlaySongViewController: UIViewController {
         songImageTopConstraint.constant = UIScreen.main.bounds.height / 20
     }
     
-    func configureRemoteConfig() {
+    private func configureRemoteConfig() {
         
         let settings = RemoteConfigSettings()
         
@@ -172,7 +162,7 @@ class PlaySongViewController: UIViewController {
         
         remoteConfig.configSettings = settings
         
-        remoteConfig.fetch { (status, error) -> Void in
+        remoteConfig.fetch { status, error in
             
             if status == .success {
         
@@ -196,7 +186,7 @@ class PlaySongViewController: UIViewController {
         }
     }
     
-    func configureTapGesture() {
+    private func configureTapGesture() {
         
         let previousTap = UITapGestureRecognizer(target: self, action: #selector(previousButton(_:)))
         previousImage.isUserInteractionEnabled = true
@@ -262,11 +252,16 @@ class PlaySongViewController: UIViewController {
     @objc func addToList() {
         
         if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
-            authVC.modalPresentationStyle = .overCurrentContext
-            self.present(authVC, animated: false)
             
-            return
+            if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                self.present(authVC, animated: false)
+                
+                return
+                
+            }
         }
         
         if let newListVC = self.storyboard?.instantiateViewController(withIdentifier: NewListDisplayViewController.storyboardID) as? NewListDisplayViewController {
@@ -278,9 +273,7 @@ class PlaySongViewController: UIViewController {
                 
                 sheetPresentationController.preferredCornerRadius = 40.0
                 
-                guard let songs = songs else {
-                    return
-                }
+                guard let songs = songs else { return }
                 
                 newListVC.song = songs[currentItemIndex]
                 
@@ -290,7 +283,7 @@ class PlaySongViewController: UIViewController {
         
     }
     
-    func configureButtonView() {
+    private func configureButtonView() {
         
         if PlaySongManager.sharedInstance.player.timeControlStatus == .playing {
             
@@ -303,7 +296,7 @@ class PlaySongViewController: UIViewController {
         }
     }
     
-    func configureView() {
+    private func configureView() {
         
         volumeSilder.value = PlaySongManager.sharedInstance.player.volume
         
@@ -314,7 +307,7 @@ class PlaySongViewController: UIViewController {
         maxTimeLabel.text = String(format: "%02d:%02d", Int( PlaySongManager.sharedInstance.position.duration) / 60, Int( PlaySongManager.sharedInstance.position.duration) % 60)
     }
     
-    func configureButton(currentItemIndex: Int) {
+    private func configureButton(currentItemIndex: Int) {
         
         if KeychainManager.sharedInstance.id == nil { return }
         
@@ -363,11 +356,15 @@ class PlaySongViewController: UIViewController {
     @objc func addToFavorite() {
         
         if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
-            authVC.modalPresentationStyle = .overCurrentContext
-            self.present(authVC, animated: false)
             
-            return
+            if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                self.present(authVC, animated: false)
+                
+                return
+            }
         }
         
         guard let songsID = songs?[self.currentItemIndex].id else {
@@ -390,17 +387,12 @@ class PlaySongViewController: UIViewController {
             self.favoriteView.image = UIImage(named: "heart.fill")
             
             isFavorite = true
-
         }
-        
-
     }
     
     @objc func shared() {
         
-        guard let songs = songs else { return }
-        
-        guard let songURL = songs[self.currentItemIndex].attributes?.previews?[0].url else { return }
+        guard let songs = songs, let songURL = songs[self.currentItemIndex].attributes?.previews?[0].url else { return }
     
         let activityVC = UIActivityViewController(activityItems: [songURL], applicationActivities: nil)
         
@@ -408,7 +400,7 @@ class PlaySongViewController: UIViewController {
         
     }
     
-    func configureSong() {
+    private func configureSong() {
         
         if let songs = songs {
     
@@ -429,7 +421,7 @@ class PlaySongViewController: UIViewController {
         }
     }
     
-    func configureCurrentSong() {
+    private func configureCurrentSong() {
         
         guard let songs = PlaySongManager.sharedInstance.songs, !songs.isEmpty else { return }
         
@@ -496,13 +488,11 @@ class PlaySongViewController: UIViewController {
     
     @objc func playPauseButton(_ sender: UIButton) {
   
-        guard let songs = songs else {
-            return
-        }
+        guard let songs = songs, let url = songs[self.currentItemIndex].attributes?.previews?[0].url else { return }
         
         if PlaySongManager.sharedInstance.player.timeControlStatus == .paused {
             
-            PlaySongManager.sharedInstance.playMusic(url: (songs[self.currentItemIndex].attributes?.previews![0].url)!)
+            PlaySongManager.sharedInstance.playMusic(url: url)
             
             playPauseImage.image = UIImage(named: "pause.fill")
 
@@ -522,15 +512,17 @@ class PlaySongViewController: UIViewController {
     }
     
     func selectData(index: Int, isFromMiniPlayer: Bool) {
-        print(#function)
+    
         guard let songs = songs else { return }
 
         currentItemIndex = index
     
         singerLabel.text = songs[self.currentItemIndex].attributes?.artistName
+        
         songLabel.text = songs[self.currentItemIndex].attributes?.name
         
         PlaySongManager.sharedInstance.current = currentItemIndex
+        
         PlaySongManager.sharedInstance.maxCount = songs.count
 
         if let url = songs[self.currentItemIndex].attributes?.previews?[0].url, let songURL = URL(string: url) {
@@ -558,7 +550,9 @@ extension PlaySongViewController: PlaySongDelegate {
     func didUpdatePosition(_ player: AVPlayer?, _ position: PlayerPosition) {
         
         musicSlider.value = Float(position.current) / Float(position.duration)
+        
         minTimeLabel.text = String(format: "%02d:%02d", position.current / 60, position.current % 60)
+        
         maxTimeLabel.text = String(format: "%02d:%02d", position.duration / 60, position.duration % 60)
 
     }
@@ -568,6 +562,7 @@ extension PlaySongViewController: PlaySongDelegate {
         guard let songs = songs else { return }
 
         switch notification {
+            
         case .PlayerUnknownNotification:
             
             PlaySongManager.sharedInstance.closePlayer()

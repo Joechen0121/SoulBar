@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-protocol MiniPlayerDelegate {
+protocol MiniPlayerDelegate: AnyObject {
     
     func presentPlaySongView()
 }
@@ -26,6 +26,51 @@ class MiniPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureBackgroundView()
+        
+        configureConstraints()
+        
+        configureTapGesture()
+        
+        configureNotification()
+    }
+    
+    private func configureTapGesture() {
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
+        view.addGestureRecognizer(tap)
+        view.isUserInteractionEnabled = true
+        
+        self.playPauseButton.addTarget(self, action: #selector(playPauseMusic), for: .touchUpInside)
+        
+        let leftside = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        leftside.direction = .left
+        view.addGestureRecognizer(leftside)
+        
+        let rightside = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        rightside.direction = .right
+        view.addGestureRecognizer(rightside)
+    }
+    
+    private func configureNotification() {
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didUpdateMiniPlayerNext),
+            name: Notification.Name(rawValue: "didUpdateMiniPlayerNext"),
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didUpdateMiniPlayerPrevious),
+            name: Notification.Name(rawValue: "didUpdateMiniPlayerPrevious"),
+            object: nil
+        )
+    }
+    
+    private func configureBackgroundView() {
+        
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
@@ -42,6 +87,9 @@ class MiniPlayerViewController: UIViewController {
         container.addSubview(backgroundImageView)
         
         view.insertSubview(container, at: 0)
+    }
+    
+    private func configureConstraints() {
         
         songImage.image = UIImage(systemName: "music")
         
@@ -95,34 +143,6 @@ class MiniPlayerViewController: UIViewController {
             songName.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             songName.topAnchor.constraint(equalTo: self.view.topAnchor)
         ])
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapDetected))
-        view.addGestureRecognizer(tap)
-        view.isUserInteractionEnabled = true
-        
-        self.playPauseButton.addTarget(self, action: #selector(playPauseMusic), for: .touchUpInside)
-        
-        let leftside = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
-        leftside.direction = .left
-        view.addGestureRecognizer(leftside)
-        
-        let rightside = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
-        rightside.direction = .right
-        view.addGestureRecognizer(rightside)
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(didUpdateMiniPlayerNext),
-            name: Notification.Name(rawValue: "didUpdateMiniPlayerNext"),
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(didUpdateMiniPlayerPrevious),
-            name: Notification.Name(rawValue: "didUpdateMiniPlayerPrevious"),
-            object: nil
-        )
     }
     
     @objc func didUpdateMiniPlayerNext() {
@@ -133,9 +153,9 @@ class MiniPlayerViewController: UIViewController {
 
         PlaySongManager.sharedInstance.current = (PlaySongManager.sharedInstance.current + PlaySongManager.sharedInstance.maxCount + 1) % PlaySongManager.sharedInstance.maxCount
         
-        if let songURL = songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url {
+        if let url = songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url, let songURL = URL(string: url) {
             
-            PlaySongManager.sharedInstance.setupPlayer(with: URL(string: songURL)!)
+            PlaySongManager.sharedInstance.setupPlayer(with: songURL)
         }
     }
     
@@ -147,9 +167,9 @@ class MiniPlayerViewController: UIViewController {
 
         PlaySongManager.sharedInstance.current = (PlaySongManager.sharedInstance.current + PlaySongManager.sharedInstance.maxCount - 1) % PlaySongManager.sharedInstance.maxCount
         
-        if let songURL = songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url {
+        if let url = songs[PlaySongManager.sharedInstance.current].attributes?.previews?[0].url, let songURL = URL(string: url) {
             
-            PlaySongManager.sharedInstance.setupPlayer(with: URL(string: songURL)!)
+            PlaySongManager.sharedInstance.setupPlayer(with: songURL)
         }
     }
     
@@ -234,8 +254,6 @@ class MiniPlayerViewController: UIViewController {
         
         if PlaySongManager.sharedInstance.player.timeControlStatus == .playing {
             
-            // PlaySongManager.sharedInstance.isBackground = true
-            
             PlaySongManager.sharedInstance.pauseMusic()
             
             self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
@@ -254,6 +272,7 @@ class MiniPlayerViewController: UIViewController {
             PlaySongManager.sharedInstance.playMusic(url: url)
             
             self.playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            
             playPauseButton.imageView?.tintColor = K.Colors.customRed
         }
     }

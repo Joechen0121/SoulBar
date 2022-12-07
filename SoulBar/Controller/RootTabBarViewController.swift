@@ -43,6 +43,11 @@ class RootTabBarViewController: UITabBarController {
             miniPlayer.view.isHidden = true
         }
         
+        configureNotification()
+    }
+    
+    private func configureNotification() {
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateMiniPlayerView),
@@ -56,6 +61,7 @@ class RootTabBarViewController: UITabBarController {
             name: Notification.Name(rawValue: "didUpdateMiniPlayerButton"),
             object: nil
         )
+        
     }
     
     @objc func updateMiniPlayerView() {
@@ -99,9 +105,13 @@ class RootTabBarViewController: UITabBarController {
     }
 
     func addChildView() {
+        
         view.addSubview(containerView)
+        
         addChild(miniPlayer)
+        
         containerView.addSubview(miniPlayer.view)
+        
         miniPlayer.didMove(toParent: self)
     }
     
