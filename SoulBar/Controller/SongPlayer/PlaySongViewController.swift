@@ -64,7 +64,7 @@ class PlaySongViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureBlurBackground()
         
         configureRemoteConfig()
@@ -78,6 +78,20 @@ class PlaySongViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        checkSongsFrom()
+        
+        configureButtonView()
+        
+        configureView()
+        
+        configureButton(currentItemIndex: currentItemIndex)
+        
+        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
+
+    }
+    
+    private func checkSongsFrom() {
         
         guard let songs = songs, !songs.isEmpty else {
             return
@@ -110,17 +124,6 @@ class PlaySongViewController: UIViewController {
                 selectData(index: PlaySongManager.sharedInstance.current, isFromMiniPlayer: false)
             }
         }
-        
-        configureSong()
-        
-        configureButtonView()
-        
-        configureView()
-        
-        configureButton(currentItemIndex: currentItemIndex)
-        
-        NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
-
     }
     
     private func configureBlurBackground() {
@@ -309,48 +312,37 @@ class PlaySongViewController: UIViewController {
     
     private func configureButton(currentItemIndex: Int) {
         
-        if KeychainManager.sharedInstance.id == nil { return }
-        
-        guard let songs = songs else {
-            
-            return
-            
-        }
-        
         guard KeychainManager.sharedInstance.id != nil else { return }
 
-        guard let songID = songs[currentItemIndex].id else { return }
+        guard let songs = songs, let songID = songs[currentItemIndex].id else { return }
 
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.songs) { result in
             
-            result.id.forEach { id in
+            let id = result.id.filter { $0 == songID }
 
-                if songID == id {
+            if !id.isEmpty {
+                
+                DispatchQueue.main.async {
+                    
+                    self.favoriteView.image = UIImage(named: "heart.fill")
                     
                     self.isFavorite = true
+                    
+                }
+            }
+            else {
+        
+                DispatchQueue.main.async {
+                    
+                    self.favoriteView.image = UIImage(named: "heart")
+                    
+                    self.isFavorite = false
+                    
                 }
             }
             
-            DispatchQueue.main.async {
-
-                if self.isFavorite {
-
-                    DispatchQueue.main.async {
-                        
-                        self.favoriteView.image = UIImage(named: "heart.fill")
-                    }
-                    
-                }
-                else {
-                    
-                    DispatchQueue.main.async {
-                        
-                        self.favoriteView.image = UIImage(named: "heart")
-                    }
-                }
-            }
+            return
         }
-        
     }
     
     @objc func addToFavorite() {
@@ -403,48 +395,24 @@ class PlaySongViewController: UIViewController {
     private func configureSong() {
         
         if let songs = songs {
+            
+            if let artworkURL = songs[self.currentItemIndex].attributes?.artwork?.url, let width = songs[self.currentItemIndex].attributes?.artwork?.width, let height = songs[self.currentItemIndex].attributes?.artwork?.height {
+                
+                let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
+                
+                self.songImage.loadImage(pictureURL)
+                
+            }
     
             DispatchQueue.main.async {
         
                 self.songLabel.text = songs[self.currentItemIndex].attributes?.name
                 
                 self.singerLabel.text = songs[self.currentItemIndex].attributes?.artistName
-                
-                if let artworkURL = songs[self.currentItemIndex].attributes?.artwork?.url, let width = songs[self.currentItemIndex].attributes?.artwork?.width, let height = songs[self.currentItemIndex].attributes?.artwork?.height {
-                    
-                    let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-                    
-                    self.songImage.loadImage(pictureURL)
-                    
-                }
+    
             }
         }
     }
-    
-    private func configureCurrentSong() {
-        
-        guard let songs = PlaySongManager.sharedInstance.songs, !songs.isEmpty else { return }
-        
-        guard let song = PlaySongManager.sharedInstance.songs?[PlaySongManager.sharedInstance.current], let url = song.attributes?.previews?[0].url else {
-            
-            return
-        }
-        
-        DispatchQueue.main.async {
-            
-            self.songLabel.text = song.attributes?.name
-            
-            self.singerLabel.text = song.attributes?.artistName
-            
-            if let artworkURL = song.attributes?.artwork?.url, let width = song.attributes?.artwork?.width, let height = song.attributes?.artwork?.height {
-                
-                let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-                
-                self.songImage.loadImage(pictureURL)
-            }
-        }
-    }
-    
     
     @objc func previousButton(_ sender: UIButton) {
         
@@ -472,7 +440,6 @@ class PlaySongViewController: UIViewController {
         minTimeLabel.text = String(format: "%02d:%02d", 0, 0)
         
         musicSlider.value = 0.0
-
 
         PlaySongManager.sharedInstance.closePlayer()
 
@@ -528,13 +495,15 @@ class PlaySongViewController: UIViewController {
         if let url = songs[self.currentItemIndex].attributes?.previews?[0].url, let songURL = URL(string: url) {
             
             if isFromMiniPlayer == true {
-
-                configureCurrentSong()
+                
+                configureSong()
                 
             }
             else {
 
                 PlaySongManager.sharedInstance.setupPlayer(with: songURL)
+                
+                configureSong()
             }
             
             PlaySongManager.sharedInstance.currentSong = songs[currentItemIndex]
@@ -568,8 +537,6 @@ extension PlaySongViewController: PlaySongDelegate {
             PlaySongManager.sharedInstance.closePlayer()
             
         case .PlayerReadyToPlayNotification:
-            
-            configureCurrentSong()
             
             NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerButton"), object: nil)
             

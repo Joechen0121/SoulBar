@@ -46,19 +46,19 @@ class FirebaseFavoriteManager {
             
             guard let snapshot = snapshot else { return }
             
-            snapshot.documents.forEach { snapshot in
+            let exist = snapshot.documents.filter { $0.documentID == type }
+            
+            if !exist.isEmpty {
                 
-                if snapshot.documentID == type {
-                    
-                    guard let data = try? snapshot.data(as: FirebaseFavoriteData.self) else { return }
-                    
-                    completion(data)
-                }
+                guard let data = try? exist[0].data(as: FirebaseFavoriteData.self) else { return }
+                
+                completion(data)
                 
             }
-            
-            completion(FirebaseFavoriteData(id: [""]))
-
+            else {
+                
+                completion(FirebaseFavoriteData(id: [""]))
+            }
         }
     }
     
