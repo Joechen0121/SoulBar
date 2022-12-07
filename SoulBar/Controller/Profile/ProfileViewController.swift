@@ -10,20 +10,6 @@ import SwiftJWT
 
 class ProfileViewController: UIViewController {
     
-    enum ProfileType: Int {
-        
-        case LikedSongs = 0
-        
-        case MyEvent
-        
-        case LikedArtists
-        
-        case RecogHistory
-        
-        case Privacy
-        
-    }
-    
     @IBOutlet weak var profileName: UILabel!
     
     @IBOutlet weak var profileTableView: UITableView!
@@ -33,24 +19,14 @@ class ProfileViewController: UIViewController {
     var activityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
-        profileTableView.dataSource = self
-        
-        profileTableView.delegate = self
-        
-        profileTableView.showsVerticalScrollIndicator = false
-        
-        profileTableView.showsHorizontalScrollIndicator = false
+        configureTableView()
     
-        profileTableView.register(UINib.init(nibName: ProfileTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileTableViewCell.identifier)
+        registerCell()
         
-        prfileViewHeightConstraint.constant = UIScreen.main.bounds.height / 8
-        
-        profileTableView.rowHeight = 50
-        
-        // profileTableView.rowHeight = UIScreen.main.bounds.height / 12
- 
+        configureConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +51,11 @@ class ProfileViewController: UIViewController {
             
         }
         
+        configureActivityView()
+    }
+    
+    private func configureActivityView() {
+        
         activityIndicatorView = UIActivityIndicatorView(style: .medium)
         
         activityIndicatorView.tintColor = .black
@@ -86,27 +67,51 @@ class ProfileViewController: UIViewController {
         activityIndicatorView.isHidden = true
     }
     
+    private func configureTableView() {
+        
+        profileTableView.dataSource = self
+        
+        profileTableView.delegate = self
+        
+        profileTableView.showsVerticalScrollIndicator = false
+        
+        profileTableView.showsHorizontalScrollIndicator = false
+    }
+    
+    private func registerCell() {
+        
+        profileTableView.register(UINib.init(nibName: ProfileTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileTableViewCell.identifier)
+    }
+    
+    private func configureConstraints() {
+        
+        prfileViewHeightConstraint.constant = UIScreen.main.bounds.height / 8
+        
+        profileTableView.rowHeight = 50
+        
+    }
+    
     @IBAction func logoutButton(_ sender: UIButton) {
         
         let alert = UIAlertController(title: "Attention", message: "SoulBar User Setting ", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Logout", style: .default) { _ in
             
             self.confirmLogOut(logOut: true)
-        }))
+        })
         
-        alert.addAction(UIAlertAction(title: "Delete Account", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Delete Account", style: .default) { _ in
             
             self.confirmDelete(delete: true)
             
-        }))
+        })
     
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
 
         self.present(alert, animated: true)
     }
     
-    func confirmLogOut(logOut: Bool) {
+    private func confirmLogOut(logOut: Bool) {
         
         switch logOut {
             
@@ -119,30 +124,12 @@ class ProfileViewController: UIViewController {
             goToRootOfTab(index: 0)
             
         case false:
+            
             print("Nothing Happened for now")
         }
     }
     
-    @IBAction func deleteAccount(_ sender: UIButton) {
-     
-        let title = "Delete Account"
-        
-        let message = "Are You Sure To Do That?"
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in
-            self.confirmDelete(delete: true)
-        }))
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
-            self.confirmDelete(delete: false)
-        }))
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func confirmDelete(delete: Bool) {
+    private func confirmDelete(delete: Bool) {
         
         switch delete {
             
@@ -196,7 +183,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func goToRootOfTab(index: Int) {
+    private func goToRootOfTab(index: Int) {
         
         self.navigationController?.popToRootViewController(animated: true)
         

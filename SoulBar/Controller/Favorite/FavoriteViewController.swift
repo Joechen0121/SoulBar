@@ -13,6 +13,8 @@ class FavoriteViewController: UIViewController {
 
     @IBOutlet weak var favoriteListTableView: UITableView!
     
+    private let imageView = UIImageView(image: UIImage(systemName: "plus"))
+    
     var favoriteSongs: [[SongsSearchInfo]] = []
     
     var favoriteAlbumsInfo: [[SongsSearchInfo]] = []
@@ -23,28 +25,12 @@ class FavoriteViewController: UIViewController {
     
     var activityIndicatorView = UIActivityIndicatorView()
     
-    private let imageView = UIImageView(image: UIImage(systemName: "plus"))
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        favoriteListTableView.dataSource = self
+        configureTableView()
         
-        favoriteListTableView.delegate = self
-        
-        favoriteListTableView.showsVerticalScrollIndicator = false
-        
-        favoriteListTableView.showsHorizontalScrollIndicator = false
-        
-        favoriteListTableView.register(UINib.init(nibName: FavoriteMusicTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicTableViewCell.identifier)
-        
-        favoriteListTableView.register(UINib.init(nibName: FavoriteAlbumsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteAlbumsTableViewCell.identifier)
-        
-        favoriteListTableView.register(UINib.init(nibName: FavoritePlaylistsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoritePlaylistsTableViewCell.identifier)
-        
-        favoriteListTableView.register(UINib.init(nibName: FavoriteListsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteListsTableViewCell.identifier)
-        
-        favoriteListTableView.separatorStyle = .none
+        registerCell()
         
         setupUI()
 
@@ -64,6 +50,30 @@ class FavoriteViewController: UIViewController {
         showImage(false)
     }
     
+    private func configureTableView() {
+        
+        favoriteListTableView.dataSource = self
+        
+        favoriteListTableView.delegate = self
+        
+        favoriteListTableView.showsVerticalScrollIndicator = false
+        
+        favoriteListTableView.showsHorizontalScrollIndicator = false
+        
+        favoriteListTableView.separatorStyle = .none
+    }
+    
+    private func registerCell() {
+        
+        favoriteListTableView.register(UINib.init(nibName: FavoriteMusicTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicTableViewCell.identifier)
+        
+        favoriteListTableView.register(UINib.init(nibName: FavoriteAlbumsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteAlbumsTableViewCell.identifier)
+        
+        favoriteListTableView.register(UINib.init(nibName: FavoritePlaylistsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoritePlaylistsTableViewCell.identifier)
+        
+        favoriteListTableView.register(UINib.init(nibName: FavoriteListsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteListsTableViewCell.identifier)
+    }
+    
     private func showImage(_ show: Bool) {
         UIView.animate(withDuration: 0.2) {
             self.imageView.alpha = show ? 1.0 : 0.0
@@ -74,10 +84,15 @@ class FavoriteViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
 
         guard let navigationBar = self.navigationController?.navigationBar else { return }
+        
         navigationBar.addSubview(imageView)
+        
         imageView.layer.cornerRadius = K.ImageSizeForLargeState / 2
+        
         imageView.clipsToBounds = true
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             imageView.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -K.ImageRightMargin),
             imageView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -K.ImageBottomMarginForLargeState),
@@ -93,6 +108,7 @@ class FavoriteViewController: UIViewController {
     }
     
     private func moveAndResizeImage(for height: CGFloat) {
+        
         let coeff: CGFloat = {
             let delta = height - K.NavBarHeightSmallState
             let heightDifferenceBetweenStates = (K.NavBarHeightLargeState - K.NavBarHeightSmallState)
@@ -125,20 +141,6 @@ class FavoriteViewController: UIViewController {
         super.viewWillAppear(animated)
 
         showImage(true)
-        
-//        activityIndicatorView = UIActivityIndicatorView(style: .medium)
-//
-//        activityIndicatorView.tintColor = .black
-//
-//        activityIndicatorView.center = self.view.center
-//
-//        self.view.addSubview(activityIndicatorView)
-//
-//        activityIndicatorView.startAnimating()
-//
-//        activityIndicatorView.isHidden = false
-        
-        // loadWithGroup()
         
         setupFavoriteAlbums()
 
@@ -188,8 +190,6 @@ class FavoriteViewController: UIViewController {
                         self.favoriteListsInfo = result
                         
                         group.notify(queue: .main) {
-                            
-                            print("Complete")
                             
                             DispatchQueue.main.async {
                                 
@@ -279,7 +279,27 @@ class FavoriteViewController: UIViewController {
             
             self.present(newListPopUpVC, animated: true)
         }
+    }
+    
+    private func setupHeaderView(_ tableView: UITableView, title: String) -> UIView {
         
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
+        
+        let label = UILabel()
+        
+        label.frame = CGRect.init(x: 5, y: -headerView.frame.midY / 2, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+        
+        label.text = title
+        
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        
+        label.textColor = .black
+        
+        headerView.backgroundColor = .systemBackground
+        
+        headerView.addSubview(label)
+        
+        return headerView
     }
 }
 
@@ -290,70 +310,20 @@ extension FavoriteViewController: UITableViewDataSource {
         switch FavoriteType(rawValue: section) {
         
         case .FavSongs:
-            
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
-            
-            let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: -headerView.frame.midY / 2, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-            label.text = "Favorite Songs"
-            label.font = UIFont.boldSystemFont(ofSize: 20)
-            label.textColor = .black
-            headerView.backgroundColor = .systemBackground
-            
-            headerView.addSubview(label)
-            
-            return headerView
+
+            return setupHeaderView(tableView, title: "Favorite Songs")
             
         case .FavAlbums:
             
-            // guard !self.favoriteAlbumsInfo.isEmpty else { return nil }
-        
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
-            
-            let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: -headerView.frame.midY / 2, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-            label.text = "Favorite Albums"
-            label.font = UIFont.boldSystemFont(ofSize: 20)
-            label.textColor = .black
-            headerView.backgroundColor = .systemBackground
-            
-            headerView.addSubview(label)
-            
-            return headerView
+            return setupHeaderView(tableView, title: "Favorite Albums")
             
         case .FavPlaylists:
             
-            // guard !self.favoritePlaylistInfo.isEmpty else { return nil }
-            
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
-            
-            let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: -headerView.frame.midY / 2, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-            label.text = "Favorite Playlists"
-            label.font = UIFont.boldSystemFont(ofSize: 20)
-            label.textColor = .black
-            headerView.backgroundColor = .systemBackground
-            
-            headerView.addSubview(label)
-            
-            return headerView
+            return setupHeaderView(tableView, title: "Favorite Playlists")
             
         case .FavLists:
             
-            // guard !self.favoriteListsInfo.isEmpty else { return nil }
-            
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 10))
-            
-            let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: -headerView.frame.midY / 2, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-            label.text = "Favorite Lists"
-            label.font = UIFont.boldSystemFont(ofSize: 20)
-            label.textColor = .black
-            headerView.backgroundColor = .systemBackground
-            
-            headerView.addSubview(label)
-            
-            return headerView
+            return setupHeaderView(tableView, title: "Favorite Lists")
             
         default:
             
@@ -442,8 +412,6 @@ extension FavoriteViewController: UITableViewDataSource {
         default:
             
             return 1
-            
-            
         }
     }
     
@@ -591,8 +559,6 @@ extension FavoriteViewController: UITableViewDelegate {
             
         }
     }
-    
-    
 }
 
 extension FavoriteViewController: UIScrollViewDelegate {
@@ -603,5 +569,4 @@ extension FavoriteViewController: UIScrollViewDelegate {
         
         moveAndResizeImage(for: height)
     }
-
 }

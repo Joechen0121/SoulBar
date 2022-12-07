@@ -25,9 +25,9 @@ class FavoriteMusicDetailsViewController: UIViewController {
     
     @IBOutlet weak var imageLogo: UIImageView!
     
-    var favoriteSongsInfo: [SongsSearchInfo]?
+    @IBOutlet weak var playPauseView: UIImageView!
     
-    var favoriteListsInfo: FirebaseFavoriteListData?
+    var favoriteSongsInfo: [SongsSearchInfo]?
     
     var songsTracks: [SongsSearchInfo] = []
     
@@ -37,46 +37,20 @@ class FavoriteMusicDetailsViewController: UIViewController {
     
     var listTracks: [SongsSearchInfo] = []
     
-    var hasHeart = false
-    
-    var shouldChangeImage = false
-    
-    var imageState: Int? = 0
-    
-    var listName: String = ""
-    
     var state: FavoriteType?
     
     var favoriteListsName: String?
     
-    @IBOutlet weak var playPauseView: UIImageView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        musicDetailsTableView.dataSource = self
+        configureTableView()
         
-        musicDetailsTableView.delegate = self
-        
-        musicDetailsTableView.showsVerticalScrollIndicator = false
-        
-        musicDetailsTableView.showsHorizontalScrollIndicator = false
-        
-        musicDetailsTableView.register(UINib.init(nibName: FavoriteMusicDetailsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicDetailsTableViewCell.identifier)
-        
-        musicDetailsTableView.register(UINib.init(nibName: FavoriteMusicDetailsNoHeartTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicDetailsNoHeartTableViewCell.identifier)
+        registerCell()
 
-        let playPauseTap = UITapGestureRecognizer(target: self, action: #selector(playPauseButton))
+        configureTapGesture()
         
-        playPauseView.isUserInteractionEnabled = true
-        
-        playPauseView.addGestureRecognizer(playPauseTap)
-        
-        playPuaseButtonWidth.constant = imageLogo.frame.height / 5
-        
-        viewHeight.constant = UIScreen.main.bounds.height / 5
-        
-        //configureLabel()
+        configureConstraints()
         
         self.songCount.text = "\(self.songsTracks.count) songs"
         
@@ -105,7 +79,41 @@ class FavoriteMusicDetailsViewController: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .always
     }
     
-    func configureData() {
+    private func configureTableView() {
+        
+        musicDetailsTableView.dataSource = self
+        
+        musicDetailsTableView.delegate = self
+        
+        musicDetailsTableView.showsVerticalScrollIndicator = false
+        
+        musicDetailsTableView.showsHorizontalScrollIndicator = false
+    }
+    
+    private func registerCell() {
+        
+        musicDetailsTableView.register(UINib.init(nibName: FavoriteMusicDetailsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicDetailsTableViewCell.identifier)
+        
+        musicDetailsTableView.register(UINib.init(nibName: FavoriteMusicDetailsNoHeartTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FavoriteMusicDetailsNoHeartTableViewCell.identifier)
+    }
+    
+    private func configureTapGesture() {
+        
+        let playPauseTap = UITapGestureRecognizer(target: self, action: #selector(playPauseButton))
+        
+        playPauseView.isUserInteractionEnabled = true
+        
+        playPauseView.addGestureRecognizer(playPauseTap)
+    }
+    
+    private func configureConstraints() {
+        
+        playPuaseButtonWidth.constant = imageLogo.frame.height / 5
+        
+        viewHeight.constant = UIScreen.main.bounds.height / 5
+    }
+    
+    private func configureData() {
         
         guard let state = state else { return }
         
@@ -134,15 +142,10 @@ class FavoriteMusicDetailsViewController: UIViewController {
             setupFavoriteLists()
             
             self.listTitle.text = favoriteListsName ?? ""
-            
-        default:
-            
-            print("Unknown state")
-            
         }
     }
     
-    func configureView() {
+    private func configureView() {
         
         guard let favoriteSongsInfo = favoriteSongsInfo else {
             return
@@ -159,7 +162,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
         self.listTitle.text = favoriteSongsInfo[0].attributes?.name
     }
     
-    func setupFavoriteSongs() {
+    private func setupFavoriteSongs() {
         
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.songs) { result in
             
@@ -181,7 +184,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
         }
     }
     
-    func setupFavoriteAlbums() {
+    private func setupFavoriteAlbums() {
         
         guard let albumID = favoriteSongsInfo?[0].id else { return }
         
@@ -199,7 +202,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
         }
     }
     
-    func setupFavoritePlaylists() {
+    private func setupFavoritePlaylists() {
         
         
         guard let favoriteSongsInfo = favoriteSongsInfo else {
@@ -223,19 +226,21 @@ class FavoriteMusicDetailsViewController: UIViewController {
         }
     }
     
-    func setupFavoriteLists() {
+    private func setupFavoriteLists() {
         
         if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
-            authVC.modalPresentationStyle = .overCurrentContext
-            self.present(authVC, animated: false)
             
-            return
+            if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                self.present(authVC, animated: false)
+                
+                return
+            }
         }
         
-        guard let favoriteListsName = favoriteListsName else {
-            return
-        }
+        guard let favoriteListsName = favoriteListsName else { return }
         
         FirebaseFavoriteManager.sharedInstance.fetchFavoriteListData { result in
 
@@ -262,7 +267,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
         }
     }
     
-    func configureLabel() {
+   private func configureLabel() {
         
         songCount.layer.masksToBounds = true
         

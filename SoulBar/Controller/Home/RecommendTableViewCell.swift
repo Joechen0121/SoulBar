@@ -30,6 +30,23 @@ class RecommendTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        configureCollectionView()
+        
+        registerCell()
+        
+        configureCellSize()
+        
+        setupSongsNextCharts()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
+    private func configureCollectionView() {
+        
         self.selectionStyle = .none
         
         recommendCollectionView.dataSource = self
@@ -39,38 +56,11 @@ class RecommendTableViewCell: UITableViewCell {
         recommendCollectionView.showsVerticalScrollIndicator = false
         
         recommendCollectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    private func registerCell() {
         
         recommendCollectionView.register(UINib.init(nibName: RecommendCollectionViewCell.identifier, bundle: .main), forCellWithReuseIdentifier: RecommendCollectionViewCell.identifier)
-        
-        configureCellSize()
-        
-        MusicManager.sharedInstance.fetchSongsChartsNext(completion: { result in
-
-            self.songsNext = result[0].next
-            
-            if let next = self.songsNext {
-                
-                MusicManager.sharedInstance.fetchSongsCharts(inNext: next) { result in
-
-                    guard let data = result[0].data else { return }
-                    
-                    self.songs = data
-                    
-                    self.songsNext = result[0].next
-                    
-                    DispatchQueue.main.async {
-                        
-                        self.recommendCollectionView.reloadData()
-                    }
-                }
-            }
-        })
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     private func configureCellSize() {
@@ -95,7 +85,32 @@ class RecommendTableViewCell: UITableViewCell {
         
     }
     
-    func loadMoreData() {
+    private func setupSongsNextCharts() {
+        
+        MusicManager.sharedInstance.fetchSongsChartsNext { result in
+
+            self.songsNext = result[0].next
+            
+            if let next = self.songsNext {
+                
+                MusicManager.sharedInstance.fetchSongsCharts(inNext: next) { result in
+
+                    guard let data = result[0].data else { return }
+                    
+                    self.songs = data
+                    
+                    self.songsNext = result[0].next
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.recommendCollectionView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func loadMoreData() {
         
         let semaphore = DispatchSemaphore(value: 1)
         

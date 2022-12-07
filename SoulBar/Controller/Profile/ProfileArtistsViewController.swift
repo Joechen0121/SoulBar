@@ -22,21 +22,29 @@ class ProfileArtistsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        artistTableView.dataSource = self
-        
-        artistTableView.delegate = self
-        
-        artistTableView.showsVerticalScrollIndicator = false
-        
-        artistTableView.showsHorizontalScrollIndicator = false
+        configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        configureNavigationBar()
+        
+        configureActivityView()
+        
+        loadDataWithGroup()
+
+    }
+    
+    private func configureNavigationBar() {
+        
         self.navigationItem.largeTitleDisplayMode = .never
         
         self.navigationItem.title = "Liked Artists"
+        
+    }
+    
+    private func configureActivityView() {
         
         activityIndicatorView = UIActivityIndicatorView(style: .medium)
         
@@ -49,9 +57,18 @@ class ProfileArtistsViewController: UIViewController {
         activityIndicatorView.startAnimating()
         
         activityIndicatorView.isHidden = false
+    }
+    
+    private func configureTableView() {
         
-        loadDataWithGroup()
-
+        artistTableView.dataSource = self
+        
+        artistTableView.delegate = self
+        
+        artistTableView.showsVerticalScrollIndicator = false
+        
+        artistTableView.showsHorizontalScrollIndicator = false
+        
     }
     
     func configureNoResult() {
@@ -71,7 +88,7 @@ class ProfileArtistsViewController: UIViewController {
         self.view.addSubview(label)
     }
     
-    func loadDataWithGroup() {
+    private func loadDataWithGroup() {
         
         let group = DispatchGroup()
         
@@ -116,8 +133,6 @@ class ProfileArtistsViewController: UIViewController {
                 }
                 
                 group.notify(queue: .main) {
-                    
-                    print("Complete")
                     
                     DispatchQueue.main.async {
                         

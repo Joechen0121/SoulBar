@@ -7,6 +7,20 @@
 
 import Foundation
 import Alamofire
+import SwiftJWT
+
+struct AuthClaims: Claims {
+    
+    let iss: String
+    
+    let iat: Date
+    
+    let exp: Date
+    
+    let aud: String
+    
+    let sub: String
+}
 
 class AuthManager {
     

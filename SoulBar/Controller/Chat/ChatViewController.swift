@@ -32,32 +32,20 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        chatTableView.register(UINib.init(nibName: ChatMessageStrangerTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ChatMessageStrangerTableViewCell.identifier)
-
-        chatTableView.register(UINib.init(nibName: ChatMessageOwnerTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ChatMessageOwnerTableViewCell.identifier)
+        configureTableView()
         
-        chatTableView.dataSource = self
-        
-        chatTableView.separatorStyle = .none
-        
-        chatTableView.showsVerticalScrollIndicator = false
-        
-        chatTableView.showsHorizontalScrollIndicator = false
+        registerCell()
         
         messageTextField.delegate = self
         
         configureInformation()
         
-        infoHeightConstraint.constant = UIScreen.main.bounds.height / 7
-        
-        textFieldHeightConstraint.constant = UIScreen.main.bounds.height / 10
+        configureConstraints()
         
         guard let eventsFavorite = eventsFavorite else {
             
             return
         }
-        
-        //configureMessageData()
         
         if let id = KeychainManager.sharedInstance.id {
             
@@ -78,7 +66,32 @@ class ChatViewController: UIViewController {
         self.messages = []
     }
     
-    func configureMessageData() {
+    private func configureTableView() {
+        
+        chatTableView.dataSource = self
+        
+        chatTableView.separatorStyle = .none
+        
+        chatTableView.showsVerticalScrollIndicator = false
+        
+        chatTableView.showsHorizontalScrollIndicator = false
+    }
+    
+    private func registerCell() {
+        
+        chatTableView.register(UINib.init(nibName: ChatMessageStrangerTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ChatMessageStrangerTableViewCell.identifier)
+
+        chatTableView.register(UINib.init(nibName: ChatMessageOwnerTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ChatMessageOwnerTableViewCell.identifier)
+    }
+    
+    private func configureConstraints() {
+        
+        infoHeightConstraint.constant = UIScreen.main.bounds.height / 7
+        
+        textFieldHeightConstraint.constant = UIScreen.main.bounds.height / 10
+    }
+    
+    private func configureMessageData() {
         
         guard let eventsFavorite = eventsFavorite else {
             
@@ -102,7 +115,7 @@ class ChatViewController: UIViewController {
         }
     }
     
-    func addChatroomListener(chatroomID: String) {
+    private func addChatroomListener(chatroomID: String) {
         
         var data = [ChatroomMessagesData]()
 
@@ -138,7 +151,7 @@ class ChatViewController: UIViewController {
                     
                     let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
                         
-                    if let _ = self.chatTableView.cellForRow(at: indexPath) {
+                    if self.chatTableView.cellForRow(at: indexPath) != nil {
                         
                         self.chatTableView.scrollToRow(at: indexPath, at: .top, animated: true)
                     }
@@ -166,11 +179,9 @@ class ChatViewController: UIViewController {
         
     }
     
-    func configureInformation() {
+    private func configureInformation() {
         
-        guard let eventsFavorite = eventsFavorite else {
-            return
-        }
+        guard let eventsFavorite = eventsFavorite else { return }
         
         eventTime.text = eventsFavorite.eventTime
         
@@ -224,9 +235,7 @@ extension ChatViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-        if range.location == 0 && string == " " {
-            return false
-        }
+        if range.location == 0 && string == " " { return false }
         return true
     }
 }

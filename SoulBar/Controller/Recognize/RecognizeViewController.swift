@@ -36,8 +36,6 @@ class RecognizeViewController: UIViewController {
     
     var pulsatingLayer: CAShapeLayer!
     
-    let shapeLayer = CAShapeLayer()
-    
     let pulsator = Pulsator()
     
     let circularPath = UIBezierPath(arcCenter: .zero, radius: 70, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
@@ -86,10 +84,15 @@ class RecognizeViewController: UIViewController {
     @IBAction func addToSiri(_ sender: UIButton) {
         
         guard let userActivity = self.userActivity else { return }
+        
         let shortcut = INShortcut(userActivity: userActivity)
+        
         let viewController = INUIAddVoiceShortcutViewController(shortcut: shortcut)
+        
         viewController.modalPresentationStyle = .formSheet
+        
         viewController.delegate = self
+        
         present(viewController, animated: true, completion: nil)
     }
     
@@ -223,7 +226,7 @@ class RecognizeViewController: UIViewController {
     
     private func startListening() {
         
-        //guard requestMicrophone() == true else { return }
+        guard requestMicrophone() == true else { return }
 
         guard !audioEngine.isRunning else {
             
@@ -268,7 +271,7 @@ class RecognizeViewController: UIViewController {
 
             let recordingFormat = inputNode.inputFormat(forBus: 0)
 
-            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
+            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, _) in
     
                 self.session.matchStreamingBuffer(buffer, at: nil)
             }
@@ -339,47 +342,7 @@ class RecognizeViewController: UIViewController {
         processingView.isHidden = true
         
     }
-    
-    func setupTrackLayer() {
-        
-        let trackLayer = CAShapeLayer()
-        
-        trackLayer.path = circularPath.cgPath
-        
-        trackLayer.strokeColor = UIColor.lightGray.cgColor
-        
-        trackLayer.lineWidth = 15
-        
-        trackLayer.fillColor = UIColor.clear.cgColor
-        
-        trackLayer.lineCap = CAShapeLayerLineCap.round
-        
-        trackLayer.position = view.center
-        
-        view.layer.addSublayer(trackLayer)
-    }
-    
-    func setupShapeLayer() {
-        
-        shapeLayer.path = circularPath.cgPath
-        
-        shapeLayer.strokeColor = K.Colors.customRed.cgColor
-        
-        shapeLayer.lineWidth = 15
-        
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        
-        shapeLayer.lineCap = CAShapeLayerLineCap.round
-        
-        shapeLayer.position = view.center
-        
-        shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
-        
-        shapeLayer.strokeEnd = 0
-        
-        view.layer.addSublayer(shapeLayer)
-    }
-    
+
     func animatePulsatingLayer() {
         
         let animation = CABasicAnimation(keyPath: "transform.scale")
@@ -453,7 +416,7 @@ class RecognizeViewController: UIViewController {
             
             state = 2
             
-            self.timer = Timer.scheduledTimer(withTimeInterval: 12.0, repeats: false) { timer in
+            self.timer = Timer.scheduledTimer(withTimeInterval: 12.0, repeats: false) { _ in
 
                 guard self.state == 2 else {
                     

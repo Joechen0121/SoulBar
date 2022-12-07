@@ -22,11 +22,7 @@ class ProfileEventsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        eventCollectionView.dataSource = self
-        
-        eventCollectionView.showsVerticalScrollIndicator = false
-        
-        eventCollectionView.showsHorizontalScrollIndicator = false
+        configureCollectionView()
         
         configureCellSize()
         
@@ -37,6 +33,20 @@ class ProfileEventsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationItem.largeTitleDisplayMode = .never
+        
+        configureActivityView()
+        
+        configureEventsFavoriteData()
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationItem.largeTitleDisplayMode = .always
+    }
+    
+    private func configureActivityView() {
         
         activityIndicatorView = UIActivityIndicatorView(style: .medium)
         
@@ -49,18 +59,18 @@ class ProfileEventsViewController: UIViewController {
         activityIndicatorView.startAnimating()
         
         activityIndicatorView.isHidden = false
-        
-        configureEventsFavoriteData()
-        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    private func configureCollectionView() {
         
-        self.navigationItem.largeTitleDisplayMode = .always
+        eventCollectionView.dataSource = self
+        
+        eventCollectionView.showsVerticalScrollIndicator = false
+        
+        eventCollectionView.showsHorizontalScrollIndicator = false
     }
     
-    func configureCellSize() {
+    private func configureCellSize() {
         
         let itemSpace: Double = 3
         
@@ -84,7 +94,7 @@ class ProfileEventsViewController: UIViewController {
         
     }
     
-    func configureNoResult() {
+    private func configureNoResult() {
         
         let label = UILabel(frame: CGRect(x: 0, y: self.view.center.y, width: 290, height: 70))
         
@@ -101,7 +111,7 @@ class ProfileEventsViewController: UIViewController {
         self.view.addSubview(label)
     }
     
-    func configureEventsFavoriteData() {
+    private func configureEventsFavoriteData() {
 
         FirebaseEventsManager.sharedInstance.fetchEventsTypeData(with: MusicEventsCategory.演唱會.rawValue) { result in
             

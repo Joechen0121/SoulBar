@@ -32,11 +32,7 @@ class ChatMessageStrangerTableViewCell: UITableViewCell {
         
         self.selectionStyle = .none
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        
-        othersImage.isUserInteractionEnabled = true
-        
-        othersImage.addGestureRecognizer(tapGestureRecognizer)
+        configureTapGesture()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -45,8 +41,17 @@ class ChatMessageStrangerTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    private func configureTapGesture() {
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        
+        othersImage.isUserInteractionEnabled = true
+        
+        othersImage.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
     @objc func imageTapped() {
-        print("tapped")
+        
         guard let indexPath = indexPath else { return }
 
         delegate?.presentReportMessage(at: indexPath)

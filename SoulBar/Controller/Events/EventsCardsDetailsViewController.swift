@@ -33,6 +33,18 @@ class EventsCardsDetailsViewController: UIViewController {
         
         eventLocation.layer.cornerRadius = eventLocation.frame.height / 2
         
+        configureTapGesture()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureButton()
+    }
+    
+    private func configureTapGesture() {
+        
         let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
         
         favoriteImage.isUserInteractionEnabled = true
@@ -44,16 +56,9 @@ class EventsCardsDetailsViewController: UIViewController {
         linkImage.isUserInteractionEnabled = true
         
         linkImage.addGestureRecognizer(linkTap)
-
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        configureButton()
     }
                                                                  
-    func configureButton() {
+    private func configureButton() {
         
         if KeychainManager.sharedInstance.id == nil { return }
         

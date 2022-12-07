@@ -27,6 +27,30 @@ enum HomeSongSection {
     }
 }
 
+enum SongListType {
+    
+    static let fromPlaylist = 0
+    
+    static let fromAlbums = 1
+    
+    static let fromAlbumsSearch = 2
+    
+    static var fromArtist = 3
+
+}
+
+enum SearchType {
+    
+    static let allType = 0
+    
+    static var artistType = 1
+    
+    static var songType = 2
+    
+    static var albumType = 3
+
+}
+
 class MusicManager {
     
     static let sharedInstance = MusicManager()

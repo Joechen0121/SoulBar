@@ -25,29 +25,7 @@ class SongListViewController: UIViewController {
     
     @IBOutlet weak var artistName: UILabel!
     
-    enum SongListType: Int {
-        
-        case fromPlaylist = 0
-        
-        case fromAlbums
-        
-        case fromAlbumsSearch
-        
-        case fromArtist
-        
-    }
-    
-    let fromPlaylist = SongListType.fromPlaylist.rawValue
-    
-    let fromAlbums = SongListType.fromAlbums.rawValue
-    
-    let fromAlbumsSearch = SongListType.fromAlbumsSearch.rawValue
-    
-    let fromArtist = SongListType.fromArtist.rawValue
-    
     var state: Int?
-    
-    var songTracksInfo = [SongsSearchInfo]()
     
     var playlistTracks = [SongsSearchInfo]()
     
@@ -82,27 +60,11 @@ class SongListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        songListTableView.dataSource = self
+        configureTableView()
         
-        songListTableView.delegate = self
+        setupConstraints()
         
-        songListTableView.showsVerticalScrollIndicator = false
-        
-        songListTableView.showsHorizontalScrollIndicator = false
-        
-        imageWidthConstraint.constant = UIScreen.main.bounds.height / 3
-        
-        let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
-        favoriteView.addGestureRecognizer(favoriteTap)
-        favoriteView.isUserInteractionEnabled = true
-        
-        let sharedTap = UITapGestureRecognizer(target: self, action: #selector(shared))
-        sharedView.addGestureRecognizer(sharedTap)
-        sharedView.isUserInteractionEnabled = true
-        
-        let playTap = UITapGestureRecognizer(target: self, action: #selector(play))
-        playView.addGestureRecognizer(playTap)
-        playView.isUserInteractionEnabled = true
+        configureTapGesture()
 
     }
     
@@ -117,7 +79,46 @@ class SongListViewController: UIViewController {
         
         self.navigationItem.largeTitleDisplayMode = .never
         
-        if state == fromPlaylist {
+        setupMusicData()
+        
+        configureButton()
+    }
+    
+    private func setupConstraints() {
+        
+        imageWidthConstraint.constant = UIScreen.main.bounds.height / 3
+    }
+    
+    private func configureTableView() {
+        
+        songListTableView.dataSource = self
+        
+        songListTableView.delegate = self
+        
+        songListTableView.showsVerticalScrollIndicator = false
+        
+        songListTableView.showsHorizontalScrollIndicator = false
+        
+    }
+    
+    private func configureTapGesture() {
+        
+        let favoriteTap = UITapGestureRecognizer(target: self, action: #selector(addToFavorite))
+        favoriteView.addGestureRecognizer(favoriteTap)
+        favoriteView.isUserInteractionEnabled = true
+        
+        let sharedTap = UITapGestureRecognizer(target: self, action: #selector(shared))
+        sharedView.addGestureRecognizer(sharedTap)
+        sharedView.isUserInteractionEnabled = true
+        
+        let playTap = UITapGestureRecognizer(target: self, action: #selector(play))
+        playView.addGestureRecognizer(playTap)
+        playView.isUserInteractionEnabled = true
+    }
+    
+    private func setupMusicData() {
+        
+        if state == SongListType.fromPlaylist {
             
             DispatchQueue.main.async {
                 
@@ -126,7 +127,9 @@ class SongListViewController: UIViewController {
                 self.artistName.isHidden = true
             }
             
-            MusicManager.sharedInstance.fetchPlaylistsTracks(with: playlist!.id) { tracks in
+            guard let id = playlist?.id else { return }
+            
+            MusicManager.sharedInstance.fetchPlaylistsTracks(with: id) { tracks in
                 self.playlistTracks = tracks
                 
                 DispatchQueue.main.async {
@@ -143,7 +146,7 @@ class SongListViewController: UIViewController {
                 }
             }
         }
-        else if state == fromAlbums {
+        else if state == SongListType.fromAlbums {
             
             DispatchQueue.main.async {
                 
@@ -174,7 +177,7 @@ class SongListViewController: UIViewController {
                 }
             }
         }
-        else if state == fromAlbumsSearch {
+        else if state == SongListType.fromAlbumsSearch {
             
             DispatchQueue.main.async {
                 
@@ -203,7 +206,7 @@ class SongListViewController: UIViewController {
             }
             
         }
-        else if state == fromArtist {
+        else if state == SongListType.fromArtist {
             
             DispatchQueue.main.async {
                 
@@ -247,7 +250,9 @@ class SongListViewController: UIViewController {
                 
                 self.artistAlbumsData.forEach { album in
                     
-                    MusicManager.sharedInstance.fetchAlbumsTracks(with: album.id!) { tracks in
+                    guard let id = album.id else { return }
+                    
+                    MusicManager.sharedInstance.fetchAlbumsTracks(with: id) { tracks in
                         
                         self.artistAllAlbumsTrack += tracks
                         
@@ -262,8 +267,92 @@ class SongListViewController: UIViewController {
             
             print("Unknown state")
         }
+    }
+    
+    private func removeFirebaseData() {
         
-        configureButton()
+        switch state {
+            
+        case SongListType.fromPlaylist:
+            
+            guard let playlist = playlist else { return }
+            
+            let playlistID = playlist.id
+            
+            FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: playlistID)
+            
+        case SongListType.fromAlbums:
+            
+            guard let album = album else { return }
+            
+            let albumID = album.id
+            
+            FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
+            
+        case SongListType.fromAlbumsSearch:
+            
+            guard let albumID = self.albumID else { return }
+            
+            FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
+            
+        case SongListType.fromArtist:
+            
+            guard let artistID = self.artistID else { return }
+            
+            FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.artists, id: artistID)
+            
+        default:
+            
+            print("Unknown state for configuring song data")
+        }
+        
+    }
+    
+    private func addFirebaseData() {
+        
+        switch state {
+            
+        case SongListType.fromPlaylist:
+            
+            guard let playlist = playlist else { return }
+            
+            let playlistID = playlist.id
+            
+            FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.playlists, id: playlistID)
+                
+            self.favoriteView.image = UIImage(named: "heart.fill")
+            
+        case SongListType.fromAlbums:
+            
+            guard let album = album else { return }
+            
+            let albumID = album.id
+            
+            FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
+            
+        case SongListType.fromAlbumsSearch:
+            
+            guard let albumID = self.albumID else { return }
+            
+            FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
+            
+            self.favoriteView.image = UIImage(named: "heart.fill")
+            
+            
+        case SongListType.fromArtist:
+            
+            guard let artistID = self.artistID else { return }
+            
+            FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.artists, id: artistID)
+            
+            self.favoriteView.image = UIImage(named: "heart.fill")
+            
+            
+        default:
+            
+            print("Unknown state for configuring song data")
+        }
+        
     }
     
     @objc func play() {
@@ -272,15 +361,15 @@ class SongListViewController: UIViewController {
             
             switch state {
                 
-            case fromPlaylist:
+            case SongListType.fromPlaylist:
     
                 playSongVC.songs = self.playlistTracks
                 
-            case fromAlbums, fromAlbumsSearch:
+            case SongListType.fromAlbums, SongListType.fromAlbumsSearch:
 
                 playSongVC.songs = self.albumTracks
                 
-            case fromArtist:
+            case SongListType.fromArtist:
                 
                 playSongVC.songs = self.artistAllAlbumsTrack
                 
@@ -298,51 +387,20 @@ class SongListViewController: UIViewController {
     @objc func addToFavorite() {
         
         if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
-            authVC.modalPresentationStyle = .overCurrentContext
-            self.present(authVC, animated: false)
             
-            return
+            if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                self.present(authVC, animated: false)
+                
+                return
+            }
         }
         
         if isFavorite {
             
-            switch state {
-                
-            case fromPlaylist:
-                
-                guard let playlist = playlist else { return }
-                
-                let playlistID = playlist.id
-                
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: playlistID)
-                
-                
-            case fromAlbums:
-                
-                guard let album = album else { return }
-                
-                let albumID = album.id
-                
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
-                
-                
-            case fromAlbumsSearch:
-                
-                guard let albumID = self.albumID else { return }
-                
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
-                
-            case fromArtist:
-                
-                guard let artistID = self.artistID else { return }
-                
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.artists, id: artistID)
-                
-            default:
-                
-                print("Unknown state for configuring song data")
-            }
+            removeFirebaseData()
             
             self.favoriteView.image = UIImage(named: "heart")
             
@@ -351,48 +409,7 @@ class SongListViewController: UIViewController {
         }
         else {
             
-            switch state {
-                
-            case fromPlaylist:
-                
-                guard let playlist = playlist else { return }
-                
-                let playlistID = playlist.id
-                
-                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.playlists, id: playlistID)
-                    
-                self.favoriteView.image = UIImage(named: "heart.fill")
-                
-            case fromAlbums:
-                
-                guard let album = album else { return }
-                
-                let albumID = album.id
-                
-                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
-                
-            case fromAlbumsSearch:
-                
-                guard let albumID = self.albumID else { return }
-                
-                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.albums, id: albumID)
-                
-                self.favoriteView.image = UIImage(named: "heart.fill")
-                
-                
-            case fromArtist:
-                
-                guard let artistID = self.artistID else { return }
-                
-                FirebaseFavoriteManager.sharedInstance.addFavoriteMusicData(with: K.FStore.Favorite.artists, id: artistID)
-                
-                self.favoriteView.image = UIImage(named: "heart.fill")
-                
-                
-            default:
-                
-                print("Unknown state for configuring song data")
-            }
+            addFirebaseData()
             
             self.favoriteView.image = UIImage(named: "heart.fill")
             
@@ -420,7 +437,6 @@ class SongListViewController: UIViewController {
                 }
             }
         }
-        
     }
     
     func configureButton() {
@@ -429,7 +445,7 @@ class SongListViewController: UIViewController {
         
         switch state {
             
-        case fromPlaylist:
+        case SongListType.fromPlaylist:
             
             guard let playlist = playlist else { return }
             
@@ -448,7 +464,7 @@ class SongListViewController: UIViewController {
                 self.changeFavoriteButton()
             }
             
-        case fromAlbums:
+        case SongListType.fromAlbums:
             
             guard let album = album else { return }
             
@@ -467,7 +483,7 @@ class SongListViewController: UIViewController {
                 self.changeFavoriteButton()
             }
             
-        case fromAlbumsSearch:
+        case SongListType.fromAlbumsSearch:
             
             guard let albumID = self.albumID else { return }
             
@@ -484,9 +500,7 @@ class SongListViewController: UIViewController {
                 self.changeFavoriteButton()
             }
             
-        case fromArtist:
-            
-            guard let artistID = self.artistID else { return }
+        case SongListType.fromArtist:
             
             FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
                 
@@ -514,25 +528,25 @@ class SongListViewController: UIViewController {
         
         switch state {
             
-        case fromPlaylist:
+        case SongListType.fromPlaylist:
             
             guard let playlistURL = playlist?.attributes?.url else { return }
             
             url = URL(string: playlistURL)
             
-        case fromAlbums:
+        case SongListType.fromAlbums:
             
             guard let albumURL = album?.attributes?.url else { return }
             
             url = URL(string: albumURL)
             
-        case fromAlbumsSearch:
+        case SongListType.fromAlbumsSearch:
             
             guard let albumURL = albumURL else { return }
             
             url = URL(string: albumURL)
             
-        case fromArtist:
+        case SongListType.fromArtist:
             
             guard let artistURL = self.artistURL else { return }
             
@@ -561,19 +575,19 @@ class SongListViewController: UIViewController {
             
             switch state {
                 
-            case fromPlaylist:
+            case SongListType.fromPlaylist:
                 
                 songs.append(self.playlistTracks[indexPath.row])
     
                 playSongVC.songs = songs
                 
-            case fromAlbums, fromAlbumsSearch:
+            case SongListType.fromAlbums, SongListType.fromAlbumsSearch:
                 
                 songs.append(self.albumTracks[indexPath.row])
                 
                 playSongVC.songs = songs
                 
-            case fromArtist:
+            case SongListType.fromArtist:
                 
                 songs.append(self.artistAllAlbumsTrack[indexPath.row])
                 
@@ -596,15 +610,15 @@ extension SongListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if state == fromPlaylist {
+        if state == SongListType.fromPlaylist {
             
             return self.playlistTracks.count
         }
-        else if state == fromAlbums || state == fromAlbumsSearch {
+        else if state == SongListType.fromAlbums || state == SongListType.fromAlbumsSearch {
             
             return self.albumTracks.count
         }
-        else if state == fromArtist {
+        else if state == SongListType.fromArtist {
             
             guard !artistAlbums.isEmpty else {
                 
@@ -628,21 +642,21 @@ extension SongListViewController: UITableViewDataSource {
             fatalError("Cannot create song list table view cell")
         }
         
-        if state == fromPlaylist {
+        if state == SongListType.fromPlaylist {
             
             cell.configureCell(data: playlistTracks, indexPath: indexPath)
             
             return cell
             
         }
-        else if state == fromAlbums || state == fromAlbumsSearch {
+        else if state == SongListType.fromAlbums || state == SongListType.fromAlbumsSearch {
             
             cell.configureCell(data: albumTracks, indexPath: indexPath)
             
             return cell
             
         }
-        else if state == fromArtist {
+        else if state == SongListType.fromArtist {
             
             guard !artistAlbumsData.isEmpty && !artistAllAlbumsTrack.isEmpty else {
                 
@@ -668,6 +682,5 @@ extension SongListViewController: UITableViewDelegate {
         guard let state = state else { return }
         
         configureSongData(state: state, indexPath: indexPath)
-
     }
 }

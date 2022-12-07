@@ -12,25 +12,6 @@ import AWSRekognition
 
 class SearchDetailsViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
-    enum SearchType: Int {
-        
-        case all = 0
-        
-        case artist
-        
-        case song
-        
-        case album
-    }
-    
-    let allType = SearchType.all.rawValue
-    
-    let artistType = SearchType.artist.rawValue
-    
-    let songType = SearchType.song.rawValue
-    
-    let albumType = SearchType.album.rawValue
-    
     @IBOutlet weak var searchTextField: UITextField!
     
     @IBOutlet weak var searchDetailsTableView: UITableView!
@@ -74,6 +55,26 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureTableView()
+        
+        searchTextField.delegate = self
+        
+        speechRecognizer.delegate = self
+        
+        registerCell()
+        
+        configureTapGesture()
+        
+        configureButton()
+        
+        configureTextField()
+        
+        configureNavigationBar()
+
+    }
+    
+    private func configureTableView() {
+        
         searchDetailsTableView.dataSource = self
         
         searchDetailsTableView.delegate = self
@@ -82,9 +83,9 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         
         searchDetailsTableView.showsHorizontalScrollIndicator = false
         
-        searchTextField.delegate = self
-        
-        speechRecognizer.delegate = self
+    }
+    
+    private func registerCell() {
         
         searchDetailsTableView.register(UINib.init(nibName: SearchAllResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchAllResultTableViewCell.identifier)
         
@@ -93,6 +94,17 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         searchDetailsTableView.register(UINib.init(nibName: SearchSongsResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchSongsResultTableViewCell.identifier)
         
         searchDetailsTableView.register(UINib.init(nibName: SearchAlbumsResultTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchAlbumsResultTableViewCell.identifier)
+        
+    }
+    
+    private func configureNavigationBar() {
+        
+        self.navigationItem.title = "Search"
+        
+        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    private func configureTapGesture() {
         
         let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
         
@@ -103,20 +115,9 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         voiceRecogniztion.addGestureRecognizer(longGesture)
         
         voiceRecogniztion.isUserInteractionEnabled = true
-        
-        configureButton()
-        
-        configureTextField()
-        
-        self.navigationItem.title = "Search"
-        
-        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
     }
     
     @IBAction func celebrityRecognize(_ sender: UIButton) {
-     
-        print("celebrity button")
         
         let pickerController = UIImagePickerController()
         
@@ -155,8 +156,6 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         
         if sender.state == UILongPressGestureRecognizer.State.began {
             
-            print("began")
-            
             voiceRecogniztion.tintColor = .red
             
             startRecording()
@@ -164,8 +163,6 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
             isRecognizing = true
         }
         else if sender.state == UILongPressGestureRecognizer.State.ended {
-            
-            print("end")
             
             voiceRecogniztion.tintColor = .black
             
@@ -203,13 +200,15 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
         
         let inputNode = audioEngine.inputNode
+        
         guard let recognitionRequest = recognitionRequest else {
+            
             fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
         }
         
         recognitionRequest.shouldReportPartialResults = true
         
-        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: { result, error in
             
             var isFinal = false
             
@@ -237,7 +236,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
             self.recognitionRequest?.append(buffer)
         }
         
@@ -258,7 +257,19 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         
         self.navigationItem.largeTitleDisplayMode = .never
         
-        SFSpeechRecognizer.requestAuthorization { (authStatus) in
+        speechRequestAuth()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.navigationItem.largeTitleDisplayMode = .always
+        
+    }
+    
+    private func speechRequestAuth() {
+        
+        SFSpeechRecognizer.requestAuthorization { authStatus in
             
             var isButtonEnabled = false
             
@@ -278,21 +289,20 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
             case .notDetermined:
                 isButtonEnabled = false
                 print("Speech recognition not yet authorized")
+                
+            @unknown default:
+                
+                fatalError("unknown status")
             }
+            
             OperationQueue.main.addOperation() {
+                
                 self.voiceRecogniztion.isEnabled = isButtonEnabled
             }
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        self.navigationItem.largeTitleDisplayMode = .always
-        
-    }
-    
-    func configureTextField() {
+    private func configureTextField() {
         
         searchTextField.clearButtonMode = .always
         
@@ -315,7 +325,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         searchTextField.leftView = view
     }
     
-    func configureButton() {
+    private func configureButton() {
         
         buttonStackView.layoutMargins = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
         buttonStackView.isLayoutMarginsRelativeArrangement = true
@@ -353,52 +363,26 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         albumButton.layer.borderWidth = 2
     }
     
-    func changeButtonColor(buttonTag: Int) {
+    private func changeButtonColor(buttonTag: Int) {
         
-        if buttonTag == allType {
+        let buttons: [TransitionButton] = [allButton, artistButton, songButton, albumButton]
+        
+        setupTappedButton(buttons: buttons, tappedButton: buttons[buttonTag])
+        
+    }
+    
+    private func setupTappedButton(buttons: [TransitionButton], tappedButton: UIButton) {
+        
+        buttons.forEach { button in
             
-            allButton.backgroundColor = K.Colors.customRed
-            allButton.setTitleColor(.white, for: .normal)
-            artistButton.setTitleColor(K.Colors.customRed, for: .normal)
-            artistButton.backgroundColor = .white
-            songButton.setTitleColor(K.Colors.customRed, for: .normal)
-            songButton.backgroundColor = .white
-            albumButton.setTitleColor(K.Colors.customRed, for: .normal)
-            albumButton.backgroundColor = .white
-        }
-        else if buttonTag == artistType {
+            button.setTitleColor(K.Colors.customRed, for: .normal)
             
-            allButton.setTitleColor(K.Colors.customRed, for: .normal)
-            allButton.backgroundColor = .white
-            artistButton.backgroundColor = K.Colors.customRed
-            artistButton.setTitleColor(.white, for: .normal)
-            songButton.setTitleColor(K.Colors.customRed, for: .normal)
-            songButton.backgroundColor = .white
-            albumButton.setTitleColor(K.Colors.customRed, for: .normal)
-            albumButton.backgroundColor = .white
+            button.backgroundColor = .white
         }
-        else if buttonTag == songType {
-            
-            allButton.setTitleColor(K.Colors.customRed, for: .normal)
-            allButton.backgroundColor = .white
-            artistButton.setTitleColor(K.Colors.customRed, for: .normal)
-            artistButton.backgroundColor = .white
-            songButton.backgroundColor = K.Colors.customRed
-            songButton.setTitleColor(.white, for: .normal)
-            albumButton.setTitleColor(K.Colors.customRed, for: .normal)
-            albumButton.backgroundColor = .white
-        }
-        else if buttonTag == albumType {
-            
-            allButton.setTitleColor(K.Colors.customRed, for: .normal)
-            allButton.backgroundColor = .white
-            artistButton.setTitleColor(K.Colors.customRed, for: .normal)
-            artistButton.backgroundColor = .white
-            songButton.setTitleColor(K.Colors.customRed, for: .normal)
-            songButton.backgroundColor = .white
-            albumButton.backgroundColor = K.Colors.customRed
-            albumButton.setTitleColor(.white, for: .normal)
-        }
+        
+        tappedButton.setTitleColor(.white, for: .normal)
+        
+        tappedButton.backgroundColor = K.Colors.customRed
         
     }
     
@@ -410,7 +394,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         
         guard let text = searchTextField?.text else {
             
-            if buttonTag == allType {
+            if buttonTag == SearchType.allType {
                 
                 allButton.startAnimation()
                 
@@ -419,7 +403,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
                     self.allButton.stopAnimation(animationStyle: .shake)
                 }
             }
-            else if buttonTag == artistType {
+            else if buttonTag == SearchType.artistType {
                 
                 artistButton.startAnimation()
                 
@@ -428,7 +412,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
                     self.artistButton.stopAnimation(animationStyle: .shake)
                 }
             }
-            else if buttonTag == songType {
+            else if buttonTag == SearchType.songType {
                 
                 songButton.startAnimation()
                 
@@ -437,7 +421,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
                     self.songButton.stopAnimation(animationStyle: .shake)
                 }
             }
-            else if buttonTag == albumType {
+            else if buttonTag == SearchType.albumType {
                 
                 albumButton.startAnimation()
                 
@@ -453,23 +437,23 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         fetchMusicData(buttonTag: buttonTag, text: text)
     }
     
-    func configureSelectedData(state: Int, indexPath: IndexPath) {
+    private func configureSelectedData(state: Int, indexPath: IndexPath) {
         
-        if state == allType {
+        if state == SearchType.allType {
             
             switch indexPath.section {
                 
             case 0:
                 
-                configureSelectedData(state: artistType, indexPath: indexPath)
+                configureSelectedData(state: SearchType.artistType, indexPath: indexPath)
                 
             case 1:
                 
-                configureSelectedData(state: songType, indexPath: indexPath)
+                configureSelectedData(state: SearchType.songType, indexPath: indexPath)
                 
             case 2:
                 
-                configureSelectedData(state: albumType, indexPath: indexPath)
+                configureSelectedData(state: SearchType.albumType, indexPath: indexPath)
                 
             default:
                 
@@ -477,7 +461,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
             }
             
         }
-        else if state == artistType {
+        else if state == SearchType.artistType {
             if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
                 
                 songlistVC.state = 3
@@ -491,7 +475,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
                 self.navigationController?.pushViewController(songlistVC, animated: true)
             }
         }
-        else if state == songType {
+        else if state == SearchType.songType {
             
             if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
                 
@@ -504,10 +488,9 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
                 playSongVC.modalPresentationStyle = .fullScreen
                 
                 present(playSongVC, animated: true)
-                //self.navigationController?.pushViewController(playSongVC, animated: true)
             }
         }
-        else if state == albumType {
+        else if state == SearchType.albumType {
             
             if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
                 
@@ -529,7 +512,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if buttonTag == allType {
+        if buttonTag == SearchType.allType {
             
             guard !self.artists.isEmpty && !self.songs.isEmpty && !self.albums.isEmpty else { return "" }
             
@@ -552,7 +535,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        if buttonTag == allType {
+        if buttonTag == SearchType.allType {
             
             return 3
         }
@@ -564,7 +547,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if buttonTag == allType {
+        if buttonTag == SearchType.allType {
             
             if section == 0 {
                 
@@ -580,15 +563,15 @@ extension SearchDetailsViewController: UITableViewDataSource {
             }
             
         }
-        else if buttonTag == artistType {
+        else if buttonTag == SearchType.artistType {
             
             return artists.count
         }
-        else if buttonTag == songType {
+        else if buttonTag == SearchType.songType {
             
             return songs.count
         }
-        else if buttonTag == albumType {
+        else if buttonTag == SearchType.albumType {
             
             return albums.count
         }
@@ -598,7 +581,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if buttonTag == allType {
+        if buttonTag == SearchType.allType {
             
             if indexPath.section == 0 {
                 
@@ -642,7 +625,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
             
         }
         
-        else if buttonTag == artistType {
+        else if buttonTag == SearchType.artistType {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchArtistsResultTableViewCell.identifier, for: indexPath) as? SearchArtistsResultTableViewCell else {
                 
@@ -660,7 +643,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
             return cell
             
         }
-        else if buttonTag == songType {
+        else if buttonTag == SearchType.songType {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchSongsResultTableViewCell.identifier, for: indexPath) as? SearchSongsResultTableViewCell else {
                 
@@ -677,7 +660,7 @@ extension SearchDetailsViewController: UITableViewDataSource {
             
             return cell
         }
-        else if buttonTag == albumType {
+        else if buttonTag == SearchType.albumType {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchAlbumsResultTableViewCell.identifier, for: indexPath) as? SearchAlbumsResultTableViewCell else {
                 
@@ -737,20 +720,20 @@ extension SearchDetailsViewController {
         
         MusicManager.sharedInstance.stopAllSessions()
         
-        if buttonTag == allType {
+        if buttonTag == SearchType.allType {
             
             fetchAllTypes(text: text)
         }
-        else if buttonTag == artistType {
+        else if buttonTag == SearchType.artistType {
             
             fetchArtists(text: text)
         }
         
-        else if buttonTag == songType {
+        else if buttonTag == SearchType.songType {
             
             fetchSongs(text: text)
         }
-        else if buttonTag == albumType {
+        else if buttonTag == SearchType.albumType {
             
             fetchAlbums(text: text)
         }
@@ -854,7 +837,7 @@ extension SearchDetailsViewController: SFSpeechRecognizerDelegate {
 
 extension SearchDetailsViewController: UIPickerViewDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         dismiss(animated: true)
         
@@ -873,6 +856,7 @@ extension SearchDetailsViewController: UIPickerViewDelegate {
         self.activityIndicatorView.isHidden = false
         
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            
             fatalError("couldn't load image from Photos")
         }
         
@@ -898,10 +882,10 @@ extension SearchDetailsViewController {
         
         celebRequest?.image = celebImageAWS
         
-        rekognitionObject?.recognizeCelebrities(celebRequest!) { (result, error) in
+        rekognitionObject?.recognizeCelebrities(celebRequest!) { result, error in
             
             if error != nil {
-                print(error)
+
                 return
             }
             
@@ -942,8 +926,6 @@ extension SearchDetailsViewController {
                 }
             }
             else {
-    
-                print("No faces in this pic")
                 
                 DispatchQueue.main.async {
                     
@@ -975,5 +957,4 @@ extension SearchDetailsViewController: RecognizeFaceResultDelegate {
         
         self.fetchMusicData(buttonTag: self.buttonTag, text: searchName)
     }
-    
 }

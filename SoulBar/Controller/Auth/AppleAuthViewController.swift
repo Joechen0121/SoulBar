@@ -11,19 +11,6 @@ import CryptoKit
 import SwiftKeychainWrapper
 import SwiftJWT
 
-struct AuthClaims: Claims {
-    
-    let iss: String
-    
-    let iat: Date
-    
-    let exp: Date
-    
-    let aud: String
-    
-    let sub: String
-}
-
 class AppleAuthViewController: UIViewController {
     
     static let storyboardID = "AppleAuthVC"
@@ -35,7 +22,18 @@ class AppleAuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //view.addSubview(signInButton)
+        configureBackgroundView()
+        
+        configureButton()
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+    }
+    
+    private func configureBackgroundView() {
         
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -54,6 +52,9 @@ class AppleAuthViewController: UIViewController {
         container.addSubview(backgroundEffectView)
         
         view.insertSubview(container, at: 0)
+    }
+    
+    private func configureButton() {
         
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         
@@ -67,12 +68,6 @@ class AppleAuthViewController: UIViewController {
         
         notNowButton.layer.cornerRadius = signInButton.frame.height / 2.5
         
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        //signInButton.center = view.center
     }
     
     @objc func didTapSignIn() {
@@ -97,6 +92,38 @@ class AppleAuthViewController: UIViewController {
         
         dismiss(animated: true)
     }
+    
+    private func storeAuthToken(credentials: ASAuthorizationAppleIDCredential) {
+        
+        let header = Header(kid: AuthManager.sharedInstance.teamID)
+        
+        let claims = AuthClaims(iss: AuthManager.sharedInstance.appleID, iat: Date(), exp: Date(timeIntervalSinceNow: 3600), aud: AuthManager.sharedInstance.aud, sub: AuthManager.sharedInstance.clientID)
+        
+        var jwt = JWT(header: header, claims: claims)
+        
+        let jwtSigner = JWTSigner.es256(privateKey: Data(AuthManager.sharedInstance.p8.utf8))
+        
+        do {
+            
+            guard let authCode = String(data: credentials.authorizationCode!, encoding: .utf8) else { return }
+            
+            let signedJWT = try jwt.sign(using: jwtSigner)
+            
+            AuthManager.sharedInstance.fetchTokenInfo(
+                clientID: AuthManager.sharedInstance.clientID,
+                clientSecret: signedJWT,
+                authCode: authCode) { result in
+                    
+                    guard let refreshToken = result.refreshToken else { return }
+                    
+                    KeychainManager.sharedInstance.refreshToken = refreshToken
+                }
+            
+        } catch {
+            
+            print(error)
+        }
+    }
 }
 
 extension AppleAuthViewController: ASAuthorizationControllerDelegate {
@@ -107,47 +134,13 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
             
         case let credentials as ASAuthorizationAppleIDCredential:
             
-            guard let token = credentials.identityToken, let _ = String(data: token, encoding: .utf8) else { return }
-            
-            let firstName = credentials.fullName?.givenName
-            
+            guard let token = credentials.identityToken, String(data: token, encoding: .utf8) != nil else { return }
+
             let id = credentials.user
             
-            let lastName = credentials.fullName?.familyName
+            storeAuthToken(credentials: credentials)
             
-            let email = credentials.email
-            
-            let header = Header(kid: AuthManager.sharedInstance.teamID)
-            
-            let claims = AuthClaims(iss: AuthManager.sharedInstance.appleID, iat: Date(), exp: Date(timeIntervalSinceNow: 3600), aud: AuthManager.sharedInstance.aud, sub: AuthManager.sharedInstance.clientID)
-            
-            var jwt = JWT(header: header, claims: claims)
-            
-            let jwtSigner = JWTSigner.es256(privateKey: Data(AuthManager.sharedInstance.p8.utf8))
-            
-            do {
-                
-                guard let authCode = String(data: credentials.authorizationCode!, encoding: .utf8) else { return }
-                
-                let signedJWT = try jwt.sign(using: jwtSigner)
-                
-                AuthManager.sharedInstance.fetchTokenInfo(
-                    clientID: AuthManager.sharedInstance.clientID,
-                    clientSecret: signedJWT,
-                    authCode: authCode) { result in
-                        
-                        guard let refreshToken = result.refreshToken else { return }
-                        
-                        KeychainManager.sharedInstance.refreshToken = refreshToken
-                    }
-                
-            } catch {
-                
-                print(error)
-            }
-            
-            
-            if let email = email, let firstName = firstName, let lastName = lastName {
+            if let email = credentials.email, let firstName = credentials.fullName?.givenName, let lastName = credentials.fullName?.familyName {
                 
                 FirebaseUserManager.sharedInstance.addUserData(id: id, email: email, name: lastName + firstName) {
                     
@@ -183,6 +176,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         
         switch error {
+            
         case ASAuthorizationError.canceled:
             let controller = UIAlertController(title: "User cancels login", message: "", preferredStyle: .alert)
             
@@ -232,9 +226,7 @@ extension AppleAuthViewController: ASAuthorizationControllerDelegate {
         default:
             break
         }
-        
     }
-    
 }
 
 extension AppleAuthViewController: ASAuthorizationControllerPresentationContextProviding {
