@@ -381,10 +381,8 @@
 				D8A1B974290C35D3007F6775 /* PlaylistsCollectionViewCell.swift */,
 				D8088B3C290AB2EF0037555B /* AlbumsTableViewCell.swift */,
 				D8E098A62928D351005971C6 /* RecommendCollectionViewCell.swift */,
-				D8E098A72928D351005971C6 /* RecommendCollectionViewCell.xib */,
 				D8088B42290AC1840037555B /* AlbumsCollectionViewCell.swift */,
 				D8E098AA292A0150005971C6 /* RecommendTableViewCell.swift */,
-				D8E098AB292A0150005971C6 /* RecommendTableViewCell.xib */,
 				D8A1B97B290C46C6007F6775 /* SongListViewController.swift */,
 				D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */,
 			);
@@ -620,7 +618,9 @@
 		D8A1B979290C4642007F6775 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D8E098A72928D351005971C6 /* RecommendCollectionViewCell.xib */,
 				D8A1B96F290C3419007F6775 /* PlaylistsTableViewCell.xib */,
+				D8E098AB292A0150005971C6 /* RecommendTableViewCell.xib */,
 				D8A1B975290C35D3007F6775 /* PlaylistsCollectionViewCell.xib */,
 				D8088B43290AC1840037555B /* AlbumsCollectionViewCell.xib */,
 				D8088B3D290AB2EF0037555B /* AlbumsTableViewCell.xib */,

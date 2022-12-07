@@ -73,7 +73,7 @@ class RecommendTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureCellSize() {
+    private func configureCellSize() {
         
         let itemSpace: Double = 3
         
