@@ -57,17 +57,14 @@ class FirebaseEventsManager {
             "webURL": webURL
         ]
         
-        event.whereField("uid", isEqualTo: uid).getDocuments { snapshot, error in
+        event.whereField("uid", isEqualTo: uid).getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             
-            if snapshot.documents.isEmpty  {
+            if snapshot.documents.isEmpty {
                 
-                print("Set")
                 document.setData(data)
             } else {
-                
-                print("Update")
                 
                 let document = snapshot.documents.first
                 
@@ -82,7 +79,7 @@ class FirebaseEventsManager {
         
         let event = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(String(type))
         
-        event.getDocuments { snapshot, error in
+        event.getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             

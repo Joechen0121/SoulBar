@@ -42,7 +42,7 @@ class FirebaseFavoriteManager {
     
     func fetchFavoriteMusicData(with type: String, completion: @escaping (FirebaseFavoriteData) -> Void) {
         
-        Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.Favorite.collectionName).getDocuments { snapshot, error in
+        Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.Favorite.collectionName).getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             
@@ -95,7 +95,7 @@ class FirebaseFavoriteManager {
         
         var data: [FirebaseFavoriteListData] = []
         
-        Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.List.collectionName).getDocuments { snapshot, error  in
+        Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.List.collectionName).getDocuments { snapshot, _  in
             
             guard let snapshot = snapshot else { return }
             
@@ -125,7 +125,7 @@ class FirebaseFavoriteManager {
             
         ]
         
-        document.getDocument { documentResult, error in
+        document.getDocument { documentResult, _ in
             
             if let documentResult = documentResult, documentResult.exists {
                 

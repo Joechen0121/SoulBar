@@ -33,7 +33,7 @@ class FirebaseChatroomManager {
 
         ]
 
-        document.getDocument { documentResult, error in
+        document.getDocument { documentResult, _ in
 
             if let documentResult = documentResult, documentResult.exists {
 
@@ -50,7 +50,7 @@ class FirebaseChatroomManager {
         
         var data = [ChatroomMessagesData]()
         
-        chatroomDB.document(id).collection("messages").order(by: "time").getDocuments { snapshot, error in
+        chatroomDB.document(id).collection("messages").order(by: "time").getDocuments { snapshot, _ in
 
             guard let snapshot = snapshot else { return }
 
@@ -75,7 +75,7 @@ class FirebaseChatroomManager {
 
         ]
 
-        document.getDocument { documentResult, error in
+        document.getDocument { documentResult, _ in
 
             if let documentResult = documentResult, documentResult.exists {
 
@@ -96,7 +96,7 @@ class FirebaseChatroomManager {
         
         var data = [ChatroomMembersData]()
         
-        chatroomDB.document(chatroomID).collection("members").getDocuments { snapshot, error in
+        chatroomDB.document(chatroomID).collection("members").getDocuments { snapshot, _ in
 
             guard let snapshot = snapshot else { return }
 
