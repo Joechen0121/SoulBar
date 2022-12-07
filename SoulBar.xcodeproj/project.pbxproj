@@ -130,6 +130,7 @@
 		D8EA0F0E29267B3700514F35 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */; };
 		D8EA0F11292682A200514F35 /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */; };
 		D8F0E29F292EFCC400BCDFAF /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */; };
+		D8F7387C294077A800E5DEFB /* KingfisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F7387B294077A800E5DEFB /* KingfisherWrapper.swift */; };
 		D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */; };
 		D8FABE482919F1450094A77F /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE472919F1450094A77F /* RootTabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -262,6 +263,7 @@
 		D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeManager.swift; sourceTree = "<group>"; };
 		D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
 		D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		D8F7387B294077A800E5DEFB /* KingfisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherWrapper.swift; sourceTree = "<group>"; };
 		D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		D8FABE472919F1450094A77F /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -661,6 +663,7 @@
 			isa = PBXGroup;
 			children = (
 				D8EA0EFC29233F5400514F35 /* KeychainManager.swift */,
+				D8F7387B294077A800E5DEFB /* KingfisherWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
@@ -932,6 +935,7 @@
 				D8573381290EA9150009D734 /* SearchAllResultTableViewCell.swift in Sources */,
 				D8EA0EFD29233F5400514F35 /* KeychainManager.swift in Sources */,
 				D8088B1729096C200037555B /* EventsViewController.swift in Sources */,
+				D8F7387C294077A800E5DEFB /* KingfisherWrapper.swift in Sources */,
 				D8088B3B290A2A290037555B /* SongsCollectionViewCell.swift in Sources */,
 				D837B36E291DF94D008BE6D0 /* UIView+Ext.swift in Sources */,
 				D8A1B97C290C46C6007F6775 /* SongListViewController.swift in Sources */,

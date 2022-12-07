@@ -56,7 +56,7 @@ class SearchArtistsResultTableViewCell: UITableViewCell {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
     
-            self.artistImage.kf.setImage(with: URL(string: pictureURL))
+            self.artistImage.loadImage(pictureURL)
             
         }
     }

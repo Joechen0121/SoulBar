@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class SongListViewController: UIViewController {
     
@@ -136,7 +135,7 @@ class SongListViewController: UIViewController {
                         
                         let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                         
-                        self.songListImage.kf.setImage(with: URL(string: pictureURL))
+                        self.songListImage.loadImage(pictureURL)
                         
                     }
                     
@@ -167,7 +166,7 @@ class SongListViewController: UIViewController {
                         
                         let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                         
-                        self.songListImage.kf.setImage(with: URL(string: pictureURL))
+                        self.songListImage.loadImage(pictureURL)
                         
                     }
                     
@@ -195,7 +194,7 @@ class SongListViewController: UIViewController {
                     if let artworkURL = self.albumTracks[0].attributes?.artwork?.url, let width = self.albumTracks[0].attributes?.artwork?.width, let height = self.albumTracks[0].attributes?.artwork?.height {
                         let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                         
-                        self.songListImage.kf.setImage(with: URL(string: pictureURL))
+                        self.songListImage.loadImage(pictureURL)
                         
                     }
                     
@@ -239,7 +238,7 @@ class SongListViewController: UIViewController {
                         
                         let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                         
-                        self.songListImage.kf.setImage(with: URL(string: pictureURL))
+                        self.songListImage.loadImage(pictureURL)
                         
                     }
                     

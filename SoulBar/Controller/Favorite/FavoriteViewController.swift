@@ -481,7 +481,7 @@ extension FavoriteViewController: UITableViewDataSource {
                 
                 let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
-                cell.musicImage.kf.setImage(with: URL(string: pictureURL))
+                cell.musicImage.loadImage(pictureURL)
             }
             
             return cell
@@ -503,7 +503,7 @@ extension FavoriteViewController: UITableViewDataSource {
                 
                 let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
-                cell.musicImage.kf.setImage(with: URL(string: pictureURL))
+                cell.musicImage.loadImage(pictureURL)
             }
             
             return cell

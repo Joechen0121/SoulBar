@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class FavoriteMusicDetailsViewController: UIViewController {
     
@@ -153,7 +152,7 @@ class FavoriteMusicDetailsViewController: UIViewController {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
-            self.imageLogo.kf.setImage(with: URL(string: pictureURL))
+            self.imageLogo.loadImage(pictureURL)
             
         }
         
@@ -385,7 +384,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
                 
                 let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
-                cell.songImage.kf.setImage(with: URL(string: pictureURL))
+                cell.songImage.loadImage(pictureURL)
                 
             }
             
@@ -409,7 +408,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
                 
                 let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
-                cell.songImage.kf.setImage(with: URL(string: pictureURL))
+                cell.songImage.loadImage(pictureURL)
                 
             }
             
@@ -433,7 +432,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
                 
                 let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
-                cell.songImage.kf.setImage(with: URL(string: pictureURL))
+                cell.songImage.loadImage(pictureURL)
                 
             }
             
@@ -457,7 +456,7 @@ extension FavoriteMusicDetailsViewController: UITableViewDataSource {
                 
                 let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
                 
-                cell.songImage.kf.setImage(with: URL(string: pictureURL))
+                cell.songImage.loadImage(pictureURL)
                 
             }
             

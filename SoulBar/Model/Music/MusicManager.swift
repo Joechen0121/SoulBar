@@ -8,6 +8,25 @@
 import Foundation
 import Alamofire
 
+enum HomeSongType: Int, CaseIterable {
+    
+    case newSongs = 0
+    
+    case hotAlbums
+    
+    case hotPlaylist
+    
+    case recommend
+}
+
+enum HomeSongSection {
+    
+    static var sections: [String] {
+        
+        return ["Hot Songs", "Hot Albums", "Hot Playlists", "Recommend For You"]
+    }
+}
+
 class MusicManager {
     
     static let sharedInstance = MusicManager()

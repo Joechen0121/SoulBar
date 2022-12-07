@@ -93,7 +93,7 @@ class RootTabBarViewController: UITabBarController {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
-            miniPlayer.songImage.kf.setImage(with: URL(string: pictureURL))
+            miniPlayer.songImage.loadImage(pictureURL)
         }
         
     }

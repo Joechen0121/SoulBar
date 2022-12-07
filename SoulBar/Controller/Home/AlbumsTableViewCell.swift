@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 protocol AlbumsDelegate: AnyObject {
     
@@ -152,7 +151,7 @@ extension AlbumsTableViewCell: UICollectionViewDataSource {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
     
-            cell.albumImage.kf.setImage(with: URL(string: pictureURL))
+            cell.albumImage.loadImage(pictureURL)
             
         }
         

@@ -52,7 +52,7 @@ class SearchAllResultTableViewCell: UITableViewCell {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
-            self.allImage.kf.setImage(with: URL(string: pictureURL))
+            self.allImage.loadImage(pictureURL)
             
         }
     }
@@ -67,7 +67,7 @@ class SearchAllResultTableViewCell: UITableViewCell {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
-            self.allImage.kf.setImage(with: URL(string: pictureURL))
+            self.allImage.loadImage(pictureURL)
             
         }
         
@@ -83,7 +83,7 @@ class SearchAllResultTableViewCell: UITableViewCell {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
-            self.allImage.kf.setImage(with: URL(string: pictureURL))
+            self.allImage.loadImage(pictureURL)
             
         }
     }

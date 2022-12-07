@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 protocol SongsDelegate: AnyObject {
     
@@ -27,25 +26,20 @@ class SongsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.selectionStyle = .none
+        configureCollectionView()
         
-        songsCollectionView.dataSource = self
+        configureFlowlayout()
         
-        songsCollectionView.delegate = self
+        setupSongsCharts()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
         
-        songsCollectionView.showsVerticalScrollIndicator = false
-        
-        songsCollectionView.showsHorizontalScrollIndicator = false
-        
-        let flowlayout = UICollectionViewFlowLayout()
-        
-        flowlayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 3.5)
-        
-        flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        
-        flowlayout.scrollDirection = .horizontal
-        
-        self.songsCollectionView.setCollectionViewLayout(flowlayout, animated: true)
+        // Configure the view for the selected state
+    }
+    
+    private func setupSongsCharts() {
         
         MusicManager.sharedInstance.fetchSongsCharts { result in
             
@@ -56,14 +50,33 @@ class SongsTableViewCell: UITableViewCell {
                 self.songsCollectionView.reloadData()
                 
             }
-            
         }
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    private func configureCollectionView() {
         
-        // Configure the view for the selected state
+        self.selectionStyle = .none
+        
+        songsCollectionView.dataSource = self
+        
+        songsCollectionView.delegate = self
+        
+        songsCollectionView.showsVerticalScrollIndicator = false
+        
+        songsCollectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    private func configureFlowlayout() {
+        
+        let flowlayout = UICollectionViewFlowLayout()
+        
+        flowlayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 3.5)
+        
+        flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        flowlayout.scrollDirection = .horizontal
+        
+        songsCollectionView.setCollectionViewLayout(flowlayout, animated: true)
     }
 }
 
@@ -81,21 +94,15 @@ extension SongsTableViewCell: UICollectionViewDataSource {
             fatalError("Cannot create collection view")
         }
         
-        if let song = newSongs[indexPath.row].attributes?.name, let singer = newSongs[indexPath.row].attributes?.artistName {
+        if let attribute = newSongs[indexPath.row].attributes, let artworkURL = attribute.artwork?.url, let width = attribute.artwork?.width, let height = attribute.artwork?.height {
             
-            cell.songLabel.text = song
-            cell.singerLabel.text = singer
+            cell.songLabel.text = attribute.name
             
-        }
-        
-        cell.songImage.kf.indicatorType = .activity
-        
-        if let artworkURL = newSongs[indexPath.row].attributes?.artwork?.url, let width = newSongs[indexPath.row].attributes?.artwork?.width, let height = newSongs[indexPath.row].attributes?.artwork?.height {
-            
+            cell.singerLabel.text = attribute.artistName
+
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
-            
-            cell.songImage.kf.setImage(with: URL(string: pictureURL))
-            
+                
+            cell.songImage.loadImage(pictureURL)
         }
         
         return cell

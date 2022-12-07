@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class ProfileArtistsViewController: UIViewController {
 
@@ -169,7 +168,7 @@ extension ProfileArtistsViewController: UITableViewDataSource {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
-            cell.artistImage.kf.setImage(with: URL(string: pictureURL))
+            cell.artistImage.loadImage(pictureURL)
             
         }
         

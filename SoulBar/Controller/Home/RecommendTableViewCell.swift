@@ -165,7 +165,7 @@ extension RecommendTableViewCell: UICollectionViewDataSource {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
     
-            cell.songImage.kf.setImage(with: URL(string: pictureURL))
+            cell.songImage.loadImage(pictureURL)
             
         }
         
