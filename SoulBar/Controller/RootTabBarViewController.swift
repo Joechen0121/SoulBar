@@ -43,6 +43,11 @@ class RootTabBarViewController: UITabBarController {
             miniPlayer.view.isHidden = true
         }
         
+        configureNotification()
+    }
+    
+    private func configureNotification() {
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateMiniPlayerView),
@@ -56,6 +61,7 @@ class RootTabBarViewController: UITabBarController {
             name: Notification.Name(rawValue: "didUpdateMiniPlayerButton"),
             object: nil
         )
+        
     }
     
     @objc func updateMiniPlayerView() {
@@ -93,15 +99,19 @@ class RootTabBarViewController: UITabBarController {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
-            miniPlayer.songImage.kf.setImage(with: URL(string: pictureURL))
+            miniPlayer.songImage.loadImage(pictureURL)
         }
         
     }
 
     func addChildView() {
+        
         view.addSubview(containerView)
+        
         addChild(miniPlayer)
+        
         containerView.addSubview(miniPlayer.view)
+        
         miniPlayer.didMove(toParent: self)
     }
     

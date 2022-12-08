@@ -49,7 +49,7 @@ class EventsManager {
         
         let songsURL = "https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=\(category.rawValue)"
         
-        AF.request(songsURL, method: .get).responseDecodable(of: [MusicEvents].self) { (response) in
+        AF.request(songsURL, method: .get).responseDecodable(of: [MusicEvents].self) { response in
             if let data = response.value {
             
                 var events = [MusicEvents]()
@@ -65,7 +65,6 @@ class EventsManager {
                 completion(events)
 
             }
-            // debugPrint(response)
         }
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 protocol AlbumsDelegate: AnyObject {
     
@@ -31,6 +30,15 @@ class AlbumsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        configureCollectionView()
+        
+        configureFlowlayout()
+    
+        setupAlbumsCharts()
+    }
+    
+    private func configureCollectionView() {
+        
         self.selectionStyle = .none
         
         albumsCollectionView.register(UINib.init(nibName: AlbumsCollectionViewCell.identifier, bundle: .main), forCellWithReuseIdentifier: AlbumsCollectionViewCell.identifier)
@@ -43,15 +51,9 @@ class AlbumsTableViewCell: UITableViewCell {
         
         albumsCollectionView.showsHorizontalScrollIndicator = false
         
-        let flowlayout = UICollectionViewFlowLayout()
-        
-        flowlayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 4)
-        
-        flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
-        
-        flowlayout.scrollDirection = .horizontal
-        
-        self.albumsCollectionView.setCollectionViewLayout(flowlayout, animated: true)
+    }
+    
+    private func setupAlbumsCharts() {
         
         MusicManager.sharedInstance.fetchAlbumsCharts { result in
             
@@ -75,10 +77,22 @@ class AlbumsTableViewCell: UITableViewCell {
             }
 
         }
-    
     }
     
-    func loadMoreData() {
+    private func configureFlowlayout() {
+        
+        let flowlayout = UICollectionViewFlowLayout()
+        
+        flowlayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 4)
+        
+        flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+        
+        flowlayout.scrollDirection = .horizontal
+        
+        self.albumsCollectionView.setCollectionViewLayout(flowlayout, animated: true)
+    }
+    
+    private func loadMoreData() {
         
         let semaphore = DispatchSemaphore(value: 1)
         
@@ -152,7 +166,7 @@ extension AlbumsTableViewCell: UICollectionViewDataSource {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
     
-            cell.albumImage.kf.setImage(with: URL(string: pictureURL))
+            cell.albumImage.loadImage(pictureURL)
             
         }
         

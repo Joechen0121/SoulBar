@@ -130,6 +130,7 @@
 		D8EA0F0E29267B3700514F35 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */; };
 		D8EA0F11292682A200514F35 /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */; };
 		D8F0E29F292EFCC400BCDFAF /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */; };
+		D8F7387C294077A800E5DEFB /* KingfisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F7387B294077A800E5DEFB /* KingfisherWrapper.swift */; };
 		D8FABE462919F0E30094A77F /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */; };
 		D8FABE482919F1450094A77F /* RootTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FABE472919F1450094A77F /* RootTabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -262,6 +263,7 @@
 		D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeManager.swift; sourceTree = "<group>"; };
 		D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
 		D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		D8F7387B294077A800E5DEFB /* KingfisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherWrapper.swift; sourceTree = "<group>"; };
 		D8FABE452919F0E30094A77F /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		D8FABE472919F1450094A77F /* RootTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -301,15 +303,10 @@
 				D820B9222914C50E000C8F88 /* Chat */,
 				D8EA0F032923D20500514F35 /* Auth */,
 				D8EA0F042923D21100514F35 /* SongPlayer */,
+				D8F7387D2940D30500E5DEFB /* Humming */,
+				D8F738802940D37D00E5DEFB /* Video */,
 				D8FABE472919F1450094A77F /* RootTabBarViewController.swift */,
-				D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */,
-				D834AF562938416C00994693 /* HummingViewController.swift */,
-				D834AF682939D32600994693 /* HummingDetailViewController.swift */,
-				D834AF602938563100994693 /* HummingData.swift */,
-				D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */,
 				D8E098AE292A245B005971C6 /* LaunchScreenViewController.swift */,
-				D834AF5E2938515700994693 /* HummingTableViewCell.swift */,
-				D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -317,12 +314,13 @@
 		D8088B1E29096CA30037555B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D88550B02910E3570083D050 /* MapManager.swift */,
+				D8F7387F2940D36B00E5DEFB /* Map */,
 				D8EA0F0F29267B3C00514F35 /* Youtube */,
 				D88071BF2920C38300554B18 /* Favorite */,
 				D8088B2129096D8C0037555B /* Events */,
 				D874C8872912462000075AE9 /* Firebase */,
 				D874B98E2917E6930082F2D7 /* Profile */,
+				D8F7387E2940D34B00E5DEFB /* Humming */,
 				D8088B2A29096F680037555B /* Music */,
 				D869EEA8292E0305006BB828 /* Auth */,
 			);
@@ -379,10 +377,8 @@
 				D8A1B974290C35D3007F6775 /* PlaylistsCollectionViewCell.swift */,
 				D8088B3C290AB2EF0037555B /* AlbumsTableViewCell.swift */,
 				D8E098A62928D351005971C6 /* RecommendCollectionViewCell.swift */,
-				D8E098A72928D351005971C6 /* RecommendCollectionViewCell.xib */,
 				D8088B42290AC1840037555B /* AlbumsCollectionViewCell.swift */,
 				D8E098AA292A0150005971C6 /* RecommendTableViewCell.swift */,
-				D8E098AB292A0150005971C6 /* RecommendTableViewCell.xib */,
 				D8A1B97B290C46C6007F6775 /* SongListViewController.swift */,
 				D8A1B97D290C475F007F6775 /* SongListTableViewCell.swift */,
 			);
@@ -618,7 +614,9 @@
 		D8A1B979290C4642007F6775 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D8E098A72928D351005971C6 /* RecommendCollectionViewCell.xib */,
 				D8A1B96F290C3419007F6775 /* PlaylistsTableViewCell.xib */,
+				D8E098AB292A0150005971C6 /* RecommendTableViewCell.xib */,
 				D8A1B975290C35D3007F6775 /* PlaylistsCollectionViewCell.xib */,
 				D8088B43290AC1840037555B /* AlbumsCollectionViewCell.xib */,
 				D8088B3D290AB2EF0037555B /* AlbumsTableViewCell.xib */,
@@ -661,6 +659,7 @@
 			isa = PBXGroup;
 			children = (
 				D8EA0EFC29233F5400514F35 /* KeychainManager.swift */,
+				D8F7387B294077A800E5DEFB /* KingfisherWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
@@ -670,6 +669,7 @@
 			children = (
 				D8088B1829096C2E0037555B /* RecognizeViewController.swift */,
 				D837B363291D6532008BE6D0 /* RecognizeErrorViewController.swift */,
+				D834AF622938989200994693 /* RecognizeFaceResultViewController.swift */,
 			);
 			path = Recognize;
 			sourceTree = "<group>";
@@ -678,6 +678,7 @@
 			isa = PBXGroup;
 			children = (
 				D8EA0EF52922728600514F35 /* AppleAuthViewController.swift */,
+				D8F0E29E292EFCC400BCDFAF /* PrivacyViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -709,6 +710,40 @@
 				D8EA0F0D29267B3700514F35 /* YoutubeManager.swift */,
 			);
 			path = Youtube;
+			sourceTree = "<group>";
+		};
+		D8F7387D2940D30500E5DEFB /* Humming */ = {
+			isa = PBXGroup;
+			children = (
+				D834AF562938416C00994693 /* HummingViewController.swift */,
+				D834AF682939D32600994693 /* HummingDetailViewController.swift */,
+				D834AF5E2938515700994693 /* HummingTableViewCell.swift */,
+			);
+			path = Humming;
+			sourceTree = "<group>";
+		};
+		D8F7387E2940D34B00E5DEFB /* Humming */ = {
+			isa = PBXGroup;
+			children = (
+				D834AF602938563100994693 /* HummingData.swift */,
+			);
+			path = Humming;
+			sourceTree = "<group>";
+		};
+		D8F7387F2940D36B00E5DEFB /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				D88550B02910E3570083D050 /* MapManager.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		D8F738802940D37D00E5DEFB /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				D8EA0F10292682A200514F35 /* PlayVideoViewController.swift */,
+			);
+			path = Video;
 			sourceTree = "<group>";
 		};
 		ED402BEA305D140F30846F05 /* Frameworks */ = {
@@ -932,6 +967,7 @@
 				D8573381290EA9150009D734 /* SearchAllResultTableViewCell.swift in Sources */,
 				D8EA0EFD29233F5400514F35 /* KeychainManager.swift in Sources */,
 				D8088B1729096C200037555B /* EventsViewController.swift in Sources */,
+				D8F7387C294077A800E5DEFB /* KingfisherWrapper.swift in Sources */,
 				D8088B3B290A2A290037555B /* SongsCollectionViewCell.swift in Sources */,
 				D837B36E291DF94D008BE6D0 /* UIView+Ext.swift in Sources */,
 				D8A1B97C290C46C6007F6775 /* SongListViewController.swift in Sources */,

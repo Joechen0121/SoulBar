@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RecognizeFaceResultDelegate {
+protocol RecognizeFaceResultDelegate: AnyObject {
     
     func updateSearchInofrmation(searchName: String)
 }

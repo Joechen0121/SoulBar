@@ -52,7 +52,7 @@ class SearchSongsResultTableViewCell: UITableViewCell {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
     
-            self.songImage.kf.setImage(with: URL(string: pictureURL))
+            self.songImage.loadImage(pictureURL)
             
         }
     }

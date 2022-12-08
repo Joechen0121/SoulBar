@@ -111,7 +111,9 @@ class HummingViewController: UIViewController {
         
         config.resultBlock = { [weak self] result, resType in
             
-            self?.handleResult(result!, resType: resType)
+            guard let result = result else { return }
+            
+            self?.handleResult(result, resType: resType)
         }
         
         self.client = ACRCloudRecognition(config: config)

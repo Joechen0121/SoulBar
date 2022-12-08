@@ -7,6 +7,20 @@
 
 import Foundation
 import Alamofire
+import SwiftJWT
+
+struct AuthClaims: Claims {
+    
+    let iss: String
+    
+    let iat: Date
+    
+    let exp: Date
+    
+    let aud: String
+    
+    let sub: String
+}
 
 class AuthManager {
     
@@ -25,14 +39,14 @@ class AuthManager {
     let revokeURL = "https://appleid.apple.com/auth/revoke"
     
     let p8 =
-     """
-     -----BEGIN PRIVATE KEY-----
-     MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgVPguQLxOwPSLlkdR
-     xAT/ECTuSJQQgypdJKIz75ngm56gCgYIKoZIzj0DAQehRANCAATirMwrTAhEasVR
-     nAGCzyb+aGCVS8LRxJxeWiZVq8QeOX17SGvJGNcOLt3WjgIBVIrGFU0cISrNyhH8
-     2z2/R35Y
-     -----END PRIVATE KEY-----
-     """
+    """
+    -----BEGIN PRIVATE KEY-----
+    MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgVPguQLxOwPSLlkdR
+    xAT/ECTuSJQQgypdJKIz75ngm56gCgYIKoZIzj0DAQehRANCAATirMwrTAhEasVR
+    nAGCzyb+aGCVS8LRxJxeWiZVq8QeOX17SGvJGNcOLt3WjgIBVIrGFU0cISrNyhH8
+    2z2/R35Y
+    -----END PRIVATE KEY-----
+    """
     
     func fetchTokenInfo(clientID: String, clientSecret: String, authCode: String, completion: @escaping (TokenInformation) -> Void) {
 
@@ -54,17 +68,15 @@ class AuthManager {
             
             "grant_type": "authorization_code"
 
-        ] as [String : Any]
+        ] as [String: Any]
 
-        AF.request(tokenURL, method: .post, parameters: param,headers: headers).responseDecodable(of: TokenInformation.self) { (response) in
+        AF.request(tokenURL, method: .post, parameters: param, headers: headers).responseDecodable(of: TokenInformation.self) { response in
             
             if let data = response.value {
 
                 completion(data)
 
             }
-            
-            debugPrint(response)
         }
     }
     
@@ -88,14 +100,11 @@ class AuthManager {
             
             "token_type_hint": "refresh_token"
 
-        ] as [String : Any]
-
-        AF.request(revokeURL, method: .post, parameters: param, headers: headers).response(completionHandler: { response in
+        ] as [String: Any]
+        
+        AF.request(revokeURL, method: .post, parameters: param, headers: headers).response { _ in
             
             completion()
-            debugPrint(response)
-        })
+        }
     }
-    
-    
 }

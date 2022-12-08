@@ -37,13 +37,9 @@ class ProfileArtistsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        artistImageHeightConstraint.constant = UIScreen.main.bounds.height / 10
-        
-        artistImage.layer.masksToBounds = true
-
-        artistImage.layer.cornerRadius = artistImageHeightConstraint.constant / 2
-        
         self.selectionStyle = .none
+        
+        configureContraints()
  
     }
 
@@ -51,6 +47,15 @@ class ProfileArtistsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    private func configureContraints() {
+        
+        artistImageHeightConstraint.constant = UIScreen.main.bounds.height / 10
+        
+        artistImage.layer.masksToBounds = true
+
+        artistImage.layer.cornerRadius = artistImageHeightConstraint.constant / 2
     }
 
 }

@@ -8,17 +8,6 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
-    enum HomeSongType: Int, CaseIterable {
-        
-        case newSongs = 0
-        
-        case hotAlbums
-        
-        case hotPlaylist
-        
-        case recommend
-    }
     
     @IBOutlet weak var homeTableView: UITableView!
     
@@ -27,29 +16,14 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        homeTableView.dataSource = self
+        configureTableView()
         
-        homeTableView.delegate = self
-        
-        homeTableView.rowHeight = UIScreen.main.bounds.height / 3.5
-        
-        homeTableView.separatorStyle = .none
-        
-        homeTableView.showsVerticalScrollIndicator = false
-        
-        homeTableView.showsHorizontalScrollIndicator = false
-        
-        homeTableView.register(UINib.init(nibName: AlbumsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: AlbumsTableViewCell.identifier)
-        
-        homeTableView.register(UINib.init(nibName: PlaylistsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: PlaylistsTableViewCell.identifier)
-        
-        homeTableView.register(UINib.init(nibName: RecommendTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: RecommendTableViewCell.identifier)
-        
-        //configureNavigationButton()
+        registerCell()
         
         setupUI()
 
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
   
@@ -71,6 +45,31 @@ class HomeViewController: UIViewController {
         
     }
     
+    private func configureTableView() {
+        
+        homeTableView.dataSource = self
+        
+        homeTableView.delegate = self
+        
+        homeTableView.rowHeight = UIScreen.main.bounds.height / 3.5
+        
+        homeTableView.separatorStyle = .none
+        
+        homeTableView.showsVerticalScrollIndicator = false
+        
+        homeTableView.showsHorizontalScrollIndicator = false
+        
+    }
+    
+    private func registerCell() {
+        
+        homeTableView.register(UINib.init(nibName: AlbumsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: AlbumsTableViewCell.identifier)
+        
+        homeTableView.register(UINib.init(nibName: PlaylistsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: PlaylistsTableViewCell.identifier)
+        
+        homeTableView.register(UINib.init(nibName: RecommendTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: RecommendTableViewCell.identifier)
+    }
+    
     private func showImage(_ show: Bool) {
         UIView.animate(withDuration: 0.1) {
             self.imageView.alpha = show ? 1.0 : 0.0
@@ -81,15 +80,21 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
 
         guard let navigationBar = self.navigationController?.navigationBar else { return }
+        
         navigationBar.addSubview(imageView)
+        
         imageView.layer.cornerRadius = K.ImageSizeForLargeState / 2
+        
         imageView.clipsToBounds = true
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             imageView.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -K.ImageRightMargin),
             imageView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -K.ImageBottomMarginForLargeState),
             imageView.heightAnchor.constraint(equalToConstant: K.ImageSizeForLargeState),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)])
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+        ])
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(searchButton))
         
@@ -99,6 +104,7 @@ class HomeViewController: UIViewController {
     }
     
     private func moveAndResizeImage(for height: CGFloat) {
+        
         let coeff: CGFloat = {
             let delta = height - K.NavBarHeightSmallState
             let heightDifferenceBetweenStates = (K.NavBarHeightLargeState - K.NavBarHeightSmallState)
@@ -112,8 +118,8 @@ class HomeViewController: UIViewController {
             return min(1.0, sizeAddendumFactor + factor)
         }()
 
-        // Value of difference between icons for large and small states
-        let sizeDiff = K.ImageSizeForLargeState * (1.0 - factor) // 8.0
+        let sizeDiff = K.ImageSizeForLargeState * (1.0 - factor)
+        
         let yTranslation: CGFloat = {
  
             let maxYTranslation = K.ImageBottomMarginForLargeState - K.ImageBottomMarginForSmallState + sizeDiff
@@ -127,7 +133,7 @@ class HomeViewController: UIViewController {
             .translatedBy(x: xTranslation, y: yTranslation)
     }
     
-    func configureNavigationButton() {
+    private func configureNavigationButton() {
         
         let searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButton))
                         
@@ -141,6 +147,26 @@ class HomeViewController: UIViewController {
             
             self.navigationController?.pushViewController(searchVC, animated: true)
         }
+    }
+    
+    private func setupHeaderView(_ tableView: UITableView, title: String) -> UIView {
+        
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
+        
+        let label = UILabel()
+        
+        label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+        label.text = title
+        
+        label.textColor = .black
+        
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        
+        headerView.backgroundColor = .systemBackground
+        
+        headerView.addSubview(label)
+
+        return headerView
     }
     
 }
@@ -160,6 +186,7 @@ extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let state = HomeSongType(rawValue: indexPath.section)
+        
         switch state {
             
         case .newSongs:
@@ -230,7 +257,6 @@ extension HomeViewController: SongsDelegate {
         
         if let playSongVC = self.storyboard?.instantiateViewController(withIdentifier: PlaySongViewController.storyboardID) as? PlaySongViewController {
 
-            
             MusicManager.sharedInstance.fetchSong(with: songs.id) { result in
                 
                 playSongVC.songs = result
@@ -238,7 +264,6 @@ extension HomeViewController: SongsDelegate {
                 playSongVC.modalPresentationStyle = .fullScreen
                 
                 self.present(playSongVC, animated: true)
-                //self.navigationController?.pushViewController(playSongVC, animated: true)
             }
         }
     }
@@ -267,8 +292,11 @@ extension HomeViewController: AlbumsDelegate {
     
     func didSelectAlbumsItem(albums: AlbumsChartsInfo, indexPath: IndexPath) {
         if let songlistVC = self.storyboard?.instantiateViewController(withIdentifier: SongListViewController.storyboardID) as? SongListViewController {
+            
             songlistVC.state = 1
+            
             songlistVC.album = albums
+            
             self.navigationController?.pushViewController(songlistVC, animated: true)
         }
     }
@@ -278,66 +306,7 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        switch section {
-            
-        case 0:
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
-            
-            let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-            label.text = "Hot Songs"
-            label.font = UIFont.boldSystemFont(ofSize: 20)
-            label.textColor = .black
-            headerView.backgroundColor = .systemBackground
-            
-            headerView.addSubview(label)
-            
-            return headerView
-        case 1:
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
-            
-            let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-            label.text = "Hot Albums"
-            label.font = UIFont.boldSystemFont(ofSize: 20)
-            label.textColor = .black
-            headerView.backgroundColor = .systemBackground
-            
-            headerView.addSubview(label)
-            
-            return headerView
-        case 2:
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
-            
-            let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-            label.text = "Hot Playlists"
-            label.font = UIFont.boldSystemFont(ofSize: 20)
-            label.textColor = .black
-            headerView.backgroundColor = .systemBackground
-            
-            headerView.addSubview(label)
-            
-            return headerView
-            
-        case 3:
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: UIScreen.main.bounds.height / 15))
-            
-            let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-            label.text = "Recommend For You"
-            label.font = UIFont.boldSystemFont(ofSize: 20)
-            label.textColor = .black
-            headerView.backgroundColor = .systemBackground
-            
-            headerView.addSubview(label)
-            
-            return headerView
-        default:
-
-            return nil
- 
-        }
+        setupHeaderView(tableView, title: HomeSongSection.sections[section])
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -346,7 +315,9 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.section == 3 {
+        let section = HomeSongType(rawValue: indexPath.section)
+        
+        if section == .recommend {
 
             return UIScreen.main.bounds.height / 2
         }

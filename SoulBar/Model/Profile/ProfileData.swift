@@ -7,6 +7,20 @@
 
 import Foundation
 
+enum ProfileType: Int {
+    
+    case LikedSongs = 0
+    
+    case MyEvent
+    
+    case LikedArtists
+    
+    case RecogHistory
+    
+    case Privacy
+    
+}
+
 struct Profile {
     
     var profileName: String
