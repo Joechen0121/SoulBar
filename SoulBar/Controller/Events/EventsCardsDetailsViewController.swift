@@ -127,8 +127,6 @@ class EventsCardsDetailsViewController: UIViewController {
             self.favoriteImage.image = UIImage(systemName: "heart.circle")
             
             self.favoriteImage.tintColor = UIColor.lightGray
-            
-            isFavorite = false
 
         }
         else {
@@ -138,12 +136,10 @@ class EventsCardsDetailsViewController: UIViewController {
             self.favoriteImage.image = UIImage(systemName: "heart.circle.fill")
             
             self.favoriteImage.tintColor = K.Colors.customRed
-            
-            isFavorite = true
 
         }
 
-        
+        isFavorite.toggle()
     }
     
     @objc func buyTicketButton() {

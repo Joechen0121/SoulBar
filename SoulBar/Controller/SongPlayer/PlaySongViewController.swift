@@ -326,8 +326,6 @@ class PlaySongViewController: UIViewController {
                     
                     self.favoriteView.image = UIImage(named: "heart.fill")
                     
-                    self.isFavorite = true
-                    
                 }
             }
             else {
@@ -336,10 +334,10 @@ class PlaySongViewController: UIViewController {
                     
                     self.favoriteView.image = UIImage(named: "heart")
                     
-                    self.isFavorite = false
-                    
                 }
             }
+            
+            self.isFavorite.toggle()
             
             return
         }

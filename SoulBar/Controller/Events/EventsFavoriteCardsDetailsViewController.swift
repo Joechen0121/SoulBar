@@ -111,8 +111,6 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
             
             self.favoriteImage.tintColor = UIColor.lightGray
             
-            isFavorite = false
-            
         }
         else {
             
@@ -122,9 +120,9 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
             
             self.favoriteImage.tintColor = K.Colors.customRed
             
-            isFavorite = true
-            
         }
+        
+        isFavorite.toggle()
     }
     
     private func configureEventLocation() {

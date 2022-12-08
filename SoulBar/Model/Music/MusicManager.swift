@@ -53,7 +53,7 @@ enum SearchType {
 
 class MusicManager {
     
-    static let sharedInstance = MusicManager()
+    static var sharedInstance = MusicManager()
     
     static let appleMusicBaseURL = "https://api.music.apple.com"
     

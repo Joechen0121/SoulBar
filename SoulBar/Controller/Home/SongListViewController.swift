@@ -396,8 +396,6 @@ class SongListViewController: UIViewController {
             
             self.favoriteView.image = UIImage(named: "heart")
             
-            isFavorite = false
-            
         }
         else {
             
@@ -405,8 +403,9 @@ class SongListViewController: UIViewController {
             
             self.favoriteView.image = UIImage(named: "heart.fill")
             
-            isFavorite = true
         }
+        
+        isFavorite.toggle()
     }
     
     func changeFavoriteButton() {
@@ -445,13 +444,9 @@ class SongListViewController: UIViewController {
             
             FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.playlists) { result in
                 
-                result.id.forEach { id in
-                    
-                    if playlistID == id {
-                        
-                        self.isFavorite = true
-                    }
-                }
+                let id = result.id.filter { $0 == playlistID }
+                
+                if !id.isEmpty { self.isFavorite = true }
                 
                 self.changeFavoriteButton()
             }
@@ -464,13 +459,9 @@ class SongListViewController: UIViewController {
             
             FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.albums) { result in
                 
-                result.id.forEach { id in
-
-                    if albumID == id {
-                        
-                        self.isFavorite = true
-                    }
-                }
+                let id = result.id.filter { $0 == albumID }
+                
+                if !id.isEmpty { self.isFavorite = true }
                 
                 self.changeFavoriteButton()
             }
@@ -481,13 +472,9 @@ class SongListViewController: UIViewController {
             
             FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.albums) { result in
                 
-                result.id.forEach { id in
-
-                    if albumID == id {
-                        
-                        self.isFavorite = true
-                    }
-                }
+                let id = result.id.filter { $0 == albumID }
+                
+                if !id.isEmpty { self.isFavorite = true }
                 
                 self.changeFavoriteButton()
             }
@@ -496,13 +483,9 @@ class SongListViewController: UIViewController {
             
             FirebaseFavoriteManager.sharedInstance.fetchFavoriteMusicData(with: K.FStore.Favorite.artists) { result in
                 
-                result.id.forEach { id in
-
-                    if self.artistID == id {
-                        
-                        self.isFavorite = true
-                    }
-                }
+                let id = result.id.filter { $0 == self.artistID }
+                
+                if !id.isEmpty { self.isFavorite = true }
                 
                 self.changeFavoriteButton()
             }
