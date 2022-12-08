@@ -15,7 +15,9 @@ class FirebaseEventsManager {
     
     func removeEventsTypeData(with type: Int, uid: String) {
         
-        let event = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(String(type))
+        guard let id = KeychainManager.sharedInstance.id else { return }
+        
+        let event = Firestore.firestore().collection(K.FStore.user).document(id).collection(String(type))
         
         let document = event.document(uid)
         
@@ -34,7 +36,9 @@ class FirebaseEventsManager {
     
     func addEventsTypeData(with type: Int, uid: String, webURL: String, eventName: String, eventTime: String, location: String, url: String, chatroom: String) {
         
-        let event = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(String(type))
+        guard let id = KeychainManager.sharedInstance.id else { return }
+        
+        let event = Firestore.firestore().collection(K.FStore.user).document(id).collection(String(type))
         
         let document = event.document(uid)
         
@@ -57,17 +61,14 @@ class FirebaseEventsManager {
             "webURL": webURL
         ]
         
-        event.whereField("uid", isEqualTo: uid).getDocuments { snapshot, error in
+        event.whereField("uid", isEqualTo: uid).getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             
-            if snapshot.documents.isEmpty  {
+            if snapshot.documents.isEmpty {
                 
-                print("Set")
                 document.setData(data)
             } else {
-                
-                print("Update")
                 
                 let document = snapshot.documents.first
                 
@@ -80,9 +81,11 @@ class FirebaseEventsManager {
         
         var data = [FirebaseEventsData]()
         
-        let event = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(String(type))
+        guard let id = KeychainManager.sharedInstance.id else { return }
         
-        event.getDocuments { snapshot, error in
+        let event = Firestore.firestore().collection(K.FStore.user).document(id).collection(String(type))
+        
+        event.getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             

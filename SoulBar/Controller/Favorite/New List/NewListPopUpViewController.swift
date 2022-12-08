@@ -22,7 +22,22 @@ class NewListPopUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //let backgroundImageView = UIImageView(image: UIImage(named: "demoAlbum"))
+        configureBackgroundView()
+        
+        configureButton()
+        
+        configureView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        presentationController?.presentingViewController.viewWillAppear(true)
+        
+    }
+    
+    private func configureBackgroundView() {
+        
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
@@ -41,16 +56,6 @@ class NewListPopUpViewController: UIViewController {
         
         view.insertSubview(container, at: 0)
         
-        configureButton()
-        
-        configureView()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        presentationController?.presentingViewController.viewWillAppear(true)
-        
     }
     
     @IBAction func cancelButton(_ sender: UIButton) {
@@ -61,9 +66,13 @@ class NewListPopUpViewController: UIViewController {
     @IBAction func confirmButton(_ sender: UIButton) {
         
         if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
-            authVC.modalPresentationStyle = .overCurrentContext
-            self.present(authVC, animated: false)
+            
+            if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                self.present(authVC, animated: false)
+            }
         }
     
         guard let text = newListTextField.text, !text.isEmpty else { return }
@@ -77,7 +86,7 @@ class NewListPopUpViewController: UIViewController {
 
     }
     
-    func configureButton() {
+    private func configureButton() {
         
         canclButton.backgroundColor = UIColor(red: 249 / 255, green: 68 / 255, blue: 73 / 255, alpha: 1)
         
@@ -89,8 +98,7 @@ class NewListPopUpViewController: UIViewController {
         
     }
     
-    func configureView() {
-        
+    private func configureView() {
         
         alertView.layer.borderColor = UIColor.black.cgColor
         

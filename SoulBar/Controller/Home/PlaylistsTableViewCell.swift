@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 protocol PlaylistsDelegate: AnyObject {
     
@@ -31,27 +30,20 @@ class PlaylistsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.selectionStyle = .none
+        configureCollectionView()
         
-        playlistsCollectionView.register(UINib.init(nibName: PlaylistsCollectionViewCell.identifier, bundle: .main), forCellWithReuseIdentifier: PlaylistsCollectionViewCell.identifier)
+        configureFlowlayout()
         
-        playlistsCollectionView.dataSource = self
-        
-        playlistsCollectionView.delegate = self
-        
-        playlistsCollectionView.showsVerticalScrollIndicator = false
-        
-        playlistsCollectionView.showsHorizontalScrollIndicator = false
-        
-        let flowlayout = UICollectionViewFlowLayout()
-        
-        flowlayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 4)
-        
-        flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
-        
-        flowlayout.scrollDirection = .horizontal
-        
-        self.playlistsCollectionView.setCollectionViewLayout(flowlayout, animated: true)
+        setupPlaylistsCharts()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
+    private func setupPlaylistsCharts() {
         
         MusicManager.sharedInstance.fetchPlaylistsCharts { result in
             
@@ -76,14 +68,36 @@ class PlaylistsTableViewCell: UITableViewCell {
 
         }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    private func configureCollectionView() {
+        
+        self.selectionStyle = .none
+        
+        playlistsCollectionView.register(UINib.init(nibName: PlaylistsCollectionViewCell.identifier, bundle: .main), forCellWithReuseIdentifier: PlaylistsCollectionViewCell.identifier)
+        
+        playlistsCollectionView.dataSource = self
+        
+        playlistsCollectionView.delegate = self
+        
+        playlistsCollectionView.showsVerticalScrollIndicator = false
+        
+        playlistsCollectionView.showsHorizontalScrollIndicator = false
     }
     
-    func loadMoreData() {
+    private func configureFlowlayout() {
+        
+        let flowlayout = UICollectionViewFlowLayout()
+        
+        flowlayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 4)
+        
+        flowlayout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+        
+        flowlayout.scrollDirection = .horizontal
+        
+        self.playlistsCollectionView.setCollectionViewLayout(flowlayout, animated: true)
+    }
+    
+    private func loadMoreData() {
         
         let semaphore = DispatchSemaphore(value: 1)
         
@@ -149,7 +163,7 @@ extension PlaylistsTableViewCell: UICollectionViewDataSource {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
     
-            cell.playlistImage.kf.setImage(with: URL(string: pictureURL))
+            cell.playlistImage.loadImage(pictureURL)
             
         }
         

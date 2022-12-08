@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreMedia
-import Kingfisher
 
 class ProfileHistoryViewController: UIViewController {
     
@@ -182,7 +181,7 @@ extension ProfileHistoryViewController: UITableViewDataSource {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
-            cell.songImage.kf.setImage(with: URL(string: pictureURL))
+            cell.songImage.loadImage(pictureURL)
             
         }
         

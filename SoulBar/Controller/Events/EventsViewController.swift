@@ -29,17 +29,9 @@ class EventsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        eventsTableView.dataSource = self
+        configureTableView()
         
-        eventsTableView.showsVerticalScrollIndicator = false
-        
-        eventsTableView.showsHorizontalScrollIndicator = false
-        
-        eventsFavoriteCollectionView.dataSource = self
-        
-        eventsFavoriteCollectionView.showsVerticalScrollIndicator = false
-        
-        eventsFavoriteCollectionView.showsHorizontalScrollIndicator = false
+        configureCollectionView()
         
         configureCollectionLayout()
 
@@ -60,8 +52,26 @@ class EventsViewController: UIViewController {
         
         configureEventsFavoriteData()
     }
+    
+    private func configureTableView() {
+        
+        eventsTableView.dataSource = self
+        
+        eventsTableView.showsVerticalScrollIndicator = false
+        
+        eventsTableView.showsHorizontalScrollIndicator = false
+    }
 
-    func configureCollectionLayout() {
+    private func configureCollectionView() {
+        
+        eventsFavoriteCollectionView.dataSource = self
+        
+        eventsFavoriteCollectionView.showsVerticalScrollIndicator = false
+        
+        eventsFavoriteCollectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    private func configureCollectionLayout() {
         
         let flowlayout = UICollectionViewFlowLayout()
         
@@ -75,7 +85,7 @@ class EventsViewController: UIViewController {
         
     }
     
-    func configureEventsFavoriteData() {
+    private func configureEventsFavoriteData() {
         
         if KeychainManager.sharedInstance.id == nil {
             

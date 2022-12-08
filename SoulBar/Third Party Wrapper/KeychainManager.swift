@@ -16,16 +16,6 @@ class KeychainManager {
     
     var name: String? {
         
-        set(username) {
-            
-            guard let username = username else { return }
-            
-            KeychainWrapper.standard.set(username, forKey: "name")
-            
-            return
-    
-        }
-        
         get {
             
             if let name = KeychainWrapper.standard.string(forKey: "name") {
@@ -37,19 +27,19 @@ class KeychainManager {
                 return nil
             }
         }
-    }
-    
-    var id: String? {
         
-        set(accessID) {
+        set(username) {
             
-            guard let accessID = accessID else { return }
+            guard let username = username else { return }
             
-            KeychainWrapper.standard.set(accessID, forKey: "id")
+            KeychainWrapper.standard.set(username, forKey: "name")
             
             return
     
         }
+    }
+    
+    var id: String? {
         
         get {
             
@@ -62,19 +52,19 @@ class KeychainManager {
                 return nil
             }
         }
-    }
-    
-    var refreshToken: String? {
         
-        set(token) {
+        set(accessID) {
             
-            guard let token = token else { return }
+            guard let accessID = accessID else { return }
             
-            KeychainWrapper.standard.set(token, forKey: "refreshToken")
+            KeychainWrapper.standard.set(accessID, forKey: "id")
             
             return
     
         }
+    }
+    
+    var refreshToken: String? {
         
         get {
             
@@ -86,6 +76,16 @@ class KeychainManager {
                 
                 return nil
             }
+        }
+        
+        set(token) {
+            
+            guard let token = token else { return }
+            
+            KeychainWrapper.standard.set(token, forKey: "refreshToken")
+            
+            return
+    
         }
     }
     

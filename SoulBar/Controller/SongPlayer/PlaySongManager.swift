@@ -44,7 +44,6 @@ enum PlayRule {
     case loop
 }
 
-
 class PlaySongManager: NSObject {
     
     static let sharedInstance = PlaySongManager()
@@ -68,8 +67,6 @@ class PlaySongManager: NSObject {
     var timeObserver: Any?
     
     var timerInvalid = false
-    
-    var queuePlayer: AVQueuePlayer?
     
     var playerItem: AVPlayerItem?
     
@@ -178,29 +175,40 @@ class PlaySongManager: NSObject {
             let status: AVPlayerItem.Status
             
             if let statusNumber = change?[.newKey] as? NSNumber {
+                
                 status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
             }
             else {
+                
                 status = .unknown
             }
 
             switch status {
+                
             case .readyToPlay:
+                
                 delegate?.didReceiveNotification(player: self.player, notification: .PlayerReadyToPlayNotification)
 
                 self.startPlayer()
                 
                 previousBackCount = 0
+                
                 nextBackCount = 0
+                
                 NotificationCenter.default.post(name: Notification.Name("didUpdateMiniPlayerView"), object: nil)
+                
                 print("PlayerStatus ReadyToPlay")
                 
             case .failed:
+                
                 delegate?.didReceiveNotification(player: self.player, notification: .PlayerFailedNotification)
+                
                 print("PlayerStatus Failed")
                 
             case .unknown:
+                
                 delegate?.didReceiveNotification(player: self.player, notification: .PlayerUnknownNotification)
+                
                 print("PlayerStatus Unknown")
                 
             default:
@@ -237,6 +245,7 @@ class PlaySongManager: NSObject {
     }
     
     func startPlayer() {
+        
         guard let songs = PlaySongManager.sharedInstance.songs, !songs.isEmpty else { return }
         
         if PlaySongManager.sharedInstance.current >= songs.count {
@@ -273,7 +282,9 @@ class PlaySongManager: NSObject {
     
     
     func setRate(rate: Float) {
+        
         self.player.setRate(rate, time: CMTime.invalid, atHostTime: CMTime.invalid)
+        
     }
     
     func seekTo(_ progress: Double) {
@@ -309,11 +320,17 @@ class PlaySongManager: NSObject {
     @objc func playerNotification(notification: Notification) {
         
         switch notification.name {
+            
         case .AVPlayerItemDidPlayToEndTime:
+            
             delegate?.didReceiveNotification(player: self.player, notification: .PlayerPlayFinishNotification)
+            
             self.currentTime = 0
+        
         case .AVPlayerItemFailedToPlayToEndTime:
+            
             delegate?.didReceiveNotification(player: self.player, notification: .PlayerFailedNotification)
+            
         default:
             break
         }
@@ -436,7 +453,7 @@ class PlaySongManager: NSObject {
     
     func setupNowPlaying() {
 
-        var nowPlayingInfo = [String : Any]()
+        var nowPlayingInfo = [String: Any]()
         
         guard let song = PlaySongManager.sharedInstance.currentSong else {
             
@@ -450,7 +467,6 @@ class PlaySongManager: NSObject {
             
             nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0
 
-            // Set the metadata
             MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
             
             return
@@ -463,15 +479,15 @@ class PlaySongManager: NSObject {
             
             let pictureURL = MusicManager.sharedInstance.fetchPicture(url: artworkURL, width: String(width), height: String(height))
             
-            if let data = try? Data(contentsOf: URL(string: pictureURL)!) {
-                let image: UIImage = UIImage(data: data)!
+            if let pictureURL = URL(string: pictureURL), let data = try? Data(contentsOf: pictureURL) {
                 
-                nowPlayingInfo[MPMediaItemPropertyArtwork] =
-                MPMediaItemArtwork(boundsSize: image.size) { size in
-                    return image
+                if let image = UIImage(data: data) {
+                    
+                    nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { _ in
+                        return image
+                    }
                 }
             }
-            
         }
 
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.player.currentItem?.currentTime().seconds
@@ -480,21 +496,16 @@ class PlaySongManager: NSObject {
 
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
 
-        // Set the metadata
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
     
     func playMusic(url: String) {
-        
-        print("Play")
 
         guard let musicURL = URL(string: url) else { return }
             
         playerItem = AVPlayerItem(url: musicURL)
     
         player.replaceCurrentItem(with: playerItem)
-
-        // self.delegate?.didUpdatePosition(self.player, self.position)
         
         let time = CMTime(seconds: self.currentTime, preferredTimescale: 1000)
 
@@ -513,8 +524,6 @@ class PlaySongManager: NSObject {
     }
     
     func backgroundMode() {
-        
-        print(#function)
         
         guard isBackground == false else { return }
 
@@ -572,5 +581,4 @@ extension Notification.Name {
     static let PauseNotification = Notification.Name(rawValue: "PauseNotification")
     
     static let PlayerPlayFinishNotification = Notification.Name(rawValue: "PlayFinishNotification")
-    
 }

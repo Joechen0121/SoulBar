@@ -28,17 +28,15 @@ class FirebaseUserManager {
             "name": name
         ]
         
-        user.whereField("id", isEqualTo: id).getDocuments { snapshot, error in
+        user.whereField("id", isEqualTo: id).getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             
-            if snapshot.documents.isEmpty  {
+            if snapshot.documents.isEmpty {
                 
-                print("Set")
                 document.setData(data)
-            } else {
                 
-                print("Update")
+            } else {
                 
                 let document = snapshot.documents.first
                 
@@ -53,7 +51,7 @@ class FirebaseUserManager {
         
         let user = Firestore.firestore().collection(K.FStore.user)
         
-        user.getDocuments { snapshot, error in
+        user.getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             
@@ -64,9 +62,6 @@ class FirebaseUserManager {
                 guard let data = try? snapshot.data(as: FirebaseUserData.self) else { return }
                 
                 dataPath.append(data)
-                
-                print(data)
-                
             }
             
             completion(dataPath)

@@ -24,13 +24,20 @@ class NewListDisplayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        newListTableView.dataSource = self
+        configureTableView()
         
-        newListTableView.delegate = self
+        configureBackgroundView()
+    
+        configureButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        newListTableView.showsVerticalScrollIndicator = false
-        
-        newListTableView.showsHorizontalScrollIndicator = false
+        configureListData()
+    }
+    
+    private func configureBackgroundView() {
         
         let backgroundImageView = UIImageView(image: UIImage(named: "redBG"))
         backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -49,24 +56,31 @@ class NewListDisplayViewController: UIViewController {
         container.addSubview(backgroundEffectView)
         
         view.insertSubview(container, at: 0)
-    
-        configureButton()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    private func configureTableView() {
         
-        configureListData()
+        newListTableView.dataSource = self
+        
+        newListTableView.delegate = self
+        
+        newListTableView.showsVerticalScrollIndicator = false
+        
+        newListTableView.showsHorizontalScrollIndicator = false
     }
 
-    func configureListData() {
+    private func configureListData() {
         
         if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
-            authVC.modalPresentationStyle = .overCurrentContext
-            self.present(authVC, animated: false)
-            
-            return
+            if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                self.present(authVC, animated: false)
+                
+                return
+                
+            }
         }
         
         self.favoriteListsInfo = []
@@ -113,7 +127,7 @@ class NewListDisplayViewController: UIViewController {
         }
     }
     
-    func configureButton() {
+    private func configureButton() {
         
         newListButton.layer.cornerRadius = newListButton.frame.height / 2
         

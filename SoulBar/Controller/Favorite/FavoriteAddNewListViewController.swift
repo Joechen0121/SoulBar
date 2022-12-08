@@ -16,7 +16,6 @@ class FavoriteAddNewListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -26,23 +25,25 @@ class FavoriteAddNewListViewController: UIViewController {
     }
 
     @IBAction func addNewListButton(_ sender: UIButton) {
-     
-        print("New list button tapped")
         
         if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
-            authVC.modalPresentationStyle = .overCurrentContext
-            self.present(authVC, animated: false)
             
-            return
+            if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                self.present(authVC, animated: false)
+                
+                return
+            }
         }
         
         guard let text = newListTextField.text else { return }
         
-        
         FirebaseFavoriteManager.sharedInstance.addFavoriteListData(with: text, id: "") { [weak self] in
             
             guard let self = self else { return }
+            
             self.dismiss(animated: true)
         }
     }

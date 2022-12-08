@@ -15,7 +15,9 @@ class FirebaseHistoryManager {
     
     func addHistoryPlayData(with songID: String, completion: @escaping () -> Void) {
         
-        let favorite = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection("play")
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        let favorite = Firestore.firestore().collection(K.FStore.user).document(userID).collection("play")
         
         let document = favorite.document()
         
@@ -29,17 +31,14 @@ class FirebaseHistoryManager {
             ]
         ]
         
-        favorite.whereField("list.songID", isEqualTo: songID).getDocuments { snapshot, error in
+        favorite.whereField("list.songID", isEqualTo: songID).getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             
-            if snapshot.documents.isEmpty  {
+            if snapshot.documents.isEmpty {
                 
-                print("Set")
                 document.setData(data)
             } else {
-                
-                print("Update")
                 
                 let document = snapshot.documents.first
                 
@@ -54,9 +53,11 @@ class FirebaseHistoryManager {
         
         var data = [FirebaseHistoryPlayData]()
         
-        let favorite = Firestore.firestore().collection("user").document(KeychainManager.sharedInstance.id!).collection("play")
+        guard let userID = KeychainManager.sharedInstance.id else { return }
         
-        favorite.getDocuments { snapshot, error in
+        let favorite = Firestore.firestore().collection("user").document(userID).collection("play")
+        
+        favorite.getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             

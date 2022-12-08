@@ -35,19 +35,13 @@ class YoutubeManager {
 
             "q": "\(artist) \(song)"
 
-        ] as [String : Any]
+        ] as [String: Any]
 
-        AF.request(searchURL, method: .get, parameters: param).responseDecodable(of: YoutubeData.self) { (response) in
+        AF.request(searchURL, method: .get, parameters: param).responseDecodable(of: YoutubeData.self) { response in
             if let data = response.value {
-
+                
                 completion(data)
-
             }
-
-            debugPrint(response)
         }
     }
-
-    
-    
 }
