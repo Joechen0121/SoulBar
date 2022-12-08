@@ -208,7 +208,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
         
         recognitionRequest.shouldReportPartialResults = true
         
-        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: { result, error in
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
             
             var isFinal = false
             
@@ -230,7 +230,7 @@ class SearchDetailsViewController: UIViewController, UIImagePickerControllerDele
                 self.recognitionTask = nil
                 
             }
-        })
+        }
         
         inputNode.removeTap(onBus: 0)
         
@@ -855,19 +855,17 @@ extension SearchDetailsViewController: UIPickerViewDelegate {
         
         self.activityIndicatorView.isHidden = false
         
-        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let jpgImage = image.jpegData(compressionQuality: 0.2) else {
             
             fatalError("couldn't load image from Photos")
         }
         
-        let celebImage: Data = image.jpegData(compressionQuality: 0.2)!
-        
-        sendImageToRekognition(celebImageData: celebImage, image: image)
+        sendImageToRekognition(celebImageData: jpgImage, image: image)
     }
 }
 
 
-//MARK: - rekognition method
+// MARK: - rekognition method
 extension SearchDetailsViewController {
     
     func sendImageToRekognition(celebImageData: Data, image: UIImage) {
@@ -882,7 +880,9 @@ extension SearchDetailsViewController {
         
         celebRequest?.image = celebImageAWS
         
-        rekognitionObject?.recognizeCelebrities(celebRequest!) { result, error in
+        guard let celebRequest = celebRequest else { return }
+        
+        rekognitionObject?.recognizeCelebrities(celebRequest) { result, error in
             
             if error != nil {
 

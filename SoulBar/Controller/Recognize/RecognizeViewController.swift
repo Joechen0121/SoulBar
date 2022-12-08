@@ -34,7 +34,7 @@ class RecognizeViewController: UIViewController {
     
     var pulseLayers = [CAShapeLayer]()
     
-    var pulsatingLayer: CAShapeLayer!
+    var pulsatingLayer = CAShapeLayer()
     
     let pulsator = Pulsator()
     
@@ -306,7 +306,7 @@ class RecognizeViewController: UIViewController {
     
     func setupPulsatingLayer() {
         
-        pulsatingLayer = CAShapeLayer()
+        // pulsatingLayer = CAShapeLayer()
         
         pulsatingLayer.path = circularPath.cgPath
         
@@ -498,7 +498,7 @@ extension RecognizeViewController: SHSessionDelegate {
                         
                     }
                     
-                    if let id = KeychainManager.sharedInstance.id {
+                    if KeychainManager.sharedInstance.id != nil {
                         
                         FirebaseHistoryManager.sharedInstance.addHistoryPlayData(with: musicID) {
                             

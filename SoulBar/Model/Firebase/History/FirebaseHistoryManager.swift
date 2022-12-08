@@ -15,7 +15,9 @@ class FirebaseHistoryManager {
     
     func addHistoryPlayData(with songID: String, completion: @escaping () -> Void) {
         
-        let favorite = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection("play")
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        let favorite = Firestore.firestore().collection(K.FStore.user).document(userID).collection("play")
         
         let document = favorite.document()
         
@@ -51,7 +53,9 @@ class FirebaseHistoryManager {
         
         var data = [FirebaseHistoryPlayData]()
         
-        let favorite = Firestore.firestore().collection("user").document(KeychainManager.sharedInstance.id!).collection("play")
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        let favorite = Firestore.firestore().collection("user").document(userID).collection("play")
         
         favorite.getDocuments { snapshot, _ in
             

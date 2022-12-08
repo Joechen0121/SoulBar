@@ -187,7 +187,8 @@ class MiniPlayerViewController: UIViewController {
                     
                     self.view.frame.origin.x -= 100.0
                     
-                    self.view.alpha = 0 },
+                    self.view.alpha = 0
+                },
                 
                 completion: { _ in
                     
@@ -217,7 +218,8 @@ class MiniPlayerViewController: UIViewController {
                     
                     self.view.frame.origin.x += 100.0
                     
-                    self.view.alpha = 0 },
+                    self.view.alpha = 0
+                },
                 
                 completion: { _ in
                     

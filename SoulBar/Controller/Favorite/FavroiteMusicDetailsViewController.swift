@@ -211,8 +211,10 @@ class FavoriteMusicDetailsViewController: UIViewController {
         }
      
         favoriteSongsInfo.forEach { song in
+            
+            guard let id = song.id else { return }
                 
-            MusicManager.sharedInstance.fetchPlaylistsTracks(with: song.id!) { tracks in
+            MusicManager.sharedInstance.fetchPlaylistsTracks(with: id) { tracks in
                 
                 self.playlistTracks = tracks
 

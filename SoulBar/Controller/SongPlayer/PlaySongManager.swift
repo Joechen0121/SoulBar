@@ -581,5 +581,4 @@ extension Notification.Name {
     static let PauseNotification = Notification.Name(rawValue: "PauseNotification")
     
     static let PlayerPlayFinishNotification = Notification.Name(rawValue: "PlayFinishNotification")
-    
 }

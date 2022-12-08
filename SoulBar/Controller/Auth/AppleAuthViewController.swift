@@ -105,7 +105,7 @@ class AppleAuthViewController: UIViewController {
         
         do {
             
-            guard let authCode = String(data: credentials.authorizationCode!, encoding: .utf8) else { return }
+            guard let appleAuthCode = credentials.authorizationCode, let authCode = String(data: appleAuthCode, encoding: .utf8) else { return }
             
             let signedJWT = try jwt.sign(using: jwtSigner)
             

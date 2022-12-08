@@ -155,9 +155,7 @@ class SongListViewController: UIViewController {
                 self.artistName.text = self.album?.attributes?.artistName
             }
             
-            guard let albumID = album?.id else {
-                return
-            }
+            guard let albumID = album?.id else { return }
             
             MusicManager.sharedInstance.fetchAlbumsTracks(with: albumID) { tracks in
                 
@@ -223,9 +221,7 @@ class SongListViewController: UIViewController {
             
             artistAllAlbumsTrack = []
             
-            guard let artistID = artistID else {
-                return
-            }
+            guard let artistID = artistID else { return }
             
             MusicManager.sharedInstance.fetchArtistsAlbums(with: artistID, completion: { result in
                 
@@ -262,10 +258,6 @@ class SongListViewController: UIViewController {
                 }
             })
             
-        }
-        else {
-            
-            print("Unknown state")
         }
     }
     
@@ -439,7 +431,7 @@ class SongListViewController: UIViewController {
         }
     }
     
-    func configureButton() {
+    private func configureButton() {
         
         if KeychainManager.sharedInstance.id == nil { return }
         

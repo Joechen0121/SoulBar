@@ -160,7 +160,9 @@ class ProfileViewController: UIViewController {
                         
                         KeychainManager.sharedInstance.removeRefreshToken()
                         
-                        FirebaseUserManager.sharedInstance.removeUserData(id: KeychainManager.sharedInstance.id!)
+                        guard let userID = KeychainManager.sharedInstance.id else { return }
+                        
+                        FirebaseUserManager.sharedInstance.removeUserData(id: userID)
 
                         KeychainManager.sharedInstance.removeID()
                             

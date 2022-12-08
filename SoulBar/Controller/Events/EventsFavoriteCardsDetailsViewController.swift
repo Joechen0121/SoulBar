@@ -125,7 +125,6 @@ class EventsFavoriteCardsDetailsViewController: UIViewController {
             isFavorite = true
             
         }
-        
     }
     
     private func configureEventLocation() {

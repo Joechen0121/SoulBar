@@ -9,7 +9,7 @@ import Foundation
 
 extension DateFormatter {
     
-    static let posixFormatter : DateFormatter = {
+    static let posixFormatter: DateFormatter = {
         
         let formatter = DateFormatter()
         

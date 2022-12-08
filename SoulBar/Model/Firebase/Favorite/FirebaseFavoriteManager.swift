@@ -15,7 +15,9 @@ class FirebaseFavoriteManager {
     
     func addFavoriteMusicData(with term: String, id: String) {
         
-        let document = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.Favorite.collectionName).document(term)
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        let document = Firestore.firestore().collection(K.FStore.user).document(userID).collection(K.FStore.Favorite.collectionName).document(term)
         
         let data: [String: Any] = [
             
@@ -42,7 +44,9 @@ class FirebaseFavoriteManager {
     
     func fetchFavoriteMusicData(with type: String, completion: @escaping (FirebaseFavoriteData) -> Void) {
         
-        Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.Favorite.collectionName).getDocuments { snapshot, _ in
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        Firestore.firestore().collection(K.FStore.user).document(userID).collection(K.FStore.Favorite.collectionName).getDocuments { snapshot, _ in
             
             guard let snapshot = snapshot else { return }
             
@@ -65,7 +69,9 @@ class FirebaseFavoriteManager {
     
     func removeFavoriteMusicData(with type: String, id: String) {
         
-        let document = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.Favorite.collectionName).document(type)
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        let document = Firestore.firestore().collection(K.FStore.user).document(userID).collection(K.FStore.Favorite.collectionName).document(type)
         
         document.updateData([
             "id": FieldValue.arrayRemove([id])
@@ -75,7 +81,9 @@ class FirebaseFavoriteManager {
     
     func removeFavoriteListData(with name: String) {
         
-        let favorite = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.List.collectionName)
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        let favorite = Firestore.firestore().collection(K.FStore.user).document(userID).collection(K.FStore.List.collectionName)
         
         let document = favorite.document(name)
         
@@ -95,7 +103,9 @@ class FirebaseFavoriteManager {
         
         var data: [FirebaseFavoriteListData] = []
         
-        Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.List.collectionName).getDocuments { snapshot, _  in
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        Firestore.firestore().collection(K.FStore.user).document(userID).collection(K.FStore.List.collectionName).getDocuments { snapshot, _  in
             
             guard let snapshot = snapshot else { return }
             
@@ -115,7 +125,9 @@ class FirebaseFavoriteManager {
     
     func addFavoriteListData(with name: String, id: String, completion: @escaping () -> Void) {
         
-        let document = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.List.collectionName).document(name)
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        let document = Firestore.firestore().collection(K.FStore.user).document(userID).collection(K.FStore.List.collectionName).document(name)
         
         let data: [String: Any] = [
             
@@ -142,7 +154,9 @@ class FirebaseFavoriteManager {
     
     func removeFavoriteSongListData(with name: String, songID: String, completion: @escaping () -> Void) {
         
-        let document = Firestore.firestore().collection(K.FStore.user).document(KeychainManager.sharedInstance.id!).collection(K.FStore.List.collectionName).document(name)
+        guard let userID = KeychainManager.sharedInstance.id else { return }
+        
+        let document = Firestore.firestore().collection(K.FStore.user).document(userID).collection(K.FStore.List.collectionName).document(name)
     
         document.updateData(["songs": FieldValue.arrayRemove([songID])]) { error in
 

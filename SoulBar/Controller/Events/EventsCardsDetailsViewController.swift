@@ -105,11 +105,15 @@ class EventsCardsDetailsViewController: UIViewController {
     @objc func addToFavorite() {
         
         if KeychainManager.sharedInstance.id == nil {
-            let authVC = storyboard!.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as! AppleAuthViewController
-            authVC.modalPresentationStyle = .overCurrentContext
-            self.present(authVC, animated: false)
             
-            return
+            if let authVC = storyboard?.instantiateViewController(withIdentifier: AppleAuthViewController.storyboardID) as? AppleAuthViewController {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                self.present(authVC, animated: false)
+                
+                return
+            }
         }
         
         guard let events = events, let type = events.type, let url = events.url, let location = events.showInfo[0].location else {
@@ -144,11 +148,7 @@ class EventsCardsDetailsViewController: UIViewController {
     
     @objc func buyTicketButton() {
         
-        print("buy")
-        
-        guard let events = events else {
-            return
-        }
+        guard let events = events else { return }
         
         if let url = URL(string: events.webSales) {
             
@@ -176,9 +176,7 @@ class EventsCardsDetailsViewController: UIViewController {
             return
         }
         
-        print(events.showInfo.count)
-        
-        guard !events.showInfo.isEmpty, events.showInfo[0].location != nil else {
+        guard !events.showInfo.isEmpty, let location = events.showInfo[0].location else {
             
             locationLabel.text = "None"
             
@@ -186,9 +184,9 @@ class EventsCardsDetailsViewController: UIViewController {
             
         }
         
-        locationLabel.text = events.showInfo[0].location
+        locationLabel.text = location
         
-        MapManager.sharedInstance.coordinates(forAddress: events.showInfo[0].location!) { result in
+        MapManager.sharedInstance.coordinates(forAddress: location) { result in
             
             guard let result = result else { return }
             

@@ -353,7 +353,9 @@ extension FavoriteViewController: UITableViewDataSource {
                 
             case .FavAlbums:
                 
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: favoriteAlbumsInfo[indexPath.row][0].id!)
+                guard let id = favoriteAlbumsInfo[indexPath.row][0].id else { return }
+                
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.albums, id: id)
                 
                 self.favoriteAlbumsInfo.remove(at: indexPath.row)
                 
@@ -361,7 +363,9 @@ extension FavoriteViewController: UITableViewDataSource {
                 
             case .FavPlaylists:
                 
-                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: favoritePlaylistInfo[indexPath.row][0].id!)
+                guard let id = favoritePlaylistInfo[indexPath.row][0].id else { return }
+                
+                FirebaseFavoriteManager.sharedInstance.removeFavoriteMusicData(with: K.FStore.Favorite.playlists, id: id)
                 
                 self.favoritePlaylistInfo.remove(at: indexPath.row)
                 

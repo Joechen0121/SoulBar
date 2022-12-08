@@ -7,7 +7,8 @@
 
 
 import UIKit
-protocol ChatMessageStrangerTableViewCellDelegate {
+
+protocol ChatMessageStrangerTableViewCellDelegate: AnyObject {
 
     func presentReportMessage(at indexPath: IndexPath)
     
