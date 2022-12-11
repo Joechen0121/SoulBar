@@ -35,6 +35,9 @@
 		D820B92B291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */; };
 		D820B92C2915720B000C8F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85EDBA5290966C3001583F6 /* Assets.xcassets */; };
 		D82369AC290BDA2100AE41AB /* SearchDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82369AB290BDA2000AE41AB /* SearchDetailsViewController.swift */; };
+		D834801D2945BFF1005E6E78 /* OpenAIConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834801C2945BFF1005E6E78 /* OpenAIConsoleViewController.swift */; };
+		D834801F2945C067005E6E78 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834801E2945C067005E6E78 /* OpenAIManager.swift */; };
+		D83480212945C5A2005E6E78 /* OpenAIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83480202945C5A2005E6E78 /* OpenAIData.swift */; };
 		D834AF52293840EC00994693 /* ACRCloudSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D834AF50293840DF00994693 /* ACRCloudSDK.xcframework */; };
 		D834AF592938428E00994693 /* HummingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D834AF562938416C00994693 /* HummingViewController.swift */; };
 		D834AF5D2938486300994693 /* ACRCloud-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = D834AF552938414700994693 /* ACRCloud-Bridging-Header.h */; };
@@ -165,6 +168,9 @@
 		D820B928291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageOwnerTableViewCell.swift; sourceTree = "<group>"; };
 		D820B929291549EF000C8F88 /* ChatMessageOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMessageOwnerTableViewCell.xib; sourceTree = "<group>"; };
 		D82369AB290BDA2000AE41AB /* SearchDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailsViewController.swift; sourceTree = "<group>"; };
+		D834801C2945BFF1005E6E78 /* OpenAIConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIConsoleViewController.swift; sourceTree = "<group>"; };
+		D834801E2945C067005E6E78 /* OpenAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIManager.swift; sourceTree = "<group>"; };
+		D83480202945C5A2005E6E78 /* OpenAIData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIData.swift; sourceTree = "<group>"; };
 		D834AF50293840DF00994693 /* ACRCloudSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ACRCloudSDK.xcframework; sourceTree = "<group>"; };
 		D834AF552938414700994693 /* ACRCloud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ACRCloud-Bridging-Header.h"; path = "SoulBar/ACRCloud-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		D834AF562938416C00994693 /* HummingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingViewController.swift; sourceTree = "<group>"; };
@@ -305,6 +311,7 @@
 				D8EA0F042923D21100514F35 /* SongPlayer */,
 				D8F7387D2940D30500E5DEFB /* Humming */,
 				D8F738802940D37D00E5DEFB /* Video */,
+				D83480222945F70C005E6E78 /* OpenAI */,
 				D8FABE472919F1450094A77F /* RootTabBarViewController.swift */,
 				D8E098AE292A245B005971C6 /* LaunchScreenViewController.swift */,
 			);
@@ -314,6 +321,7 @@
 		D8088B1E29096CA30037555B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D83480232945F718005E6E78 /* OpenAI */,
 				D8F7387F2940D36B00E5DEFB /* Map */,
 				D8EA0F0F29267B3C00514F35 /* Youtube */,
 				D88071BF2920C38300554B18 /* Favorite */,
@@ -393,6 +401,23 @@
 				D820B928291549EF000C8F88 /* ChatMessageOwnerTableViewCell.swift */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		D83480222945F70C005E6E78 /* OpenAI */ = {
+			isa = PBXGroup;
+			children = (
+				D834801C2945BFF1005E6E78 /* OpenAIConsoleViewController.swift */,
+			);
+			path = OpenAI;
+			sourceTree = "<group>";
+		};
+		D83480232945F718005E6E78 /* OpenAI */ = {
+			isa = PBXGroup;
+			children = (
+				D834801E2945C067005E6E78 /* OpenAIManager.swift */,
+				D83480202945C5A2005E6E78 /* OpenAIData.swift */,
+			);
+			path = OpenAI;
 			sourceTree = "<group>";
 		};
 		D837B365291DEE64008BE6D0 /* LottieAsset */ = {
@@ -940,6 +965,7 @@
 			files = (
 				D834AF5D2938486300994693 /* ACRCloud-Bridging-Header.h in Sources */,
 				D820B9252914C552000C8F88 /* ChatMessageStrangerTableViewCell.swift in Sources */,
+				D834801D2945BFF1005E6E78 /* OpenAIConsoleViewController.swift in Sources */,
 				D874C8932912545600075AE9 /* FirebaseEventsTypeData.swift in Sources */,
 				D88071CE2921213400554B18 /* ProfileArtistsViewController.swift in Sources */,
 				D8088B1929096C2E0037555B /* RecognizeViewController.swift in Sources */,
@@ -950,6 +976,7 @@
 				D8088B3129096FAF0037555B /* PlaylistsSearch.swift in Sources */,
 				D874B99C29190E340082F2D7 /* NewListTableViewCell.swift in Sources */,
 				D8088B2729096F550037555B /* AlbumsCharts.swift in Sources */,
+				D83480212945C5A2005E6E78 /* OpenAIData.swift in Sources */,
 				D8EA0F092924BAEB00514F35 /* ProfileEventCollectionViewCell.swift in Sources */,
 				D874C88B2912466300075AE9 /* FirebaseFavoriteManager.swift in Sources */,
 				D8573386290FBCA20009D734 /* PlaySongViewController.swift in Sources */,
@@ -1030,6 +1057,7 @@
 				D8088B1529096C0C0037555B /* HomeViewController.swift in Sources */,
 				D8088B39290A28E00037555B /* HomeTableViewCell.swift in Sources */,
 				D88071B6291F80BF00554B18 /* FavroiteMusicDetailsViewController.swift in Sources */,
+				D834801F2945C067005E6E78 /* OpenAIManager.swift in Sources */,
 				D8EA0F072924BA0F00514F35 /* ProfileEventsViewController.swift in Sources */,
 				D869EEA7292E021E006BB828 /* AuthData.swift in Sources */,
 				D874C8952912546100075AE9 /* FirebaseEventsManager.swift in Sources */,
