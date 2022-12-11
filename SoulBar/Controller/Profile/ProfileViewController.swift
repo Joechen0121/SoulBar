@@ -27,6 +27,8 @@ class ProfileViewController: UIViewController {
         registerCell()
         
         configureConstraints()
+        
+        configureNavigationButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +54,27 @@ class ProfileViewController: UIViewController {
         }
         
         configureActivityView()
+    }
+    
+    private func configureNavigationButton() {
+        
+        guard let image = UIImage(named: "robot")?.withRenderingMode(.alwaysOriginal) else { return }
+
+        let rightButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(goToAIConsole))
+        
+        navigationItem.rightBarButtonItem = rightButton
+    }
+    
+    @objc func goToAIConsole() {
+        
+        if let aiVC = self.storyboard?.instantiateViewController(withIdentifier: OpenAIConsoleViewController.storyboardID) as? OpenAIConsoleViewController {
+            
+            aiVC.modalPresentationStyle = .overFullScreen
+            
+            present(aiVC, animated: true)
+            //self.navigationController?.pushViewController(aiVC, animated: true)
+        }
+        
     }
     
     private func configureActivityView() {

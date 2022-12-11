@@ -1556,7 +1556,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqL-hF-sQf">
-                                <rect key="frame" x="0.0" y="144" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="92" width="414" height="100"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kLI-OM-fRP">
                                         <rect key="frame" x="15" y="15.5" width="70" height="69"/>
@@ -1598,7 +1598,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Oyx-Gh-h11">
-                                <rect key="frame" x="0.0" y="244" width="414" height="569"/>
+                                <rect key="frame" x="0.0" y="192" width="414" height="621"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -1728,8 +1728,8 @@
             <objects>
                 <navigationController id="ySv-bt-pVp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="tab4" selectedImage="tab4_click" id="uTi-Tu-GJq"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="6XQ-GW-ZHm">
-                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6XQ-GW-ZHm">
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1739,6 +1739,93 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kxb-WJ-Ijy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4281" y="-646"/>
+        </scene>
+        <!--OpenAI Console View Controller-->
+        <scene sceneID="Tuu-tz-tBj">
+            <objects>
+                <viewController storyboardIdentifier="openAIConsoleVC" id="x2r-2L-Rvq" customClass="OpenAIConsoleViewController" customModule="SoulBar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lxe-AZ-aq7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Responses from OpenAI" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oZo-Se-mPa">
+                                <rect key="frame" x="30" y="253" width="354" height="541"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OpenAI Console" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRO-W7-keb">
+                                <rect key="frame" x="30" y="78" width="354" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="FjS-ho-71C"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="KohinoorBangla-Semibold" family="Kohinoor Bangla" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Messages for OpenAI" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nb6-Lr-wj3">
+                                <rect key="frame" x="30" y="118" width="354" height="120"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="mPd-Ax-4cw"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yil-3N-aZQ">
+                                <rect key="frame" x="30" y="809" width="354" height="38"/>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.40392156862745099" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="18"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Send Messages"/>
+                                <connections>
+                                    <action selector="sendMessage:" destination="x2r-2L-Rvq" eventType="touchUpInside" id="TYs-EA-SyN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5n-wx-vpF">
+                                <rect key="frame" x="359" y="78" width="25" height="24"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="xmark.square" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissButton:" destination="x2r-2L-Rvq" eventType="touchUpInside" id="gHO-r1-cQL"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xcb-FC-K1d"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <constraints>
+                            <constraint firstItem="nb6-Lr-wj3" firstAttribute="top" secondItem="DRO-W7-keb" secondAttribute="bottom" constant="20" id="8UI-tz-gSe"/>
+                            <constraint firstItem="xcb-FC-K1d" firstAttribute="trailing" secondItem="DRO-W7-keb" secondAttribute="trailing" constant="30" id="9aP-Tl-zOF"/>
+                            <constraint firstItem="DRO-W7-keb" firstAttribute="leading" secondItem="xcb-FC-K1d" secondAttribute="leading" constant="30" id="Egy-7u-ENT"/>
+                            <constraint firstItem="DRO-W7-keb" firstAttribute="top" secondItem="xcb-FC-K1d" secondAttribute="top" constant="30" id="F1L-wX-uCT"/>
+                            <constraint firstItem="Yil-3N-aZQ" firstAttribute="top" secondItem="oZo-Se-mPa" secondAttribute="bottom" constant="15" id="J86-aQ-jw3"/>
+                            <constraint firstItem="xcb-FC-K1d" firstAttribute="trailing" secondItem="nb6-Lr-wj3" secondAttribute="trailing" constant="30" id="V91-zi-DKR"/>
+                            <constraint firstItem="oZo-Se-mPa" firstAttribute="leading" secondItem="xcb-FC-K1d" secondAttribute="leading" constant="30" id="b3z-kk-Z7I"/>
+                            <constraint firstItem="xcb-FC-K1d" firstAttribute="trailing" secondItem="oZo-Se-mPa" secondAttribute="trailing" constant="30" id="eIQ-Zw-aTU"/>
+                            <constraint firstItem="Yil-3N-aZQ" firstAttribute="leading" secondItem="xcb-FC-K1d" secondAttribute="leading" constant="30" id="gdW-wE-dYq"/>
+                            <constraint firstItem="nb6-Lr-wj3" firstAttribute="leading" secondItem="xcb-FC-K1d" secondAttribute="leading" constant="30" id="hMG-Tv-TF5"/>
+                            <constraint firstItem="oZo-Se-mPa" firstAttribute="top" secondItem="nb6-Lr-wj3" secondAttribute="bottom" constant="15" id="hif-Xw-dpZ"/>
+                            <constraint firstItem="xcb-FC-K1d" firstAttribute="trailing" secondItem="Yil-3N-aZQ" secondAttribute="trailing" constant="30" id="mVr-fR-gTO"/>
+                            <constraint firstItem="xcb-FC-K1d" firstAttribute="trailing" secondItem="Q5n-wx-vpF" secondAttribute="trailing" constant="30" id="myL-YR-zyI"/>
+                            <constraint firstItem="Q5n-wx-vpF" firstAttribute="top" secondItem="xcb-FC-K1d" secondAttribute="top" constant="30" id="weL-06-1Ud"/>
+                            <constraint firstItem="Yil-3N-aZQ" firstAttribute="bottom" secondItem="xcb-FC-K1d" secondAttribute="bottom" constant="-15" id="xsv-3V-u7q"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ija-Lb-0Mh"/>
+                    <connections>
+                        <outlet property="receiveTextView" destination="oZo-Se-mPa" id="hhs-f5-rIA"/>
+                        <outlet property="sendButton" destination="Yil-3N-aZQ" id="Flh-Nz-a3l"/>
+                        <outlet property="sendTextView" destination="nb6-Lr-wj3" id="00C-GI-lib"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f9C-ok-wKY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5640" y="-629"/>
         </scene>
         <!--Events Favorite Cards Details View Controller-->
         <scene sceneID="l2e-f6-Nqx">
@@ -2623,6 +2710,7 @@
         <image name="welcome" width="3552" height="1992"/>
         <image name="xmark.app" catalog="system" width="128" height="114"/>
         <image name="xmark.circle" catalog="system" width="128" height="123"/>
+        <image name="xmark.square" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
